@@ -1,0 +1,62 @@
+<div>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h4>Create New Product
+                    <a routerLink="/products" class=" btn btn-danger float-end">Back</a>
+                </h4>
+            </div>
+            <div class="card-body">
+
+                <div *ngIf="isLoading; else elseForm">
+                    <app-loader :title = "loadingTitle" />
+                </div>
+
+                <ng-template #elseForm>
+                    <form (ngSubmit)="saveProduct()">
+
+                        <div class="mb-3">
+                            <label for="name">Name</label>
+                            <input type="text" [(ngModel)]="name" name="name" id="name" class="form-control">
+                            <span *ngIf="errors.name" class="text-danger" >{{errors.name}}</span>
+                        </div>
+    
+                        <div class="mb-3">
+                            <label for="name">Code</label>
+                            <input type="text" [(ngModel)]="code" name="code" id="code" class="form-control">
+                            <span *ngIf="errors.code" class="text-danger" >{{errors.code}}</span>
+                        </div>
+    
+                        <div class="mb-3">
+                            <label for="name">Model</label>
+                            <input type="text" [(ngModel)]="model" name="model" id="model" class="form-control">
+                            <span *ngIf="errors.model" class="text-danger" >{{errors.model}}</span>
+                        </div>
+    
+                        <div class="mb-3">
+                            <label for="name">Price</label>
+                            <input type="text" [(ngModel)]="price" name="price" id="price" class="form-control">    
+                            <span *ngIf="errors.price" class="text-danger" >{{errors.price}}</span> 
+                        </div>                 
+                            
+                        <div class="mb-3">
+                            <label for="name">Quantity</label>
+                            <input type="text" [(ngModel)]="quantity" name="quantity" id="quantity" class="form-control">
+                            <span *ngIf="errors.quantity" class="text-danger" >{{errors.quantity}}</span>
+                        </div>
+    
+                        <div class="mb-3">
+                            <label for="name">Points</label>
+                            <input type="text" [(ngModel)]="points" name="points" id="points" class="form-control">
+                            <span *ngIf="errors.points" class="text-danger" >{{errors.points}}</span>
+                        </div>
+    
+                        <div class="mb-3">
+                            <button class="btn btn-primary" type="submit">Save</button>
+                        </div>
+                    </form>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
