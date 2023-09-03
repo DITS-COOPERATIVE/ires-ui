@@ -7,6 +7,8 @@ import { ProductEditComponent } from './pages/products/product-edit/product-edit
 import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
 import { CustomerPageComponent } from './pages/customers/customer-page/customer-page.component';
 import { CustomerEditComponent } from './pages/customers/customer-edit/customer-edit.component';
+import { OrderPageComponent } from './pages/orders/order-page/order-page.component';
+import { OrderCreateComponent } from './pages/orders/order-create/order-create.component';
 
 const routes: Routes = [
 
@@ -20,6 +22,9 @@ const routes: Routes = [
   { path: 'customers', component: CustomerPageComponent, title: 'Customers' },
   { path: 'customers/create', component: CustomerCreateComponent, title: 'Create New Customer'},
   { path: 'customers/:id/edit', component: CustomerEditComponent, title: 'Edit Customer'},
+
+  { path: 'orders', component: OrderPageComponent, title: 'Orders' },
+  { path: 'orders/create', component: OrderCreateComponent, title: 'Create New Orders'},
 
   
 ];

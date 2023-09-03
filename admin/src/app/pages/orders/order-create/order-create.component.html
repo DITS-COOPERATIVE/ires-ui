@@ -1,1 +1,44 @@
-<p>order-create works!</p>
+<div>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h4>Create New Customer
+                    <a routerLink="/orders" class=" btn btn-danger float-end">Back</a>
+                </h4>
+            </div>
+            <div class="card-body">
+
+                <div *ngIf="isLoading; else elseForm">
+                    <app-loader :title = "loadingTitle" />
+                </div>
+
+                <ng-template #elseForm>
+                    <form (ngSubmit)="saveCustomer()">
+
+                        <div class="mb-3">
+                            <label for="customer_id">Customer ID</label>
+                            <input type="text" [(ngModel)]="customer_id" name="customer_id" id="customer_id" class="form-control">
+                            <span *ngIf="errors.customer_id" class="text-danger" >{{errors.customer_id}}</span>
+                        </div>
+    
+                        <div class="mb-3">
+                            <label for="product_id">Product ID</label>
+                            <input type="text" [(ngModel)]="product_id" name="product_id" id="product_id" class="form-control">
+                            <span *ngIf="errors.product_id" class="text-danger" >{{errors.product_id}}</span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="quantity">Quantity</label>
+                            <input type="text" [(ngModel)]="quantity" name="quantity" id="quantity" class="form-control">
+                            <span *ngIf="errors.quantity" class="text-danger" >{{errors.quantity}}</span>
+                        </div>
+     
+                        <div class="mb-3">
+                            <button class="btn btn-primary" type="submit">Save</button>
+                        </div>
+                    </form>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
