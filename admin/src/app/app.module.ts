@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { HttpClientModule} from '@angular/common/http'
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +16,12 @@ import { CustomerCreateComponent } from './pages/customers/customer-create/custo
 import { CustomerEditComponent } from './pages/customers/customer-edit/customer-edit.component';
 import { OrderCreateComponent } from './pages/orders/order-create/order-create.component';
 import { OrderPageComponent } from './pages/orders/order-page/order-page.component';
+import { TransactionPageComponent } from './pages/transactions/transaction-page/transaction-page.component';
+import { TransactionCreateComponent } from './pages/transactions/transaction-create/transaction-create.component';
+import { BodyComponent } from './body/body.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ReportsComponent } from './reports/reports.component';
+import { StocksComponent } from './stocks/stocks.component';
 
 @NgModule({
   declarations: [
@@ -29,11 +36,18 @@ import { OrderPageComponent } from './pages/orders/order-page/order-page.compone
     CustomerCreateComponent,
     CustomerEditComponent,
     OrderCreateComponent,
-    OrderPageComponent
+    OrderPageComponent,
+    TransactionPageComponent,
+    TransactionCreateComponent,
+    BodyComponent,
+    SettingsComponent,
+    ReportsComponent,
+    StocksComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
 

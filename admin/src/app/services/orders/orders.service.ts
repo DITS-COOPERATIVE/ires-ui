@@ -49,6 +49,10 @@ export interface OrdersResponseType {
   result: OrdersResponse []
 }
 
+export interface OrderEditResponse {
+  status: number,
+  result: OrdersResponse[]
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -61,9 +65,19 @@ export class OrdersService {
     return  this.httpClient.get<OrdersResponseType>(`http://127.0.0.1:8000/api/orders`);
   }
 
+  getOrder(orderId : number) {
+
+    return  this.httpClient.get<OrderEditResponse>(`http://127.0.0.1:8000/api/orders/${orderId}`);
+  }
+
   saveOrder(inputData: object){
     
     return  this.httpClient.post(`http://127.0.0.1:8000/api/orders`, inputData);
+  }
+
+  updateOrder(inputData: object, orderId: number) {
+
+    return  this.httpClient.put(`http://127.0.0.1:8000/api/orders/${orderId}`, inputData);
   }
 
   destroyOrder(orderId: number) {

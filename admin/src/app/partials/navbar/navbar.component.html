@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
 <div class="container-fluid">
 
     <a class="navbar-brand" routerLink="/">DITS Inventory</a>
@@ -17,8 +17,35 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/orders">Orders</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/transactions">Transactions</a>
+        </li>
       </ul>
     </div>
 </div>
-  </nav>
+  </nav> -->
+
+
+<!-- sidenav -->
+  <div class= "sidenav" [ngClass]="collapsed ? 'sidenav-collapsed':''">
+    <div class="logo-container">
+        <button class="logo"><img src="assets/dits.png" alt="" width="55px" (click)="toggleCollapse()"></button>
+        <div class="logo-text" @fadeInOut *ngIf="collapsed">DITS</div>
+        <button class= "btn-close" @rotate *ngIf="collapsed" (click)="closeSidenav()">
+            <i class="fal fa-times close icon"></i>
+        </button>
+    </div>
+    <ul class="sidenav-nav">
+        <li class="sidenav-nav-item" *ngFor=" let data of navData">
+            <a class="sidenav-nav-link" [routerLink]="[data.routeLink]" 
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"
+            >
+                <i class="sidenav-link-icon" [class]="data.icon"></i>
+                <span class= "sidenav-link-text" @fadeInOut *ngIf="collapsed">{{data.label}}</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
   

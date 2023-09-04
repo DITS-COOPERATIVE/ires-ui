@@ -9,6 +9,11 @@ import { CustomerPageComponent } from './pages/customers/customer-page/customer-
 import { CustomerEditComponent } from './pages/customers/customer-edit/customer-edit.component';
 import { OrderPageComponent } from './pages/orders/order-page/order-page.component';
 import { OrderCreateComponent } from './pages/orders/order-create/order-create.component';
+import { TransactionPageComponent } from './pages/transactions/transaction-page/transaction-page.component';
+import { TransactionCreateComponent } from './pages/transactions/transaction-create/transaction-create.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ReportsComponent } from './reports/reports.component';
+import { StocksComponent } from './stocks/stocks.component';
 
 const routes: Routes = [
 
@@ -25,6 +30,12 @@ const routes: Routes = [
 
   { path: 'orders', component: OrderPageComponent, title: 'Orders' },
   { path: 'orders/create', component: OrderCreateComponent, title: 'Create New Orders'},
+
+  { path: 'transactions', component: TransactionPageComponent, title: 'Transactions' },
+  { path: 'transactions/create', component: TransactionCreateComponent, title: 'Create New Transactions'},
+  { path: 'reports', component: ReportsComponent, title: 'Reports' },
+  { path: 'stocks', component: StocksComponent, title: 'Stocks' },
+  { path: 'settings', component: SettingsComponent, title: 'Settings' }
 
   
 ];

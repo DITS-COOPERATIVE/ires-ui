@@ -1,0 +1,38 @@
+<div>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h4>Create New Transaction
+                    <a routerLink="/transactions" class=" btn btn-danger float-end">Back</a>
+                </h4>
+            </div>
+            <div class="card-body">
+
+                <div *ngIf="isLoading; else elseForm">
+                    <app-loader :title = "loadingTitle" />
+                </div>
+
+                <ng-template #elseForm>
+                    <form (ngSubmit)="saveTransaction()">
+
+                        <div class="mb-3">
+                            <label for="sale_id">Sale ID</label>
+                            <input type="text" [(ngModel)]="sale_id" name="sale_id" id="sale_id" class="form-control">
+                            <span *ngIf="errors.sale_id" class="text-danger" >{{errors.sale_id}}</span>
+                        </div>
+    
+                        <div class="mb-3">
+                            <label for="amount_rendered">Amount Rendered</label>
+                            <input type="text" [(ngModel)]="amount_rendered" name="amount_rendered" id="amount_rendered" class="form-control">
+                            <span *ngIf="errors.amount_rendered" class="text-danger" >{{errors.amount_rendered}}</span>
+                        </div>
+     
+                        <div class="mb-3">
+                            <button class="btn btn-primary" type="submit">Save</button>
+                        </div>
+                    </form>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
