@@ -10,6 +10,8 @@ export class ProductPageComponent {
 
   constructor(private productsService: ProductsService) { }
 
+  
+  errors: any = [];
   products!: ProductsResponse [];
   isLoading: boolean = false;
 
@@ -20,17 +22,21 @@ export class ProductPageComponent {
   }
 
   getProductsLists(){
+    
+    try {
+      this.isLoading = true;
 
-    this.isLoading = true;
-
-    this.productsService.getProductsLists().subscribe((res) =>{
-
-      console.log(res.result);
-      this.products = res.result
-
-      this.isLoading = false
-
-    });
+      this.productsService.getProductsLists().subscribe((res) =>{
+  
+        console.log(res.result);
+        this.products = res.result
+  
+        this.isLoading = false
+  
+      })
+    } catch (error) {
+      this.errors = error
+    };
     
   }
 

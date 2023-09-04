@@ -35,11 +35,15 @@ export class TransactionCreateComponent {
         this.sale_id = '';
         this.amount_rendered = 0;
         this.change = 0 ;
-
         this.isLoading = false  
       },
       error: (err: any) => {
+        console.log(err, 'response')
+        alert(err.error.message);
         this.errors = err.error.errors;
+        this.sale_id = '';
+        this.amount_rendered = 0;
+        this.change = 0 ;
         this.isLoading = false  
         console.log(this.errors)
       }

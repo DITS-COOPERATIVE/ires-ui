@@ -8,7 +8,48 @@ export interface TransactionsResponse {
   "change": number,
   "created_at": string,
   "updated_at": string,
-}
+    "sale": {
+      "id": number,
+      "order_id": number,
+      "total_price": number,
+      "total_points": number,
+      "created_at": string,
+      "updated_at": string,
+        "orders": {
+        "id": number,
+        "customer_id": number,
+        "product_id": number,
+        "quantity": number,
+        "created_at": string,
+        "updated_at": string,
+          "customer": {
+          "id": number,
+          "first_name": string,
+          "last_name": string,
+          "gender": string,
+          "email": string,
+          "mobile_no": string,
+          "birth_date": string,
+          "address": string,
+          "privilege": string,
+          "points": number,
+          "created_at": string,
+          "updated_at": string
+            },
+            "product": {
+            "id": number,
+            "name": string,
+            "code": string,
+            "model": string,
+            "price": number,
+            "quantity": number,
+            "points": number,
+            "created_at": string,
+            "updated_at": string,
+            }
+          }
+        }
+      }
 
 export interface TransactionsResponseType {
   status: number,
