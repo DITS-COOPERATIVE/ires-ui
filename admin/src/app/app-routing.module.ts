@@ -11,9 +11,9 @@ import { OrderPageComponent } from './pages/orders/order-page/order-page.compone
 import { OrderCreateComponent } from './pages/orders/order-create/order-create.component';
 import { TransactionPageComponent } from './pages/transactions/transaction-page/transaction-page.component';
 import { TransactionCreateComponent } from './pages/transactions/transaction-create/transaction-create.component';
-import { SettingsComponent } from './settings/settings.component';
-import { ReportsComponent } from './reports/reports.component';
-import { StocksComponent } from './stocks/stocks.component';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { ReportsComponent } from './pages/reports/reports.component';
+import { StocksComponent } from './pages/stocks/stocks.component';
 
 const routes: Routes = [
 

@@ -18,10 +18,10 @@ import { OrderCreateComponent } from './pages/orders/order-create/order-create.c
 import { OrderPageComponent } from './pages/orders/order-page/order-page.component';
 import { TransactionPageComponent } from './pages/transactions/transaction-page/transaction-page.component';
 import { TransactionCreateComponent } from './pages/transactions/transaction-create/transaction-create.component';
-import { BodyComponent } from './body/body.component';
-import { SettingsComponent } from './settings/settings.component';
-import { ReportsComponent } from './reports/reports.component';
-import { StocksComponent } from './stocks/stocks.component';
+import { BodyComponent } from './pages/body/body.component';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { ReportsComponent } from './pages/reports/reports.component';
+import { StocksComponent } from './pages/stocks/stocks.component';
 
 @NgModule({
   declarations: [
