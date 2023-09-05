@@ -56,6 +56,7 @@ export class NavbarComponent {
   }
 
   ngOnInit(): void {
+    this.closeSidenav();
     this.screenWidth = window.innerWidth;
   }
 
