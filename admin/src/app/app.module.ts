@@ -22,6 +22,9 @@ import { BodyComponent } from './pages/body/body.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { StocksComponent } from './pages/stocks/stocks.component';
+import { HeaderComponent } from './pages/header/header.component';
+import {OverlayModule} from '@angular/cdk/overlay';
+import {CdkMenuModule} from '@angular/cdk/menu';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,8 @@ import { StocksComponent } from './pages/stocks/stocks.component';
     BodyComponent,
     SettingsComponent,
     ReportsComponent,
-    StocksComponent
+    StocksComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +54,8 @@ import { StocksComponent } from './pages/stocks/stocks.component';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
+    OverlayModule,
+    CdkMenuModule
 
   ],
   providers: [],
