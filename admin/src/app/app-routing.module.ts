@@ -14,11 +14,13 @@ import { TransactionCreateComponent } from './pages/transactions/transaction-cre
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { StocksComponent } from './pages/stocks/stocks.component';
+import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
 
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent, title: 'Dashboard' },
+  { path: 'login', component: LoginComponent, title: 'login' },
 
   { path: 'products', component: ProductPageComponent, title: 'Products' },
   { path: 'products/create', component: ProductCreateComponent, title: 'Create New Product'},
