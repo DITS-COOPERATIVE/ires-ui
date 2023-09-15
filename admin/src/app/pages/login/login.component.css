@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&display=swap');
+
 .container{
   display: flex;
   justify-content: center;
@@ -64,7 +66,7 @@
 
 .div-wrapper .div {
   color: #ffffff;
-  font-family: "Poppins-Medium", Helvetica;
+  font-family: 'Chakra Petch', sans-serif;
   font-size: 32px;
   font-weight: 500;
   left: 95px;
