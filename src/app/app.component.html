@@ -1,0 +1,11 @@
+<!-- <app-login></app-login> -->
+
+<app-navbar (onToggleSideNav)="onToggleSideNav($event)"></app-navbar>
+  <app-header
+  [collapsed]="isSideNavCollapsed"
+  [screenWidth]="screenWidth"
+  ></app-header>
+<app-body
+  [collapsed]="isSideNavCollapsed"
+  [screenWidth]="screenWidth"
+></app-body>
