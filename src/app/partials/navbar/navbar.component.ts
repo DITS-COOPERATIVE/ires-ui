@@ -68,5 +68,19 @@ export class NavbarComponent implements OnInit {
     this.collapsed = false;
     this.onToggleSideNav.emit({collapsed: this.collapsed,screenWidth: this.screenWidth});
   }
+  onMouseEnter() {
+    if (this.screenWidth > 769) {
+      this.collapsed = true;
+      this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
+    }
+  }
+
+  // Function to handle mouse leave event
+  onMouseLeave() {
+    if (this.screenWidth > 769) {
+      this.collapsed = false;
+      this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
+    }
+  }
 
 }
