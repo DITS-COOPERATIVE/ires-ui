@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
-import { HttpClientModule} from '@angular/common/http'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -23,9 +23,19 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { StocksComponent } from './pages/stocks/stocks.component';
 import { HeaderComponent } from './pages/header/header.component';
-import {OverlayModule} from '@angular/cdk/overlay';
-import {CdkMenuModule} from '@angular/cdk/menu';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { CdkMenuModule } from '@angular/cdk/menu';
 import { LoginComponent } from './pages/login/login.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ResizableModule } from 'angular-resizable-element';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ExportAsModule } from 'ngx-export-as';
 
 @NgModule({
   declarations: [
@@ -48,7 +58,7 @@ import { LoginComponent } from './pages/login/login.component';
     ReportsComponent,
     StocksComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,10 +67,19 @@ import { LoginComponent } from './pages/login/login.component';
     FormsModule,
     HttpClientModule,
     OverlayModule,
-    CdkMenuModule
-
+    CdkMenuModule,
+    MatTooltipModule,
+    ResizableModule,
+    MatDialogModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatCheckboxModule,
+    MatIconModule,
+    DragDropModule,
+    ExportAsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
