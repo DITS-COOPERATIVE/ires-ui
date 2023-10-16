@@ -26,6 +26,7 @@ import { HeaderComponent } from './pages/header/header.component';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {CdkMenuModule} from '@angular/cdk/menu';
 import { LoginComponent } from './pages/login/login.component';
+import { ProductViewComponent } from './pages/products/product-view/product-view.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { LoginComponent } from './pages/login/login.component';
     ReportsComponent,
     StocksComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    ProductViewComponent
   ],
   imports: [
     BrowserModule,
