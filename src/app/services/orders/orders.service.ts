@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 
 export interface OrdersResponse {
   "id": number,
@@ -58,35 +57,31 @@ export interface OrderEditResponse {
   providedIn: 'root'
 })
 export class OrdersService {
-  private endpoint = "orders";
-  private domain: string | undefined;
 
-  constructor( private httpClient: HttpClient ) {
-    this.domain = environment.domain;
-  }
+  constructor( private httpClient: HttpClient ) {}
 
   getOrdersLists() {
 
-    return  this.httpClient.get<OrdersResponseType>(`${this.domain}${this.endpoint}`);
+    return  this.httpClient.get<OrdersResponseType>(`http://127.0.0.1:8000/api/orders`);
   }
 
   getOrder(orderId : number) {
 
-    return  this.httpClient.get<OrderEditResponse>(`${this.domain}${this.endpoint}${orderId}`);
+    return  this.httpClient.get<OrderEditResponse>(`http://127.0.0.1:8000/api/orders/${orderId}`);
   }
 
   saveOrder(inputData: object){
     
-    return  this.httpClient.post(`${this.domain}${this.endpoint}`, inputData);
+    return  this.httpClient.post(`http://127.0.0.1:8000/api/orders`, inputData);
   }
 
   updateOrder(inputData: object, orderId: number) {
 
-    return  this.httpClient.put(`${this.domain}${this.endpoint}${orderId}`, inputData);
+    return  this.httpClient.put(`http://127.0.0.1:8000/api/orders/${orderId}`, inputData);
   }
 
   destroyOrder(orderId: number) {
 
-    return  this.httpClient.delete(`${this.domain}${this.endpoint}${orderId}`);
+    return  this.httpClient.delete(`http://127.0.0.1:8000/api/orders/${orderId}`);
   }
 }

@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 
 export interface TransactionsResponse {
   "id": number,
@@ -66,35 +65,31 @@ export interface TransactionEditResponse {
   providedIn: 'root'
 })
 export class TransactionsService {
-  private endpoint = "transactions";
-  private domain: string | undefined;
 
-  constructor( private httpClient: HttpClient ) {
-    this.domain = environment.domain;
-  }
+  constructor( private httpClient: HttpClient ) {}
 
   getTransactionsList() {
 
-    return  this.httpClient.get<TransactionsResponseType>(`${this.domain}${this.endpoint}`);
+    return  this.httpClient.get<TransactionsResponseType>(`http://127.0.0.1:8000/api/transactions`);
   }
 
   getTransaction(transactionId : number) {
 
-    return  this.httpClient.get<TransactionEditResponse>(`${this.domain}${this.endpoint}${transactionId}`);
+    return  this.httpClient.get<TransactionEditResponse>(`http://127.0.0.1:8000/api/transactions/${transactionId}`);
   }
 
   saveTransaction(inputData: object){
     
-    return  this.httpClient.post(`${this.domain}${this.endpoint}`, inputData);
+    return  this.httpClient.post(`http://127.0.0.1:8000/api/transactions`, inputData);
   }
 
   updateTransaction(inputData: object, transactionId: number) {
 
-    return  this.httpClient.put(`${this.domain}${this.endpoint}${transactionId}`, inputData);
+    return  this.httpClient.put(`http://127.0.0.1:8000/api/transactions/${transactionId}`, inputData);
   }
 
   destroyTransaction(transactionId: number) {
 
-    return  this.httpClient.delete(`${this.domain}${this.endpoint}${transactionId}`);
+    return  this.httpClient.delete(`http://127.0.0.1:8000/api/transactions/${transactionId}`);
   }
 }

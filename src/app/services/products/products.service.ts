@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 
 export interface ProductsResponse {
   "id": number,
@@ -28,36 +27,31 @@ export interface ProductsResponseType {
   providedIn: 'root'
 })
 export class ProductsService {
-  private endpoint = "products";
-  private domain: string | undefined;
 
-
-  constructor( private httpClient: HttpClient ) {
-    this.domain = environment.domain;
-  }
+  constructor( private httpClient: HttpClient ) {}
 
   getProductsLists() {
 
-    return  this.httpClient.get<ProductsResponseType>(`${this.domain}${this.endpoint}`);
+    return  this.httpClient.get<ProductsResponseType>(`http://127.0.0.1:8000/api/products`);
   }
 
   getProduct(productId : number) {
 
-    return  this.httpClient.get<ProductEditResponse>(`${this.domain}${this.endpoint}${productId}`);
+    return  this.httpClient.get<ProductEditResponse>(`http://127.0.0.1:8000/api/products/${productId}`);
   }
 
   saveProduct(inputData: object){
     
-    return  this.httpClient.post(`${this.domain}${this.endpoint}`, inputData);
+    return  this.httpClient.post(`http://127.0.0.1:8000/api/products`, inputData);
   }
 
   updateProduct(inputData: object, productId: number) {
 
-    return  this.httpClient.put(`${this.domain}${this.endpoint}${productId}`, inputData);
+    return  this.httpClient.put(`http://127.0.0.1:8000/api/products/${productId}`, inputData);
   }
 
   destroyProduct(productId: number) {
 
-    return  this.httpClient.delete(`${this.domain}${this.endpoint}${productId}`);
+    return  this.httpClient.delete(`http://127.0.0.1:8000/api/products/${productId}`);
   }
 }

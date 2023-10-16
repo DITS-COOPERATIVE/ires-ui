@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 
 export interface CustomersResponse {
   "id": number,
@@ -31,35 +30,31 @@ export interface CustomerEditResponse {
   providedIn: 'root'
 })
 export class CustomersService {
-  private endpoint = "customers";
-  private domain: string | undefined;
 
-  constructor( private httpClient: HttpClient ) {
-    this.domain = environment.domain;
-  }
+  constructor( private httpClient: HttpClient ) {}
 
   getCustomersLists() {
 
-    return  this.httpClient.get<CustomersResponseType>(`${this.domain}${this.endpoint}`);
+    return  this.httpClient.get<CustomersResponseType>(`http://127.0.0.1:8000/api/customers`);
   }
 
   getCustomer(customerId : number) {
 
-    return  this.httpClient.get<CustomerEditResponse>(`${this.domain}${this.endpoint}${customerId}`);
+    return  this.httpClient.get<CustomerEditResponse>(`http://127.0.0.1:8000/api/customers/${customerId}`);
   }
 
   saveCustomer(inputData: object){
     
-    return  this.httpClient.post(`${this.domain}${this.endpoint}`, inputData);
+    return  this.httpClient.post(`http://127.0.0.1:8000/api/customers`, inputData);
   }
 
   updateCustomer(inputData: object, customerId: number) {
 
-    return  this.httpClient.put(`${this.domain}${this.endpoint}${customerId}`, inputData);
+    return  this.httpClient.put(`http://127.0.0.1:8000/api/customers/${customerId}`, inputData);
   }
 
   destroyCustomer(customerId: number) {
 
-    return  this.httpClient.delete(`${this.domain}${this.endpoint}${customerId}`);
+    return  this.httpClient.delete(`http://127.0.0.1:8000/api/customers/${customerId}`);
   }
 }
