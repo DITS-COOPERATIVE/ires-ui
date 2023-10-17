@@ -1,3 +1,19 @@
 .addButton>a {
     background-color: #12243B;
 }
+.card-deck>.row{
+    margin-top: 20px;
+    width: 100%;
+}
+.card-img-height {
+    height: 100%;
+    object-fit: cover;
+  }
+.card{
+    margin: 0;
+}
+.viewbtn{
+    background-color: #12243B;
+    display: flex;
+    flex-direction: column;
+}
