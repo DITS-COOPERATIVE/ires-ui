@@ -11,16 +11,16 @@
     <div class="card-deck">
         <div class="row">
             <div class="col-lg-4" *ngFor="let item of this.products; let i = index;">
-                <div class="card mb-4">
+                <div class="card mb-4 rounded-0">
                     <div class="row no-gutters">
-                        <div class="col-md-4">
+                        <div class="col-md-4 ">
                             <img class="card-img card-img-height" src="https://img.freepik.com/premium-vector/young-girl-anime-style-character-vector-illustration-design-manga-anime-girl_147933-100.jpg" alt="Card image">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">{{item.name}}</h5>
                                 <p class="card-text">Price: {{item.price}}</p>
-                                <a routerLink="/products/{{item.id}}/view" class="btn btn-secondary float-end viewbtn mb-1">View</a>
+                                <a routerLink="/products/{{item.id}}" class="btn btn-secondary float-end viewbtn mb-1">View</a>
                                 <!-- Add other actions/buttons as needed -->
                             </div>
                         </div>

@@ -5,42 +5,64 @@
                 <img src="https://i.pinimg.com/originals/0d/dd/85/0ddd859c5208d3db2dae14f2dfbf00dd.png"
                     class="img-thumbnail" alt="...">
             </div>
-            <div class="prodName text-center">
-                <h1>{{product.name}}</h1>
-            </div>
             <div class="prodKitting">
-                <div class="col border p-2">
-                    <img src="https://images.unsplash.com/photo-1592743263126-bb241ee76ac7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhdXRpZnVsJTIwc2NlbmVyeXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
-                        class="rounded-circle">
-                </div>
+                <h3 class="text-center mt-2">Product Kit</h3>
+                <div class="col-md-12 border p-2 d-flex align-items-center">
+                    <div class="col-md-6">
+                      <img src="https://images.unsplash.com/photo-1592743263126-bb241ee76ac7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhdXRpZnVsJTIwc2NlbmVyeXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
+                        class="rounded-circle" width="50" height="50">
+                    </div>
+                    <div class="col-md-6 text-center">
+                      <span>John Doe</span>
+                    </div>
+                  </div>
                 <br>
-                <div class="col border p-2">
-                    <img src="https://images.pexels.com/photos/1172064/pexels-photo-1172064.jpeg?cs=srgb&dl=pexels-oleksandr-p-1172064.jpg&fm=jpg"
-                        class="rounded-circle">
-                </div>
             </div>
         </div>
         <div class="col-lg-9">
             <div class="container p-3">
                 <form>
-                    <div class="form-group">
-                        <h3 class="text-center">Peso Wifi Vendo Machine</h3>
+                    <h4 class="text-center">Product Name</h4>
+                    <div class="row mt-5 ps-5">
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label for="product-code"class="mb-2" >Product Code</label>
+                                <input type="text" name=" product-code" id="product-code" class="form-control"
+                                    placeholder="">
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="product-price" class="mb-2">Product Price</label>
+                                <input type="text" name="product-price" id="product-price" class="form-control" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="product-points"  class="mb-2">Category</label>
+                                <select name="product-points" id="product-points" class="form-control">
+                                  <option value="10">Software</option>
+                                  <option value="20">Hardware</option>
+                                  <option value="30">Services</option>
+                                </select>
+                              </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label for="product-model" class="mb-2">Product Model</label>
+                                <input type="text" name="product-model" id="product-model" class="form-control" placeholder="">
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="product-quantity" class="mb-2">Product Quantity</label>
+                                <input type="text" name="product-quantity" id="product-quantity" class="form-control"
+                                    placeholder="">
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="product-points" class="mb-2">Product Points</label>
+                                <input type="text" name="product-points" id="product-points" class="form-control" placeholder="">
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <div class="text-center pb-3">
+                        <button type="submit" class="btn btn-primary submitbtn">Submit</button>
                     </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
-                
-                <h4>Code : PesoWifi2023</h4>
-                <h4>Model : PesoWifi2023</h4>
-                <h4>Price : PesoWifi2023</h4>
-                <h4>Quantity : PesoWifi2023</h4>
 
                 <!-- <div class="mb-3">
                         <h5>Name : {{product.name}}</h5>

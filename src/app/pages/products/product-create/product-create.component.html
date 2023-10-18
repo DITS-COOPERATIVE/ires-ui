@@ -1,4 +1,54 @@
-<div>
+<div class="container bg-white">
+    <h4 class="text-center pt-5">New Product</h4>
+    <div class='image-upload-container'>
+        <input name='images' type='file' accept="image/x-png, image/jpeg"
+            style="opacity: 0;" />
+        <div class="image-previews">
+            <div class="image">
+                <div>+</div>
+            </div>
+        </div>
+    </div>
+    <form>
+        <div class="row mt-5 ps-5">
+            <div class="col-md-6">
+                <div class="form-group mb-4">
+                    <label for="product-name" class="mb-2">Product Name</label>
+                    <input type="text" name="product-name" id="product-name" class="form-control"
+                        placeholder="Ex. Peso wifi">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="product-code"class="mb-2" >Product Code</label>
+                    <input type="text" name=" product-code" id="product-code" class="form-control"
+                        placeholder="">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="product-price" class="mb-2">Product Price</label>
+                    <input type="text" name="product-price" id="product-price" class="form-control" placeholder="">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group mb-4">
+                    <label for="product-model" class="mb-2">Product Model</label>
+                    <input type="text" name="product-model" id="product-model" class="form-control" placeholder="">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="product-quantity" class="mb-2">Product Quantity</label>
+                    <input type="text" name="product-quantity" id="product-quantity" class="form-control"
+                        placeholder="">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="product-points" class="mb-2">Product Points</label>
+                    <input type="text" name="product-points" id="product-points" class="form-control" placeholder="">
+                </div>
+            </div>
+        </div>
+        <div class="text-center pb-3">
+            <button type="submit" class="btn btn-primary submitbtn">Submit</button>
+        </div>
+    </form>
+</div>
+<!-- <div>
     <div class="container mt-5">
         <div class="card">
             <div class="card-header">
@@ -15,43 +65,43 @@
                 <ng-template #elseForm>
                     <form (ngSubmit)="saveProduct()">
 
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="name">Name</label>
                             <input type="text" [(ngModel)]="name" name="name" id="name" class="form-control">
                             <span *ngIf="errors.name" class="text-danger" >{{errors.name}}</span>
                         </div>
     
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="name">Code</label>
                             <input type="text" [(ngModel)]="code" name="code" id="code" class="form-control">
                             <span *ngIf="errors.code" class="text-danger" >{{errors.code}}</span>
                         </div>
     
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="name">Model</label>
                             <input type="text" [(ngModel)]="model" name="model" id="model" class="form-control">
                             <span *ngIf="errors.model" class="text-danger" >{{errors.model}}</span>
                         </div>
     
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="name">Price</label>
                             <input type="text" [(ngModel)]="price" name="price" id="price" class="form-control">    
                             <span *ngIf="errors.price" class="text-danger" >{{errors.price}}</span> 
                         </div>                 
                             
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="name">Quantity</label>
                             <input type="text" [(ngModel)]="quantity" name="quantity" id="quantity" class="form-control">
                             <span *ngIf="errors.quantity" class="text-danger" >{{errors.quantity}}</span>
                         </div>
     
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="name">Points</label>
                             <input type="text" [(ngModel)]="points" name="points" id="points" class="form-control">
                             <span *ngIf="errors.points" class="text-danger" >{{errors.points}}</span>
                         </div>
     
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <button class="btn btn-primary" type="submit">Save</button>
                         </div>
                     </form>
@@ -59,4 +109,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

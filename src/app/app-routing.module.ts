@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ProductCreateComponent } from './pages/products/product-create/product-create.component';
 import { ProductPageComponent } from './pages/products/product-page/product-page.component';
-import { ProductEditComponent } from './pages/products/product-edit/product-edit.component';
 import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
 import { CustomerPageComponent } from './pages/customers/customer-page/customer-page.component';
 import { CustomerEditComponent } from './pages/customers/customer-edit/customer-edit.component';
@@ -25,8 +24,8 @@ const routes: Routes = [
 
   { path: 'products', component: ProductPageComponent, title: 'Products' },
   { path: 'products/create', component: ProductCreateComponent, title: 'Create New Product'},
-  { path: 'products/:id/edit', component: ProductEditComponent, title: 'Edit Product'},
-  { path: 'products/:id/view', component: ProductViewComponent, title: 'View Product'},
+  { path: 'products/:id/edit', component: ProductViewComponent, title: 'Edit Product'},
+  { path: 'products/:id', component: ProductViewComponent, title: 'View Product'},
 
   { path: 'customers', component: CustomerPageComponent, title: 'Customers' },
   { path: 'customers/create', component: CustomerCreateComponent, title: 'Create New Customer'},
