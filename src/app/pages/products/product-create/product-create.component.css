@@ -39,8 +39,20 @@ input:focus{
 }
 .image-previews{
     float: right;
-    margin-top: -50px;
 }
 .submitbtn{
     background-color: #12243B;
+}
+.prodName{
+  width: 100%;
+}
+.prodName>input{
+  width: unset;
+  margin: auto;
+  font-size: xx-large;
+  margin-top: -2rem;
+  margin-bottom: 2rem;
+}
+#product-points{
+  width: 50%;
 }

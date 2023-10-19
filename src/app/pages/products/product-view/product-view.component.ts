@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from 'src/app/services/products/products.service';
 @Component({
@@ -7,6 +7,16 @@ import { ProductsService } from 'src/app/services/products/products.service';
   styleUrls: ['./product-view.component.css']
 })
 export class ProductViewComponent {
+  isReadOnly = true;
+  isEditable = false;
+
+  edit() {
+    this.isReadOnly = false;
+    this.isEditable = true;
+  }
+
+
+  
   productId!: any
   product!: any
 
@@ -21,11 +31,10 @@ export class ProductViewComponent {
     //Add 'implements OnInit' to the class.
 
     this.productId = this.route.snapshot.paramMap.get('id');
-    // alert(this.productId)
     this.isLoading = true
     this.productsService.getProduct(this.productId).subscribe((res) => {
       console.log(res)
-      this.product = res.result[0]
+      this.product = res
       this.isLoading = false
     })
   }

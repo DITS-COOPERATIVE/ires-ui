@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
-export interface ProductsResponse {
+export interface ProductsResponse  {
   "id": number,
   "name": string,
   "code": string,
@@ -15,12 +15,10 @@ export interface ProductsResponse {
 }
 
 export interface ProductsResponseType {
-  status: number,
-  result: ProductsResponse []
+  res: ProductsResponse []
 }
 
   export interface ProductEditResponse {
-  status: number,
   result: ProductsResponse[]
 }
 
@@ -28,7 +26,7 @@ export interface ProductsResponseType {
   providedIn: 'root'
 })
 export class ProductsService {
-  private endpoint = "products";
+  private endpoint = "products/";
   private domain: string | undefined;
 
 
@@ -38,12 +36,12 @@ export class ProductsService {
 
   getProductsLists() {
 
-    return  this.httpClient.get<ProductsResponseType>(`${this.domain}${this.endpoint}`);
+    return  this.httpClient.get<ProductsResponse[]>(`${this.domain}${this.endpoint}`);
   }
 
   getProduct(productId : number) {
 
-    return  this.httpClient.get<ProductEditResponse>(`${this.domain}${this.endpoint}${productId}`);
+    return  this.httpClient.get<ProductsResponse>(`${this.domain}${this.endpoint}${productId}`);
   }
 
   saveProduct(inputData: object){

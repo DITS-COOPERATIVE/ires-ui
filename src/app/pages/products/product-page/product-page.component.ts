@@ -28,9 +28,8 @@ export class ProductPageComponent {
 
       this.productsService.getProductsLists().subscribe((res) =>{
   
-        console.log(res.result);
-        this.products = res.result
-  
+        console.log(res);
+        this.products = res;
         this.isLoading = false
   
       })

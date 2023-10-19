@@ -1,52 +1,99 @@
 <div class="container bg-white">
-    <h4 class="text-center pt-5">New Product</h4>
-    <div class='image-upload-container'>
-        <input name='images' type='file' accept="image/x-png, image/jpeg"
-            style="opacity: 0;" />
-        <div class="image-previews">
-            <div class="image">
-                <div>+</div>
-            </div>
-        </div>
+  <div class="image-upload-container">
+    <input
+      name="images"
+      type="file"
+      accept="image/x-png, image/jpeg"
+      style="opacity: 0"
+    />
+    <div class="image-previews mt-2">
+      <div class="image">
+        <div>+</div>
+      </div>
     </div>
-    <form>
-        <div class="row mt-5 ps-5">
-            <div class="col-md-6">
-                <div class="form-group mb-4">
-                    <label for="product-name" class="mb-2">Product Name</label>
-                    <input type="text" name="product-name" id="product-name" class="form-control"
-                        placeholder="Ex. Peso wifi">
-                </div>
-                <div class="form-group mb-4">
-                    <label for="product-code"class="mb-2" >Product Code</label>
-                    <input type="text" name=" product-code" id="product-code" class="form-control"
-                        placeholder="">
-                </div>
-                <div class="form-group mb-4">
-                    <label for="product-price" class="mb-2">Product Price</label>
-                    <input type="text" name="product-price" id="product-price" class="form-control" placeholder="">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group mb-4">
-                    <label for="product-model" class="mb-2">Product Model</label>
-                    <input type="text" name="product-model" id="product-model" class="form-control" placeholder="">
-                </div>
-                <div class="form-group mb-4">
-                    <label for="product-quantity" class="mb-2">Product Quantity</label>
-                    <input type="text" name="product-quantity" id="product-quantity" class="form-control"
-                        placeholder="">
-                </div>
-                <div class="form-group mb-4">
-                    <label for="product-points" class="mb-2">Product Points</label>
-                    <input type="text" name="product-points" id="product-points" class="form-control" placeholder="">
-                </div>
-            </div>
+  </div>
+  <form>
+    <div class="row mt-5 ps-5">
+      <div class="form-group prodName">
+        <input
+          type="text"
+          name="product-name"
+          id="product-name"
+          class="form-control text-center"
+          placeholder="Product Name"
+        />
+      </div>
+      <div class="col-md-6">
+        <div class="form-group mb-4">
+          <label for="product-points" class="mb-2">Category</label>
+          <select
+            name="product-points"
+            id="product-points"
+            class="form-control"
+          >
+            <option value="10">Software</option>
+            <option value="20">Hardware</option>
+            <option value="30">Services</option>
+          </select>
         </div>
-        <div class="text-center pb-3">
-            <button type="submit" class="btn btn-primary submitbtn">Submit</button>
+        <div class="form-group mb-4">
+          <label for="product-code" class="mb-2">Product Code</label>
+          <input
+            type="text"
+            name=" product-code"
+            id="product-code"
+            class="form-control"
+            placeholder=""
+          />
         </div>
-    </form>
+        <div class="form-group mb-4">
+          <label for="product-price" class="mb-2">Product Price</label>
+          <input
+            type="text"
+            name="product-price"
+            id="product-price"
+            class="form-control"
+            placeholder=""
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group mb-4">
+          <label for="product-model" class="mb-2">Product Model</label>
+          <input
+            type="text"
+            name="product-model"
+            id="product-model"
+            class="form-control"
+            placeholder=""
+          />
+        </div>
+        <div class="form-group mb-4">
+          <label for="product-quantity" class="mb-2">Product Quantity</label>
+          <input
+            type="text"
+            name="product-quantity"
+            id="product-quantity"
+            class="form-control"
+            placeholder=""
+          />
+        </div>
+        <div class="form-group mb-4">
+          <label for="product-points" class="mb-2">Product Points</label>
+          <input
+            type="text"
+            name="product-points"
+            id="product-points"
+            class="form-control"
+            placeholder=""
+          />
+        </div>
+      </div>
+      <div class="text-center pb-3">
+        <button type="submit" class="btn btn-primary submitbtn">Submit</button>
+      </div>
+    </div>
+  </form>
 </div>
 <!-- <div>
     <div class="container mt-5">
