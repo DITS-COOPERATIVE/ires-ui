@@ -9,7 +9,11 @@ import { ProductsService } from 'src/app/services/products/products.service';
 export class ProductViewComponent {
   isReadOnly = true;
   isEditable = false;
+  isEditing = false;
 
+  toggleEditButton() {
+    this.isEditing = !this.isEditing;
+  }
   edit() {
     this.isReadOnly = false;
     this.isEditable = true;
@@ -42,6 +46,7 @@ export class ProductViewComponent {
   updateProduct() {
 
     var inputData = {
+      image: this.product.image,
       name: this.product.name,
       model: this.product.model,
       code: this.product.code,
@@ -63,5 +68,7 @@ export class ProductViewComponent {
         this.isLoading = false
       }
     });
+    this.isReadOnly = true;
+    this.isEditable = false;
   }
 }

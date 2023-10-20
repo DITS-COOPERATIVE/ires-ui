@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 
 export interface ProductsResponse  {
   "id": number,
+  "image":string,
   "name": string,
   "code": string,
   "model": string,

@@ -9,7 +9,7 @@ import { ProductsService } from '../../../services/products/products.service';
 export class ProductCreateComponent {
 
   constructor(private productsService: ProductsService) {}
-
+  image!: string
   name!: string
   code!: string
   model!: string
@@ -26,6 +26,7 @@ export class ProductCreateComponent {
     this.isLoading = true;
 
     var inputData = {
+      image:this.image,
       name: this.name,
       code: this.code,
       model: this.model,
@@ -39,6 +40,7 @@ export class ProductCreateComponent {
       next: (res: any) => {
         console.log(res, 'response')
         alert(res.result);
+        this.image = '';
         this.name = '';
         this.code = '';
         this.model = '';

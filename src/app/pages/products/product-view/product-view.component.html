@@ -5,12 +5,8 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col">
-      <div class="prodImage">
-        <img
-          src="https://i.pinimg.com/originals/0d/dd/85/0ddd859c5208d3db2dae14f2dfbf00dd.png"
-          class="img-thumbnail"
-          alt="..."
-        />
+      <div class="prodImage position-relative">
+        <img [src]="product.image" class="img-thumbnail" alt="Product Image" />
       </div>
       <div class="prodKitting">
         <h3 class="text-center mt-2">Product Kit</h3>
@@ -34,9 +30,9 @@
       <div class="container p-3">
         <form>
           <div class="icon-wrapper">
-            <i class="fa fa-pencil custom-icon" (click)="edit()">
-              <span class="fix-editor">&nbsp;</span>
-            </i>
+            <button class="edit-button" (click)="toggleEditButton()">
+              <i class="fa edit-icon" [ngClass]="{'active': isEditing}"(click)="edit()"></i>
+            </button>
           </div>
           <div class="form-group text-center">
             <input
@@ -48,13 +44,14 @@
               [value]="product.name"
               [readonly]="isReadOnly"
               [class.editable]="isEditable"
+              [(ngModel)]="product.name"
               #productNameInput
             />
           </div>
           <div class="row mt-5 ps-3">
             <div class="col-md-6">
               <div class="form-group mb-4">
-                <label for="product-code" class="mb-2 font-weight-bold">Product Code</label>
+                <label for="product-code" class="mb-2">Product Code</label>
                 <input
                   type="text"
                   name="product-code"
@@ -64,6 +61,7 @@
                   [value]="product.code"
                   [readonly]="isReadOnly"
                   [class.editable]="isEditable"
+                  [(ngModel)]="product.code"
                   #productCodeInput
                 />
               </div>
@@ -78,6 +76,7 @@
                   [value]="product.price"
                   [readonly]="isReadOnly"
                   [class.editable]="isEditable"
+                  [(ngModel)]="product.price"
                   #productPriceInput
                 />
               </div>
@@ -108,6 +107,7 @@
                   [value]="product.model"
                   [class.editable]="isEditable"
                   [readonly]="isReadOnly"
+                  [(ngModel)]="product.model"
                   #productModelInput
                 />
               </div>
@@ -124,6 +124,7 @@
                   [value]="product.quantity"
                   [class.editable]="isEditable"
                   [readonly]="isReadOnly"
+                  [(ngModel)]="product.quantity"
                   #productQuantityInput
                 />
               </div>
@@ -138,17 +139,17 @@
                   [value]="product.points"
                   [readonly]="isReadOnly"
                   [class.editable]="isEditable"
+                  [(ngModel)]="product.points"
                   #productPointsInput
                 />
+                <span *ngIf="errors.points" class="text-danger">{{
+                  errors.points
+                }}</span>
               </div>
             </div>
             <div class="button-group" [class.hidden]="!isEditable">
-              <button class="btn btn-primary">Save</button>
-              <button class="btn btn-secondary ms-3">Cancel</button>
+              <button class="btn btn-primary" (click)="updateProduct()">Save</button>
             </div>
-            <!-- <div class="text-center pb-3">
-                        <button type="submit" class="btn btn-primary submitbtn">Submit</button>
-                    </div> -->
           </div>
         </form>
 

@@ -26,28 +26,6 @@ input,select:focus{
     outline: none;
     box-shadow: none;
   }
-  .custom-icon {
-    background:rgba(0,0,0,0.4);
-    -webkit-border-radius:1100%;
-    -moz-border-radius:100%;
-    -o-border-radius:100%;
-    border-radius:100%;
-    border:6px solid #ccc;
-    color:black;
-      box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46);
-    text-align:center;
-    display:table-cell;
-    vertical-align:middle;
-    width:60px;
-    height:60px;
-    -moz-transition:.5s;
-    -webkit-transition:.5s;
-    -o-transition:.5s;
-    transition:.5s;
-  }
-  .custom-icon:hover {
-    background:rgba(0,0,0,0.6);
-  }
   .fix-editor {
     display:none;
   }
@@ -58,7 +36,7 @@ input,select:focus{
     float: right;
   }
   #product-name{
-    width: 90%;
+    margin: auto;
     text-align: center;
     font-size: xx-large;
   }
@@ -69,3 +47,31 @@ input,select:focus{
     text-align: center;
     width: 90%;
   }
+  .prodImage {
+    position: relative;
+  }
+  
+  .edit-icon {
+    background-color: white;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #12243b;
+    border: solid;
+  }
+  .img-thumbnail{
+    border-color: #12243b;
+  }
+  .edit-icon::before {
+    content: "\f040";
+  }
+  
+  .edit-icon.active::before {
+    content: "\f00d";
+   
+  }
+  .edit-button{
+     border: none;
+    background-color: white;
+  }
+ 
