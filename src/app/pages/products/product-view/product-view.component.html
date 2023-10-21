@@ -6,7 +6,7 @@
   <div class="row">
     <div class="col">
       <div class="prodImage position-relative">
-        <img [src]="product.image" class="img-thumbnail" alt="Product Image" />
+        <img [src]="product?.image" class="img-thumbnail" alt="Product Image" />
       </div>
       <div class="prodKitting">
         <h3 class="text-center mt-2">Product Kit</h3>
@@ -27,11 +27,22 @@
       </div>
     </div>
     <div class="col-lg-9">
+      <div
+        class="alert alert-success text-center"
+        role="alert"
+        *ngIf="successMessage"
+      >
+        {{ successMessage }}
+      </div>
       <div class="container p-3">
         <form>
           <div class="icon-wrapper">
             <button class="edit-button" (click)="toggleEditButton()">
-              <i class="fa edit-icon" [ngClass]="{'active': isEditing}"(click)="edit()"></i>
+              <i
+                class="fa edit-icon"
+                [ngClass]="{ active: isEditing }"
+                (click)="edit()"
+              ></i>
             </button>
           </div>
           <div class="form-group text-center">
@@ -41,12 +52,15 @@
               id="product-name"
               class="form-control display-1"
               placeholder=""
-              [value]="product.name"
+              [value]="product?.name"
               [readonly]="isReadOnly"
               [class.editable]="isEditable"
               [(ngModel)]="product.name"
               #productNameInput
             />
+            <span *ngIf="errors.name" class="text-danger">{{
+              errors.name
+            }}</span>
           </div>
           <div class="row mt-5 ps-3">
             <div class="col-md-6">
@@ -58,12 +72,15 @@
                   id="product-code"
                   class="form-control"
                   placeholder=""
-                  [value]="product.code"
+                  [value]="product?.code"
                   [readonly]="isReadOnly"
                   [class.editable]="isEditable"
                   [(ngModel)]="product.code"
                   #productCodeInput
                 />
+                <span *ngIf="errors.code" class="text-danger">{{
+                  errors.code
+                }}</span>
               </div>
               <div class="form-group mb-4">
                 <label for="product-price" class="mb-2">Product Price</label>
@@ -73,12 +90,15 @@
                   id="product-price"
                   class="form-control"
                   placeholder=""
-                  [value]="product.price"
+                  [value]="product?.price"
                   [readonly]="isReadOnly"
                   [class.editable]="isEditable"
                   [(ngModel)]="product.price"
                   #productPriceInput
                 />
+                <span *ngIf="errors.price" class="text-danger">{{
+                  errors.price
+                }}</span>
               </div>
               <div class="form-group">
                 <label for="product-points" class="mb-2">Category</label>
@@ -104,29 +124,33 @@
                   id="product-model"
                   class="form-control"
                   placeholder=""
-                  [value]="product.model"
+                  [value]="product?.model"
                   [class.editable]="isEditable"
                   [readonly]="isReadOnly"
                   [(ngModel)]="product.model"
                   #productModelInput
                 />
+                <span *ngIf="errors.model" class="text-danger">{{
+                  errors.model
+                }}</span>
               </div>
               <div class="form-group mb-4">
-                <label for="product-quantity" class="mb-2"
-                  >Product Quantity</label
-                >
+                <label for="product-quantity" class="mb-2">Product Quantity</label>
                 <input
                   type="text"
                   name="product-quantity"
                   id="product-quantity"
                   class="form-control"
                   placeholder=""
-                  [value]="product.quantity"
+                  [value]="product?.quantity"
                   [class.editable]="isEditable"
                   [readonly]="isReadOnly"
                   [(ngModel)]="product.quantity"
                   #productQuantityInput
                 />
+                <span *ngIf="errors.quantity" class="text-danger">{{
+                  errors.quantity
+                }}</span>
               </div>
               <div class="form-group mb-4">
                 <label for="product-points" class="mb-2">Product Points</label>
@@ -136,7 +160,7 @@
                   id="product-points"
                   class="form-control"
                   placeholder=""
-                  [value]="product.points"
+                  [value]="product?.points"
                   [readonly]="isReadOnly"
                   [class.editable]="isEditable"
                   [(ngModel)]="product.points"
@@ -148,7 +172,9 @@
               </div>
             </div>
             <div class="button-group" [class.hidden]="!isEditable">
-              <button class="btn btn-primary" (click)="updateProduct()">Save</button>
+              <button class="btn btn-primary" (click)="updateProduct()">
+                Save
+              </button>
             </div>
           </div>
         </form>

@@ -7,6 +7,7 @@ import { ProductsService } from '../../../services/products/products.service';
   styleUrls: ['./product-create.component.css']
 })
 export class ProductCreateComponent {
+  successMessage: string | null = null;
 
   constructor(private productsService: ProductsService) {}
   image!: string
@@ -38,8 +39,6 @@ export class ProductCreateComponent {
     this.productsService.saveProduct(inputData).subscribe({
 
       next: (res: any) => {
-        console.log(res, 'response')
-        alert(res.result);
         this.image = '';
         this.name = '';
         this.code = '';
@@ -47,13 +46,16 @@ export class ProductCreateComponent {
         this.price = '';
         this.quantity = '';
         this.points = '';
-
+        this.successMessage = 'Success! Product saved.';
+        setTimeout(() => this.successMessage = null, 3000);
         this.isLoading = false  
+        this.errors = {};
       },
+
       error: (err: any) => {
         this.errors = err.error.errors;
         this.isLoading = false  
-        console.log(this.errors, 'error')
+        //console.log(this.errors, 'error')
       }
     })
   }

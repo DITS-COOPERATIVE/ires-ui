@@ -56,3 +56,14 @@ input:focus{
 #product-points{
   width: 50%;
 }
+.errorname {
+  display: block;
+  margin-top: -30px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.errorimage{
+  position: absolute;
+  right: 5rem;
+  top: 13rem;
+}

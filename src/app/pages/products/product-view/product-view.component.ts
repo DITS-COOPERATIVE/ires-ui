@@ -10,9 +10,17 @@ export class ProductViewComponent {
   isReadOnly = true;
   isEditable = false;
   isEditing = false;
+  successMessage: string | null = null;
 
   toggleEditButton() {
     this.isEditing = !this.isEditing;
+    if (this.isEditing) {
+      this.isReadOnly = false;
+      this.isEditable = true;
+    } else {
+      this.isReadOnly = true;
+      this.isEditable = false;
+    }
   }
   edit() {
     this.isReadOnly = false;
@@ -22,7 +30,7 @@ export class ProductViewComponent {
 
   
   productId!: any
-  product!: any
+  product: any = {};
 
   errors: any = [];
   isLoading: boolean = false
@@ -37,7 +45,6 @@ export class ProductViewComponent {
     this.productId = this.route.snapshot.paramMap.get('id');
     this.isLoading = true
     this.productsService.getProduct(this.productId).subscribe((res) => {
-      console.log(res)
       this.product = res
       this.isLoading = false
     })
@@ -55,20 +62,25 @@ export class ProductViewComponent {
       points: this.product.points,
     }
 
+
     this.isLoading = true
 
     this.productsService.updateProduct(inputData, this.productId).subscribe({
       next: (res: any) => {
-        console.log(res);
-        alert(res.message)
         this.isLoading = false
+        this.successMessage = 'Success! Product saved.';
+        setTimeout(() => this.successMessage = null, 3000);
+        this.isEditing = false;
+        this.isReadOnly = true;
+        this.isEditable = false;
+        this.errors ={};
       },
       error: (err: any) => {
         this.errors = err.error.errors;
         this.isLoading = false
       }
     });
-    this.isReadOnly = true;
-    this.isEditable = false;
+ 
+
   }
 }
