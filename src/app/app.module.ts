@@ -10,7 +10,6 @@ import { ProductCreateComponent } from './pages/products/product-create/product-
 import { FormsModule } from '@angular/forms';
 import { LoaderComponent } from './partials/loader/loader.component';
 import { ProductPageComponent } from './pages/products/product-page/product-page.component';
-import { ProductEditComponent } from './pages/products/product-edit/product-edit.component';
 import { CustomerPageComponent } from './pages/customers/customer-page/customer-page.component';
 import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
 import { CustomerEditComponent } from './pages/customers/customer-edit/customer-edit.component';
@@ -26,6 +25,7 @@ import { HeaderComponent } from './pages/header/header.component';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {CdkMenuModule} from '@angular/cdk/menu';
 import { LoginComponent } from './pages/login/login.component';
+import { ProductViewComponent } from './pages/products/product-view/product-view.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,6 @@ import { LoginComponent } from './pages/login/login.component';
     ProductCreateComponent,
     LoaderComponent,
     ProductPageComponent,
-    ProductEditComponent,
     CustomerPageComponent,
     CustomerCreateComponent,
     CustomerEditComponent,
@@ -48,7 +47,8 @@ import { LoginComponent } from './pages/login/login.component';
     ReportsComponent,
     StocksComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    ProductViewComponent
   ],
   imports: [
     BrowserModule,

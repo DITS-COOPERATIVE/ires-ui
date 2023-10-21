@@ -1,0 +1,76 @@
+*{
+    font-family: 'Trebuchet MS';
+}
+.col-lg-9 {
+    background-color: white;
+}
+.rounded-circle{
+    width : 80px;
+    height: 80px;
+}
+input,select {
+    border: none;
+    border-radius: 0;
+    width: 20rem;
+}
+input,select:focus{
+    outline: none;
+}
+.form-control.editable:hover {
+    border-bottom: solid 1px black;
+  }
+  .form-control.editable:focus {
+    border-bottom: solid 1px black;
+  }
+.form-control:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  .fix-editor {
+    display:none;
+  }
+  .icon-wrapper {
+    display:inline-block;
+  }
+  .icon-wrapper{
+    float: right;
+  }
+  #product-name{
+    margin: auto;
+    text-align: center;
+    font-size: xx-large;
+  }
+  .hidden {
+    display: none;
+  }
+  .button-group {
+    text-align: center;
+    width: 90%;
+  }
+  .prodImage {
+    position: relative;
+  }
+  
+  .edit-icon {
+    background-color: white;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #12243b;
+    border: solid;
+  }
+  .img-thumbnail{
+    border-color: #12243b;
+  }
+  .edit-icon::before {
+    content: "\f040";
+  }
+  
+  .edit-icon.active::before {
+    content: "\f00d";
+   
+  }
+  .edit-button{
+     border: none;
+    background-color: white;
+  }
