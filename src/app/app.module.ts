@@ -35,7 +35,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { ExportAsModule } from 'ngx-export-as';
 
 @NgModule({
   declarations: [
@@ -77,7 +76,6 @@ import { ExportAsModule } from 'ngx-export-as';
     MatCheckboxModule,
     MatIconModule,
     DragDropModule,
-    ExportAsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
