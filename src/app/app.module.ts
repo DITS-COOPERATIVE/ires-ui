@@ -35,7 +35,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { ProductViewComponent } from './pages/products/product-view/product-view.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +58,6 @@ import { ProductViewComponent } from './pages/products/product-view/product-view
     StocksComponent,
     HeaderComponent,
     LoginComponent,
-    ProductViewComponent,
   ],
   imports: [
     BrowserModule,

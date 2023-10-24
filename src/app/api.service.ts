@@ -6,14 +6,10 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ApiService {
-  private baseUrl: string;
   private endpoint = 'users';
+  private domain: string | undefined;
 
   constructor(private httpClient: HttpClient) {
-    this.baseUrl = `${environment.domain}`;
-  }
-
-  private getUrl(): string {
-    return `${this.baseUrl}/${this.endpoint}`;
+    this.domain = environment.domain;
   }
 }
