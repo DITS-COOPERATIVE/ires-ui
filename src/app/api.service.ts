@@ -3,14 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
-  private endpoint = "users";
-  private domain: string | undefined;
+  private baseUrl: string;
+  private endpoint = 'users';
 
-  constructor(private httpClient: HttpClient) { 
-    this.domain = environment.domain;
+  constructor(private httpClient: HttpClient) {
+    this.baseUrl = `${environment.domain}`;
   }
 
+  private getUrl(): string {
+    return `${this.baseUrl}/${this.endpoint}`;
+  }
 }

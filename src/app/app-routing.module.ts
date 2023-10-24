@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, title: 'login' },
 
   { path: 'products', component: ProductPageComponent, title: 'Products' },
+
   {
     path: 'products/create',
     component: ProductCreateComponent,
@@ -29,8 +30,13 @@ const routes: Routes = [
   },
   {
     path: 'products/:id/edit',
-    component: ProductEditComponent,
+    component: ProductViewComponent,
     title: 'Edit Product',
+  },
+  {
+    path: 'products/:id',
+    component: ProductViewComponent,
+    title: 'View Product',
   },
 
   { path: 'customers', component: CustomerPageComponent, title: 'Customers' },

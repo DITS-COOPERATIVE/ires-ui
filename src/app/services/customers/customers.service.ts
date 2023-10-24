@@ -29,7 +29,7 @@ export interface CustomerEditResponse {
   providedIn: 'root',
 })
 export class CustomersService {
-  private endpoint = 'customers/';
+  private endpoint = 'customers';
   private domain: string | undefined;
 
   constructor(private httpClient: HttpClient) {
@@ -37,7 +37,7 @@ export class CustomersService {
   }
 
   getCustomersLists() {
-    return this.httpClient.get<CustomersResponse[]>(
+    return this.httpClient.get<CustomersResponseType>(
       `${this.domain}${this.endpoint}`
     );
   }
