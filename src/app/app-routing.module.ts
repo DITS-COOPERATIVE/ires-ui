@@ -23,21 +23,10 @@ const routes: Routes = [
 
   { path: 'products', component: ProductPageComponent, title: 'Products' },
 
-  {
-    path: 'products/create',
-    component: ProductCreateComponent,
-    title: 'Create New Product',
-  },
-  {
-    path: 'products/:id/edit',
-    component: ProductViewComponent,
-    title: 'Edit Product',
-  },
-  {
-    path: 'products/:id',
-    component: ProductViewComponent,
-    title: 'View Product',
-  },
+  { path: 'products/create', component: ProductCreateComponent, title: 'Create New Product'},
+  { path: 'products/:id/edit', component: ProductViewComponent, title: 'Edit Product'},
+  { path: 'products/:id', component: ProductViewComponent, title: 'View Product'},
+
 
   { path: 'customers', component: CustomerPageComponent, title: 'Customers' },
   {

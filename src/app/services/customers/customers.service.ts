@@ -29,38 +29,37 @@ export interface CustomerEditResponse {
   providedIn: 'root',
 })
 export class CustomersService {
-  private endpoint = 'customers';
+
+  private endpoint = "customers";
   private domain: string | undefined;
-  constructor(private httpClient: HttpClient) {
+
+  constructor( private httpClient: HttpClient ) {
     this.domain = environment.domain;
   }
 
   getCustomersLists() {
-    return this.httpClient.get<CustomersResponseType>(
-      `${this.domain}${this.endpoint}`
-    );
+
+
+    return  this.httpClient.get<CustomersResponseType>(`${this.domain}${this.endpoint}`);
   }
 
-  getCustomer(customerId: number) {
-    return this.httpClient.get<CustomerEditResponse>(
-      `${this.domain}${this.endpoint}${customerId}`
-    );
+  getCustomer(customerId : number) {
+
+    return  this.httpClient.get<CustomerEditResponse>(`${this.domain}${this.endpoint}${customerId}`);
   }
 
-  saveCustomer(inputData: object) {
-    return this.httpClient.post(`${this.domain}${this.endpoint}`, inputData);
+  saveCustomer(inputData: object){
+    
+    return  this.httpClient.post(`${this.domain}${this.endpoint}`, inputData);
   }
 
   updateCustomer(inputData: object, customerId: number) {
-    return this.httpClient.put(
-      `${this.domain}${this.endpoint}${customerId}`,
-      inputData
-    );
+
+    return  this.httpClient.put(`${this.domain}${this.endpoint}${customerId}`, inputData);
   }
 
   destroyCustomer(customerId: number) {
-    return this.httpClient.delete(
-      `${this.domain}${this.endpoint}${customerId}`
-    );
+
+    return  this.httpClient.delete(`${this.domain}${this.endpoint}${customerId}`);
   }
 }
