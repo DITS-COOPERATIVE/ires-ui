@@ -6,7 +6,9 @@
   <div class="row">
     <div class="col-lg-4 border mt-1">
       <div class="row">
-        <div class="order-empty text-center d-flex flex-column align-items-center">
+        <div
+          class="order-empty text-center d-flex flex-column align-items-center"
+        >
           <i class="fas fa-shopping-cart"></i><br />
           <h5>This order is empty</h5>
         </div>
@@ -28,12 +30,15 @@
         </button>
 
         <div class="col-md-5">
-          <div class="row h-25 text-center bg-lightd-flex align-items-center customer">
+          <div
+            class="row h-25 text-center bg-lightd-flex align-items-center customer"
+          >
             <h6>Customer</h6>
           </div>
-          <div class="row text-center text-white paymentContainer h-75 d-flex align-items-center">
+          <div
+            class="row text-center text-white paymentContainer h-75 d-flex align-items-center"
+          >
             <i class="fas fa-chevron-circle-right fs-2"><h6>Payment</h6></i>
-            
           </div>
         </div>
         <div class="col-md-7">
@@ -101,16 +106,30 @@
       </div>
     </div>
     <div class="col-lg-8 d-flex flex-wrap productsContainer">
-      <div class="card m-1" *ngFor="let item of products; let i = index">
-        <img [src]="item.image" class="card-img-top" alt="Image Description" />
-        <div class="card-body">
-          <h5
-            class="card-title"
-            [ngClass]="{ 'long-title': item.name.length > 10 }"
-          >
-            {{ item.name }}
-          </h5>
-          <p class="card-text"><b>₱ </b>{{ item.price }}</p>
+      <div class="row d-flex w-100">
+        <div class="col d-flex justify-content-around align-items-center category">
+            <p>Wifi</p>
+            <p>Software</p>
+            <p>Hardware</p>
+            <p>Tools</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="card m-1" *ngFor="let item of products; let i = index">
+          <img
+            [src]="item.image"
+            class="card-img-top"
+            alt="Image Description"
+          />
+          <div class="card-body">
+            <h5
+              class="card-title"
+              [ngClass]="{ 'long-title': item.name.length > 10 }"
+            >
+              {{ item.name }}
+            </h5>
+            <p class="card-text"><b>₱ </b>{{ item.price }}</p>
+          </div>
         </div>
       </div>
     </div>

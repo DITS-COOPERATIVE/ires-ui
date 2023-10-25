@@ -53,3 +53,7 @@
 .customer{
     cursor: pointer;
 }
+.category>p {
+margin-bottom: 0;
+cursor: pointer;
+}
