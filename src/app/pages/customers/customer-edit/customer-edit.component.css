@@ -1,0 +1,101 @@
+*{
+    font-family: 'Trebuchet MS';
+}
+.col-lg-9 {
+    background-color: white;
+}
+.rounded-circle{
+    width : 80px;
+    height: 80px;
+}
+input,select {
+    border: none;
+    border-radius: 0;
+    width: 20rem;
+}
+input,select:focus{
+    outline: none;
+}
+.form-control.editable:hover {
+    border-bottom: solid 1px black;
+  }
+  .form-control.editable:focus {
+    border-bottom: solid 1px black;
+  }
+.form-control:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  .custom-icon {
+    background:rgba(0,0,0,0.4);
+    -webkit-border-radius:1100%;
+    -moz-border-radius:100%;
+    -o-border-radius:100%;
+    border-radius:100%;
+    border:6px solid #ccc;
+    color:black;
+      box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46);
+    text-align:center;
+    display:table-cell;
+    vertical-align:middle;
+    width:60px;
+    height:60px;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    -o-transition:.5s;
+    transition:.5s;
+  }
+  .custom-icon:hover {
+    background:rgba(0,0,0,0.6);
+  }
+  .fix-editor {
+    display:none;
+  }
+  .icon-wrapper {
+    display:inline-block;
+  }
+  .icon-wrapper{
+    float: right;
+  }
+  #full_name{
+    width: 90%;
+    text-align: center;
+    font-size: xx-large;
+  }
+  .hidden {
+    display: none;
+  }
+  .button-group {
+    text-align: center;
+    width: 90%;
+  }
+  .btn-primary{
+    background-color: #12243b;
+    color: white;
+    border: none;
+  }
+  .editable-image-container {
+    width: 150px; /* Set the desired width */
+    height: 150px; /* Set the desired height */
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .editable-image-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .edit-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 20px;
+    color: #007bff;
+    cursor: pointer;
+    background: white;
+    padding: 5px;
+    border-radius: 50%;
+  }
+  
+  

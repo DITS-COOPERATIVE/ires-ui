@@ -1,0 +1,221 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div class="prodImage position-relative">
+        <img [src]="product?.image" class="img-thumbnail" alt="Product Image" />
+      </div>
+      <div class="prodKitting">
+        <h3 class="text-center mt-2">Product Kit</h3>
+        <div class="col-md-12 border p-2 d-flex align-items-center">
+          <div class="col-md-6">
+            <img
+              src="https://images.unsplash.com/photo-1592743263126-bb241ee76ac7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhdXRpZnVsJTIwc2NlbmVyeXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
+              class="rounded-circle"
+              width="50"
+              height="50"
+            />
+          </div>
+          <div class="col-md-6 text-center">
+            <span>John Doe</span>
+          </div>
+        </div>
+        <br />
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <div
+        class="alert alert-success text-center"
+        role="alert"
+        *ngIf="successMessage"
+      >
+        {{ successMessage }}
+      </div>
+      <div class="container p-3">
+        <form>
+          <div class="icon-wrapper">
+            <button class="edit-button" (click)="toggleEditButton()">
+              <i
+                class="fa edit-icon"
+                [ngClass]="{ active: isEditing }"
+                (click)="edit()"
+              ></i>
+            </button>
+          </div>
+          <div class="form-group text-center">
+            <input
+              type="text"
+              name="product-name"
+              id="product-name"
+              class="form-control display-1"
+              placeholder=""
+              [value]="product?.name"
+              [readonly]="isReadOnly"
+              [class.editable]="isEditable"
+              [(ngModel)]="product.name"
+              #productNameInput
+            />
+            <span *ngIf="errors.name" class="text-danger">{{
+              errors.name
+            }}</span>
+          </div>
+          <div class="row mt-5 ps-3">
+            <div class="col-md-6">
+              <div class="form-group mb-4">
+                <label for="product-code" class="mb-2">Product Code</label>
+                <input
+                  type="text"
+                  name="product-code"
+                  id="product-code"
+                  class="form-control"
+                  placeholder=""
+                  [value]="product?.code"
+                  [readonly]="isReadOnly"
+                  [class.editable]="isEditable"
+                  [(ngModel)]="product.code"
+                  #productCodeInput
+                />
+                <span *ngIf="errors.code" class="text-danger">{{
+                  errors.code
+                }}</span>
+              </div>
+              <div class="form-group mb-4">
+                <label for="product-price" class="mb-2">Product Price</label>
+                <input
+                  type="text"
+                  name="product-price"
+                  id="product-price"
+                  class="form-control"
+                  placeholder=""
+                  [value]="product?.price"
+                  [readonly]="isReadOnly"
+                  [class.editable]="isEditable"
+                  [(ngModel)]="product.price"
+                  #productPriceInput
+                />
+                <span *ngIf="errors.price" class="text-danger">{{
+                  errors.price
+                }}</span>
+              </div>
+              <div class="form-group">
+                <label for="product-points" class="mb-2">Category</label>
+                <select
+                  name="product-points"
+                  id="product-points"
+                  class="form-control"
+                  [disabled]="isReadOnly"
+                  [class.editable]="isEditable"
+                >
+                  <option value="10">Software</option>
+                  <option value="20">Hardware</option>
+                  <option value="30">Services</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-4">
+                <label for="product-model" class="mb-2">Product Model</label>
+                <input
+                  type="text"
+                  name="product-model"
+                  id="product-model"
+                  class="form-control"
+                  placeholder=""
+                  [value]="product?.model"
+                  [class.editable]="isEditable"
+                  [readonly]="isReadOnly"
+                  [(ngModel)]="product.model"
+                  #productModelInput
+                />
+                <span *ngIf="errors.model" class="text-danger">{{
+                  errors.model
+                }}</span>
+              </div>
+              <div class="form-group mb-4">
+                <label for="product-quantity" class="mb-2">Product Quantity</label>
+                <input
+                  type="text"
+                  name="product-quantity"
+                  id="product-quantity"
+                  class="form-control"
+                  placeholder=""
+                  [value]="product?.quantity"
+                  [class.editable]="isEditable"
+                  [readonly]="isReadOnly"
+                  [(ngModel)]="product.quantity"
+                  #productQuantityInput
+                />
+                <span *ngIf="errors.quantity" class="text-danger">{{
+                  errors.quantity
+                }}</span>
+              </div>
+              <div class="form-group mb-4">
+                <label for="product-points" class="mb-2">Product Points</label>
+                <input
+                  type="text"
+                  name="product-points"
+                  id="product-points"
+                  class="form-control"
+                  placeholder=""
+                  [value]="product?.points"
+                  [readonly]="isReadOnly"
+                  [class.editable]="isEditable"
+                  [(ngModel)]="product.points"
+                  #productPointsInput
+                />
+                <span *ngIf="errors.points" class="text-danger">{{
+                  errors.points
+                }}</span>
+              </div>
+            </div>
+            <div class="button-group" [class.hidden]="!isEditable">
+              <button class="btn btn-primary" (click)="updateProduct()">
+                Save
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <!-- <div class="mb-3">
+                        <h5>Name : {{product.name}}</h5>
+                        <label for="name">Name</label>
+                        <input type="text" [(ngModel)]="product.name" name="name" id="name" class="form-control">
+                        <span *ngIf="errors.name" class="text-danger" >{{errors.name}}</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="name">Code</label>
+                        <input type="text" [(ngModel)]="product.code" name="code" id="code" class="form-control">
+                        <span *ngIf="errors.code" class="text-danger" >{{errors.code}}</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="name">Model</label>
+                        <input type="text" [(ngModel)]="product.model" name="model" id="model" class="form-control">
+                        <span *ngIf="errors.model" class="text-danger" >{{errors.model}}</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="name">Price</label>
+                        <input type="text" [(ngModel)]="product.price" name="price" id="price" class="form-control">    
+                        <span *ngIf="errors.price" class="text-danger" >{{errors.price}}</span> 
+                    </div>                 
+                        
+                    <div class="mb-3">
+                        <label for="name">Quantity</label>
+                        <input type="text" [(ngModel)]="product.quantity" name="quantity" id="quantity" class="form-control">
+                        <span *ngIf="errors.quantity" class="text-danger" >{{errors.quantity}}</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="name">Points</label>
+                        <input type="text" [(ngModel)]="product.points" name="points" id="points" class="form-control">
+                        <span *ngIf="errors.points" class="text-danger" >{{errors.points}}</span>
+                    </div> -->
+      </div>
+    </div>
+  </div>
+</div>

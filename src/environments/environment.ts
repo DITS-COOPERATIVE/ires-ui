@@ -1,4 +1,4 @@
 export const environment = {
-    production: false,
-    domain:'http://dev.dits.com/',
+  production: false,
+  domain: 'http://127.0.0.1:8000/api/',
 };
