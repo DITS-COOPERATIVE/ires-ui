@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 
 export interface ProductsResponse {
   id: number;
+  image: string;
   name: string;
   code: string;
   model: string;
@@ -15,12 +16,10 @@ export interface ProductsResponse {
 }
 
 export interface ProductsResponseType {
-  status: number;
-  result: ProductsResponse[];
+  res: ProductsResponse[];
 }
 
 export interface ProductEditResponse {
-  status: number;
   result: ProductsResponse[];
 }
 
@@ -28,7 +27,7 @@ export interface ProductEditResponse {
   providedIn: 'root',
 })
 export class ProductsService {
-  private endpoint = 'products';
+  private endpoint = 'products/';
   private domain: string | undefined;
 
   constructor(private httpClient: HttpClient) {
@@ -36,13 +35,13 @@ export class ProductsService {
   }
 
   getProductsLists() {
-    return this.httpClient.get<ProductsResponseType>(
+    return this.httpClient.get<ProductsResponse[]>(
       `${this.domain}${this.endpoint}`
     );
   }
 
   getProduct(productId: number) {
-    return this.httpClient.get<ProductEditResponse>(
+    return this.httpClient.get<ProductsResponse>(
       `${this.domain}${this.endpoint}${productId}`
     );
   }

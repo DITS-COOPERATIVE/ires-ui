@@ -10,7 +10,6 @@ import { ProductCreateComponent } from './pages/products/product-create/product-
 import { FormsModule } from '@angular/forms';
 import { LoaderComponent } from './partials/loader/loader.component';
 import { ProductPageComponent } from './pages/products/product-page/product-page.component';
-import { ProductEditComponent } from './pages/products/product-edit/product-edit.component';
 import { CustomerPageComponent } from './pages/customers/customer-page/customer-page.component';
 import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
 import { CustomerEditComponent } from './pages/customers/customer-edit/customer-edit.component';
@@ -35,6 +34,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ProductViewComponent } from './pages/products/product-view/product-view.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ProductCreateComponent,
     LoaderComponent,
     ProductPageComponent,
-    ProductEditComponent,
     CustomerPageComponent,
     CustomerCreateComponent,
     CustomerEditComponent,
@@ -58,6 +57,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     StocksComponent,
     HeaderComponent,
     LoginComponent,
+    ProductViewComponent,
   ],
   imports: [
     BrowserModule,

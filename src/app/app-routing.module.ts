@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ProductCreateComponent } from './pages/products/product-create/product-create.component';
 import { ProductPageComponent } from './pages/products/product-page/product-page.component';
-import { ProductEditComponent } from './pages/products/product-edit/product-edit.component';
 import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
 import { CustomerPageComponent } from './pages/customers/customer-page/customer-page.component';
 import { CustomerEditComponent } from './pages/customers/customer-edit/customer-edit.component';
@@ -15,6 +14,7 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { StocksComponent } from './pages/stocks/stocks.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ProductViewComponent } from './pages/products/product-view/product-view.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, title: 'login' },
 
   { path: 'products', component: ProductPageComponent, title: 'Products' },
+
   {
     path: 'products/create',
     component: ProductCreateComponent,
@@ -29,8 +30,13 @@ const routes: Routes = [
   },
   {
     path: 'products/:id/edit',
-    component: ProductEditComponent,
+    component: ProductViewComponent,
     title: 'Edit Product',
+  },
+  {
+    path: 'products/:id',
+    component: ProductViewComponent,
+    title: 'View Product',
   },
 
   { path: 'customers', component: CustomerPageComponent, title: 'Customers' },
