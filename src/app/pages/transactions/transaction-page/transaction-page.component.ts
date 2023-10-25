@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TransactionsResponse, TransactionsService } from 'src/app/services/transactions/transactions.service';
+import { ProductsService , ProductsResponse } from 'src/app/services/products/products.service';
 
 @Component({
   selector: 'app-transaction-page',
@@ -8,16 +9,39 @@ import { TransactionsResponse, TransactionsService } from 'src/app/services/tran
 })
 export class TransactionPageComponent {
 
-  constructor(private transactionsService: TransactionsService) { }
-
+  constructor(private transactionsService: TransactionsService,private productsService: ProductsService) { }
+  image!: string
+  name!: string
+  code!: string
+  model!: string
+  price!: string
+  quantity!: string
+  points!: string
   errors: any = [];
   transactions!: TransactionsResponse [];
   isLoading: boolean = false;
-
+  products!: ProductsResponse [];
   ngOnInit() {
 
     this.getTransactionsLists();
+    this.getProductsLists();
 
+  }
+
+  getProductsLists(){
+    
+    try {
+      this.isLoading = true;
+
+      this.productsService.getProductsLists().subscribe((res) =>{
+        this.products = res;
+        this.isLoading = false
+  
+      })
+    } catch (error) {
+      this.errors = error
+    };
+    
   }
 
   getTransactionsLists(){

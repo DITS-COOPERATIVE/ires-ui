@@ -1,0 +1,55 @@
+
+.card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1rem; /* Default font size */
+  }
+
+  .card-title.long-title {
+    font-size: 0.8rem; /* Smaller font size for long titles */
+  }
+  .card {
+    width: 11em;
+    border-radius: 0;
+    height: 13rem;
+  }
+.card-img-top {
+    padding: 5px;
+  }
+  .card-body {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .productsContainer{
+    overflow-y: scroll;
+    height: 30rem;
+  }
+  .productsContainer::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+.col-3{
+    padding: 0;
+}
+.col-3>.btn {
+    width: 100%;
+    border-radius: 0;
+    border: solid 1px;
+}
+.calculator-key{
+    padding: 12px;
+}
+.order-empty>.fas{
+    font-size: 60px;
+}
+.order-empty{
+    justify-content: center;
+    height: 13rem;
+}
+.paymentContainer{
+    background-color: #12243B;
+    cursor: pointer;
+}
+.customer{
+    cursor: pointer;
+}
