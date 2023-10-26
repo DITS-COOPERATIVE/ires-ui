@@ -57,3 +57,47 @@
 margin-bottom: 0;
 cursor: pointer;
 }
+
+.btn:hover {
+  background-color: #cfcece; 
+  ;
+}
+
+.btn:active {
+  background-color: #12243b; 
+  color: white !important;
+}
+
+.click-hover:hover {
+  background-color: #0e1a29; 
+  ;
+}
+.btn-click{
+  background-color: aquamarine;
+  
+}
+.btn-click:hover {
+  background-color: #12243b; 
+  color: white !important;
+}
+.btn-hover:hover{
+  background-color: #cfcece; 
+}
+.btn-hover:active{
+  background-color: #12243b; 
+  color: white !important;
+  border: 2px solid white;
+}
+
+.smaller-font {
+  font-size: 12px; /* Set the smaller font size */
+}
+
+.smaller-image {
+  max-width: 100%; /* Adjust the image size to fit the container */
+  height: auto; /* Maintain aspect ratio */
+}
+.smaller-card {
+  max-width: 110px; /* Set the maximum width of the card */
+  max-height: 110px;
+}
