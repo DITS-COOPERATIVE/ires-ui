@@ -118,7 +118,6 @@ export class CustomerPageComponent {
     const reader = new FileReader();
 
     reader.onloadend = () => {
-      // Set the uploaded image data to the uploadedImage variable
       this.uploadedImage = reader.result;
     };
 

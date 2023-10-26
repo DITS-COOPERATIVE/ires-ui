@@ -27,7 +27,7 @@ export interface ProductEditResponse {
   providedIn: 'root',
 })
 export class ProductsService {
-  private endpoint = 'products';
+  private endpoint = 'products/';
   private domain: string | undefined;
 
   constructor(private httpClient: HttpClient) {
@@ -35,7 +35,7 @@ export class ProductsService {
   }
 
   getProductsLists() {
-    return this.httpClient.get<ProductsResponseType>(
+    return this.httpClient.get<ProductsResponse[]>(
       `${this.domain}${this.endpoint}`
     );
   }
