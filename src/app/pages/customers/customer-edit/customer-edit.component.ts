@@ -61,7 +61,6 @@ export class CustomerEditComponent {
       gender: this.customer.gender,
       email: this.customer.email,
       mobile_no: this.customer.mobile_no,
-      // birth_date: this.customer.birth_date,
       address: this.customer.address,
       privilege: this.customer.privilege,
       points: this.customer.points,
