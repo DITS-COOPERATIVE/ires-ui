@@ -3,11 +3,11 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 1rem; /* Default font size */
+    font-size: 1rem; 
   }
 
   .card-title.long-title {
-    font-size: 0.8rem; /* Smaller font size for long titles */
+    font-size: 0.8rem; 
   }
   .card {
     width: 11em;
@@ -26,7 +26,7 @@
     height: 30rem;
   }
   .productsContainer::-webkit-scrollbar { 
-    display: none;  /* Safari and Chrome */
+    display: none; 
 }
 .col-3{
     padding: 0;
@@ -90,14 +90,23 @@ cursor: pointer;
 }
 
 .smaller-font {
-  font-size: 12px; /* Set the smaller font size */
+  font-size: 12px; 
 }
 
 .smaller-image {
-  max-width: 100%; /* Adjust the image size to fit the container */
-  height: auto; /* Maintain aspect ratio */
+  max-width: 100%;
+  height: auto;
 }
 .smaller-card {
-  max-width: 110px; /* Set the maximum width of the card */
+  max-width: 110px; 
   max-height: 110px;
+}
+
+.btn-delete:hover{
+  background-color: #cfcece; 
+}
+.btn-delete:active{
+  background-color: #12243b; 
+  color: red !important;
+  border: 2px solid white;
 }

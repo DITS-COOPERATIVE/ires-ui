@@ -2,61 +2,68 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
-export interface ProductsResponse  {
-  "id": number,
-  "image":string,
-  "name": string,
-  "code": string,
-  "model": string,
-  "price": number,
-  "quantity": number,
-  "points": number,
-  "created_at": string,
-  "updated_at": string,
+export interface ProductsResponse {
+  id: number;
+  image: string;
+  name: string;
+  code: string;
+  model: string;
+  price: string;
+  quantity: number;
+  points: number;
+  discount: number;
+  created_at: string;
+  updated_at: string;
+  products: Product[];
+}
+export interface Product {
+  price: number;
+  name: string;
 }
 
 export interface ProductsResponseType {
-  res: ProductsResponse []
+  res: ProductsResponse[];
 }
 
-  export interface ProductEditResponse {
-  result: ProductsResponse[]
+export interface ProductEditResponse {
+  result: ProductsResponse[];
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductsService {
-  private endpoint = "products/";
+  private endpoint = 'products/';
   private domain: string | undefined;
 
-
-  constructor( private httpClient: HttpClient ) {
+  constructor(private httpClient: HttpClient) {
     this.domain = environment.domain;
   }
 
   getProductsLists() {
-
-    return  this.httpClient.get<ProductsResponse[]>(`${this.domain}${this.endpoint}`);
+    return this.httpClient.get<ProductsResponse[]>(
+      `${this.domain}${this.endpoint}`
+    );
   }
 
-  getProduct(productId : number) {
-
-    return  this.httpClient.get<ProductsResponse>(`${this.domain}${this.endpoint}${productId}`);
+  getProduct(productId: number) {
+    return this.httpClient.get<ProductsResponse>(
+      `${this.domain}${this.endpoint}${productId}`
+    );
   }
 
-  saveProduct(inputData: object){
-    
-    return  this.httpClient.post(`${this.domain}${this.endpoint}`, inputData);
+  saveProduct(inputData: object) {
+    return this.httpClient.post(`${this.domain}${this.endpoint}`, inputData);
   }
 
   updateProduct(inputData: object, productId: number) {
-
-    return  this.httpClient.put(`${this.domain}${this.endpoint}${productId}`, inputData);
+    return this.httpClient.put(
+      `${this.domain}${this.endpoint}${productId}`,
+      inputData
+    );
   }
 
   destroyProduct(productId: number) {
-
-    return  this.httpClient.delete(`${this.domain}${this.endpoint}${productId}`);
+    return this.httpClient.delete(`${this.domain}${this.endpoint}${productId}`);
   }
 }

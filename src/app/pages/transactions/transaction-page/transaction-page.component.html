@@ -6,11 +6,28 @@
   <div class="row">
     <div class="col-lg-4 border mt-1">
       <div class="row">
-        <div
-          class="order-empty text-center d-flex flex-column align-items-center"
-        >
-          <i class="fas fa-shopping-cart"></i><br />
-          <h5>This order is empty</h5>
+        <div class="order-empty">
+          <span
+            class="order-empty text-center d-flex flex-column align-items-center"
+            *ngIf="isCartEmpty"
+          >
+            <i class="fas fa-shopping-cart"></i><br />This order is empty</span
+          >
+        </div>
+
+        <div class="cart-items">
+          <ul>
+            <li *ngFor="let cartItem of cart">
+              {{ cartItem.name }} {{ cartItem.quantity }} Units at ₱{{
+                (+cartItem.price * cartItem.quantity).toFixed(2)
+              }}
+              <span *ngIf="cartItem.discount > 0">
+                with a {{ cartItem.discount }}% discount</span
+              >
+            </li>
+          </ul>
+
+          <span *ngIf="!isCartEmpty">Total: ₱{{ getTotalPrice() }}</span>
         </div>
       </div>
       <div class="row">
@@ -46,44 +63,104 @@
             <div class="buttons">
               <div class="row">
                 <div class="col-3">
-                  <button class="btn calculator-key">1</button>
+                  <button
+                    class="btn calculator-key"
+                    (click)="updateSelectedProduct('1')"
+                  >
+                    1
+                  </button>
                 </div>
                 <div class="col-3">
-                  <button class="btn calculator-key">2</button>
+                  <button
+                    class="btn calculator-key"
+                    (click)="updateSelectedProduct('2')"
+                  >
+                    2
+                  </button>
                 </div>
                 <div class="col-3">
-                  <button class="btn calculator-key">3</button>
+                  <button
+                    class="btn calculator-key"
+                    (click)="updateSelectedProduct('3')"
+                  >
+                    3
+                  </button>
                 </div>
                 <div class="col-3">
-                  <button class="btn btn-click calculator-key">QTY</button>
+                  <button
+                    class="btn btn-click calculator-key"
+                    (click)="changeSelectedMode('quantity')"
+                  >
+                    QTY
+                  </button>
                 </div>
               </div>
               <div class="row">
                 <div class="col-3">
-                  <button class="btn calculator-key">4</button>
+                  <button
+                    class="btn calculator-key"
+                    (click)="updateSelectedProduct('4')"
+                  >
+                    4
+                  </button>
                 </div>
                 <div class="col-3">
-                  <button class="btn calculator-key">5</button>
+                  <button
+                    class="btn calculator-key"
+                    (click)="updateSelectedProduct('5')"
+                  >
+                    5
+                  </button>
                 </div>
                 <div class="col-3">
-                  <button class="btn calculator-key">6</button>
+                  <button
+                    class="btn calculator-key"
+                    (click)="updateSelectedProduct('6')"
+                  >
+                    6
+                  </button>
                 </div>
                 <div class="col-3">
-                  <button class="btn calculator-key">Disc</button>
+                  <button
+                    class="btn calculator-key"
+                    (click)="changeSelectedMode('discount')"
+                  >
+                    %Disc
+                  </button>
                 </div>
               </div>
               <div class="row">
                 <div class="col-3">
-                  <button class="btn calculator-key">7</button>
+                  <button
+                    class="btn calculator-key"
+                    (click)="updateSelectedProduct('7')"
+                  >
+                    7
+                  </button>
                 </div>
                 <div class="col-3">
-                  <button class="btn calculator-key">8</button>
+                  <button
+                    class="btn calculator-key"
+                    (click)="updateSelectedProduct('8')"
+                  >
+                    8
+                  </button>
                 </div>
                 <div class="col-3">
-                  <button class="btn calculator-key">9</button>
+                  <button
+                    class="btn calculator-key"
+                    (click)="updateSelectedProduct('9')"
+                  >
+                    9
+                  </button>
                 </div>
                 <div class="col-3">
-                  <button class="btn calculator-key">Price</button>
+                  <button
+                    class="btn calculator-key"
+                    (click)="changeSelectedMode('price')"
+                  >
+                    Price
+                  </button>
                 </div>
               </div>
               <div class="row">
@@ -91,13 +168,26 @@
                   <button class="btn calculator-key">+/-</button>
                 </div>
                 <div class="col-3">
-                  <button class="btn calculator-key">0</button>
+                  <button
+                    class="btn calculator-key"
+                    (click)="updateSelectedProduct('0')"
+                  >
+                    0
+                  </button>
                 </div>
                 <div class="col-3">
-                  <button class="btn calculator-key">.</button>
+                  <button
+                    class="btn calculator-key"
+                    (click)="updateSelectedProduct('.')"
+                  >
+                    .
+                  </button>
                 </div>
                 <div class="col-3">
-                  <button class="btn calculator-key">
+                  <button
+                    class="btn btn-delete calculator-key"
+                    (click)="undo()"
+                  >
                     <i class="fa fa-times"></i>
                   </button>
                 </div>
@@ -125,6 +215,7 @@
         <div
           class="card m-1 col-md-2 smaller-card"
           *ngFor="let item of products; let i = index"
+          (click)="addToCart(item)"
         >
           <img
             [src]="item.image"
