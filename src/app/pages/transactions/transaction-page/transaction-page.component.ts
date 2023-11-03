@@ -7,6 +7,7 @@ import {
   ProductsService,
   ProductsResponse,
 } from 'src/app/services/products/products.service';
+import { HistoryEntry } from 'src/app/shared/history-entry.model';
 
 @Component({
   selector: 'app-transaction-page',
@@ -32,6 +33,8 @@ export class TransactionPageComponent {
   cart: ProductsResponse[] = [];
   isCartEmpty: boolean = true;
   cartHistory: ProductsResponse[][] = [];
+  history: HistoryEntry[] = [];
+  propertyChangesHistory: HistoryEntry[] = [];
 
   selectedProduct: ProductsResponse | null = null;
   selectedProductIndex: number = -1;
@@ -66,10 +69,12 @@ export class TransactionPageComponent {
     const existingItem = this.cart.find((cartItem) => cartItem.id === item.id);
 
     if (existingItem) {
+      this.history.push(new HistoryEntry('update', existingItem));
       this.selectedProduct = existingItem;
       this.selectedProductIndex = this.cart.indexOf(existingItem);
       existingItem.quantity++;
     } else {
+      this.history.push(new HistoryEntry('add', item));
       const newItem: ProductsResponse = { ...item, quantity: 1, discount: 0 };
       this.cart.push(newItem);
       this.selectedProduct = newItem;
@@ -80,7 +85,7 @@ export class TransactionPageComponent {
 
   getTotalPrice(): number {
     return this.cart.reduce((total, item) => {
-      const itemPrice = parseFloat(item.price) || 0; // Parse price as a float
+      const itemPrice = parseFloat(item.price) || 0;
       return total + itemPrice * item.quantity;
     }, 0);
   }
@@ -94,7 +99,6 @@ export class TransactionPageComponent {
       this.isLoading = true;
 
       this.transactionsService.getTransactionsList().subscribe((res: any) => {
-        console.log(res.result);
         this.transactions = res.result;
         this.isLoading = false;
       });
@@ -138,21 +142,51 @@ export class TransactionPageComponent {
       }
 
       if (this.selectedMode === 'quantity') {
+        this.history.push(
+          new HistoryEntry(
+            'update',
+            this.selectedProduct,
+            'quantity',
+            this.selectedProduct.quantity
+          )
+        );
+
         const newQuantity = parseInt(this.inputValue || '0');
         if (newQuantity >= 0) {
-          this.selectedProduct.quantity = newQuantity;
+          this.selectedProduct.quantity =
+            newQuantity * (this.selectedProduct.quantity < 0 ? -1 : 1);
         }
       } else if (this.selectedMode === 'price') {
+        this.history.push(
+          new HistoryEntry(
+            'update',
+            this.selectedProduct,
+            'price',
+            this.selectedProduct.price
+          )
+        );
         const newPrice = parseFloat(this.inputValue || '0');
         if (newPrice >= 0) {
-          this.selectedProduct.price = newPrice.toFixed(2);
+          const currentPrice = parseFloat(this.selectedProduct.price || '0');
+          this.selectedProduct.price = (
+            newPrice * (currentPrice < 0 ? -1 : 1)
+          ).toFixed(2);
         }
       } else if (this.selectedMode === 'discount') {
+        this.history.push(
+          new HistoryEntry(
+            'update',
+            this.selectedProduct,
+            'discount',
+            this.selectedProduct.discount
+          )
+        );
         const newDiscount = parseFloat(this.inputValue || '0');
         if (!isNaN(newDiscount) && newDiscount >= 0 && newDiscount <= 100) {
           const discountedPrice =
             parseFloat(this.selectedProduct.price) * (1 - newDiscount / 100);
-          this.selectedProduct.discount = newDiscount;
+          this.selectedProduct.discount =
+            newDiscount * (this.selectedProduct.discount < 0 ? -1 : 1);
           this.selectedProduct.price = discountedPrice.toFixed(2);
         }
       }
@@ -172,10 +206,58 @@ export class TransactionPageComponent {
   }
 
   undo() {
-    if (this.cartHistory.length > 0) {
-      // Pop the last cart state from history
-      this.cart = this.cartHistory.pop() || [];
-      this.isCartEmpty = this.cart.length === 0;
+    if (this.history.length > 0) {
+      const lastAction = this.history.pop();
+
+      if (lastAction && this.selectedProduct) {
+        switch (lastAction.action) {
+          case 'update':
+            switch (lastAction.property) {
+              case 'quantity':
+                this.selectedProduct.quantity = lastAction.originalValue;
+
+                break;
+              case 'price':
+                this.selectedProduct.price = lastAction.originalValue;
+                break;
+              case 'discount':
+                this.selectedProduct.discount = lastAction.originalValue;
+                break;
+            }
+            break;
+          case 'add':
+            this.cart = this.cart.filter(
+              (item) => item.id !== lastAction.product.id
+            );
+            break;
+          case 'delete':
+            this.cart.push(lastAction.product);
+            break;
+        }
+      }
+    }
+
+    this.isCartEmpty = this.cart.length === 0;
+  }
+
+  toggleSign() {
+    if (this.selectedProduct) {
+      switch (this.selectedMode) {
+        case 'quantity':
+          this.selectedProduct.quantity *= -1;
+          break;
+        case 'price':
+          this.selectedProduct.price = (
+            parseFloat(this.selectedProduct.price) * -1
+          ).toFixed(2);
+          break;
+        case 'discount':
+          this.selectedProduct.discount *= -1;
+          break;
+        default:
+          console.error('Unsupported mode:', this.selectedMode);
+          break;
+      }
     }
   }
 }

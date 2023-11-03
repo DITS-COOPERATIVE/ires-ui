@@ -15,12 +15,15 @@
           >
         </div>
 
-        <div class="cart-items">
+        <div class="cart-items" style="max-height: 100px; overflow-y: auto">
           <ul>
             <li *ngFor="let cartItem of cart">
               {{ cartItem.name }} {{ cartItem.quantity }} Units at ₱{{
-                (+cartItem.price * cartItem.quantity).toFixed(2)
+                cartItem.price
               }}
+              <span
+                >₱{{ (+cartItem.price * cartItem.quantity).toFixed(2) }}</span
+              >
               <span *ngIf="cartItem.discount > 0">
                 with a {{ cartItem.discount }}% discount</span
               >
@@ -165,8 +168,11 @@
               </div>
               <div class="row">
                 <div class="col-3">
-                  <button class="btn calculator-key">+/-</button>
+                  <button class="btn calculator-key" (click)="toggleSign()">
+                    +/-
+                  </button>
                 </div>
+
                 <div class="col-3">
                   <button
                     class="btn calculator-key"
