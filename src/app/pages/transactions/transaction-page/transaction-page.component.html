@@ -17,10 +17,19 @@
 
         <div class="cart-items" style="max-height: 100px; overflow-y: auto">
           <ul>
-            <li *ngFor="let cartItem of cart">
+            <li
+              *ngFor="let cartItem of cart; let i = index"
+              [ngClass]="{
+                'selected-item': i === selectedProductIndex,
+                'newly-added': isNewlyAdded(cartItem),
+                modified: isModified(cartItem)
+              }"
+              (click)="selectCartItem(cartItem, i)"
+            >
               {{ cartItem.name }} {{ cartItem.quantity }} Units at ₱{{
                 cartItem.price
-              }}
+              }}/Units
+
               <span
                 >₱{{ (+cartItem.price * cartItem.quantity).toFixed(2) }}</span
               >

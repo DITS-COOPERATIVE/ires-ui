@@ -35,14 +35,15 @@ export class TransactionPageComponent {
   cartHistory: ProductsResponse[][] = [];
   history: HistoryEntry[] = [];
   propertyChangesHistory: HistoryEntry[] = [];
-
+  selectedCartItem: ProductsResponse | null = null;
   selectedProduct: ProductsResponse | null = null;
   selectedProductIndex: number = -1;
   discountValue: number = 0;
   inputValue: string = '';
   disCount: number = 0;
   showDiscountInput: boolean = false;
-
+  selectedCartItemIndex: number = -1;
+  highlightClass: string = '';
   selectedMode: 'quantity' | 'price' | 'discount' = 'quantity';
 
   ngOnInit() {
@@ -81,6 +82,33 @@ export class TransactionPageComponent {
       this.selectedProductIndex = this.cart.indexOf(newItem);
     }
     this.isCartEmpty = this.cart.length === 0;
+  }
+
+  selectCartItem(cartItem: ProductsResponse, index: number) {
+    this.selectedProduct = cartItem;
+    this.selectedProductIndex = index;
+    this.highlightClass = this.calculateHighlightClass(cartItem);
+  }
+
+  calculateHighlightClass(cartItem: ProductsResponse): string {
+    if (this.isNewlyAdded(cartItem)) {
+      return 'newly-added';
+    } else if (this.isModified(cartItem)) {
+      return 'modified';
+    }
+    return '';
+  }
+
+  isNewlyAdded(cartItem: ProductsResponse): boolean {
+    const ONE_HOUR_IN_MS = 60 * 60 * 1000;
+    const createdTimestamp = Date.parse(cartItem.created_at);
+    const currentTimestamp = Date.now();
+    const oneHourAgoTimestamp = currentTimestamp - ONE_HOUR_IN_MS;
+    return createdTimestamp >= oneHourAgoTimestamp;
+  }
+
+  isModified(cartItem: ProductsResponse): boolean {
+    return cartItem.updated_at >= cartItem.created_at;
   }
 
   getTotalPrice(): number {
