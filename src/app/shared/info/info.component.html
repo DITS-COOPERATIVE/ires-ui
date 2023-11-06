@@ -1,0 +1,16 @@
+<h2
+  mat-dialog-title
+  class="modal-title text-center d-flex flex-column align-items-center"
+>
+  Product Information
+</h2>
+<div mat-dialog-content style="width: 450px; height: 400px">
+  <li *ngFor="let cartItem of cart; let i = index">
+    {{ cartItem.name }} <br />{{ cartItem.quantity }} Units at ₱{{
+      cartItem.price
+    }}
+  </li>
+</div>
+<div mat-dialog-actions class="modal-actions">
+  <button class="btn btn-secondary" (click)="onCancel()">Disscard</button>
+</div>

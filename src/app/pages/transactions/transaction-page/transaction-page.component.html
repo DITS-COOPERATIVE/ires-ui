@@ -45,17 +45,27 @@
       </div>
       <div class="row">
         <div class="d-flex justify-content-around p-0">
-          <button class="btn btn-hover w-100 rounded-0 border-dark p-0">
+          <button
+            class="btn btn-hover w-100 rounded-0 border-dark p-0"
+            type="submit"
+            (click)="openDialog()"
+          >
             <i class="fas fa-sticky-note"></i> Customer Note
           </button>
-          <button class="btn btn-hover w-50 rounded-0 border-dark">
+          <button
+            class="btn btn-hover w-50 rounded-0 border-dark"
+            (click)="openInfoDialog()"
+          >
             <i class="fas fa-info-circle"></i> Info
           </button>
           <button class="btn btn-hover w-50 rounded-0 border-dark">
             <i class="fas fa-undo"></i> Refund
           </button>
         </div>
-        <button class="btn btn-hover rounded-0 border-dark">
+        <button
+          class="btn btn-hover rounded-0 border-dark"
+          (click)="openNoteDialog()"
+        >
           <i class="fas fa-tag"></i> Internal Note
         </button>
 
@@ -63,12 +73,23 @@
           <div
             class="row h-25 text-center bg-lightd-flex align-items-center customer btn-hover"
           >
-            <h6>Customer</h6>
+            <a
+              routerLink="/transaction-customer/"
+              style="text-decoration: none; color: inherit"
+            >
+              <h6>Customer</h6></a
+            >
           </div>
           <div
             class="row text-center text-white paymentContainer h-75 d-flex align-items-center click-hover"
           >
-            <i class="fas fa-chevron-circle-right fs-2"><h6>Payment</h6></i>
+            <a
+              routerLink="/transactions/create"
+              style="text-decoration: none; color: inherit"
+              ><i class="fas fa-chevron-circle-right fs-2"
+                ><h6>Payment</h6></i
+              ></a
+            >
           </div>
         </div>
         <div class="col-md-7">

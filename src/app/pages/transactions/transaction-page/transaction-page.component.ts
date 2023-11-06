@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {
   TransactionsResponse,
   TransactionsService,
@@ -8,6 +9,9 @@ import {
   ProductsResponse,
 } from 'src/app/services/products/products.service';
 import { HistoryEntry } from 'src/app/shared/history-entry.model';
+import { CustomerNoteComponent } from 'src/app/shared/customer-note/customer-note.component';
+import { CustomerInternalNoteComponent } from 'src/app/shared/customer-internal-note/customer-internal-note.component';
+import { InfoComponent } from 'src/app/shared/info/info.component';
 
 @Component({
   selector: 'app-transaction-page',
@@ -17,7 +21,8 @@ import { HistoryEntry } from 'src/app/shared/history-entry.model';
 export class TransactionPageComponent {
   constructor(
     private transactionsService: TransactionsService,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    public dialog: MatDialog
   ) {}
   image!: string;
   name!: string;
@@ -287,5 +292,21 @@ export class TransactionPageComponent {
           break;
       }
     }
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(CustomerNoteComponent, {
+      width: '500px',
+    });
+  }
+  openNoteDialog(): void {
+    const dialogRef = this.dialog.open(CustomerInternalNoteComponent, {
+      width: '500px',
+    });
+  }
+  openInfoDialog(): void {
+    const dialogRef = this.dialog.open(InfoComponent, {
+      width: '500px',
+    });
   }
 }
