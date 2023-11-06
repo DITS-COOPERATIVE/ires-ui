@@ -115,4 +115,7 @@ cursor: pointer;
   background-color: #12243b;
   color: white !important;
 }
+ul {
+  list-style-type: none;
+}
 

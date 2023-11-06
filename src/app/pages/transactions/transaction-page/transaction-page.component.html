@@ -26,9 +26,10 @@
               }"
               (click)="selectCartItem(cartItem, i)"
             >
-              {{ cartItem.name }} {{ cartItem.quantity }} Units at ₱{{
+              {{ cartItem.name }} <br />{{ cartItem.quantity }} Units at ₱{{
                 cartItem.price
-              }}/Units
+              }}/Units &nbsp; &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
               <span
                 >₱{{ (+cartItem.price * cartItem.quantity).toFixed(2) }}</span
