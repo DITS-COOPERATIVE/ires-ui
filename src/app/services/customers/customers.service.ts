@@ -8,7 +8,6 @@ export interface CustomersResponse {
   gender: string;
   email: string;
   mobile_no: string;
-  birth_date: string;
   address: string;
   privilege: string;
   points: number;
