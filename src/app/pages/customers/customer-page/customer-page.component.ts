@@ -32,7 +32,6 @@ export class CustomerPageComponent {
   gender!: string;
   email!: string;
   mobile_no!: string;
-  birth_date!: string;
   address!: string;
   privilege!: string;
   points: number = 0;
@@ -70,7 +69,6 @@ export class CustomerPageComponent {
       gender: this.gender,
       email: this.email,
       mobile_no: this.mobile_no,
-      birth_date: this.birth_date,
       address: this.address,
       privilege: this.privilege,
       points: this.points,
@@ -82,7 +80,6 @@ export class CustomerPageComponent {
         this.full_name = '';
         this.gender = '';
         this.email = '';
-        this.birth_date = '';
         this.address = '';
         this.privilege = '';
         this.points = 0;
