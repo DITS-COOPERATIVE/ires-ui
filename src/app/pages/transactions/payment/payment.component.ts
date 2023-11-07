@@ -43,7 +43,8 @@ export class PaymentComponent {
   }
 
   calculateChange(): number {
-    return this.amountPaid - this.totalAmount;
+    const change = this.amountPaid - this.totalAmount;
+  return change < 0 ? 0 : change;
   }
   onPaymentSuccess(): void {
     this.paymentSuccess = true;
