@@ -12,6 +12,7 @@ import { HistoryEntry } from 'src/app/shared/history-entry.model';
 import { CustomerNoteComponent } from 'src/app/shared/customer-note/customer-note.component';
 import { CustomerInternalNoteComponent } from 'src/app/shared/customer-internal-note/customer-internal-note.component';
 import { InfoComponent } from 'src/app/shared/info/info.component';
+import { PaymentComponent } from '../payment/payment.component';
 
 @Component({
   selector: 'app-transaction-page',
@@ -131,8 +132,8 @@ export class TransactionPageComponent {
     try {
       this.isLoading = true;
 
-      this.transactionsService.getTransactionsList().subscribe((res: any) => {
-        this.transactions = res.result;
+      this.transactionsService.getTransactionsList().subscribe((res) => {
+        this.transactions = res;
         this.isLoading = false;
       });
     } catch (error) {
@@ -307,6 +308,18 @@ export class TransactionPageComponent {
   openInfoDialog(): void {
     const dialogRef = this.dialog.open(InfoComponent, {
       width: '500px',
+    });
+  }
+  openPaymentDialog(): void {
+    const totalPrice = this.getTotalPrice();
+    const dialogRef = this.dialog.open(PaymentComponent, {
+      width: '500px',
+      disableClose: true,
+      data: { totalAmount: totalPrice },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
     });
   }
 }

@@ -35,6 +35,7 @@ import { CustomerInternalNoteComponent } from './shared/customer-internal-note/c
 import { InfoComponent } from './shared/info/info.component';
 import { TransactionCustomerComponent } from './pages/transactions/transaction-customer/transaction-customer.component';
 import { TransactionCustomerCreateComponent } from './pages/transactions/transaction-customer-create/transaction-customer-create.component';
+import { PaymentComponent } from './pages/transactions/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { TransactionCustomerCreateComponent } from './pages/transactions/transac
     InfoComponent,
     TransactionCustomerComponent,
     TransactionCustomerCreateComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,

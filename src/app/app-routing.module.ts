@@ -17,6 +17,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { ProductViewComponent } from './pages/products/product-view/product-view.component';
 import { TransactionCustomerComponent } from './pages/transactions/transaction-customer/transaction-customer.component';
 import { TransactionCustomerCreateComponent } from './pages/transactions/transaction-customer-create/transaction-customer-create.component';
+import { PaymentComponent } from './pages/transactions/payment/payment.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
@@ -72,13 +73,14 @@ const routes: Routes = [
   {
     path: 'transaction-customer',
     component: TransactionCustomerComponent,
-    title: 'Create New Transactions',
+    title: 'Create New Customer Transaction',
   },
   {
     path: 'transaction-customer-create',
     component: TransactionCustomerCreateComponent,
     title: 'Create New Customer',
   },
+  { path: 'payment', component: PaymentComponent, title: 'Payment' },
   { path: 'reports', component: ReportsComponent, title: 'Reports' },
   { path: 'stocks', component: StocksComponent, title: 'Stocks' },
   { path: 'settings', component: SettingsComponent, title: 'Settings' },
