@@ -23,4 +23,11 @@
     color: white;
     border: none;
   }
-  
+  @media print {
+    button{
+      display: none;
+    }
+    #content, #content *{
+      display: block;
+    }
+  }

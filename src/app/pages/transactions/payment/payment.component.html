@@ -5,7 +5,7 @@
   Payment
 </h2>
 
-<div>
+<div *ngIf="paymentMade" id="content">
   <img style="width: 10%" src="assets/dits.png" alt="" />
   <h4>DITS</h4>
   <p>Tel: 09365109923</p>
@@ -14,23 +14,21 @@
   <p>....................................................</p>
   <p>Served by: Aron Balais</p>
 
-  <div>
-    <div *ngFor="let cartItem of cart">
-      {{ cartItem.name }} <br />{{ cartItem.quantity }} ₱{{ cartItem.price }}
+  <div *ngFor="let cartItem of cart">
+    {{ cartItem.name }} <br />{{ cartItem.quantity }} ₱{{ cartItem.price }}
 
-      <span>Total ₱{{ (+cartItem.price * cartItem.quantity).toFixed(2) }}</span>
-      <span *ngIf="cartItem.discount > 0">
-        Discount:{{ cartItem.discount }}%</span
-      >
-      <h1>
-        Cash <span>{{ amountPaid }}</span>
-      </h1>
-      <span>Change ₱{{ calculateChange() }}</span>
-    </div>
+    <span>Total ₱{{ (+cartItem.price * cartItem.quantity).toFixed(2) }}</span>
+    <span *ngIf="cartItem.discount > 0">
+      Discount: {{ cartItem.discount }}%</span
+    >
+    <h5>
+      Cash <span>{{ amountPaid }}</span>
+    </h5>
+    <span>Change ₱{{ calculateChange() }}</span>
   </div>
 </div>
 
-<div mat-dialog-content>
+<div *ngIf="!paymentMade" mat-dialog-content>
   <mat-form-field appearance="outline" style="width: 450px; height: 150px">
     <p>Total Amount: ₱{{ totalAmount }}</p>
     <div class="form-group">

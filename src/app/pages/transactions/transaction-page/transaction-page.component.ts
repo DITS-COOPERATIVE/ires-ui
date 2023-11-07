@@ -61,8 +61,8 @@ export class TransactionPageComponent {
     try {
       this.isLoading = true;
 
-      this.productsService.getProductsLists().subscribe((res) => {
-        this.products = res;
+      this.productsService.getProductsLists().subscribe((result) => {
+        this.products = result;
         this.isLoading = false;
       });
     } catch (error) {
@@ -315,7 +315,8 @@ export class TransactionPageComponent {
     const dialogRef = this.dialog.open(PaymentComponent, {
       width: '500px',
       disableClose: true,
-      data: { totalAmount: totalPrice },
+      data: { totalAmount: totalPrice,
+        cart: this.cart },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

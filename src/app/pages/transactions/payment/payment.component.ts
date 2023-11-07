@@ -9,11 +9,6 @@ import { ProductsResponse } from 'src/app/services/products/products.service';
   styleUrls: ['./payment.component.css'],
 })
 export class PaymentComponent {
-  textInput: string = '';
-  totalAmount: number = 0;
-  receiptVisible: boolean = false;
-
-  paymentSuccess: boolean = false;
   constructor(
     public dialogRef: MatDialogRef<PaymentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -21,7 +16,14 @@ export class PaymentComponent {
     if (data && data.totalAmount) {
       this.totalAmount = data.totalAmount;
     }
+    if (data && data.cart) {
+      this.cart = data.cart;
+    }
   }
+  textInput: string = '';
+  totalAmount: number = 0;
+  receiptVisible: boolean = false;
+  paymentSuccess: boolean = false;
   customers!: CustomersResponse[];
   cart: ProductsResponse[] = [];
   full_name!: string;
@@ -31,28 +33,34 @@ export class PaymentComponent {
   model!: string;
   price!: string;
   quantity!: string;
+  paymentMade: boolean = false;
+  receiptContent: string = '';
 
   onCancel(): void {
     this.paymentSuccess = true;
+
     this.dialogRef.close();
   }
 
   onAdd(): void {
     this.paymentSuccess = true;
+    this.paymentMade = true;
     console.log('Printing...');
   }
 
   calculateChange(): number {
     const change = this.amountPaid - this.totalAmount;
-  return change < 0 ? 0 : change;
+    return change < 0 ? 0 : change;
   }
+
   onPaymentSuccess(): void {
     this.paymentSuccess = true;
   }
 
-  onPrintReceipt(): void {
-    this.printReceipt();
-  }
 
-  private printReceipt(): void {}
+
+  onPrintReceipt(): void {
+    window.print();
+    
+}
 }

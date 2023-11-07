@@ -7,14 +7,17 @@
     <div class="col-lg-4 border mt-1">
       <div class="row" style="height: 15rem; overflow-y: auto">
         <div class="order-empty" *ngIf="isCartEmpty">
-          <span class="order-empty text-center d-flex flex-column align-items-center">
+          <span
+            class="order-empty text-center d-flex flex-column align-items-center"
+          >
             <i class="fas fa-shopping-cart"></i><br />This order is empty
           </span>
         </div>
 
         <div class="cart-items mt-4">
           <ul *ngIf="!isCartEmpty">
-            <li class="p-2"
+            <li
+              class="p-2"
               *ngFor="let cartItem of cart; let i = index"
               [ngClass]="{
                 'selected-item': i === selectedProductIndex,
@@ -23,17 +26,24 @@
               }"
               (click)="selectCartItem(cartItem, i)"
             >
-              {{ cartItem.name }} <br />{{ cartItem.quantity }} Units at ₱{{ cartItem.price }}/Units 
-    
-              <span class="right">₱{{ (+cartItem.price * cartItem.quantity).toFixed(2) }}</span>
-    
-              <span *ngIf="cartItem.discount > 0">with a {{ cartItem.discount }}% discount</span>
+              {{ cartItem.name }} <br />{{ cartItem.quantity }} Units at ₱{{
+                cartItem.price
+              }}/Units
+
+              <span class="right"
+                >₱{{ (+cartItem.price * cartItem.quantity).toFixed(2) }}</span
+              >
+
+              <span *ngIf="cartItem.discount > 0"
+                >with a {{ cartItem.discount }}% discount</span
+              >
             </li>
           </ul>
-          <div class="total" >
-            <span *ngIf="!isCartEmpty">Total: <b>₱ {{ getTotalPrice() }}</b> </span>
+          <div class="total">
+            <span *ngIf="!isCartEmpty"
+              >Total: <b>₱ {{ getTotalPrice() }}</b>
+            </span>
           </div>
-          
         </div>
       </div>
       <div class="row">
@@ -75,7 +85,8 @@
           </div>
           <div
             class="row text-center text-white paymentContainer h-75 d-flex align-items-center click-hover"
-            (click)="openPaymentDialog()"
+            [class.disabled]="isCartEmpty"
+            (click)="!isCartEmpty && openPaymentDialog()"
           >
             <i class="fas fa-chevron-circle-right fs-2"><h6>Payment</h6></i>
           </div>
@@ -147,7 +158,7 @@
                     class="btn calculator-key ps-1"
                     (click)="changeSelectedMode('discount')"
                   >
-                     %Disc
+                    %Disc
                   </button>
                 </div>
               </div>
@@ -225,16 +236,15 @@
 
     <div class="col-lg-8 d-flex flex-wrap productsContainer">
       <div class="row d-flex w-100">
-        <div
-          class="col d-flex justify-content-around align-items-center category"
-        >
-          <i class="fa fa-home" role="img" aria-label="Home" title="Home"></i>
-          <p>Wifi</p>
-          <p>Software</p>
-          <p>Hardware</p>
-          <p>Tools</p>
+        <div>
+          <select name="" id="" class="border-0 mt-2">
+            <option value="all">All</option>
+            <option value="wifi">Wifi</option>
+            <option value="router">Router</option>
+            <option value="vendo">Vendo</option>
+            <option value="tools">Tools</option>
+          </select>
         </div>
-      </div>
 
       <div class="row just">
         <div
