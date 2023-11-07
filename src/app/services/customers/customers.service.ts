@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 
 export interface CustomersResponse {
   "id": number,
+  "full_name": string,
   "first_name": string,
   "last_name": string,
   "gender": string,
