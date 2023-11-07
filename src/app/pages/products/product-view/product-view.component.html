@@ -6,7 +6,18 @@
   <div class="row">
     <div class="col">
       <div class="prodImage position-relative">
-        <img [src]="product?.image" class="img-thumbnail" alt="Product Image" />
+        <label for="image-upload" class="image-label">
+          <img [src]="product?.image" class="img-thumbnail" alt="Product Image" />
+          <span class="choose-file" *ngIf="isEditing"></span>
+        </label>
+        <input
+          id="image-upload"
+          type="file"
+          accept="image/*"
+          [disabled]="!isEditing"
+          style="display: none"
+          (change)="handleImageUpload($event)"
+        />
       </div>
       <div class="prodKitting">
         <h3 class="text-center mt-2">Product Kit</h3>
@@ -71,12 +82,11 @@
                   name="product-code"
                   id="product-code"
                   class="form-control"
-                  placeholder=""
+                  placeholder=""  
                   [value]="product?.code"
-                  [readonly]="isReadOnly"
-                  [class.editable]="isEditable"
                   [(ngModel)]="product.code"
                   #productCodeInput
+                  readonly
                 />
                 <span *ngIf="errors.code" class="text-danger">{{
                   errors.code
@@ -135,7 +145,9 @@
                 }}</span>
               </div>
               <div class="form-group mb-4">
-                <label for="product-quantity" class="mb-2">Product Quantity</label>
+                <label for="product-quantity" class="mb-2"
+                  >Product Quantity</label
+                >
                 <input
                   type="text"
                   name="product-quantity"
@@ -143,10 +155,9 @@
                   class="form-control"
                   placeholder=""
                   [value]="product?.quantity"
-                  [class.editable]="isEditable"
-                  [readonly]="isReadOnly"
                   [(ngModel)]="product.quantity"
                   #productQuantityInput
+                  readonly
                 />
                 <span *ngIf="errors.quantity" class="text-danger">{{
                   errors.quantity
@@ -178,43 +189,6 @@
             </div>
           </div>
         </form>
-
-        <!-- <div class="mb-3">
-                        <h5>Name : {{product.name}}</h5>
-                        <label for="name">Name</label>
-                        <input type="text" [(ngModel)]="product.name" name="name" id="name" class="form-control">
-                        <span *ngIf="errors.name" class="text-danger" >{{errors.name}}</span>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="name">Code</label>
-                        <input type="text" [(ngModel)]="product.code" name="code" id="code" class="form-control">
-                        <span *ngIf="errors.code" class="text-danger" >{{errors.code}}</span>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="name">Model</label>
-                        <input type="text" [(ngModel)]="product.model" name="model" id="model" class="form-control">
-                        <span *ngIf="errors.model" class="text-danger" >{{errors.model}}</span>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="name">Price</label>
-                        <input type="text" [(ngModel)]="product.price" name="price" id="price" class="form-control">    
-                        <span *ngIf="errors.price" class="text-danger" >{{errors.price}}</span> 
-                    </div>                 
-                        
-                    <div class="mb-3">
-                        <label for="name">Quantity</label>
-                        <input type="text" [(ngModel)]="product.quantity" name="quantity" id="quantity" class="form-control">
-                        <span *ngIf="errors.quantity" class="text-danger" >{{errors.quantity}}</span>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="name">Points</label>
-                        <input type="text" [(ngModel)]="product.points" name="points" id="points" class="form-control">
-                        <span *ngIf="errors.points" class="text-danger" >{{errors.points}}</span>
-                    </div> -->
       </div>
     </div>
   </div>
