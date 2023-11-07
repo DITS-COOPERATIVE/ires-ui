@@ -19,6 +19,10 @@ export interface ProductsResponse {
 export interface Product {
   price: number;
   name: string;
+  quantity: number;
+  points: number;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface ProductsResponseType {

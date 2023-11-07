@@ -25,6 +25,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, title: 'login' },
 
   { path: 'products', component: ProductPageComponent, title: 'Products' },
+
   {
     path: 'products/create',
     component: ProductCreateComponent,
@@ -41,6 +42,7 @@ const routes: Routes = [
     title: 'View Product',
   },
 
+
   { path: 'customers', component: CustomerPageComponent, title: 'Customers' },
   {
     path: 'customers/create',
@@ -48,7 +50,10 @@ const routes: Routes = [
     title: 'Create New Customer',
   },
   {
-    path: 'customers/:id/edit',
+
+ 
+
+    path: 'customers/:id',
     component: CustomerEditComponent,
     title: 'Edit Customer',
   },
@@ -81,6 +86,8 @@ const routes: Routes = [
     title: 'Create New Customer',
   },
   { path: 'payment', component: PaymentComponent, title: 'Payment' },
+
+
   { path: 'reports', component: ReportsComponent, title: 'Reports' },
   { path: 'stocks', component: StocksComponent, title: 'Stocks' },
   { path: 'settings', component: SettingsComponent, title: 'Settings' },
