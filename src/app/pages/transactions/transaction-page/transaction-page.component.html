@@ -5,19 +5,16 @@
 <div class="container" style="overflow: hidden">
   <div class="row">
     <div class="col-lg-4 border mt-1">
-      <div class="row">
-        <div class="order-empty">
-          <span
-            class="order-empty text-center d-flex flex-column align-items-center"
-            *ngIf="isCartEmpty"
-          >
-            <i class="fas fa-shopping-cart"></i><br />This order is empty</span
-          >
+      <div class="row" style="height: 15rem; overflow-y: auto">
+        <div class="order-empty" *ngIf="isCartEmpty">
+          <span class="order-empty text-center d-flex flex-column align-items-center">
+            <i class="fas fa-shopping-cart"></i><br />This order is empty
+          </span>
         </div>
 
-        <div class="cart-items" style="max-height: 100px; overflow-y: auto">
-          <ul>
-            <li
+        <div class="cart-items mt-4">
+          <ul *ngIf="!isCartEmpty">
+            <li class="p-2"
               *ngFor="let cartItem of cart; let i = index"
               [ngClass]="{
                 'selected-item': i === selectedProductIndex,
@@ -26,21 +23,17 @@
               }"
               (click)="selectCartItem(cartItem, i)"
             >
-              {{ cartItem.name }} <br />{{ cartItem.quantity }} Units at ₱{{
-                cartItem.price
-              }}/Units &nbsp; &nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-              <span
-                >₱{{ (+cartItem.price * cartItem.quantity).toFixed(2) }}</span
-              >
-              <span *ngIf="cartItem.discount > 0">
-                with a {{ cartItem.discount }}% discount</span
-              >
+              {{ cartItem.name }} <br />{{ cartItem.quantity }} Units at ₱{{ cartItem.price }}/Units 
+    
+              <span class="right">₱{{ (+cartItem.price * cartItem.quantity).toFixed(2) }}</span>
+    
+              <span *ngIf="cartItem.discount > 0">with a {{ cartItem.discount }}% discount</span>
             </li>
           </ul>
-
-          <span *ngIf="!isCartEmpty">Total: ₱{{ getTotalPrice() }}</span>
+          <div class="total" >
+            <span *ngIf="!isCartEmpty">Total: <b>₱ {{ getTotalPrice() }}</b> </span>
+          </div>
+          
         </div>
       </div>
       <div class="row">
@@ -156,10 +149,10 @@
                 </div>
                 <div class="col-3">
                   <button
-                    class="btn calculator-key"
+                    class="btn calculator-key ps-1"
                     (click)="changeSelectedMode('discount')"
                   >
-                    %Disc
+                     %Disc
                   </button>
                 </div>
               </div>
@@ -248,7 +241,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row just">
         <div
           class="card m-1 col-md-2 smaller-card"
           *ngFor="let item of products; let i = index"
