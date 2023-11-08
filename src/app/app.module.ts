@@ -24,11 +24,21 @@ import { StocksComponent } from './pages/stocks/stocks.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CdkMenuModule } from '@angular/cdk/menu';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './pages/login/login.component';
 import { MatSelectModule } from '@angular/material/select';
+import { LoginComponent } from './pages/login/login.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ResizableModule } from 'angular-resizable-element';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ProductViewComponent } from './pages/products/product-view/product-view.component';
 import { CustomerNoteComponent } from './shared/customer-note/customer-note.component';
 import { CustomerInternalNoteComponent } from './shared/customer-internal-note/customer-internal-note.component';
@@ -65,6 +75,7 @@ import { PaymentComponent } from './pages/transactions/payment/payment.component
     TransactionCustomerComponent,
     TransactionCustomerCreateComponent,
     PaymentComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -78,6 +89,14 @@ import { PaymentComponent } from './pages/transactions/payment/payment.component
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatTooltipModule,
+    ResizableModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatCheckboxModule,
+    MatIconModule,
+    DragDropModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

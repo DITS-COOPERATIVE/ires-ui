@@ -17,8 +17,12 @@ export interface ProductsResponse {
   products: Product[];
 }
 export interface Product {
-  price: number;
   name: string;
+  price: number;
+  quantity: number;
+  points: number;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface ProductsResponseType {

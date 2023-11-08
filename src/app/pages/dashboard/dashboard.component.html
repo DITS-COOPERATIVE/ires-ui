@@ -1,0 +1,98 @@
+<script
+  src="https://kit.fontawesome.com/a076d05399.js"
+  crossorigin="anonymous"
+></script>
+<div class="container-fluid d-flex">
+  <div class="col-lg-8 p-3" style="background-color: white; height: 30rem">
+    <h4>Recent Activity</h4>
+    <div class="row mt-3">
+      <div class="col totalCol text-white">
+        <p class="mt-2 ms-2">Total Orders</p>
+        <i class="fas fa-list-ul float-end"></i>
+      </div>
+      <div class="col totalCol mx-1 text-white">
+        <p class="mt-2 ms-2">Total Income</p>
+        <i class="far fa-money-bill-alt float-end"></i>
+      </div>
+      <div class="col totalCol me-1 text-white">
+        <p class="mt-2 ms-2">Total Customer</p>
+        <i class="fas fa-users float-end"></i>
+      </div>
+      <div class="col totalCol text-white">
+        <p class="mt-2 ms-2">Total Transaction</p>
+        <i class="fas fa-keyboard float-end"></i>
+      </div>
+    </div>
+    <div class="d-flex mt-5 mb-3 justify-content-between">
+      <div>
+        <select name="" id="" class="border-0 mt-2">
+          <option value="Today">Today</option>
+          <option value="Yesterday">Yesterday</option>
+          <option value="">Last 7 days</option>
+          <option value="">Last Month</option>
+        </select>
+      </div>
+      <div class="">
+        <a routerLink="" class="btn btn-primary btn-sm printButton"
+          ><i class="fas fa-print"></i> Print Report</a>
+      </div>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Customer</th>
+          <th scope="col">Product</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+       
+      </tbody>
+    </table>
+  </div>
+  <div class="col-lg-4 ms-2">
+    <div class="row d-flex border p-0 bg-white">
+      <h6 class="mt-2 ps-2"><b>Top Selling Products</b></h6>
+      <div class="row border mx-auto prod mb-4">
+        <div class="col-lg-4 p-1">
+          <img
+            class="img-fluid"
+            src="https://i.pinimg.com/originals/bd/9e/0c/bd9e0c78a5af0557f6bfd5698d0747a2.jpg"
+            alt=""
+          />
+        </div>
+        <div class="col TopProdInfo">
+          <p class="py-2"><b>Router</b> <b class="float-end">Sold: 56</b></p>
+          <small>In stock: </small><br />
+          <small>Price: </small><br />
+          <small>Points: </small>
+        </div>
+      </div>
+    </div>
+    <div class="row border bg-white mt-3">
+        <h6 class="mt-2 ps-2"><b>Top Customer</b></h6>
+        <div class="row border mx-auto prod mb-4">
+          <div class="col-lg-4 p-1">
+            <img
+              class="img-fluid"
+              src="assets/user-profile.jpg"
+              alt=""
+            />
+          </div>
+          <div class="col TopProdInfo">
+            <p class="py-2"><b>Jamaila M. Paquiabas</b></p>
+            <small>Points: </small><br />
+          </div>
+        </div>
+    </div>
+    <div class="row border bg-white mt-3">
+      <h6 class="mt-2 ps-2"><b>Upcoming Shipping</b></h6>
+      <div class="row border mx-auto prod mb-4">
+       
+        
+      </div>
+  </div>
+  </div>
+</div>

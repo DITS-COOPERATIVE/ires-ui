@@ -1,0 +1,18 @@
+.totalCol{
+    background-color: #12243B;
+    height: 5rem;
+    border-radius: 10px;
+} 
+.TopProdInfo>p{
+    margin-bottom: 0;
+    font-size:medium;
+}
+.col-lg-4>.row {
+    margin: auto;
+}
+.prod{
+    width: 90%;
+}
+.printButton{
+    background-color: #12243B;
+}

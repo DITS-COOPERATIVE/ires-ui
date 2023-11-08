@@ -1,84 +1,162 @@
-<div>
-    <div class="container mt-5">
-        <div class="card">
-            <div class="card-header">
-                <h4>Update Customer
-                    <a routerLink="/customers" class=" btn btn-danger float-end">Back</a>
-                </h4>
-            </div>
-            <div class="card-body">
-
-                <div *ngIf="isLoading; else elseForm">
-                    <app-loader :title = "loadingTitle" />
-                </div>
-
-                <ng-template #elseForm>
-                    <form (ngSubmit)="updateCustomer()">
-
-                        <div class="mb-3">
-                            <label for="first_name">First Name</label>
-                            <input type="text" [(ngModel)]="customer.first_name" name="first_name" id="first_name" class="form-control">
-                            <span *ngIf="errors.first_name" class="text-danger" >{{errors.first_name}}</span>
-                        </div>
-    
-                        <div class="mb-3">
-                            <label for="last_name">Last Name</label>
-                            <input type="text" [(ngModel)]="customer.last_name" name="last_name" id="last_name" class="form-control">
-                            <span *ngIf="errors.code" class="text-danger" >{{errors.code}}</span>
-                        </div>
-    
-                        <div class="mb-3">
-                            <label for="gender">Gender</label><br>
-                            <input type="radio" [(ngModel)]="customer.gender" name="gender" id="gender" value="male" >
-                              <label for="gender">Male</label><br>
-                            <input type="radio" [(ngModel)]="customer.gender" name="gender" id="gender" value="female" >
-                              <label for="gender">Female</label><br>
-                            <span *ngIf="errors.gender" class="text-danger" >{{errors.gender}}</span>
-                        </div>
-    
-                        <div class="mb-3">
-                            <label for="email">E-Mail</label>
-                            <input type="text" [(ngModel)]="customer.email" name="email" id="email" class="form-control">    
-                            <span *ngIf="errors.email" class="text-danger" >{{errors.email}}</span> 
-                        </div>                 
-                            
-                        <div class="mb-3">
-                            <label for="mobile_no">Mobile Number</label>
-                            <input type="text" [(ngModel)]="customer.mobile_no" name="mobile_no" id="mobile_no" class="form-control">
-                            <span *ngIf="errors.mobile_no" class="text-danger" >{{errors.mobile_no}}</span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="birth_date">Birth Date</label>
-                            <input type="date" [(ngModel)]="customer.birth_date" name="birth_date" id="birth_date" class="form-control">
-                            <span *ngIf="errors.birth_date" class="text-danger" >{{errors.birth_date}}</span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="address">Address</label>
-                            <input type="text" [(ngModel)]="customer.address" name="address" id="address" class="form-control">
-                            <span *ngIf="errors.address" class="text-danger" >{{errors.address}}</span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="privilege">Privilege</label><br>
-                            <input type="radio" [(ngModel)]="customer.privilege" name="privilege" id="privilege" value="none" >
-                              <label for="privilege">None</label><br>
-                            <input type="radio" [(ngModel)]="customer.privilege" name="privilege" id="privilege" value="senior" >
-                              <label for="privilege">Senior Citizen</label><br>
-                            <input type="radio" [(ngModel)]="customer.privilege" name="privilege" id="privilege" value="student" >
-                              <label for="privilege">Student</label><br>
-                            <input type="radio" [(ngModel)]="customer.privilege" name="privilege" id="privilege" value="pwd" >
-                              <label for="privilege">Person with Disability</label><br>
-                            <span *ngIf="errors.privilege" class="text-danger" >{{errors.privilege}}</span>
-                        </div>
-    
-                        <div class="mb-3">
-                            <button class="btn btn-primary" type="submit">Update</button>
-                        </div>
-                    </form>
-                </ng-template>
-            </div>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div class="prodImage" (click)="onImageClick()" *ngIf="isEditable">
+        <input
+          type="file"
+          id="imageInput"
+          accept="image/*"
+          (change)="onImageSelected($event)"
+          style="display: none"
+        />
+        <div class="editable-image-container">
+          <img
+            src="https://i.pinimg.com/originals/0d/dd/85/0ddd859c5208d3db2dae14f2dfbf00dd.png"
+            class="img-thumbnail"
+            alt="..."
+          />
+          <i class="fa fa-pencil edit-icon" (click)="openImageInput()"></i>
         </div>
+      </div>
+      <div class="prodImage" *ngIf="!isEditable">
+        <img
+          src="https://i.pinimg.com/originals/0d/dd/85/0ddd859c5208d3db2dae14f2dfbf00dd.png"
+          class="img-thumbnail"
+          alt="..."
+        />
+      </div>
     </div>
+    <div class="col-lg-9">
+      <div class="container p-3">
+        <form>
+          <div class="icon-wrapper">
+            <i class="fa fa-pencil custom-icon" (click)="edit()">
+              <span class="fix-editor">&nbsp;</span>
+            </i>
+          </div>
+          <div class="form-group text-center">
+            <input
+              type="text"
+              name="full_name"
+              id="full_name"
+              class="form-control display-1"
+              placeholder=""
+              [value]="customer?.full_name"
+              [readonly]="isReadOnly"
+              [class.editable]="isEditable"
+              [(ngModel)]="customer.full_name"
+              #customerNameInput
+            />
+          </div>
+          <div class="row mt-5 ps-3">
+            <div class="col-md-6">
+              <div class="form-group mb-4">
+                <label for="product-code" class="mb-2 font-weight-bold"
+                  >Email</label
+                >
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  class="form-control"
+                  placeholder=""
+                  [value]="customer?.email"
+                  [readonly]="isReadOnly"
+                  [class.editable]="isEditable"
+                  [(ngModel)]="customer.email"
+                  #customerEmailInput
+                />
+              </div>
+              <div class="form-group mb-4">
+                <label for="product-price" class="mb-2">Phone Number</label>
+                <input
+                  type="tel"
+                  name="mobile_no"
+                  id="mobile_no"
+                  class="form-control"
+                  [value]="customer?.mobile_no"
+                  [readonly]="isReadOnly"
+                  [class.editable]="isEditable"
+                  [(ngModel)]="customer.mobile_no"
+                  #customerPhoneNumberInput
+                />
+              </div>
+              <div class="form-group">
+                <label for="product-points" class="mb-2">Address</label>
+                <input
+                  type="text"
+                  name="address"
+                  id="address"
+                  class="form-control"
+                  placeholder=""
+                  [value]="customer?.address"
+                  [readonly]="isReadOnly"
+                  [class.editable]="isEditable"
+                  [(ngModel)]="customer.address"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-4">
+                <label for="product-model" class="mb-2">Gender</label>
+                <select
+                  name="gender"
+                  id="gender"
+                  [value]="customer?.gender"
+                  class="form-control"
+                  [disabled]="isReadOnly"
+                  [class.editable]="isEditable"
+                  [(ngModel)]="customer.gender"
+                >
+                  <option value="10">Male</option>
+                  <option value="20">Female</option>
+                </select>
+              </div>
+              <div class="form-group mb-4">
+                <label for="previlege" class="mb-2">Privilege</label>
+                <select
+                  name="previlege"
+                  id="previlege"
+                  class="form-control"
+                  [disabled]="isReadOnly"
+                  [class.editable]="isEditable"
+                  [(ngModel)]="privilege"
+                >
+                  <option value="none">None</option>
+                  <option value="student">Student</option>
+                  <option value="pdw">PDW</option>
+                  <option value="seniorCitizen">Senior Citizen</option>
+                </select>
+              </div>
+              <div class="form-group mb-4">
+                <label for="product-points" class="mb-2">Points</label>
+                <input
+                  type="text"
+                  name="points"
+                  id="points"
+                  class="form-control"
+                  placeholder=""
+                  [value]="customer?.points"
+                  [readonly]="isReadOnly"
+                  [class.editable]="isEditable"
+                  [(ngModel)]="customer.points"
+                  #customerPointsInput
+                />
+              </div>
+            </div>
+            <div class="button-group" [class.hidden]="!isEditable">
+              <button class="btn btn-primary" (click)="updateCustomer()">
+                Save
+              </button>
+              <button class="btn btn-secondary ms-3">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

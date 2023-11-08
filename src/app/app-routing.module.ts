@@ -48,7 +48,7 @@ const routes: Routes = [
     title: 'Create New Customer',
   },
   {
-    path: 'customers/:id/edit',
+    path: 'customers/:id',
     component: CustomerEditComponent,
     title: 'Edit Customer',
   },
@@ -81,6 +81,7 @@ const routes: Routes = [
     title: 'Create New Customer',
   },
   { path: 'payment', component: PaymentComponent, title: 'Payment' },
+
   { path: 'reports', component: ReportsComponent, title: 'Reports' },
   { path: 'stocks', component: StocksComponent, title: 'Stocks' },
   { path: 'settings', component: SettingsComponent, title: 'Settings' },
