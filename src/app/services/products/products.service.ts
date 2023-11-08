@@ -8,6 +8,16 @@ export interface ProductsResponse {
   name: string;
   code: string;
   model: string;
+  price: string;
+  quantity: number;
+  points: number;
+  discount: number;
+  created_at: string;
+  updated_at: string;
+  products: Product[];
+}
+export interface Product {
+  name: string;
   price: number;
   quantity: number;
   points: number;

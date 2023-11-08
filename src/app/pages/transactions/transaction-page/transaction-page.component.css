@@ -1,0 +1,136 @@
+.row::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
+}
+.card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1rem; 
+  }
+
+  .card-title.long-title {
+    font-size: 0.8rem; 
+  }
+  .card {
+    width: 11em;
+    border-radius: 0;
+    height: 13rem;
+  }
+.card-img-top {
+    padding: 5px;
+  }
+  .card-body {
+    padding: 0;
+    
+  }
+  .productsContainer{
+    overflow-y: scroll;
+    height: 30rem;
+  }
+  .productsContainer::-webkit-scrollbar { 
+    display: none; 
+}
+.col-3{
+    padding: 0;
+}
+.col-3>.btn {
+    width: 100%;
+    border-radius: 0;
+    border: solid 1px;
+}
+.calculator-key{
+    padding: 12px;
+}
+.order-empty>.fas{
+    font-size: 60px;
+}
+.order-empty{
+    justify-content: center;
+    height: 13rem;
+}
+.paymentContainer{
+    background-color: #12243B;
+    cursor: pointer;
+}
+.customer{
+    cursor: pointer;
+}
+.category>p {
+margin-bottom: 0;
+cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #cfcece; 
+  ;
+}
+
+.btn:active {
+  background-color: #12243b; 
+  color: white !important;
+}
+
+.click-hover:hover {
+  background-color: #0e1a29; 
+  ;
+}
+.btn-click{
+  background-color: aquamarine;
+  
+}
+.btn-click:hover {
+  background-color: #12243b; 
+  color: white !important;
+}
+.btn-hover:hover{
+  background-color: #cfcece; 
+}
+.btn-hover:active{
+  background-color: #12243b; 
+  color: white !important;
+  border: 2px solid white;
+}
+
+.smaller-font {
+  font-size: 12px; 
+}
+
+.smaller-image {
+  max-width: 100%;
+  height: auto;
+}
+.smaller-card {
+  max-width: 110px; 
+  max-height: 110px;
+}
+
+.btn-delete:hover{
+  background-color: #cfcece; 
+}
+.btn-delete:active{
+  background-color: #12243b; 
+  color: red !important;
+  border: 2px solid white;
+}
+
+.selected-item{
+  background-color: white;
+  color: black !important;
+}
+ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 50px;
+}
+.total {
+  position: absolute;
+  bottom: 0;
+  padding: 3px;
+  right: 0;
+}
+.cart-items{
+  position: relative;
+}
+.right{
+  float: right;
+}

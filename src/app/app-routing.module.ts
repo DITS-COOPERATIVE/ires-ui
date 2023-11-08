@@ -15,6 +15,9 @@ import { ReportsComponent } from './pages/reports/reports.component';
 import { StocksComponent } from './pages/stocks/stocks.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProductViewComponent } from './pages/products/product-view/product-view.component';
+import { TransactionCustomerComponent } from './pages/transactions/transaction-customer/transaction-customer.component';
+import { TransactionCustomerCreateComponent } from './pages/transactions/transaction-customer-create/transaction-customer-create.component';
+import { PaymentComponent } from './pages/transactions/payment/payment.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
@@ -22,11 +25,21 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, title: 'login' },
 
   { path: 'products', component: ProductPageComponent, title: 'Products' },
-
-  { path: 'products/create', component: ProductCreateComponent, title: 'Create New Product'},
-  { path: 'products/:id/edit', component: ProductViewComponent, title: 'Edit Product'},
-  { path: 'products/:id', component: ProductViewComponent, title: 'View Product'},
-
+  {
+    path: 'products/create',
+    component: ProductCreateComponent,
+    title: 'Create New Product',
+  },
+  {
+    path: 'products/:id/edit',
+    component: ProductViewComponent,
+    title: 'Edit Product',
+  },
+  {
+    path: 'products/:id',
+    component: ProductViewComponent,
+    title: 'View Product',
+  },
 
   { path: 'customers', component: CustomerPageComponent, title: 'Customers' },
   {
@@ -57,6 +70,18 @@ const routes: Routes = [
     component: TransactionCreateComponent,
     title: 'Create New Transactions',
   },
+  {
+    path: 'transaction-customer',
+    component: TransactionCustomerComponent,
+    title: 'Create New Customer Transaction',
+  },
+  {
+    path: 'transaction-customer-create',
+    component: TransactionCustomerCreateComponent,
+    title: 'Create New Customer',
+  },
+  { path: 'payment', component: PaymentComponent, title: 'Payment' },
+
   { path: 'reports', component: ReportsComponent, title: 'Reports' },
   { path: 'stocks', component: StocksComponent, title: 'Stocks' },
   { path: 'settings', component: SettingsComponent, title: 'Settings' },

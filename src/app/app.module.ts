@@ -24,10 +24,15 @@ import { StocksComponent } from './pages/stocks/stocks.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CdkMenuModule } from '@angular/cdk/menu';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { LoginComponent } from './pages/login/login.component';
+import { MatSelectModule } from '@angular/material/select';
 import { LoginComponent } from './pages/login/login.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ResizableModule } from 'angular-resizable-element';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -35,6 +40,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ProductViewComponent } from './pages/products/product-view/product-view.component';
+import { CustomerNoteComponent } from './shared/customer-note/customer-note.component';
+import { CustomerInternalNoteComponent } from './shared/customer-internal-note/customer-internal-note.component';
+import { InfoComponent } from './shared/info/info.component';
+import { TransactionCustomerComponent } from './pages/transactions/transaction-customer/transaction-customer.component';
+import { TransactionCustomerCreateComponent } from './pages/transactions/transaction-customer-create/transaction-customer-create.component';
+import { PaymentComponent } from './pages/transactions/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +69,13 @@ import { ProductViewComponent } from './pages/products/product-view/product-view
     HeaderComponent,
     LoginComponent,
     ProductViewComponent,
+    CustomerNoteComponent,
+    CustomerInternalNoteComponent,
+    InfoComponent,
+    TransactionCustomerComponent,
+    TransactionCustomerCreateComponent,
+    PaymentComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -67,9 +85,12 @@ import { ProductViewComponent } from './pages/products/product-view/product-view
     HttpClientModule,
     OverlayModule,
     CdkMenuModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
     MatTooltipModule,
     ResizableModule,
-    MatDialogModule,
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,

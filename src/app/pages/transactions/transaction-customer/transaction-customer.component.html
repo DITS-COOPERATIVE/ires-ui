@@ -1,0 +1,41 @@
+<div class="modal-actions">
+  <button style="position: relative; bottom: 100%" class="btn btn-primary">
+    <a
+      routerLink="/transaction-customer-create/"
+      style="text-decoration: none; color: inherit"
+    >
+      Create</a
+    >
+  </button>
+
+  <button class="btn btn-secondary">
+    <a routerLink="/transactions/" style="text-decoration: none; color: inherit"
+      >Disscard</a
+    >
+  </button>
+</div>
+
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Mobile Number</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of customers; let i = index">
+          <td>{{ item.full_name }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.mobile_no }}</td>
+          <td>{{ item.address }}</td>
+          <td>
+            <button class="btn btn-primary">Details</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
