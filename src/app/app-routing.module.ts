@@ -14,9 +14,6 @@ import { ReportsComponent } from './pages/reports/reports.component';
 import { StocksComponent } from './pages/stocks/stocks.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProductViewComponent } from './pages/products/product-view/product-view.component';
-import { TransactionCustomerComponent } from './pages/transactions/transaction-customer/transaction-customer.component';
-import { TransactionCustomerCreateComponent } from './pages/transactions/transaction-customer-create/transaction-customer-create.component';
-import { PaymentComponent } from './pages/transactions/payment/payment.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
@@ -24,22 +21,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, title: 'login' },
 
   { path: 'products', component: ProductPageComponent, title: 'Products' },
-  {
-    path: 'products/create',
-    component: ProductCreateComponent,
-    title: 'Create New Product',
-  },
-  {
-    path: 'products/:id/edit',
-    component: ProductViewComponent,
-    title: 'Edit Product',
-  },
-  {
-    path: 'products/:id',
-    component: ProductViewComponent,
-    title: 'View Product',
-  },
 
+  { path: 'products/create', component: ProductCreateComponent, title: 'Create New Product'},
+  { path: 'products/:id/edit', component: ProductViewComponent, title: 'Edit Product'},
+  { path: 'products/:id', component: ProductViewComponent, title: 'View Product'},
   { path: 'customers', component: CustomerPageComponent, title: 'Customers' },
   {
     path: 'customers/:id',

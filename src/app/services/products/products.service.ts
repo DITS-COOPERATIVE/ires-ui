@@ -2,42 +2,34 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
-export interface ProductsResponse {
-  id: number;
-  image: string;
-  name: string;
-  code: string;
-  model: string;
-  price: string;
-  quantity: number;
-  points: number;
-  discount: number;
-  created_at: string;
-  updated_at: string;
-  products: Product[];
-}
-export interface Product {
-  name: string;
-  price: number;
-  quantity: number;
-  points: number;
-  created_at: string;
-  updated_at: string;
+export interface ProductsResponse  {
+  "id": number,
+  "image":string,
+  "name": string,
+  "code": string,
+  "model": string,
+  "price": number,
+  "quantity": number,
+  "points": number,
+  "created_at": string,
+  "updated_at": string,
 }
 
 export interface ProductsResponseType {
-  res: ProductsResponse[];
+  res: ProductsResponse []
 }
 
-export interface ProductEditResponse {
-  result: ProductsResponse[];
+  export interface ProductEditResponse {
+  result: ProductsResponse[]
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
-  private endpoint = 'products/';
+
+  private endpoint = "products/";
+
   private domain: string | undefined;
 
   constructor(private httpClient: HttpClient) {
@@ -45,15 +37,14 @@ export class ProductsService {
   }
 
   getProductsLists() {
-    return this.httpClient.get<ProductsResponse[]>(
-      `${this.domain}${this.endpoint}`
-    );
+
+    return  this.httpClient.get<ProductsResponse[]>(`${this.domain}${this.endpoint}`);
   }
 
-  getProduct(productId: number) {
-    return this.httpClient.get<ProductsResponse>(
-      `${this.domain}${this.endpoint}${productId}`
-    );
+  getProduct(productId : number) {
+
+    return  this.httpClient.get<ProductsResponse>(`${this.domain}${this.endpoint}${productId}`);
+
   }
 
   saveProduct(inputData: object) {

@@ -10,14 +10,13 @@ export class ProductCreateComponent {
   successMessage: string | null = null;
 
   constructor(private productsService: ProductsService) {}
-  image!: string;
-  name!: string;
-  code!: string;
-  model!: string;
-  price!: string;
-  quantity!: string;
-  points!: string;
-
+  image!: string
+  name!: string
+  code!: string
+  model!: string
+  price!: string
+  quantity!: string
+  points!: string
   errors: any = [];
   isLoading: boolean = false;
   loadingTitle: string = 'Loading';
@@ -27,7 +26,7 @@ export class ProductCreateComponent {
     this.isLoading = true;
 
     var inputData = {
-      image: this.image,
+      image:this.image,
       name: this.name,
       code: this.code,
       model: this.model,
@@ -46,15 +45,15 @@ export class ProductCreateComponent {
         this.quantity = '';
         this.points = '';
         this.successMessage = 'Success! Product saved.';
-        setTimeout(() => (this.successMessage = null), 3000);
-        this.isLoading = false;
+        setTimeout(() => this.successMessage = null, 3000);
+        this.isLoading = false  
         this.errors = {};
       },
 
       error: (err: any) => {
         this.errors = err.error.errors;
-        this.isLoading = false;
-      },
-    });
+        this.isLoading = false  
+      }
+    })
   }
 }

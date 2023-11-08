@@ -7,10 +7,15 @@ import { environment } from 'src/environments/environment';
 })
 export class ApiService {
   private baseUrl: string;
-  private endpoint = 'users';
+  private endpoint = "users";
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient) { 
     this.baseUrl = `${environment.domain}`;
+  }
+
+  private getUrl(): string {
+    return `${this.baseUrl}/${this.endpoint}`;
+
   }
 
   private getUrl(): string {
