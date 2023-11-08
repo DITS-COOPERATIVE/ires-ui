@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms';
 import { LoaderComponent } from './partials/loader/loader.component';
 import { ProductPageComponent } from './pages/products/product-page/product-page.component';
 import { CustomerPageComponent } from './pages/customers/customer-page/customer-page.component';
-import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
 import { CustomerEditComponent } from './pages/customers/customer-edit/customer-edit.component';
 import { OrderCreateComponent } from './pages/orders/order-create/order-create.component';
 import { OrderPageComponent } from './pages/orders/order-page/order-page.component';
@@ -30,7 +29,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './pages/login/login.component';
 import { MatSelectModule } from '@angular/material/select';
-import { LoginComponent } from './pages/login/login.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ResizableModule } from 'angular-resizable-element';
 import { MatTableModule } from '@angular/material/table';
@@ -56,7 +54,6 @@ import { PaymentComponent } from './pages/transactions/payment/payment.component
     LoaderComponent,
     ProductPageComponent,
     CustomerPageComponent,
-    CustomerCreateComponent,
     CustomerEditComponent,
     OrderCreateComponent,
     OrderPageComponent,
