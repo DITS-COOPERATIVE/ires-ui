@@ -26,7 +26,6 @@ export class TransactionCustomerCreateComponent {
   errors: any = [];
   isLoading: boolean = false;
   uploadedImage: any;
-
   full_name!: string;
   gender!: string;
   email!: string;

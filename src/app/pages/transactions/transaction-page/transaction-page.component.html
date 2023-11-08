@@ -80,7 +80,8 @@
               routerLink="/transaction-customer/"
               style="text-decoration: none; color: inherit"
             >
-              <h6>Customer</h6></a
+            <h6 *ngIf="selectedCustomerName"><i class="fas fa-user"></i>  {{ selectedCustomerName }}</h6>
+            <h6 *ngIf="!selectedCustomerName"><i class="fas fa-user"></i> Customer</h6></a
             >
           </div>
           <div

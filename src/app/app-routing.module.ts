@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ProductCreateComponent } from './pages/products/product-create/product-create.component';
 import { ProductPageComponent } from './pages/products/product-page/product-page.component';
-import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
 import { CustomerPageComponent } from './pages/customers/customer-page/customer-page.component';
 import { CustomerEditComponent } from './pages/customers/customer-edit/customer-edit.component';
 import { OrderPageComponent } from './pages/orders/order-page/order-page.component';
@@ -42,11 +41,6 @@ const routes: Routes = [
   },
 
   { path: 'customers', component: CustomerPageComponent, title: 'Customers' },
-  {
-    path: 'customers/create',
-    component: CustomerCreateComponent,
-    title: 'Create New Customer',
-  },
   {
     path: 'customers/:id',
     component: CustomerEditComponent,

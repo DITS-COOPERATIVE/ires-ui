@@ -25,12 +25,10 @@ export interface TransactionsResponse {
         "updated_at": string,
           "customer": {
           "id": number,
-          "first_name": string,
-          "last_name": string,
+          "full_name": string,
           "gender": string,
           "email": string,
           "mobile_no": string,
-          "birth_date": string,
           "address": string,
           "privilege": string,
           "points": number,
@@ -53,8 +51,7 @@ export interface TransactionsResponse {
       }
 
 export interface TransactionsResponseType {
-  status: number,
-  result: TransactionsResponse []
+  res: TransactionsResponse []
 }
 
 export interface TransactionEditResponse {
@@ -75,7 +72,7 @@ export class TransactionsService {
 
   getTransactionsList() {
 
-    return  this.httpClient.get<TransactionsResponseType>(`${this.domain}${this.endpoint}`);
+    return  this.httpClient.get<TransactionsResponse[]>(`${this.domain}${this.endpoint}`);
   }
 
   getTransaction(transactionId : number) {

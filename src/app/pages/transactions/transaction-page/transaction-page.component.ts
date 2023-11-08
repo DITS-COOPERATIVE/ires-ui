@@ -13,6 +13,7 @@ import { CustomerNoteComponent } from 'src/app/shared/customer-note/customer-not
 import { CustomerInternalNoteComponent } from 'src/app/shared/customer-internal-note/customer-internal-note.component';
 import { InfoComponent } from 'src/app/shared/info/info.component';
 import { PaymentComponent } from '../payment/payment.component';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-transaction-page',
@@ -23,7 +24,8 @@ export class TransactionPageComponent {
   constructor(
     private transactionsService: TransactionsService,
     private productsService: ProductsService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private sharedService: SharedService
   ) {}
   image!: string;
   name!: string;
@@ -51,10 +53,14 @@ export class TransactionPageComponent {
   selectedCartItemIndex: number = -1;
   highlightClass: string = '';
   selectedMode: 'quantity' | 'price' | 'discount' = 'quantity';
+  selectedCustomerName: string = '';
 
   ngOnInit() {
     this.getTransactionsLists();
     this.getProductsLists();
+    this.sharedService.selectedCustomer$.subscribe(customerName => {
+      this.selectedCustomerName = customerName;
+    });
   }
 
   getProductsLists() {

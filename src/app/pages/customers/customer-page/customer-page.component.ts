@@ -24,7 +24,7 @@ export class CustomerPageComponent {
   selectedCategory: string = 'all';
   activeCardIndex: number | null = null;
 
-  errors: any = [];
+  errors: any = {};
   isLoading: boolean = false;
   uploadedImage: any;
 
@@ -76,8 +76,8 @@ export class CustomerPageComponent {
     };
 
     this.customersService.saveCustomer(inputData).subscribe({
-      next: (res: any) => {
-        this.full_name = '';
+      next: (res:any) => {
+        this.full_name ='' ;
         this.gender = '';
         this.email = '';
         this.address = '';
@@ -85,7 +85,7 @@ export class CustomerPageComponent {
         this.points = 0;
         this.image = '';
 
-        const newCustomer: CustomersResponse = res.customer;
+        const newCustomer: CustomersResponse = res;
         this.customers.push(newCustomer);
         this.isLoading = false;
         this.openDialog();
