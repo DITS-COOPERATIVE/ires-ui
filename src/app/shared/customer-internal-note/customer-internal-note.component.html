@@ -1,0 +1,17 @@
+<h2
+  mat-dialog-title
+  class="modal-title text-center d-flex flex-column align-items-center"
+>
+  Add Internal Note
+</h2>
+<div mat-dialog-content>
+  <mat-form-field appearance="outline" style="width: 450px; height: 150px">
+    <textarea matInput></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions class="modal-actions">
+  <button class="btn btn-primary" (click)="onAdd()">
+    <i class="fas fa-plus"></i> Add
+  </button>
+  <button class="btn btn-secondary" (click)="onCancel()">Discard</button>
+</div>

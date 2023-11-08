@@ -1,7 +1,60 @@
-<h1>Stocks works!</h1>
-<div class="card">
-    <div class="card-head">Lorem ipsum Orders</div>
-    <div class="card-body">
-     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sunt omnis error est eaque sequi autem inventore iure sapiente soluta earum similique, pariatur aspernatur? Dicta harum accusamus consequatur molestiae iusto?
-    </div>
-  </div>
+<h2>Stocks</h2>
+
+<button *ngIf="selection.hasValue()" (click)="deleteSelected()">
+  Delete Selected
+</button>
+
+<table
+  mat-table
+  [dataSource]="dataSource"
+  matSort
+  matSortActive="totalValue"
+  matSortDisableClear
+>
+  <!-- Select Column -->
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox
+        (change)="$event ? masterToggle() : null"
+        [checked]="isAllSelected()"
+      ></mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox
+        (click)="$event.stopPropagation()"
+        (change)="$event ? selection.toggle(row) : null"
+        [checked]="selection.isSelected(row)"
+      ></mat-checkbox>
+    </td>
+  </ng-container>
+
+  <!-- Rest of your columns -->
+  <ng-container
+    *ngFor="let column of displayedColumns; let i = index"
+    [matColumnDef]="column"
+  >
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="drop($event)"
+      mwlResizable
+      [enableGhostResize]="true"
+      [validateResize]="validateResize"
+      (resizeEnd)="onResizeEnd($event, column)"
+    >
+      {{ column }}
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<mat-paginator
+  [pageSizeOptions]="[5, 10, 25, 100]"
+  showFirstLastButtons
+></mat-paginator>

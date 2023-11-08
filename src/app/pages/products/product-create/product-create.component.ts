@@ -4,7 +4,7 @@ import { ProductsService } from '../../../services/products/products.service';
 @Component({
   selector: 'app-product-create',
   templateUrl: './product-create.component.html',
-  styleUrls: ['./product-create.component.css']
+  styleUrls: ['./product-create.component.css'],
 })
 export class ProductCreateComponent {
   successMessage: string | null = null;
@@ -17,13 +17,12 @@ export class ProductCreateComponent {
   price!: string
   quantity!: string
   points!: string
-
   errors: any = [];
-  isLoading: boolean = false
-  loadingTitle: string   = 'Loading'
+  isLoading: boolean = false;
+  loadingTitle: string = 'Loading';
 
-  saveProduct(){
-    this.loadingTitle = "Saving";
+  saveProduct() {
+    this.loadingTitle = 'Saving';
     this.isLoading = true;
 
     var inputData = {
@@ -34,10 +33,9 @@ export class ProductCreateComponent {
       price: this.price,
       quantity: this.quantity,
       points: this.points,
-    }
+    };
 
     this.productsService.saveProduct(inputData).subscribe({
-
       next: (res: any) => {
         this.image = '';
         this.name = '';
@@ -55,7 +53,6 @@ export class ProductCreateComponent {
       error: (err: any) => {
         this.errors = err.error.errors;
         this.isLoading = false  
-        //console.log(this.errors, 'error')
       }
     })
   }

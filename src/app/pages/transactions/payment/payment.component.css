@@ -1,0 +1,33 @@
+.modal-title {
+    color: #12243b;
+  }
+  
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px; /* Adjust the space between buttons */
+    margin-bottom: 10px; /* Add margin from the content */
+    padding-right: 5%;
+  }
+  
+  .btn-secondary {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+  }
+  
+  .btn-primary {
+    position: relative;
+    right: 60%;
+    background-color: #12243b;
+    color: white;
+    border: none;
+  }
+  @media print {
+    button{
+      display: none;
+    }
+    #content, #content *{
+      display: block;
+    }
+  }

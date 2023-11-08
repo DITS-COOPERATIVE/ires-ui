@@ -1,0 +1,37 @@
+ .btn-secondary {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+  }
+  
+  .btn-primary {
+    background-color: #12243b;
+    color: white;
+    border: none;
+  }
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding-right: 5%;
+  }
+  .details{
+    background-color: white;
+    font-weight:500;
+    font-size: 80%;
+    color: #12243b;
+    border-color: #b9bcc0;
+    border-radius: 0%;
+    padding: 5%;
+  }
+/* transaction-customer.component.css */
+.table-container table tbody tr:hover {
+  background-color: #e0e0e0; /* Change the background color on hover */
+}
+
+.table-container table tbody tr.selected {
+  background-color: #b3e0ff; /* Change the background color for selected row */
+}
+.selected:active{
+  background-color: #b3e0ff; 
+}

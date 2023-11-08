@@ -1,0 +1,51 @@
+<div class="modal-actions">
+  <button style="position: relative; bottom: 100%" class="btn btn-primary">
+    <a
+      routerLink="/transaction-customer-create/"
+      style="text-decoration: none; color: inherit"
+    >
+      Create</a
+    >
+  </button>
+
+  <button class="btn btn-secondary">
+    <a routerLink="/transactions/" style="text-decoration: none; color: inherit"
+      >Disscard</a
+    >
+  </button>
+</div>
+
+<div class="table-container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile Number</th>
+        <th>Address</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let customer of customers; let i = index">
+        <tr [class.selected]="isSelected(customer)" (click)="selectCustomer(customer)">
+          <td>{{ customer.full_name }}</td>
+          <td>{{ customer.email }}</td>
+          <td>{{ customer.mobile_no }}</td>
+          <td>{{ customer.address }}</td>
+          <td>
+            <button class="btn details">Details</button>
+          </td>
+        </tr>
+        <tr *ngIf="isSelected(customer)">
+          <td colspan="5">
+            <button class="btn btn-secondary" (click)="unselectCustomer()">Unselect</button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+
+
+

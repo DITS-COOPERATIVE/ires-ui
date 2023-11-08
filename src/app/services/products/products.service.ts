@@ -24,14 +24,15 @@ export interface ProductsResponseType {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductsService {
+
   private endpoint = "products/";
+
   private domain: string | undefined;
 
-
-  constructor( private httpClient: HttpClient ) {
+  constructor(private httpClient: HttpClient) {
     this.domain = environment.domain;
   }
 
@@ -43,20 +44,21 @@ export class ProductsService {
   getProduct(productId : number) {
 
     return  this.httpClient.get<ProductsResponse>(`${this.domain}${this.endpoint}${productId}`);
+
   }
 
-  saveProduct(inputData: object){
-    
-    return  this.httpClient.post(`${this.domain}${this.endpoint}`, inputData);
+  saveProduct(inputData: object) {
+    return this.httpClient.post(`${this.domain}${this.endpoint}`, inputData);
   }
 
   updateProduct(inputData: object, productId: number) {
-
-    return  this.httpClient.put(`${this.domain}${this.endpoint}${productId}`, inputData);
+    return this.httpClient.put(
+      `${this.domain}${this.endpoint}${productId}`,
+      inputData
+    );
   }
 
   destroyProduct(productId: number) {
-
-    return  this.httpClient.delete(`${this.domain}${this.endpoint}${productId}`);
+    return this.httpClient.delete(`${this.domain}${this.endpoint}${productId}`);
   }
 }
