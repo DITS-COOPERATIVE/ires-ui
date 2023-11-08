@@ -15,7 +15,6 @@
   </button>
 </div>
 
-<ng-template #listView>
   <div class="table-container">
     <table class="table">
       <thead>
@@ -23,10 +22,7 @@
           <th>Name</th>
           <th>Email</th>
           <th>Mobile Number</th>
-          <th>Gender</th>
-          <th>Privilege</th>
           <th>Address</th>
-          <th>Points</th>
         </tr>
       </thead>
       <tbody>
@@ -34,10 +30,7 @@
           <td>{{ item.full_name }}</td>
           <td>{{ item.email }}</td>
           <td>{{ item.mobile_no }}</td>
-          <td>{{ item.gender }}</td>
-          <td>{{ item.privilege }}</td>
           <td>{{ item.address }}</td>
-          <td>{{ item.points }}</td>
           <td>
             <button class="btn btn-primary">Details</button>
           </td>
@@ -45,4 +38,4 @@
       </tbody>
     </table>
   </div>
-</ng-template>
+

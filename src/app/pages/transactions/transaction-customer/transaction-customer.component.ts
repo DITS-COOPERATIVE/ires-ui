@@ -15,15 +15,10 @@ export class TransactionCustomerComponent {
   customers: CustomersResponse[] = [];
   isLoading: boolean = false;
   errors: any = [];
-
   full_name!: string;
-  gender!: string;
   email!: string;
   mobile_no!: string;
   address!: string;
-  privilege!: string;
-  points: number = 0;
-  image!: string;
   loadingTitle: string = 'Loading';
 
   ngOnInit() {
@@ -35,7 +30,7 @@ export class TransactionCustomerComponent {
       this.isLoading = true;
 
       this.customersService.getCustomersLists().subscribe((res) => {
-        // this.customers = res;
+        this.customers = res.result;
         this.isLoading = false;
       });
     } catch (error) {
