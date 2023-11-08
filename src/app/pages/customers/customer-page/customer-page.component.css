@@ -238,3 +238,17 @@ table {
     overflow-y: scroll;
    
   } */
+  .card-view {
+    position: relative;
+    left: 50%;
+  }
+  
+  .list-view {
+    position: relative;
+    left: 85%;
+  }
+.sort-by{
+  font-family: "Poppins-Bold", Helvetica;
+  font-size: 15px;
+  text-align: center;
+}
