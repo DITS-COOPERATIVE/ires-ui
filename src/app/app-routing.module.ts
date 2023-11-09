@@ -14,6 +14,9 @@ import { ReportsComponent } from './pages/reports/reports.component';
 import { StocksComponent } from './pages/stocks/stocks.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProductViewComponent } from './pages/products/product-view/product-view.component';
+import { PaymentComponent } from './pages/transactions/payment/payment.component';
+import { TransactionCustomerCreateComponent } from './pages/transactions/transaction-customer-create/transaction-customer-create.component';
+import { TransactionCustomerComponent } from './pages/transactions/transaction-customer/transaction-customer.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
