@@ -37,6 +37,16 @@
               <span *ngIf="cartItem.discount > 0"
                 >with a {{ cartItem.discount }}% discount</span
               >
+              <span *ngIf="cartItem.note"
+                ><br />
+                <i class="fas fa-sticky-note"></i>
+                {{ cartItem.note }}</span
+              >
+              <span *ngIf="cartItem.internalNote"
+              ><br />
+              <i class="fas fa-tag"></i>
+              {{ cartItem.internalNote }}</span
+            >
             </li>
           </ul>
           <div class="total">
@@ -51,7 +61,8 @@
           <button
             class="btn btn-hover w-100 rounded-0 border-dark p-0"
             type="submit"
-            (click)="openDialog()"
+            [disabled]="isCartEmpty"
+            (click)="!isCartEmpty && openDialog()"
           >
             <i class="fas fa-sticky-note"></i> Customer Note
           </button>
@@ -67,7 +78,8 @@
         </div>
         <button
           class="btn btn-hover rounded-0 border-dark"
-          (click)="openNoteDialog()"
+          [disabled]="isCartEmpty"
+          (click)="!isCartEmpty && openNoteDialog()"
         >
           <i class="fas fa-tag"></i> Internal Note
         </button>
@@ -80,8 +92,12 @@
               routerLink="/transaction-customer/"
               style="text-decoration: none; color: inherit"
             >
-            <h6 *ngIf="selectedCustomerName"><i class="fas fa-user"></i>  {{ selectedCustomerName }}</h6>
-            <h6 *ngIf="!selectedCustomerName"><i class="fas fa-user"></i> Customer</h6></a
+              <h6 *ngIf="selectedCustomerName">
+                <i class="fas fa-user"></i> {{ selectedCustomerName }}
+              </h6>
+              <h6 *ngIf="!selectedCustomerName">
+                <i class="fas fa-user"></i> Customer
+              </h6></a
             >
           </div>
           <div
@@ -247,27 +263,28 @@
           </select>
         </div>
 
-      <div class="row just">
-        <div
-          class="card m-1 col-md-2 smaller-card"
-          *ngFor="let item of products; let i = index"
-          (click)="addToCart(item)"
-        >
-          <img
-            [src]="item.image"
-            class="card-img-top smaller-image"
-            alt="Image Description"
-          />
+        <div class="row just">
           <div
-            class="card-body d-flex flex-column justify-content-start align-items-start"
+            class="card m-1 col-md-2 smaller-card"
+            *ngFor="let item of products; let i = index"
+            (click)="addToCart(item)"
           >
-            <h5
-              class="card-title smaller-font mb-0"
-              [ngClass]="{ 'long-title': item.name.length > 10 }"
+            <img
+              [src]="item.image"
+              class="card-img-top smaller-image"
+              alt="Image Description"
+            />
+            <div
+              class="card-body d-flex flex-column justify-content-start align-items-start"
             >
-              {{ item.name }}
-            </h5>
-            <p class="card-text smaller-font"><b>₱ </b>{{ item.price }}</p>
+              <h5
+                class="card-title smaller-font mb-0"
+                [ngClass]="{ 'long-title': item.name.length > 10 }"
+              >
+                {{ item.name }}
+              </h5>
+              <p class="card-text smaller-font"><b>₱ </b>{{ item.price }}</p>
+            </div>
           </div>
         </div>
       </div>

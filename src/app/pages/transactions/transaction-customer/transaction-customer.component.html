@@ -34,7 +34,7 @@
           <td>{{ customer.mobile_no }}</td>
           <td>{{ customer.address }}</td>
           <td>
-            <button class="btn details">Details</button>
+            <button class="btn details"><a routerLink="/customers/{{customer.id}}">Details</a></button>
           </td>
         </tr>
         <tr *ngIf="isSelected(customer)">
