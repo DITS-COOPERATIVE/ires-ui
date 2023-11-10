@@ -24,14 +24,14 @@
     border-radius: 0%;
     padding: 5%;
   }
-/* transaction-customer.component.css */
-.table-container table tbody tr:hover {
-  background-color: #e0e0e0; /* Change the background color on hover */
-}
 
-.table-container table tbody tr.selected {
-  background-color: #b3e0ff; /* Change the background color for selected row */
-}
-.selected:active{
-  background-color: #b3e0ff; 
+
+
+.unselect{
+  background-color: #12243b;
+  border-radius: 0%;
+    color: white;
+    border: none;
+    font-size: 12px;
+    padding:1px;
 }

@@ -29,7 +29,13 @@
     <tbody>
       <ng-container *ngFor="let customer of customers; let i = index">
         <tr [class.selected]="isSelected(customer)" (click)="selectCustomer(customer)">
-          <td>{{ customer.full_name }}</td>
+          <td>
+            <span>{{ customer.full_name }}</span>
+            <br>
+            <button class="btn btn-secondary unselect" *ngIf="isSelected(customer)" (click)="unselectCustomer($event)">
+              <i class="fa fa-times"></i> Unselect
+            </button>
+          </td>
           <td>{{ customer.email }}</td>
           <td>{{ customer.mobile_no }}</td>
           <td>{{ customer.address }}</td>
@@ -37,13 +43,7 @@
             <button class="btn details"><a routerLink="/customers/{{customer.id}}">Details</a></button>
           </td>
         </tr>
-        <tr *ngIf="isSelected(customer)">
-          <td colspan="5">
-            <button class="btn btn-secondary" (click)="unselectCustomer()">Unselect</button>
-          </td>
-        </tr>
       </ng-container>
-    </tbody>
   </table>
 </div>
 
