@@ -38,7 +38,7 @@ export class TransactionPageComponent {
   errors: any = [];
   transactions!: TransactionsResponse[];
   isLoading: boolean = false;
-  products!: ProductsResponse[];
+  products: ProductsResponse[] = [];
   cart: ProductsResponse[] = [];
   isCartEmpty: boolean = true;
   cartHistory: ProductsResponse[][] = [];
@@ -171,7 +171,6 @@ export class TransactionPageComponent {
 
   updateSelectedProduct(value: string) {
     this.cartHistory.push([...this.cart]);
-    
 
     if (this.selectedProduct) {
       if (this.selectedMode === 'quantity') {
@@ -230,7 +229,6 @@ export class TransactionPageComponent {
           this.selectedProduct.discount =
             newDiscount * (this.selectedProduct.discount < 0 ? -1 : 1);
           this.selectedProduct.price = discountedPrice.toFixed(2);
-        
         }
       }
     }
@@ -324,13 +322,12 @@ export class TransactionPageComponent {
       this.cart = updatedCart;
     });
   }
-
-  openInfoDialog(): void {
+  openInfoDialog(product: ProductsResponse): void {
     const dialogRef = this.dialog.open(InfoComponent, {
       width: '500px',
+      data: { product },
     });
   }
-
   openPaymentDialog(): void {
     const totalPrice = this.getTotalPrice();
     const dialogRef = this.dialog.open(PaymentComponent, {

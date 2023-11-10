@@ -43,10 +43,10 @@
                 {{ cartItem.note }}</span
               >
               <span *ngIf="cartItem.internalNote"
-              ><br />
-              <i class="fas fa-tag"></i>
-              {{ cartItem.internalNote }}</span
-            >
+                ><br />
+                <i class="fas fa-tag"></i>
+                {{ cartItem.internalNote }}</span
+              >
             </li>
           </ul>
           <div class="total">
@@ -66,10 +66,7 @@
           >
             <i class="fas fa-sticky-note"></i> Customer Note
           </button>
-          <button
-            class="btn btn-hover w-50 rounded-0 border-dark"
-            (click)="openInfoDialog()"
-          >
+          <button class="btn btn-hover w-50 rounded-0 border-dark">
             <i class="fas fa-info-circle"></i> Info
           </button>
           <button class="btn btn-hover w-50 rounded-0 border-dark">
@@ -92,11 +89,15 @@
               routerLink="/transaction-customer/"
               style="text-decoration: none; color: inherit"
             >
-            <a routerLink="/transaction-customer/" style="text-decoration: none; color: inherit">
-              <h6>
-                <i class="fas fa-user"></i> {{ selectedCustomerName || 'Customer' }}
-              </h6>
-            </a></a
+              <a
+                routerLink="/transaction-customer/"
+                style="text-decoration: none; color: inherit"
+              >
+                <h6>
+                  <i class="fas fa-user"></i>
+                  {{ selectedCustomerName || "Customer" }}
+                </h6>
+              </a></a
             >
           </div>
           <div
@@ -268,11 +269,15 @@
             *ngFor="let item of products; let i = index"
             (click)="addToCart(item)"
           >
+            <span
+              ><i class="fas fa-info-circle" (click)="openInfoDialog(item)"></i
+            ></span>
             <img
               [src]="item.image"
               class="card-img-top smaller-image"
               alt="Image Description"
             />
+
             <div
               class="card-body d-flex flex-column justify-content-start align-items-start"
             >
