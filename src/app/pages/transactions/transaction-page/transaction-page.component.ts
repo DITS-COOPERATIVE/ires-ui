@@ -31,6 +31,7 @@ export class TransactionPageComponent {
   name!: string;
   code!: string;
   model!: string;
+  note!: string;
   price!: string;
   quantity!: string;
   points!: string;
@@ -58,7 +59,7 @@ export class TransactionPageComponent {
   ngOnInit() {
     this.getTransactionsLists();
     this.getProductsLists();
-    this.sharedService.selectedCustomer$.subscribe(customerName => {
+    this.sharedService.selectedCustomer$.subscribe((customerName) => {
       this.selectedCustomerName = customerName;
     });
   }
@@ -170,6 +171,7 @@ export class TransactionPageComponent {
 
   updateSelectedProduct(value: string) {
     this.cartHistory.push([...this.cart]);
+    
 
     if (this.selectedProduct) {
       if (this.selectedMode === 'quantity') {
@@ -228,6 +230,7 @@ export class TransactionPageComponent {
           this.selectedProduct.discount =
             newDiscount * (this.selectedProduct.discount < 0 ? -1 : 1);
           this.selectedProduct.price = discountedPrice.toFixed(2);
+        
         }
       }
     }
@@ -304,25 +307,36 @@ export class TransactionPageComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(CustomerNoteComponent, {
       width: '500px',
+      data: { cart: this.cart, selectedProduct: this.selectedProduct },
+    });
+
+    dialogRef.componentInstance.noteAdded.subscribe((updatedCart) => {
+      this.cart = updatedCart;
     });
   }
+
   openNoteDialog(): void {
     const dialogRef = this.dialog.open(CustomerInternalNoteComponent, {
       width: '500px',
+      data: { cart: this.cart, selectedProduct: this.selectedProduct },
+    });
+    dialogRef.componentInstance.internalNoteAdded.subscribe((updatedCart) => {
+      this.cart = updatedCart;
     });
   }
+
   openInfoDialog(): void {
     const dialogRef = this.dialog.open(InfoComponent, {
       width: '500px',
     });
   }
+
   openPaymentDialog(): void {
     const totalPrice = this.getTotalPrice();
     const dialogRef = this.dialog.open(PaymentComponent, {
       width: '500px',
       disableClose: true,
-      data: { totalAmount: totalPrice,
-        cart: this.cart },
+      data: { totalAmount: totalPrice, cart: this.cart },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

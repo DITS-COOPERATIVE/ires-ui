@@ -23,13 +23,14 @@ export class TransactionCustomerComponent {
   mobile_no!: string;
   address!: string;
   loadingTitle: string = 'Loading';
-  selectedCustomer: any; 
+  selectedCustomer: any = null;
+  selectedCustomerName: string = '';
   
  
 
   ngOnInit() {
     this.getCustomersLists();
-    this.selectedCustomer = this.sharedService.getSelectedCustomerObject();
+   this.sharedService.getSelectedCustomerObject();
   }
 
   getCustomersLists() {
@@ -49,17 +50,31 @@ export class TransactionCustomerComponent {
     this.selectedCustomer = customer;
     this.sharedService.setSelectedCustomer(customer.full_name);
     this.sharedService.setSelectedCustomerObject(customer);
+    this.selectedCustomerName = customer.full_name; 
     // this.router.navigate(['/transactions/']);
     console.log(customer);
   }
 
-  unselectCustomer(): void {
+
+
+  unselectCustomer(event: Event): void {
+    event.stopPropagation();
     this.selectedCustomer = null;
+    this.sharedService.setSelectedCustomer(''); 
+    this.selectedCustomerName = '';
     console.log(this.selectedCustomer);
   }
-
-
+  
   isSelected(customer: any): boolean {
-    return this.selectedCustomer === customer;
+    return customer === this.selectedCustomer;
   }
+  toggleSelectCustomer(customer: any): void {
+    if (this.isSelected(customer)) {
+      this.unselectCustomer(customer);
+    } else {
+      this.selectCustomer(customer);
+    }
+  }
+
+
 }
