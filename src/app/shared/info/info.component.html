@@ -1,16 +1,21 @@
+<div class="d-flex mt-3 mx-3 justify-content-end">
+  
+</div>
+
 <h2
-  mat-dialog-title
   class="modal-title text-center d-flex flex-column align-items-center"
 >
-  Product Information
+<b>{{ product.name }}</b>
+<small style="font-size: medium; color: gray;">{{ product.code }}</small>
+  <span class="text-danger" style="position: absolute; right: 20px ; top: 10px ; font-size:large;" (click)="onCancel()"><i class="fa fa-times"></i></span>
 </h2>
-<div mat-dialog-content style="width: 450px; height: 400px">
-  <p>
-    {{ product.name }} <br />
-    {{ product.quantity }} Units at ₱{{ product.price }} {{ product.model }}
-    {{ product.category }}
-  </p>
+<div mat-dialog-content class="text-dark">
+  <p><b>Quantity :</b> {{ product.quantity }}</p>
+  <p><b>Price : </b> ₱ {{ product.price }}</p>
+  <p><b>Model : </b> {{ product.model }}</p>
+  <p><b>Category :</b> {{ product.category }}</p>
 </div>
-<div mat-dialog-actions class="modal-actions">
-  <button class="btn btn-secondary" (click)="onCancel()">Close</button>
+<div mat-dialog-actions class="modal-actions justify-content-around">
+  <button class="btn btn-sm" style="background-color: #12243b; color: white;" (click)="onCancel()">Select</button>
 </div>
+

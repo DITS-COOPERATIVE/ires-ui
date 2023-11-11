@@ -322,10 +322,11 @@ export class TransactionPageComponent {
       this.cart = updatedCart;
     });
   }
-  openInfoDialog(product: ProductsResponse): void {
+  openInfoDialog(item: any, event: Event): void {
+    event.stopPropagation(); 
     const dialogRef = this.dialog.open(InfoComponent, {
       width: '500px',
-      data: { product },
+      data: { product: item },
     });
   }
   openPaymentDialog(): void {

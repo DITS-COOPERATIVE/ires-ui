@@ -59,15 +59,12 @@
       <div class="row">
         <div class="d-flex justify-content-around p-0">
           <button
-            class="btn btn-hover w-100 rounded-0 border-dark p-0"
+            class="btn btn-hover w-50 rounded-0 border-dark p-0"
             type="submit"
             [disabled]="isCartEmpty"
             (click)="!isCartEmpty && openDialog()"
           >
             <i class="fas fa-sticky-note"></i> Customer Note
-          </button>
-          <button class="btn btn-hover w-50 rounded-0 border-dark">
-            <i class="fas fa-info-circle"></i> Info
           </button>
           <button class="btn btn-hover w-50 rounded-0 border-dark">
             <i class="fas fa-undo"></i> Refund
@@ -89,7 +86,6 @@
               routerLink="/transaction-customer/"
               style="text-decoration: none; color: inherit"
             >
-
               <a
                 routerLink="/transaction-customer/"
                 style="text-decoration: none; color: inherit"
@@ -99,7 +95,6 @@
                   {{ selectedCustomerName || "Customer" }}
                 </h6>
               </a></a
-
             >
           </div>
           <div
@@ -263,45 +258,38 @@
             <option value="tools">Tools</option>
           </select>
         </div>
-
-        <div
-          class="card m-1 col-md-2 smaller-card"
-          *ngFor="let item of products; let i = index"
-          (click)="addToCart(item)"
-        >
-          <img
-            src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2f9e8780-1e9b-4920-85b8-bb5270cb1e1e/dg37osc-1d6b2c2a-f025-4881-b742-47b6408f1d6c.jpg/v1/fill/w_1280,h_1703,q_75,strp/gojo_satoru_jujutsu_kaisen_season_2_by_nico2713_dg37osc-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTcwMyIsInBhdGgiOiJcL2ZcLzJmOWU4NzgwLTFlOWItNDkyMC04NWI4LWJiNTI3MGNiMWUxZVwvZGczN29zYy0xZDZiMmMyYS1mMDI1LTQ4ODEtYjc0Mi00N2I2NDA4ZjFkNmMuanBnIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.SZT_kvya8EULAQ19CNjJupErJC_tyEyBwaDb_qJRpwg"
-            class="card-img-top smaller-image"
-            alt="Image Description"
-          />
-          <div
-            class="card m-1 col-md-2 smaller-card"
-            *ngFor="let item of products; let i = index"
-            (click)="addToCart(item)"
-          >
-            <span
-              ><i class="fas fa-info-circle" (click)="openInfoDialog(item)"></i
-            ></span>
-            <img
-              [src]="item.image"
-              class="card-img-top smaller-image"
-              alt="Image Description"
-            />
-
+          <div class="wrapper">
             <div
-              class="card-body d-flex flex-column justify-content-start align-items-start"
+              class="box"
+              *ngFor="let item of products; let i = index"
+              (click)="addToCart(item)"
             >
-              <h5
-                class="card-title smaller-font mb-0"
-                [ngClass]="{ 'long-title': item.name.length > 10 }"
+              <div class="product-information-tag">
+                <i
+                  class="product-information-tag-logo fas fa-info-circle"
+                  (click)="openInfoDialog(item, $event)"
+                ></i>
+              </div>
+              <img
+                src="assets/gojo.jpg"
+                class="card-img-top smaller-image "
+                alt="Image Description"
+              />
+
+              <div
+                class="card-body d-flex flex-column justify-content-start align-items-start"
               >
-                {{ item.name }}
-              </h5>
-              <p class="card-text smaller-font"><b>₱ </b>{{ item.price }}</p>
+                <h5
+                  class="card-title smaller-font mb-0"
+                  [ngClass]="{ 'long-title': item.name.length > 10 }"
+                >
+                  {{ item.name }}
+                </h5>
+                <p class="card-text smaller-font"><b>₱ </b>{{ item.price }}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
