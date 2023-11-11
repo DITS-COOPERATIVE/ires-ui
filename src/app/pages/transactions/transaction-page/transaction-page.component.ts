@@ -31,13 +31,14 @@ export class TransactionPageComponent {
   name!: string;
   code!: string;
   model!: string;
+  note!: string;
   price!: string;
   quantity!: string;
   points!: string;
   errors: any = [];
   transactions!: TransactionsResponse[];
   isLoading: boolean = false;
-  products!: ProductsResponse[];
+  products: ProductsResponse[] = [];
   cart: ProductsResponse[] = [];
   isCartEmpty: boolean = true;
   cartHistory: ProductsResponse[][] = [];
@@ -58,7 +59,7 @@ export class TransactionPageComponent {
   ngOnInit() {
     this.getTransactionsLists();
     this.getProductsLists();
-    this.sharedService.selectedCustomer$.subscribe(customerName => {
+    this.sharedService.selectedCustomer$.subscribe((customerName) => {
       this.selectedCustomerName = customerName;
     });
   }
@@ -304,16 +305,27 @@ export class TransactionPageComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(CustomerNoteComponent, {
       width: '500px',
+      data: { cart: this.cart, selectedProduct: this.selectedProduct },
+    });
+
+    dialogRef.componentInstance.noteAdded.subscribe((updatedCart) => {
+      this.cart = updatedCart;
     });
   }
+
   openNoteDialog(): void {
     const dialogRef = this.dialog.open(CustomerInternalNoteComponent, {
       width: '500px',
+      data: { cart: this.cart, selectedProduct: this.selectedProduct },
+    });
+    dialogRef.componentInstance.internalNoteAdded.subscribe((updatedCart) => {
+      this.cart = updatedCart;
     });
   }
-  openInfoDialog(): void {
+  openInfoDialog(product: ProductsResponse): void {
     const dialogRef = this.dialog.open(InfoComponent, {
       width: '500px',
+      data: { product },
     });
   }
   openPaymentDialog(): void {
@@ -321,8 +333,7 @@ export class TransactionPageComponent {
     const dialogRef = this.dialog.open(PaymentComponent, {
       width: '500px',
       disableClose: true,
-      data: { totalAmount: totalPrice,
-        cart: this.cart },
+      data: { totalAmount: totalPrice, cart: this.cart },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
