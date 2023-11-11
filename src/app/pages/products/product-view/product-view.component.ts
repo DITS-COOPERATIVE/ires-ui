@@ -4,16 +4,20 @@ import { ProductsService } from 'src/app/services/products/products.service';
 @Component({
   selector: 'app-product-view',
   templateUrl: './product-view.component.html',
-
   styleUrls: ['./product-view.component.css'],
-
 })
 export class ProductViewComponent {
   isReadOnly = true;
   isEditable = false;
   isEditing = false;
   successMessage: string | null = null;
+  category: string = '';
+  productId!: any;
+  product: any = {};
 
+  errors: any = [];
+  isLoading: boolean = false;
+  loadingTitle: string = 'Loading';
   handleImageUpload(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement && inputElement.files && inputElement.files.length > 0) {
@@ -36,26 +40,15 @@ export class ProductViewComponent {
     this.isEditable = true;
   }
 
-
-  productId!: any;
-  product: any = {};
-
-  errors: any = [];
-  isLoading: boolean = false;
-  loadingTitle: string = 'Loading';
+ 
 
   constructor(
     private route: ActivatedRoute,
     private productsService: ProductsService
   ) {}
 
-
   ngOnInit() {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-
     this.productId = this.route.snapshot.paramMap.get('id');
-
     this.isLoading = true;
     this.productsService.getProduct(this.productId).subscribe((res) => {
       this.product = res;
@@ -70,6 +63,7 @@ export class ProductViewComponent {
       model: this.product.model,
       code: this.product.code,
       price: this.product.price,
+      category: this.product.category,
       quantity: this.product.quantity,
       points: this.product.points,
     };
@@ -91,7 +85,5 @@ export class ProductViewComponent {
         this.isLoading = false;
       },
     });
-
-
   }
 }

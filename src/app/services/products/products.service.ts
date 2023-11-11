@@ -9,6 +9,7 @@ export interface ProductsResponse  {
   "code": string,
   "model": string,
   "price": string,
+  "category":string,
   "discount": number,
   "quantity": number,
   "points": number,

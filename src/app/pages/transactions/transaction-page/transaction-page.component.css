@@ -14,7 +14,6 @@
   .card {
     width: 11em;
     border-radius: 0;
-    height: 13rem;
   }
 .card-img-top {
     padding: 5px;
@@ -101,7 +100,6 @@ cursor: pointer;
 }
 .smaller-card {
   max-width: 110px; 
-  max-height: 110px;
 }
 
 .btn-delete:hover{
