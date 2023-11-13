@@ -15,9 +15,10 @@
   position: relative;
   font-family: 'Roboto', sans-serif;
   background: #f4f7fa;
-  overflow: hidden;
   }
-  
+  body::-webkit-scrollbar{
+    display: none;
+  }
   .card {
     display: flex;
     flex-direction: column;
@@ -36,3 +37,11 @@
     padding: 1rem 1.5rem;
     }
   }
+  .dropdownUni{
+    float: right;
+    background-color: #0e1a29;
+    color: white;
+    border-radius: 5px;
+    outline: white;
+  }
+  

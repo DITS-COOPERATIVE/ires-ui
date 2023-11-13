@@ -12,8 +12,3 @@
 .card{
     margin: 0;
 }
-.viewbtn{
-    background-color: #12243B;
-    display: flex;
-    flex-direction: column;
-}
