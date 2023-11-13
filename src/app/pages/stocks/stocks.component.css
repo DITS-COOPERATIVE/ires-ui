@@ -13,3 +13,8 @@ table {
   select {
     margin-bottom: 16px;
   }
+.pencil {
+  position: relative;
+  left: 10%;
+  color: #12243b;
+}
