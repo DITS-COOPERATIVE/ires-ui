@@ -1,16 +1,17 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ResizeEvent } from 'angular-resizable-element';
-interface StockItem {
-  product: string;
-  unitCost: number;
-  totalValue: number;
-  category: string;
-}
+import { MatPaginator } from '@angular/material/paginator';
+import {
+  ProductsResponse,
+  ProductsService,
+} from 'src/app/services/products/products.service';
+import { TableColumnHeaders } from 'src/app/shared/TableColumnHeaders ';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-stocks',
   templateUrl: './stocks.component.html',
@@ -18,45 +19,85 @@ interface StockItem {
 })
 export class StocksComponent {
   selectedCategory: string = 'all';
-  stockItems: StockItem[] = [
-    {
-      product: 'Product 1',
-      unitCost: 10,
-      totalValue: 100,
-      category: 'software',
-    },
-    { product: 'Product 2', unitCost: 20, totalValue: 200, category: 'wifi' },
-    {
-      product: 'Product 3',
-      unitCost: 30,
-      totalValue: 300,
-      category: 'peso_wifi',
-    },
-    { product: 'Product 4', unitCost: 40, totalValue: 400, category: 'router' },
-    {
-      product: 'Product 5',
-      unitCost: 50,
-      totalValue: 500,
-      category: 'service',
-    },
-  ];
+  products: ProductsResponse[] = [];
+  product: any = {};
+  editing: boolean = false;
+  isLoading: boolean = false;
+  successMessage: string | null = null;
+  productId!: any;
+  editingProductId: string | null = null;
+  errors: any = [];
 
+  constructor(private productsService: ProductsService, private router: Router) {}
   displayedColumns: string[] = [
-    'product',
-    'unitCost',
-    'totalValue',
+    'name',
+    'code',
+    'model',
+    'price',
+    'quantity',
     'category',
   ];
-  dataSource = new MatTableDataSource<StockItem>(this.stockItems);
-  selection = new SelectionModel<StockItem>(true, []);
+  columnHeaders: TableColumnHeaders = {
+    name: 'Name',
+    code: 'Code',
+    model: 'Model',
+    price: 'Price',
+    quantity: 'Quantity',
+    category: 'Category',
+  };
+
+  dataSource = new MatTableDataSource<ProductsResponse>(this.products);
+  selection = new SelectionModel<ProductsResponse>(true, []);
 
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+
+  ngOnInit(): void {
+    this.productsService.getProductsLists().subscribe((data) => {
+      this.products = data;
+      this.dataSource.data = this.products;
+    });
+  }
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
+
+  editQuantity(event: MouseEvent, product: any) {
+    event.stopPropagation();
+    this.editingProductId = product.id;
+  }
+
+  saveQuantity(product: any) {
+    var inputData = {
+      quantity: product.quantity,
+    };
+  
+    this.isLoading = true;
+  
+    this.productsService.updateProduct(inputData, product.id).subscribe({
+      next: (res: any) => {
+        this.isLoading = false;
+        this.successMessage = 'Success! Quantity saved.';
+        setTimeout(() => (this.successMessage = null), 3000);
+        this.errors = {};
+      },
+      error: (err: any) => {
+        this.errors = err.error.errors;
+        this.isLoading = false;
+      },
+    });
+  
+    console.log('Saving quantity:', product.quantity);
+    this.editingProductId = null;
+  }
+
+  
+  cancelEdit() {
+    this.editingProductId = null;
+  }
+
 
   masterToggle(): void {
     this.isAllSelected()
@@ -72,18 +113,38 @@ export class StocksComponent {
 
   deleteSelected(): void {
     const selectedItems = this.selection.selected;
-    // Implement your delete logic here using selectedItems array
+    selectedItems.forEach((item) => {
+      const index = this.dataSource.data.indexOf(item);
+      if (index > -1) {
+        this.dataSource.data.splice(index, 1);
+      }
+    });
+    this.selection.clear();
+    this.dataSource._updateChangeSubscription();
     console.log('Delete Selected Items:', selectedItems);
   }
 
   validateResize = (event: ResizeEvent): boolean => {
-    // Implement your resize validation logic here if needed
-    return true;
+    const minWidth = 100;
+
+    if (event.rectangle && event.rectangle.width !== undefined) {
+      return event.rectangle.width >= minWidth;
+    }
+
+    return false;
   };
 
   onResizeEnd(event: ResizeEvent, column: string): void {
-    // Handle column resizing logic here using event and column name
-    console.log(`Column: ${column} Resized to Width: ${event.rectangle.width}`);
+    const resizedColumn = this.displayedColumns.find((col) => col === column);
+    if (resizedColumn) {
+      const columnIndex = this.displayedColumns.indexOf(resizedColumn);
+      this.displayedColumns[
+        columnIndex
+      ] = `${resizedColumn}:${event.rectangle.width}px`;
+      console.log(
+        `Column: ${resizedColumn} Resized to Width: ${event.rectangle.width}`
+      );
+    }
   }
 
   drop(event: CdkDragDrop<string[]>): void {

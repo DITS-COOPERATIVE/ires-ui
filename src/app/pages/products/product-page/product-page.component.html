@@ -1,30 +1,128 @@
+<div class="d-flex justify-content align-items-center mb-3">
+  <button
+    style="position: relative; bottom: 100%"
+    class="toggle-button"
+    (click)="toggleView()"
+    matTooltip="Card View"
+    matTooltipPosition="above"
+  >
+    <i class="fas fa-th-large"></i>
+  </button>
+  <button
+    class="toggle-button"
+    (click)="cardView()"
+    matTooltip="List View"
+    matTooltipPosition="above"
+  >
+    <i class="fas fa-list"></i>
+  </button>
+
+  <div
+    class="d-flex sort-by"
+ 
+  >
+  <select [(ngModel)]="selectedCategory" name="" id="" class="border-0 mt-2" (change)="sortProducts()">
+    <option value="date">Date</option>
+    <option value="points">Points</option>
+    <option value="price">Price</option>
+    <option value="category">Category</option>
+  </select>
+  
+  <select [(ngModel)]="selectedCategory" *ngIf="selectedCategory === 'category'" [(ngModel)]="selectedFilterCategory" name="" id="" class="border-0 mt-2" (change)="filterProducts()">
+    <option value="all">All</option>
+    <option value="services">Wifi</option>
+    <option value="software">Router</option>
+    <option value="tools">Tools</option>
+    <option value="vendo">Vendo</option>
+  </select>
+  </div>
+</div>
+
+
 <div class="addButton">
   <a routerLink="/products/create" class="btn btn-primary float-end mb-4"
     ><i class="fas fa-plus"></i> New Product</a>
 </div>
 <br />
+
+
 <div class="container-fluid mt-2">
   <div class="card-deck">
+    <div
+    [ngClass]="{
+      'col-lg-8': !isCardView,
+      'col-lg-8 ': isCardView
+    }"
+  >
     <div class="row">
-      <div class="col-lg-3" *ngFor="let item of this.products; let i = index">
-        <div class="card mb-2 rounded-0">
-          <div class="row no-gutters " routerLink="/products/{{ item.id }}" style="cursor: pointer;">
-            <div class="col-md-4" >
-              <img
-                class="card-img card-img-height"
-                src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2f9e8780-1e9b-4920-85b8-bb5270cb1e1e/dg37osc-1d6b2c2a-f025-4881-b742-47b6408f1d6c.jpg/v1/fill/w_1280,h_1703,q_75,strp/gojo_satoru_jujutsu_kaisen_season_2_by_nico2713_dg37osc-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTcwMyIsInBhdGgiOiJcL2ZcLzJmOWU4NzgwLTFlOWItNDkyMC04NWI4LWJiNTI3MGNiMWUxZVwvZGczN29zYy0xZDZiMmMyYS1mMDI1LTQ4ODEtYjc0Mi00N2I2NDA4ZjFkNmMuanBnIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.SZT_kvya8EULAQ19CNjJupErJC_tyEyBwaDb_qJRpwg"
-                alt="Card image"
-              />
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title">{{ item.name }}</h5>
-                <p class="card-text">Price: {{ item.price }}</p>
+      <ng-container *ngIf="isCardView; else listView">
+        <!-- Card View -->
+        <div class="col-md-6" *ngFor="let item of filteredProducts; let i = index">
+          <a routerLink="/products/{{ item.id }}" class="card-link">
+            <div
+              class="card mb-4 customise-card"
+              [ngClass]="{ active: i === activeCardIndex }"
+              (click)="activateCard(i)"
+            >
+              <div class="row no-gutters">
+                <div class="col-md-4">
+                  <img
+                    class="card-img card-img-height"
+                    [src]="item.image"
+                    alt="Card image"
+                  />
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ item.name }}</h5>
+                    <p class="card-text">Price: {{ item.price }}</p>
+                    <a
+                      routerLink="/products/{{ item.id }}"
+                      class="btn btn-secondary float-end viewbtn mb-1"
+                      >View</a
+                    >
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </a>
         </div>
-      </div>
+      </ng-container>
+      <ng-template #listView>
+        <!-- Table View -->
+        <div class="table-container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Points</th>
+                <th>Category</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of products">
+                <td>{{ item.code }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.points }}</td>
+                <td>{{ item.category }}</td>
+
+                <td>
+                  <a
+                    routerLink="/products/{{ item.id }}"
+                    class="btn btn-secondary"
+                    >View</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-template>
     </div>
+  </div>
   </div>
 </div>
