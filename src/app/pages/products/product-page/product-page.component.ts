@@ -16,8 +16,8 @@ export class ProductPageComponent {
   isLoading: boolean = false;
   isCardView: boolean = true;
   filteredProducts: any[] = [];
-  selectedCategory: string = 'all';
-  selectedFilterCategory:string = 'category';
+  selectedCategory: string = 'date';
+  selectedFilterCategory:string = 'all';
   activeCardIndex: number | null = null;
 
   ngOnInit() {
@@ -68,7 +68,7 @@ export class ProductPageComponent {
         this.products.sort((a, b) => b.points - a.points); 
         break;
         case 'price':
-          this.products.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+          this.products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
           break;
       case 'category':
         break;

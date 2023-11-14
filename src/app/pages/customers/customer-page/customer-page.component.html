@@ -21,7 +21,7 @@
     class="d-flex sort-by"
     [ngClass]="{ 'card-view': isCardView, 'list-view': !isCardView }"
   >
-  <select [(ngModel)]="selectedCategory" name="" id="" class="border-0 mt-2" (change)="sortCustomers()">
+  <select [(ngModel)]="selectedCategory" name="" id="" class="border-0 mt-2 dropdownUni py-1" (change)="sortCustomers()">
     <option value="date">Date</option>
     <option value="points">Points</option>
     <option value="gender">Gender</option>
@@ -83,7 +83,6 @@
           </div>
         </ng-container>
         <ng-template #listView>
-          <div class="table-container">
             <table class="table">
               <thead>
                 <tr>
@@ -103,12 +102,11 @@
                   <td>{{ item.mobile_no }}</td>
                   <td>{{ item.gender }}</td>
                   <td>{{ item.privilege }}</td>
-                  <td>{{ item.address }}</td>
+                  <td >{{ item.address }}</td>
                   <td>{{ item.points }}</td>
                 </tr>
               </tbody>
             </table>
-          </div>
         </ng-template>
       </div>
     </div>
