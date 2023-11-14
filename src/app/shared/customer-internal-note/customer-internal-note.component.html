@@ -1,17 +1,23 @@
 <h2
   mat-dialog-title
   class="modal-title text-center d-flex flex-column align-items-center"
->
-  Add Internal Note
+> Internal Note
 </h2>
 <div mat-dialog-content>
   <mat-form-field appearance="outline" style="width: 450px; height: 150px">
-    <textarea matInput [(ngModel)]="noteInput"></textarea>
+    <textarea
+      matInput
+      [(ngModel)]="noteInput"
+      rows="5"
+      class="text-dark"
+    ></textarea>
   </mat-form-field>
 </div>
 <div mat-dialog-actions class="modal-actions">
-  <button class="btn btn-primary" (click)="onAdd()">
-    <i class="fas fa-plus"></i> Add
+  <button class="btn btn-success" (click)="onAdd()">
+    <i class="fa fa-check"></i> 
   </button>
-  <button class="btn btn-secondary" (click)="onCancel()">Discard</button>
+  <button class="btn btn-danger" (click)="onCancel()">
+    <i class="fa fa-times"></i>
+  </button>
 </div>

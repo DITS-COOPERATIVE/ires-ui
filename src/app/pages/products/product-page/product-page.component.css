@@ -11,9 +11,55 @@
   }
 .card{
     margin: 0;
+
 }
 .viewbtn{
     background-color: #12243B;
     display: flex;
     flex-direction: column;
+}
+.sort-by{
+  font-family: "Poppins-Bold", Helvetica;
+  font-size: 15px;
+  text-align: center;
+  position: absolute;
+  right: 12rem;
+
+}
+.dropdownUni{
+      padding: 5px 5px;
+}
+.toggle-button {
+    background: none; 
+    border: none; 
+    outline: none; 
+    cursor: pointer; 
+    color: #12243b; 
+    font-size: 16px; 
+    margin-right: 10px;
+
+  }
+  
+  .toggle-button:hover {
+    text-decoration: underline; 
+  }
+  .addButton{
+    position: absolute;
+    right: 3rem;
+  }
+.imgTable{
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+table{
+    border-color: transparent;
+}
+tr>th{
+    color: gray;
+    font-weight: 400;
+}
+td{
+    font-weight: bold;
 }

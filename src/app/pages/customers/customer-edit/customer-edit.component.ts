@@ -16,6 +16,7 @@ export class CustomerEditComponent {
   customerId!: any;
   customer: any = {};
   privilege: string = '';
+  gender: string = '';
   uploadedImage: any;
 
   errors: any = [];
@@ -29,13 +30,10 @@ export class CustomerEditComponent {
 
   ngOnInit() {
     this.customerId = this.route.snapshot.paramMap.get('id');
-
     this.isLoading = true;
     this.customersService.getCustomer(this.customerId).subscribe((res) => {
       this.customer = res;
-      this.customer.gender = this.customer.gender === 'male' ? 10 : 20;
-      this.privilege = this.customer.privilege;
-      this.customer.previlege = this.isLoading = false;
+      this.isLoading = false;
     });
   }
 
@@ -71,7 +69,7 @@ export class CustomerEditComponent {
     this.customersService.updateCustomer(inputData, this.customerId).subscribe({
       next: (res: any) => {
         this.isLoading = false;
-        this.successMessage = 'Success! Product saved.';
+        this.successMessage = 'Success! Customer saved.';
         setTimeout(() => (this.successMessage = null), 3000);
         this.isEditing = false;
         this.isReadOnly = true;

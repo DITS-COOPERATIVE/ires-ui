@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 export interface ProductsResponse {
   id: number;
   image: string;
+  category: string;
   name: string;
   code: string;
   note?: string;

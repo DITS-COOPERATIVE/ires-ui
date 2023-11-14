@@ -16,7 +16,9 @@
   font-family: 'Roboto', sans-serif;
   background: #f4f7fa;
   }
-  
+  body::-webkit-scrollbar{
+    display: none;
+  }
   .card {
     display: flex;
     flex-direction: column;
@@ -31,7 +33,12 @@
     font-weight: 600;
     color: #495057;
     }
-    .card-body {
-    padding: 1rem 1.5rem;
-    }
   }
+  .dropdownUni{
+    float: right;
+    background-color: #0e1a29;
+    color: white;
+    border-radius: 5px;
+    outline: white;
+  }
+  

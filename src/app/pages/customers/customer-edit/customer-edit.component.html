@@ -45,7 +45,7 @@
               id="full_name"
               class="form-control display-1"
               placeholder=""
-              [value]="customer?.full_name"
+              [value]="customer.full_name"
               [readonly]="isReadOnly"
               [class.editable]="isEditable"
               [(ngModel)]="customer.full_name"
@@ -64,7 +64,7 @@
                   id="email"
                   class="form-control"
                   placeholder=""
-                  [value]="customer?.email"
+                  [value]="customer.email"
                   [readonly]="isReadOnly"
                   [class.editable]="isEditable"
                   [(ngModel)]="customer.email"
@@ -78,7 +78,7 @@
                   name="mobile_no"
                   id="mobile_no"
                   class="form-control"
-                  [value]="customer?.mobile_no"
+                  [value]="customer.mobile_no"
                   [readonly]="isReadOnly"
                   [class.editable]="isEditable"
                   [(ngModel)]="customer.mobile_no"
@@ -93,7 +93,7 @@
                   id="address"
                   class="form-control"
                   placeholder=""
-                  [value]="customer?.address"
+                  [value]="customer.address"
                   [readonly]="isReadOnly"
                   [class.editable]="isEditable"
                   [(ngModel)]="customer.address"
@@ -106,14 +106,14 @@
                 <select
                   name="gender"
                   id="gender"
-                  [value]="customer?.gender"
+                  [value]="customer.gender"
                   class="form-control"
                   [disabled]="isReadOnly"
                   [class.editable]="isEditable"
                   [(ngModel)]="customer.gender"
                 >
-                  <option value="10">Male</option>
-                  <option value="20">Female</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
                 </select>
               </div>
               <div class="form-group mb-4">
@@ -124,12 +124,14 @@
                   class="form-control"
                   [disabled]="isReadOnly"
                   [class.editable]="isEditable"
-                  [(ngModel)]="privilege"
+                  [(ngModel)]="customer.privilege"
+                  [value]="customer.privilege"
+
                 >
-                  <option value="none">None</option>
-                  <option value="student">Student</option>
-                  <option value="pdw">PDW</option>
-                  <option value="seniorCitizen">Senior Citizen</option>
+                  <option value="None">None</option>
+                  <option value="Student">Student</option>
+                  <option value="PWD">PWD</option>
+                  <option value="SeniorCitizen">Senior Citizen</option>
                 </select>
               </div>
               <div class="form-group mb-4">
@@ -140,7 +142,7 @@
                   id="points"
                   class="form-control"
                   placeholder=""
-                  [value]="customer?.points"
+                  [value]="customer.points"
                   [readonly]="isReadOnly"
                   [class.editable]="isEditable"
                   [(ngModel)]="customer.points"

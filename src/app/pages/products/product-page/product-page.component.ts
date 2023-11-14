@@ -8,17 +8,33 @@ import { ProductsService , ProductsResponse } from 'src/app/services/products/pr
 })
 export class ProductPageComponent {
 
-  constructor(private productsService: ProductsService) { }
+  constructor(private productsService: ProductsService) { this.filteredProducts = this.products;}
 
   
   errors: any = [];
   products!: ProductsResponse [];
   isLoading: boolean = false;
+  isCardView: boolean = true;
+  filteredProducts: any[] = [];
+  selectedCategory: string = 'date';
+  selectedFilterCategory:string = 'all';
+  activeCardIndex: number | null = null;
 
   ngOnInit() {
 
     this.getProductsLists();
 
+  }
+
+  toggleView(): void {
+    this.isCardView = true;
+  }
+  cardView(): void {
+    this.isCardView = false;
+  }
+
+  activateCard(index: number): void {
+    this.activeCardIndex = index;
   }
 
   getProductsLists(){
@@ -28,6 +44,8 @@ export class ProductPageComponent {
 
       this.productsService.getProductsLists().subscribe((res) =>{
         this.products = res;
+        this.filteredProducts = this.products
+        this.sortProducts();
         this.isLoading = false
   
       })
@@ -37,20 +55,33 @@ export class ProductPageComponent {
     
   }
 
-  // deleteProduct(event: any, productId: number) {
+  sortProducts() {
+    switch (this.selectedCategory) {
+      case 'date':
+        this.products.sort((a, b) => {
+          const dateA = new Date(a.created_at).getTime();
+          const dateB = new Date(b.updated_at).getTime();
+          return dateB - dateA;
+        });
+        break;
+      case 'points':
+        this.products.sort((a, b) => b.points - a.points); 
+        break;
+        case 'price':
+          this.products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+          break;
+      case 'category':
+        break;
+      default:
+        break;
+    }
+  }
 
-  //   if (confirm('Are you sure you want to delete this product?')) 
-  //   {
-  //     event.target.innerText = "Deleting..."  
-
-  //     this.productsService.destroyProduct(productId).subscribe((res: any) => {
-
-  //       this.getProductsLists();
-
-  //       alert(res.message);
-  //     })
-  //   }
-
-  // }
-
+  filterProducts() {
+    if (this.selectedCategory === 'all') {
+      this.filteredProducts = this.products;
+    } else {
+      this.filteredProducts = this.products.filter(item => item.category === this.selectedFilterCategory);
+    }
+  }
 }
