@@ -21,12 +21,27 @@ import { SharedService } from 'src/app/shared/shared.service';
   styleUrls: ['./transaction-page.component.css'],
 })
 export class TransactionPageComponent {
+  filteredProducts: any[] = [];
+  selectedCategory: string = 'all';
+  products: any[] = [];
   constructor(
     private transactionsService: TransactionsService,
     private productsService: ProductsService,
     public dialog: MatDialog,
     private sharedService: SharedService
-  ) {}
+  ) {
+    this.filteredProducts = this.products; // initialize filteredProducts with all products
+  }
+
+  // Call this function whenever the selected category changes
+  updateFilteredProducts() {
+    if (this.selectedCategory === 'all') {
+      this.filteredProducts = this.products; // show all products
+    } else {
+      this.filteredProducts = this.products.filter(item => item.category === this.selectedCategory);
+    }
+  }
+
   image!: string;
   name!: string;
   code!: string;
@@ -38,7 +53,6 @@ export class TransactionPageComponent {
   errors: any = [];
   transactions!: TransactionsResponse[];
   isLoading: boolean = false;
-  products: ProductsResponse[] = [];
   cart: ProductsResponse[] = [];
   isCartEmpty: boolean = true;
   cartHistory: ProductsResponse[][] = [];
@@ -64,12 +78,13 @@ export class TransactionPageComponent {
     });
   }
 
+  
   getProductsLists() {
     try {
       this.isLoading = true;
-
       this.productsService.getProductsLists().subscribe((result) => {
-        this.products = result;
+        this.products = result; // Assign the result to the products array
+        this.filteredProducts = this.products; // Update the filteredProducts array as well
         this.isLoading = false;
       });
     } catch (error) {
