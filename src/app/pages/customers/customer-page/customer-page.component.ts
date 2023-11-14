@@ -13,7 +13,6 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class CustomerPageComponent {
   products: any[] = [];
-  isGridView: boolean = true;
   isCardView: boolean = true;
   customers: CustomersResponse[] = [];
 
@@ -21,7 +20,7 @@ export class CustomerPageComponent {
     private customersService: CustomersService,
     public dialog: MatDialog
   ) {}
-  selectedCategory: string = 'all';
+  selectedCategory: string = 'date';
   activeCardIndex: number | null = null;
 
   errors: any = {};
@@ -103,10 +102,36 @@ export class CustomerPageComponent {
 
       this.customersService.getCustomersLists().subscribe((res) => {
         this.customers = res;
+        this.customers = res.sort((a, b) => a.full_name.localeCompare(b.full_name));
+        this.sortCustomers();
         this.isLoading = false;
       });
     } catch (error) {
       this.errors = error;
+    }
+  }
+
+  sortCustomers() {
+    switch (this.selectedCategory) {
+      case 'date':
+        this.customers.sort((a, b) => {
+          const dateA = new Date(a.created_at).getTime();
+          const dateB = new Date(b.created_at).getTime();
+          return dateB - dateA;
+        });
+        break;
+      case 'points':
+        this.customers.sort((a, b) => b.points - a.points); 
+        break;
+      case 'gender':
+        this.customers.sort((a, b) => a.gender.localeCompare(b.gender)); 
+        break;
+      case 'address':
+        this.customers.sort((a, b) => a.address.localeCompare(b.address)); 
+    
+        break;
+      default:
+        break;
     }
   }
 

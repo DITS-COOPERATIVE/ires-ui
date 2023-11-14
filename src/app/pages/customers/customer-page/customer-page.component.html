@@ -21,12 +21,12 @@
     class="d-flex sort-by"
     [ngClass]="{ 'card-view': isCardView, 'list-view': !isCardView }"
   >
-    <select name="" id="" class="border-0 mt-2">
-      <option value="date">Date</option>
-      <option value="points">Points</option>
-      <option value="gender">Gender</option>
-      <option value="address">Address</option>
-    </select>
+  <select [(ngModel)]="selectedCategory" name="" id="" class="border-0 mt-2" (change)="sortCustomers()">
+    <option value="date">Date</option>
+    <option value="points">Points</option>
+    <option value="gender">Gender</option>
+    <option value="address">Address</option>
+  </select>
   </div>
 </div>
 
@@ -210,7 +210,7 @@
               type="radio"
               name="gender"
               id="gender"
-              value="Female"
+              value="female"
               [(ngModel)]="gender"
             />
             <label class="form-check-label" for="student">Female</label>

@@ -17,3 +17,23 @@
     display: flex;
     flex-direction: column;
 }
+.sort-by{
+  font-family: "Poppins-Bold", Helvetica;
+  font-size: 15px;
+  text-align: center;
+}
+
+.toggle-button {
+    background: none; 
+    border: none; 
+    outline: none; 
+    cursor: pointer; 
+    color: #12243b; 
+    font-size: 16px; 
+    margin-right: 10px;
+
+  }
+  
+  .toggle-button:hover {
+    text-decoration: underline; 
+  }
