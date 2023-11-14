@@ -11,6 +11,7 @@
   }
 .card{
     margin: 0;
+
 }
 .viewbtn{
     background-color: #12243B;
@@ -37,3 +38,5 @@
   .toggle-button:hover {
     text-decoration: underline; 
   }
+
+

@@ -2,12 +2,16 @@
   mat-dialog-title
   class="modal-title text-center d-flex flex-column align-items-center"
 >
-  Payment
+  Reciept
 </h2>
 
 <div *ngIf="paymentMade" id="content">
-  <img style="width: 10%" src="assets/dits.png" alt="" />
-  <h4>DITS</h4>
+  <div class="row d-flex">
+    <div class="col-auto"><img style="width: 10%; float: left; margin-right: 10px;" src="assets/dits.png" alt="" /></div>
+    <div class="col-auto"><span style="display: inline-block;">DITS</span></div>
+    
+
+  </div>
   <p>Tel: 09365109923</p>
   <p>dits@gmail.com</p>
   <p>www.facebook.com</p>

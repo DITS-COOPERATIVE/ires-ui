@@ -4,7 +4,6 @@
     border: none;
 }
 
-
 .card-link {
     text-decoration: none; 
     color: inherit; 
@@ -51,10 +50,7 @@
     width: 110px;
     height: 150px;
   }
-  
-  .body {
-    padding: 20px;
-  }
+
   
   .title {
     font-size: 1rem;
@@ -117,7 +113,7 @@ table {
 
 .col-lg-8 {
     overflow-y: scroll;
-    height: 900px;
+    height: 490px;
   }
 
   ::-webkit-scrollbar {

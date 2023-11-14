@@ -45,7 +45,7 @@
           <div class="col-md-6" *ngFor="let item of customers; let i = index">
             <a routerLink="/customers/{{ item.id }}" class="card-link">
               <div
-                class="card mb-4 customise-card"
+                class="card customise-card"
                 [ngClass]="{ active: i === activeCardIndex }"
                 (click)="activateCard(i)"
               >
@@ -268,65 +268,6 @@
           </div>
         </div>
       </form>
-
-      <!-- Recent Products Section -->
-      <div
-        *ngIf="isCardView && customers.length > 0"
-        class="row mt-4"
-        style="position: relative; bottom: 7%"
-      >
-        <h5>Recently Added Customer</h5>
-        <div class="col-lg-12">
-          <div class="row">
-            <div class="col-lg-6">
-              <ng-container
-                *ngFor="let item of customers?.slice(0, 1); let i = index"
-              >
-                <div
-                  class="card"
-                  [ngClass]="{ active: i === activeCardIndex }"
-                  (click)="activateCard(i)"
-                  style="width: 340px; position: relative; right: 10%"
-                >
-                  <a routerLink="/customers/{{ item.id }}" class="card-link">
-                    <div class="row no-gutters">
-                      <div class="col-md-4">
-                        <img
-                          class="card-img card-img-height"
-                          src="https://img.freepik.com/premium-vector/young-girl-anime-style-character-vector-illustration-design-manga-anime-girl_147933-100.jpg"
-                          alt="Card image"
-                        />
-                      </div>
-                      <div class="col-md-8">
-                        <div class="body">
-                          <h6 class="title">{{ item.full_name }}</h6>
-                          <p class="text">
-                            <i class="fas fa-envelope-open"></i>
-                            {{ item.email }}
-                          </p>
-                          <p class="text">
-                            <i class="fas fa-phone"></i> {{ item.mobile_no }}
-                          </p>
-                          <p class="text">
-                            <i class="fas fa-tag"></i> {{ item.privilege }}
-                          </p>
-                          <p class="text">
-                            <i class="fas fa-map-marker-alt"></i>
-                            {{ item.address }}
-                          </p>
-                          <p class="text">
-                            <i class="fas fa-star"></i> {{ item.points }}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </div>
-              </ng-container>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>

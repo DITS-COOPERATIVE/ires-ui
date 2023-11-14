@@ -1,26 +1,29 @@
 .modal-title {
-    color: #12243b;
-  }
-  
-  .modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px; /* Adjust the space between buttons */
-    margin-bottom: 10px; /* Add margin from the content */
-    padding-right: 5%;
-  }
-  
-  .btn-secondary {
-    background-color: #ccc;
-    color: #333;
-    border: none;
-  }
-  
-  .btn-primary {
-    position: relative;
-    right: 60%;
-    background-color: #12243b;
-    color: white;
-    border: none;
-  }
-  
+  color: #12243b;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; /* Adjust the space between buttons */
+  margin-bottom: 10px; /* Add margin from the content */
+  padding-right: 5%;
+}
+
+.btn-secondary {
+  background-color: #ccc;
+  color: #333;
+  border: none;
+}
+.mdc-dialog::-webkit-scrollbar {
+  display: none;
+}
+.mdc-text-field__input::-webkit-scrollbar {
+  display: none;
+  color: black;
+}
+button{
+  width: 38px;
+  padding: 0;
+  height: 30px;
+}
