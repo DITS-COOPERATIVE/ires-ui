@@ -30,18 +30,8 @@ export class TransactionPageComponent {
     public dialog: MatDialog,
     private sharedService: SharedService
   ) {
-    this.filteredProducts = this.products; // initialize filteredProducts with all products
+    this.filteredProducts = this.products; 
   }
-
-  // Call this function whenever the selected category changes
-  updateFilteredProducts() {
-    if (this.selectedCategory === 'all') {
-      this.filteredProducts = this.products; // show all products
-    } else {
-      this.filteredProducts = this.products.filter(item => item.category === this.selectedCategory);
-    }
-  }
-
   image!: string;
   name!: string;
   code!: string;
@@ -78,14 +68,20 @@ export class TransactionPageComponent {
     });
   }
 
-  
+  updateFilteredProducts() {
+    if (this.selectedCategory === 'all') {
+      this.filteredProducts = this.products; 
+    } else {
+      this.filteredProducts = this.products.filter(item => item.category === this.selectedCategory);
+    }
+  }
+
   getProductsLists() {
     try {
       this.isLoading = true;
       this.productsService.getProductsLists().subscribe((result) => {
-        this.products = result; // Assign the result to the products array
-        this.filteredProducts = this.products; // Update the filteredProducts array as well
-        this.isLoading = false;
+        this.products = result; 
+        this.filteredProducts = this.products; 
       });
     } catch (error) {
       this.errors = error;
@@ -163,20 +159,6 @@ export class TransactionPageComponent {
     }
   }
 
-  deleteTransaction(event: any, transactionId: number) {
-    if (confirm('Are you sure you want to delete this transaction?')) {
-      event.target.innerText = 'Deleting...';
-
-      this.transactionsService
-        .destroyTransaction(transactionId)
-        .subscribe((res: any) => {
-          this.getTransactionsLists();
-
-          alert(res.message);
-        });
-    }
-  }
-
   changeSelectedMode(mode: 'quantity' | 'price' | 'discount') {
     this.selectedMode = mode;
     this.inputValue = '';
@@ -246,18 +228,6 @@ export class TransactionPageComponent {
           this.selectedProduct.price = discountedPrice.toFixed(2);
         }
       }
-    }
-  }
-
-  deleteSelectedProduct() {
-    if (
-      this.selectedProductIndex !== -1 &&
-      confirm('Are you sure you want to delete this product?')
-    ) {
-      this.cart.splice(this.selectedProductIndex, 1);
-      this.selectedProduct = null;
-      this.selectedProductIndex = -1;
-      this.isCartEmpty = this.cart.length === 0;
     }
   }
 
@@ -353,7 +323,6 @@ export class TransactionPageComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
     });
   }
 }
