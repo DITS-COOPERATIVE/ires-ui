@@ -44,7 +44,8 @@
               </div>
               <div class="col-md-8 py-1">
                   <h5 class="card-title">{{ item.name }}</h5>
-                  <p class="card-text">Price: {{ item.price }}</p>
+                  <p class="card-text">Price: {{ item.price | currency:'PHP':'symbol':'1.2-2'}}</p>
+                  <p class="card-text">  <i class="fas fa-star"></i> Points: {{ item.points }}</p>
               </div>
             </div>
           </div>

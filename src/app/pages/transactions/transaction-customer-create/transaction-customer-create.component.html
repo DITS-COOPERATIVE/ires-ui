@@ -3,7 +3,7 @@
     <a
       routerLink="/transaction-customer-create/"
       style="text-decoration: none; color: inherit"
-      (click)="saveCustomer()"
+      (click)="saveCustomer()" 
       >Save</a
     >
   </button>
@@ -118,7 +118,7 @@
   >
     <option value="none">None</option>
     <option value="student">Student</option>
-    <option value="pdw">PDW</option>
+    <option value="pwd">PDW</option>
     <option value="seniorCitizen">Senior Citizen</option>
   </select>
   <span *ngIf="errors.privilege" class="alert alert-danger floating-warning">{{

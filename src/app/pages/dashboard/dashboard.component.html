@@ -16,7 +16,7 @@
       </div>
       <div class="col totalCol me-1 text-white">
         <p class="mt-2 ms-2">Total Customer</p>
-        <i class="fas fa-users float-end"></i>
+        <span>{{ totalCustomers }}<i class="fas fa-users float-end"></i></span>     
       </div>
       <div class="col totalCol text-white">
         <p class="mt-2 ms-2">Total Transaction</p>
@@ -51,40 +51,90 @@
        
       </tbody>
     </table>
+    
   </div>
   <div class="col-lg-4 ms-2">
     <div class="row d-flex border p-0 bg-white">
       <h6 class="mt-2 ps-2"><b>Top Selling Products</b></h6>
       <div class="row border mx-auto prod mb-4">
-        <div class="col-lg-4 p-1">
-          <img
-            class="img-fluid"
-            src="https://i.pinimg.com/originals/bd/9e/0c/bd9e0c78a5af0557f6bfd5698d0747a2.jpg"
-            alt=""
-          />
+        <ng-container
+        *ngFor="let item of products?.slice(0, 1); let i = index"
+      >
+        <div
+          class="card"
+          [ngClass]="{ active: i === activeCardIndex }"
+          (click)="activateCard(i)"
+          style="width: 340px; position: relative; right: 10%"
+        >
+          <a routerLink="/customers/{{ item.id }}" class="card-link">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <img
+                  class="card-img card-img-height"
+                  src="https://img.freepik.com/premium-vector/young-girl-anime-style-character-vector-illustration-design-manga-anime-girl_147933-100.jpg"
+                  alt="Card image"
+                />
+              </div>
+              <div class="col-md-8">
+                <div class="body">
+                  <h6 class="title">
+                    {{ item.name }}</h6>
+                  <p class="text">
+                   Price: {{ item.price | currency:'PHP':'symbol':'1.2-2'}}
+                  </p>
+                  <p class="text">
+                    <i class="fas fa-sort-amount-up"></i>
+                    Units: {{ item.quantity }}
+                  </p>
+                  <p class="text">
+                    <i class="fas fa-list-alt"></i>
+                   Category: {{ item.category }}
+                  </p>
+                  <p class="text">
+                    <i class="fas fa-star"></i> 
+                   Points: {{ item.points }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </a>
         </div>
-        <div class="col TopProdInfo">
-          <p class="py-2"><b>Router</b> <b class="float-end">Sold: 56</b></p>
-          <small>In stock: </small><br />
-          <small>Price: </small><br />
-          <small>Points: </small>
-        </div>
+      </ng-container>
       </div>
     </div>
     <div class="row border bg-white mt-3">
         <h6 class="mt-2 ps-2"><b>Top Customer</b></h6>
         <div class="row border mx-auto prod mb-4">
-          <div class="col-lg-4 p-1">
-            <img
-              class="img-fluid"
-              src="assets/user-profile.jpg"
-              alt=""
-            />
+          <ng-container
+          *ngFor="let item of customers?.slice(0, 1); let i = index"
+        >
+          <div
+            class="card"
+            [ngClass]="{ active: i === activeCardIndex }"
+            (click)="activateCard(i)"
+            style="width: 340px; position: relative; right: 10%"
+          >
+            <a routerLink="/customers/{{ item.id }}" class="card-link">
+              <div class="row no-gutters">
+                <div class="col-md-4">
+                  <img
+                    class="card-img card-img-height"
+                    src="https://img.freepik.com/premium-vector/young-girl-anime-style-character-vector-illustration-design-manga-anime-girl_147933-100.jpg"
+                    alt="Card image"
+                  />
+                </div>
+                <div class="col-md-8">
+                  <div class="body">
+                    <h6 class="title">{{ item.full_name }}</h6>
+                    <p class="text">
+                      <i class="fas fa-star"></i>Points: {{ item.points }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </a>
           </div>
-          <div class="col TopProdInfo">
-            <p class="py-2"><b>Jamaila M. Paquiabas</b></p>
-            <small>Points: </small><br />
-          </div>
+        </ng-container>
         </div>
     </div>
     <div class="row border bg-white mt-3">

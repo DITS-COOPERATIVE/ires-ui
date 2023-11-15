@@ -35,3 +35,13 @@
     font-size: 12px;
     padding:1px;
 }
+table, th, td{
+  border-color: transparent;
+}
+th{
+  background-color: white;
+  font-weight: 400;
+}
+td{
+  font-weight: bold;
+}

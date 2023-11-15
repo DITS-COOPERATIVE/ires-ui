@@ -126,10 +126,6 @@ export class CustomerPageComponent {
       case 'gender':
         this.customers.sort((a, b) => a.gender.localeCompare(b.gender)); 
         break;
-      case 'address':
-        this.customers.sort((a, b) => a.address.localeCompare(b.address)); 
-    
-        break;
       default:
         break;
     }
