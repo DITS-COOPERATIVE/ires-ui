@@ -50,10 +50,10 @@
       <ng-container *ngIf="column === 'quantity'">
         <ng-container *ngIf="editingProductId === product.id; else quantityDisplay">
           <input type="number" [(ngModel)]="product[column]" />
-          <span class="check-icon" (click)="saveQuantity(product)">
-            <i class="fa fa-check"></i>
+          <span class="check-icon me-3 text-success" (click)="saveQuantity(product)">
+            <i class="fa fa-check "></i>
           </span>
-          <span class="cancel-icon" (click)="cancelEdit()">
+          <span class="cancel-icon text-danger" (click)="cancelEdit()">
             <i class="fa fa-times"></i>
           </span>
         </ng-container>

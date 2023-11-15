@@ -1,33 +1,134 @@
 .modal-title {
-    color: #12243b;
+  color: #12243b;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; /* Adjust the space between buttons */
+  margin-bottom: 10px; /* Add margin from the content */
+  padding-right: 5%;
+}
+
+.btn-secondary {
+  background-color: #ccc;
+  color: #333;
+  border: none;
+}
+
+.btn-primary {
+  position: relative;
+  right: 60%;
+  background-color: #12243b;
+  color: white;
+  border: none;
+}
+@media print {
+  button {
+    display: none;
   }
-  
-  .modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px; /* Adjust the space between buttons */
-    margin-bottom: 10px; /* Add margin from the content */
-    padding-right: 5%;
+  #content,
+  #content * {
+    display: block;
   }
-  
-  .btn-secondary {
-    background-color: #ccc;
-    color: #333;
-    border: none;
-  }
-  
-  .btn-primary {
-    position: relative;
-    right: 60%;
-    background-color: #12243b;
-    color: white;
-    border: none;
-  }
-  @media print {
-    button{
-      display: none;
-    }
-    #content, #content *{
-      display: block;
-    }
-  }
+}
+.image{
+  width: 20%;
+}
+
+.receipt_header {
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #000;
+  text-align: center;
+}
+
+.receipt_header h1 {
+  font-size: 20px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.receipt_header h1 span {
+  display: block;
+  font-size: 25px;
+}
+
+.receipt_header h2 {
+  font-size: 14px;
+  color: #727070;
+  font-weight: 300;
+}
+
+.receipt_header h2 span {
+  display: block;
+}
+
+.receipt_body {
+  margin-top: 5px;
+}
+
+table {
+  width: 100%;
+}
+
+thead, tfoot {
+  position: relative;
+}
+
+thead th:not(:last-child) {
+  text-align: left;
+}
+thead::after {
+  content: '';
+  width: 100%;
+  display: block;
+  position: absolute;
+}
+
+tbody td:not(:last-child), tfoot td:not(:last-child) {
+  text-align: left;
+}
+
+
+tbody tr:first-child td {
+  padding-top: 15px;
+}
+
+tbody tr:last-child td {
+  padding-bottom: 15px;
+}
+
+tfoot tr:first-child td {
+  padding-top: 15px;
+}
+
+tfoot::before {
+  content: '';
+  width: 100%;
+  border-top: 1px dashed #000;
+  display: block;
+  position: absolute;
+}
+
+tfoot tr:first-child td:first-child, tfoot tr:first-child td:last-child {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.date_time_con {
+  display: flex;
+  justify-content: end;
+  column-gap: 25px;
+}
+
+.items {
+  margin-top: 25px;
+}
+
+h3 {
+  border-top: 1px dashed #000;
+  padding-top: 10px;
+  margin-top: 25px;
+  text-align: center;
+  text-transform: uppercase;
+}
