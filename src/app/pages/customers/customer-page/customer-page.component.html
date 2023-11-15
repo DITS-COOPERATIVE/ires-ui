@@ -25,7 +25,6 @@
     <option value="date">Date</option>
     <option value="points">Points</option>
     <option value="gender">Gender</option>
-    <option value="address">Address</option>
   </select>
   </div>
 </div>
@@ -211,7 +210,7 @@
               value="female"
               [(ngModel)]="gender"
             />
-            <label class="form-check-label" for="student">Female</label>
+            <label class="form-check-label" for="gender">Female</label>
             <span
               *ngIf="errors.gender"
               class="alert alert-danger floating-warning"
@@ -236,7 +235,7 @@
             <label>Privilege</label><br />
             <div
               class="form-check form-check-inline"
-              *ngFor="let option of ['none', 'student', 'pdw', 'seniorCitizen']"
+              *ngFor="let option of ['none', 'student', 'pwd', 'seniorCitizen']"
             >
               <input
                 class="form-check-input"
