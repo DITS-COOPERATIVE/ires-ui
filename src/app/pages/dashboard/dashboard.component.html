@@ -6,22 +6,26 @@
   <div class="col-lg-8 p-3" style="background-color: white; height: 30rem">
     <h4>Recent Activity</h4>
     <div class="row mt-3">
-      <div class="col totalCol text-white">
+      <div class="col totalCol text-white" (click)="updateChartType(0)">
         <p class="mt-2 ms-2">Total Orders</p>
         <i class="fas fa-list-ul float-end"></i>
       </div>
-      <div class="col totalCol mx-1 text-white">
+      <div class="col totalCol mx-1 text-white" (click)="updateChartType(1)">
         <p class="mt-2 ms-2">Total Income</p>
         <i class="far fa-money-bill-alt float-end"></i>
       </div>
-      <div class="col totalCol me-1 text-white">
+      <div class="col totalCol me-1 text-white" (click)="updateChartType(2)">
         <p class="mt-2 ms-2">Total Customer</p>
         <span>{{ totalCustomers }}<i class="fas fa-users float-end"></i></span>     
       </div>
-      <div class="col totalCol text-white">
+      <div class="col totalCol text-white" (click)="updateChartType(3)">
         <p class="mt-2 ms-2">Total Transaction</p>
         <i class="fas fa-keyboard float-end"></i>
       </div>
+    </div>
+    <br/>
+    <div style="width: 600px; height: 300px;">
+      <canvas id="myChart"></canvas>
     </div>
     <div class="d-flex mt-5 mb-3 justify-content-between">
       <div>
@@ -55,10 +59,10 @@
   </div>
   <div class="col-lg-4 ms-2">
     <div class="row d-flex border p-0 bg-white">
-      <h6 class="mt-2 ps-2"><b>Top Selling Products</b></h6>
+      <h6 class="mt-2 ps-2"><b>Top Customer</b></h6>
       <div class="row border mx-auto prod mb-4">
         <ng-container
-        *ngFor="let item of products?.slice(0, 1); let i = index"
+        *ngFor="let item of customers?.slice(0, 1); let i = index"
       >
         <div
           class="card"
@@ -77,22 +81,9 @@
               </div>
               <div class="col-md-8">
                 <div class="body">
-                  <h6 class="title">
-                    {{ item.name }}</h6>
+                  <h6 class="title">{{ item.full_name }}</h6>
                   <p class="text">
-                   Price: {{ item.price | currency:'PHP':'symbol':'1.2-2'}}
-                  </p>
-                  <p class="text">
-                    <i class="fas fa-sort-amount-up"></i>
-                    Units: {{ item.quantity }}
-                  </p>
-                  <p class="text">
-                    <i class="fas fa-list-alt"></i>
-                   Category: {{ item.category }}
-                  </p>
-                  <p class="text">
-                    <i class="fas fa-star"></i> 
-                   Points: {{ item.points }}
+                    <i class="fas fa-star"></i>Points: {{ item.points }}
                   </p>
                 </div>
               </div>
@@ -103,10 +94,10 @@
       </div>
     </div>
     <div class="row border bg-white mt-3">
-        <h6 class="mt-2 ps-2"><b>Top Customer</b></h6>
+        <h6 class="mt-2 ps-2"><b>Top Selling Products</b></h6>
         <div class="row border mx-auto prod mb-4">
           <ng-container
-          *ngFor="let item of customers?.slice(0, 1); let i = index"
+          *ngFor="let item of products?.slice(0, 1); let i = index"
         >
           <div
             class="card"
@@ -125,9 +116,22 @@
                 </div>
                 <div class="col-md-8">
                   <div class="body">
-                    <h6 class="title">{{ item.full_name }}</h6>
+                    <h6 class="title">
+                      {{ item.name }}</h6>
                     <p class="text">
-                      <i class="fas fa-star"></i>Points: {{ item.points }}
+                     Price: {{ item.price | currency:'PHP':'symbol':'1.2-2'}}
+                    </p>
+                    <p class="text">
+                      <i class="fas fa-sort-amount-up"></i>
+                      Units: {{ item.quantity }}
+                    </p>
+                    <p class="text">
+                      <i class="fas fa-list-alt"></i>
+                     Category: {{ item.category }}
+                    </p>
+                    <p class="text">
+                      <i class="fas fa-star"></i> 
+                     Points: {{ item.points }}
                     </p>
                   </div>
                 </div>
