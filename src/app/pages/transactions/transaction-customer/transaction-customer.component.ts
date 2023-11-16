@@ -1,9 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  CustomersResponse,
-  CustomersService,
-} from 'src/app/services/customers/customers.service';
+import { CustomersResponse, CustomersService } from 'src/app/services/customers/customers.service';
 import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
@@ -11,9 +8,12 @@ import { SharedService } from 'src/app/shared/shared.service';
   templateUrl: './transaction-customer.component.html',
   styleUrls: ['./transaction-customer.component.css'],
 })
-export class TransactionCustomerComponent {
-  constructor(private customersService: CustomersService, private sharedService:
-     SharedService, private router: Router) {}
+export class TransactionCustomerComponent implements OnInit {
+  constructor(
+    private customersService: CustomersService,
+    private sharedService: SharedService,
+    private router: Router
+  ) {}
 
   customers: CustomersResponse[] = [];
   isLoading: boolean = false;
@@ -25,12 +25,11 @@ export class TransactionCustomerComponent {
   loadingTitle: string = 'Loading';
   selectedCustomer: any = null;
   selectedCustomerName: string = '';
-  
- 
+  selectedCustomerId: number | null = null;
 
   ngOnInit() {
     this.getCustomersLists();
-   this.sharedService.getSelectedCustomerObject();
+    this.selectedCustomerId = this.sharedService.getSelectedCustomerObject()?.id;
   }
 
   getCustomersLists() {
@@ -39,7 +38,7 @@ export class TransactionCustomerComponent {
 
       this.customersService.getCustomersLists().subscribe((res) => {
         this.customers = res.sort((a, b) => a.full_name.localeCompare(b.full_name));
-        this.sortCustomers() 
+        this.sortCustomers();
         this.customers = res;
         this.isLoading = false;
       });
@@ -49,43 +48,43 @@ export class TransactionCustomerComponent {
   }
 
   sortCustomers() {
-        this.customers.sort((a, b) => {
-          const dateA = new Date(a.created_at).getTime();
-          const dateB = new Date(b.created_at).getTime();
-          return dateB - dateA;
-        });
-       
+    this.customers.sort((a, b) => {
+      const dateA = new Date(a.created_at).getTime();
+      const dateB = new Date(b.created_at).getTime();
+      return dateB - dateA;
+    });
   }
 
-  selectCustomer(customer: any): void {
-    this.selectedCustomer = customer;
+  selectCustomer(customer: CustomersResponse): void {
+    this.selectedCustomerId = customer.id;
     this.sharedService.setSelectedCustomer(customer.full_name);
     this.sharedService.setSelectedCustomerObject(customer);
-    this.selectedCustomerName = customer.full_name; 
-    // this.router.navigate(['/transactions/']);
+    this.selectedCustomerName = customer.full_name;
+    this.router.navigate(['/transactions/']);
     console.log(customer);
   }
 
-
-
-  unselectCustomer(event: Event): void {
-    event.stopPropagation();
-    this.selectedCustomer = null;
-    this.sharedService.setSelectedCustomer(''); 
+  unselectCustomer(event: Event | null): void {
+    if (event) {
+      event.stopPropagation();
+    }
+    this.selectedCustomerId = null;
+    this.sharedService.setSelectedCustomer('');
+    this.sharedService.setSelectedCustomerObject(null);
     this.selectedCustomerName = '';
-    console.log(this.selectedCustomer);
+    this.router.navigate(['/transactions/']);
+    console.log(this.selectedCustomerId);
+  }
+
+  isSelected(customer: CustomersResponse): boolean {
+    return customer.id === this.selectedCustomerId;
   }
   
-  isSelected(customer: any): boolean {
-    return customer === this.selectedCustomer;
-  }
-  toggleSelectCustomer(customer: any): void {
+  toggleSelectCustomer(customer: CustomersResponse): void {
     if (this.isSelected(customer)) {
-      this.unselectCustomer(customer);
+      this.unselectCustomer(null);
     } else {
       this.selectCustomer(customer);
     }
   }
-
-
 }
