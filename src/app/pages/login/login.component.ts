@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -6,14 +8,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
+  username: string = 'demo';
+  password: string = 'password';
+  errorMessage: string = '';
+
+  constructor(private router: Router, private authService: AuthService) {}
 
   login() {
-    // Here, you can implement your login logic.
-    // You can send a request to a server to authenticate the user.
-    // For this example, we'll just print the username and password to the console.
-    console.log('Username:', this.username);
-    console.log('Password:', this.password);
+    if (this.authService.authenticate(this.username, this.password)) {
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.errorMessage = 'Invalid username or password';
+    }
   }
 }

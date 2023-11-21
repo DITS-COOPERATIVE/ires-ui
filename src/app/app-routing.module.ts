@@ -19,7 +19,7 @@ import { TransactionCustomerCreateComponent } from './pages/transactions/transac
 import { TransactionCustomerComponent } from './pages/transactions/transaction-customer/transaction-customer.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent, title: 'Dashboard' },
   { path: 'login', component: LoginComponent, title: 'login' },
 
