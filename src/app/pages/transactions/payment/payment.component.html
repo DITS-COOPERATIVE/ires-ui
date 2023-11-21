@@ -1,48 +1,78 @@
-<h2
-  mat-dialog-title
-  class="modal-title text-center d-flex flex-column align-items-center"
->
-  Reciept
-</h2>
-
 <div *ngIf="paymentMade" id="content">
-  <div class="row d-flex">
-    <div class="col-auto"><img style="width: 10%; float: left; margin-right: 10px;" src="assets/dits.png" alt="" /></div>
-    <div class="col-auto"><span style="display: inline-block;">DITS</span></div>
-    
+  <div class="row d-flex justify-content-around">
+    <div class="container px-3">
+      <div class="receipt_header">
+        <h1><img src="assets/dits.png" alt="" width="10%" class="mt-3"> <span>DITS</span></h1>
+        <h2>365 Triumfo St, Carigara, Philippines, 6530
+          <span>Tel: +1 012 345 67 89</span>
+        </h2>
+      </div>
 
-  </div>
-  <p>Tel: 09365109923</p>
-  <p>dits@gmail.com</p>
-  <p>www.facebook.com</p>
-  <p>....................................................</p>
-  <p>Served by: Aron Balais</p>
+      <div class="receipt_body">
+        <div class="date_time_con">
+          <div class="date">11/12/2020</div>
+          <div class="time">11:13:06 AM</div>
+        </div>
 
-  <div *ngFor="let cartItem of cart">
-    {{ cartItem.name }} <br />{{ cartItem.quantity }} ₱{{ cartItem.price }}
+        <div class="items">
+          <table class="text-start">
+            <thead>
+              <tr>
+                <th>QUANTITY</th>
+                <th>ITEM</th>
+                <th>PRICE</th>
+                <th>DISCOUNT</th>
+              </tr>
+            </thead>
+        
+            <tbody *ngFor="let cartItem of cart">
+              <tr >
+                <td>{{ cartItem.quantity }}</td>
+                <td>{{ cartItem.name }}</td>
+                <td>₱ {{ cartItem.price }}</td>
+                <td *ngIf="cartItem.discount > 0">{{ cartItem.discount }}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3">Total</td>
+                <td>₱ {{ calculateTotal() }}</td>
+              </tr>
+        
+              <tr>
+                <td colspan="3">Cash</td>
+                <td>₱ {{ amountPaid }}</td>
+              </tr>
+        
+              <tr>
+                <td colspan="3">Change</td>
+                <td>₱ {{ calculateChange() }}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <h3>Thank You!</h3>
+      </div>
+    </div>
+    <!-- <div *ngFor="let cartItem of cart">
+      {{ cartItem.name }} <br />{{ cartItem.quantity }} ₱{{ cartItem.price }}
 
-    <span>Total ₱{{ (+cartItem.price * cartItem.quantity).toFixed(2) }}</span>
-    <span *ngIf="cartItem.discount > 0">
-      Discount: {{ cartItem.discount }}%</span
-    >
-    <h5>
-      Cash <span>{{ amountPaid }}</span>
-    </h5>
-    <span>Change ₱{{ calculateChange() }}</span>
+      <span>Total ₱{{ (+cartItem.price * cartItem.quantity).toFixed(2) }}</span>
+      <span  >
+        Discount: {{ cartItem.discount }}%</span>
+      <h5>
+        Cash <span>{{ amountPaid }}</span>
+      </h5>
+      <span>Change ₱{{ calculateChange() }}</span>
+    </div> -->
   </div>
 </div>
-
 <div *ngIf="!paymentMade" mat-dialog-content>
   <mat-form-field appearance="outline" style="width: 450px; height: 150px">
     <p>Total Amount: ₱{{ totalAmount }}</p>
     <div class="form-group">
       <label for="amountPaid">Amount Paid</label>
-      <input
-        type="number"
-        class="form-control"
-        id="amountPaid"
-        [(ngModel)]="amountPaid"
-      />
+      <input type="number" class="form-control" id="amountPaid" [(ngModel)]="amountPaid" />
     </div>
     <p>Change: ₱{{ calculateChange() }}</p>
   </mat-form-field>
@@ -50,11 +80,7 @@
 <div class="modal-body"></div>
 <div mat-dialog-actions class="modal-actions">
   <button class="btn btn-primary" (click)="onAdd()">Pay</button>
-  <button
-    *ngIf="paymentSuccess"
-    class="btn btn-success"
-    (click)="onPrintReceipt()"
-  >
+  <button *ngIf="paymentSuccess" class="btn btn-success" (click)="onPrintReceipt()">
     Print Receipt
   </button>
   <button *ngIf="paymentSuccess" class="btn btn-secondary" (click)="onCancel()">

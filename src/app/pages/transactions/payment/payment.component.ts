@@ -41,7 +41,19 @@ export class PaymentComponent {
 
     this.dialogRef.close();
   }
-
+  calculateSubtotal(cartItem: any): number {
+    // Calculate the subtotal for a cart item
+    const subtotal = cartItem.price * cartItem.quantity;
+    return subtotal;
+  }
+  calculateTotal(): number {
+    // Calculate the total by summing up all the subtotals
+    let total = 0;
+    for (const cartItem of this.cart) {
+      total += this.calculateSubtotal(cartItem);
+    }
+    return total;
+  }
   onAdd(): void {
     this.paymentSuccess = true;
     this.paymentMade = true;

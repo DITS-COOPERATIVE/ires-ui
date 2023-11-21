@@ -1,18 +1,63 @@
-.totalCol{
-    background-color: #12243B;
-    height: 5rem;
-    border-radius: 10px;
-} 
-.TopProdInfo>p{
-    margin-bottom: 0;
-    font-size:medium;
+.totalCol {
+  background-color: #12243b;
+  height: 5rem;
+  border-radius: 10px;
 }
-.col-lg-4>.row {
-    margin: auto;
+.TopProdInfo > p {
+  margin-bottom: 0;
+  font-size: medium;
 }
-.prod{
-    width: 90%;
+.col-lg-4 > .row {
+  margin: auto;
 }
-.printButton{
-    background-color: #12243B;
+.printButton {
+  background-color: #12243b;
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card {
+  width: 90%;
+  height: auto;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+  border: 2px solid transparent;
+}
+.card-body {
+  padding: 15px;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 10px;
+  margin-bottom: 5px;
+}
+
+.card {
+  width: 90%;
+  height: auto;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.topContainer {
+  border-radius: 10px;
+  border: 1px solid rgba(158, 156, 156, 0.397);
+}
+.col-md-4 > img {
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  object-fit: cover;
+}
+.topProd {
+  border-radius: 10px;
+  border: 1px solid rgba(158, 156, 156, 0.397);
 }

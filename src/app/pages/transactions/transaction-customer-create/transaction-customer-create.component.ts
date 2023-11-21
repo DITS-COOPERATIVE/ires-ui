@@ -4,6 +4,7 @@ import {
   CustomersService,
 } from '../../../services/customers/customers.service';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transaction-customer-create',
@@ -18,7 +19,7 @@ export class TransactionCustomerCreateComponent {
 
   constructor(
     private customersService: CustomersService,
-    public dialog: MatDialog
+    public dialog: MatDialog , private router: Router
   ) {}
   selectedCategory: string = 'all';
   activeCardIndex: number | null = null;
@@ -73,6 +74,7 @@ export class TransactionCustomerCreateComponent {
         const newCustomer: CustomersResponse = res.customer;
         this.customers.push(newCustomer);
         this.isLoading = false;
+        this.router.navigate(['/transaction-customer/']);
       },
       error: (err: any) => {
         this.errors = err.error.errors;

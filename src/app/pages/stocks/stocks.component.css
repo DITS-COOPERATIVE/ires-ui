@@ -18,3 +18,8 @@ table {
   left: 10%;
   color: #12243b;
 }
+input{
+  border: none;
+    padding: 5px;
+    width: 5rem;
+}

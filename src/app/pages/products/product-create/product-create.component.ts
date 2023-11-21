@@ -8,6 +8,18 @@ import { ProductsService } from '../../../services/products/products.service';
 })
 export class ProductCreateComponent {
   successMessage: string | null = null;
+  selectedImage: string = '';
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (e: any) => {
+      this.selectedImage = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  }
 
   constructor(private productsService: ProductsService) {}
   image!: string
@@ -15,6 +27,7 @@ export class ProductCreateComponent {
   code!: string
   model!: string
   price!: string
+  category!: string
   quantity!: string
   points!: string
   errors: any = [];
@@ -32,6 +45,7 @@ export class ProductCreateComponent {
       model: this.model,
       price: this.price,
       quantity: this.quantity,
+      category: this.category,
       points: this.points,
     };
 
@@ -43,9 +57,10 @@ export class ProductCreateComponent {
         this.model = '';
         this.price = '';
         this.quantity = '';
+        this.category = '';
         this.points = '';
         this.successMessage = 'Success! Product saved.';
-        setTimeout(() => this.successMessage = null, 3000);
+        setTimeout(() => this.successMessage = null, 1500);
         this.isLoading = false  
         this.errors = {};
       },
