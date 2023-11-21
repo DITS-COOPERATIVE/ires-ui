@@ -1,65 +1,86 @@
-.addButton>a {
-    background-color: #12243B;
-}
-.card-deck>.row{
-    margin-top: 20px;
-    width: 100%;
-}
 .card-img-height {
-    height: 100%;
-    object-fit: cover;
-  }
-.card{
-    margin: 0;
-
+  height: 100%;
+  object-fit: cover;
 }
-.viewbtn{
-    background-color: #12243B;
-    display: flex;
-    flex-direction: column;
-}
-.sort-by{
+.sort-by {
   font-family: "Poppins-Bold", Helvetica;
   font-size: 15px;
   text-align: center;
   position: absolute;
   right: 12rem;
-
 }
-.dropdownUni{
-      padding: 5px 5px;
+.dropdownUni {
+  padding: 5px 5px;
 }
 .toggle-button {
-    background: none; 
-    border: none; 
-    outline: none; 
-    cursor: pointer; 
-    color: #12243b; 
-    font-size: 16px; 
-    margin-right: 10px;
+  background: none;
+  border: none;
+  outline: none;
+  color: #12243b;
+  font-size: 16px;
+  margin-right: 10px;
+}
 
-  }
-  
-  .toggle-button:hover {
-    text-decoration: underline; 
-  }
-  .addButton{
-    position: absolute;
-    right: 3rem;
-  }
-.imgTable{
-    border-radius: 100%;
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
+.toggle-button:hover {
+  text-decoration: underline;
 }
-table{
-    border-color: transparent;
+.addButton {
+  position: absolute;
+  right: 3rem;
 }
-tr>th{
-    color: gray;
-    font-weight: 400;
+.addButton:hover{
+border: #12243b 1px solid;
+border-radius: 5px;
 }
-td{
-    font-weight: bold;
+.filterButton:hover{
+  border: #12243b 1px solid;
+  border-radius: 5px;
+  }
+.filterButton{
+  position: absolute;
+  right: 11rem;
+}
+.filterButton>button{
+  border: 0;
+  background-color: transparent;
+}
+.imgTable {
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+table {
+  border-color: transparent;
+}
+tr > th {
+  color: gray;
+  font-weight: 400;
+}
+td {
+  font-weight: bold;
+}
+.fa-star {
+  color: #ffc107;
+}
+.product-card {
+  border-radius: 10px;
+}
+.card-img {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.dropdown:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown>.dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+.dropdown-toggle::after{
+  display: none;
+}
+.fa, .fas{
+  font-weight: 100;
 }

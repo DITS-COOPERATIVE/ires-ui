@@ -1,12 +1,12 @@
 <div class="d-flex justify-content align-items-center mb-3">
-  <button style="position: relative; bottom: 100%" class="toggle-button" (click)="toggleView()" matTooltip="Card View"
-    matTooltipPosition="above">
+  <button style="position: relative; bottom: 100%" class="toggle-button ms-4 cursor" (click)="toggleView()"
+    matTooltip="Card View" matTooltipPosition="above">
     <i class="fas fa-th-large"></i>
   </button>
   <button class="toggle-button" (click)="cardView()" matTooltip="List View" matTooltipPosition="above">
     <i class="fas fa-list"></i>
   </button>
-
+<!-- 
   <div class="d-flex sort-by">
     <select [(ngModel)]="selectedCategory" name="" id="" class="border-0 dropdownUni" (change)="sortProducts()">
       <option value="date">Date</option>
@@ -23,9 +23,20 @@
       <option value="tools">Tools</option>
       <option value="vendo">Vendo</option>
     </select>
+  </div> -->
+  <div class="dropdown filterButton">
+    <button class="dropdown-toggle btn btn-sm" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-filter"></i> Filter
+    </button>
+    <div class="dropdown-menu cursor" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" (click)="sortProducts('name')">Name</a>
+      <a class="dropdown-item" (click)="sortProducts('date')">Date</a>
+      <a class="dropdown-item" (click)="sortProducts('points')">Points</a>
+      <a class="dropdown-item" (click)="sortProducts('price')">Price</a>
+    </div>
   </div>
-  <div class="addButton">
-    <a routerLink="/products/create" class="btn btn-sm text-white"><i class="fas fa-plus"></i> New Product</a>
+  <div class="addButton cursor">
+    <a routerLink="/products/create" class="btn btn-sm" style="color: #12243b;"><i class="fas fa-plus"></i> Add Product</a>
   </div>
 </div>
 <div class="container-fluid mt-2">
@@ -37,16 +48,15 @@
       <ng-container *ngIf="isCardView; else listView">
         <!-- Card View -->
         <div class="col-md-3" *ngFor="let item of filteredProducts; let i = index" routerLink="/products/{{ item.id }}">
-          <div class="card mb-4 customise-card" [ngClass]="{ active: i === activeCardIndex }" (click)="activateCard(i)">
-            <div class="row">
-              <div class="col-md-3 p-0">
-                <img class="card-img card-img-height" src="assets/gojo.jpg" alt="Card image" />
-              </div>
-              <div class="col-md-8 py-1">
-                  <h5 class="card-title">{{ item.name }}</h5>
-                  <p class="card-text">Price: {{ item.price | currency:'PHP':'symbol':'1.2-2'}}</p>
-                  <p class="card-text">  <i class="fas fa-star"></i> Points: {{ item.points }}</p>
-              </div>
+          <div class="row shadow mb-4 product-card border bg-white ms-2" [ngClass]="{ active: i === activeCardIndex }"
+            (click)="activateCard(i)">
+            <div class="col-md-3 p-0 ">
+              <img class="card-img card-img-height" src="assets/gojo.jpg" alt="Card image" />
+            </div>
+            <div class="col-md-9 py-1 text-center">
+              <small class="card-text float-end text-secondary"><i class="fas fa-star"></i>{{ item.points }}</small><br>
+              <h5 class="card-title text mt-2">{{ item.name }}</h5>
+              <small class="card-text mb-0"> {{ item.price | currency:'PHP':'symbol':'1.2-2'}}</small>
             </div>
           </div>
         </div>
@@ -68,13 +78,15 @@
             <tbody>
               <tr *ngFor="let item of products">
                 <td>{{ item.code }}</td>
-                <td width="25%"><img class="img-fluid img-thumbnail imgTable me-3" src="assets/gojo.jpg" alt="Card image" />{{ item.name }}</td>
+                <td width="25%"><img class="img-fluid img-thumbnail imgTable me-3" src="assets/gojo.jpg"
+                    alt="Card image" />{{ item.name }}</td>
                 <td>₱ {{ item.price }}</td>
                 <td>{{ item.points }}</td>
                 <td>{{ item.category }}</td>
 
                 <td>
-                  <a routerLink="/products/{{ item.id }}" class="btn btn-sm btn-info"> <i class="fa fa-eye text-white"></i> </a>
+                  <a routerLink="/products/{{ item.id }}" class="btn btn-sm btn-info"> <i
+                      class="fa fa-eye text-white"></i> </a>
                 </td>
               </tr>
             </tbody>

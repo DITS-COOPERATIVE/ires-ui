@@ -73,8 +73,8 @@ export class ProductViewComponent {
     this.productsService.updateProduct(inputData, this.productId).subscribe({
       next: (res: any) => {
         this.isLoading = false;
-        this.successMessage = 'Success! Product saved.';
-        setTimeout(() => (this.successMessage = null), 3000);
+        this.successMessage = 'Success! Product updated.';
+        setTimeout(() => (this.successMessage = null), 1500);
         this.isEditing = false;
         this.isReadOnly = true;
         this.isEditable = false;

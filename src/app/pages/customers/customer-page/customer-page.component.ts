@@ -20,7 +20,7 @@ export class CustomerPageComponent {
     private customersService: CustomersService,
     public dialog: MatDialog
   ) {}
-  selectedCategory: string = 'date';
+  selectedCategory: string = '';
   activeCardIndex: number | null = null;
 
   errors: any = {};
@@ -103,7 +103,7 @@ export class CustomerPageComponent {
       this.customersService.getCustomersLists().subscribe((res) => {
         this.customers = res;
         this.customers = res.sort((a, b) => a.full_name.localeCompare(b.full_name));
-        this.sortCustomers();
+        this.sortCustomers(this.selectedCategory);
         this.isLoading = false;
       });
     } catch (error) {
@@ -111,8 +111,8 @@ export class CustomerPageComponent {
     }
   }
 
-  sortCustomers() {
-    switch (this.selectedCategory) {
+  sortCustomers(selectedCategory: string) {
+    switch (selectedCategory) {
       case 'date':
         this.customers.sort((a, b) => {
           const dateA = new Date(a.created_at).getTime();
@@ -130,7 +130,6 @@ export class CustomerPageComponent {
         break;
     }
   }
-
   onImageSelected(event: any) {
     const file: File = event.target.files[0];
     const reader = new FileReader();
