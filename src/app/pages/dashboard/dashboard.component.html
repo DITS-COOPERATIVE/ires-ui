@@ -45,7 +45,7 @@
     </ng-container>
     <h6 class="mt-2 ps-2"><b>Top Selling Products</b></h6>
     <div class="row border bg-white mt-3 topProd">
-      <article *ngFor="let item of products">
+      <article *ngFor="let item of products?.slice(0,8);">
         <h6>{{item.name}} <span class="float-end">{{ getSoldQuantity(item) }}/{{ item.quantity }}</span></h6> 
         <div class="progress">
             <div class="progress-bar" role="progressbar" [style.width]="getProgressWidth(item)" aria-valuemin="0"
