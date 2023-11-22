@@ -59,9 +59,10 @@ export class CustomerEditComponent {
       gender: this.customer.gender,
       email: this.customer.email,
       mobile_no: this.customer.mobile_no,
+      points: this.customer.points,
       address: this.customer.address,
       privilege: this.customer.privilege,
-      points: this.customer.points,
+      
     };
 
     this.isLoading = true;
