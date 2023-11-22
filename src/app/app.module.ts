@@ -43,6 +43,7 @@ import { InfoComponent } from './shared/info/info.component';
 import { TransactionCustomerComponent } from './pages/transactions/transaction-customer/transaction-customer.component';
 import { TransactionCustomerCreateComponent } from './pages/transactions/transaction-customer-create/transaction-customer-create.component';
 import { PaymentComponent } from './pages/transactions/payment/payment.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,7 @@ import { PaymentComponent } from './pages/transactions/payment/payment.component
     MatIconModule,
     DragDropModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [DatePipe],
+  bootstrap: [AppComponent], 
 })
 export class AppModule {}

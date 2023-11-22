@@ -12,7 +12,6 @@ export interface CustomersResponse {
   privilege: string;
   points: number;
   image: string;
-  selected:string;
   created_at: string;
   updated_at: string;
 }

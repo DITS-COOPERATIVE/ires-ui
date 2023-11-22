@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { CustomersResponse, CustomersService } from 'src/app/services/customers/customers.service';
@@ -16,7 +17,7 @@ export class DashboardComponent implements OnInit {
   myChart: any;
   
 
-  constructor(private customersService: CustomersService, private productsService: ProductsService) {}
+  constructor(private customersService: CustomersService, private productsService: ProductsService,private datePipe: DatePipe) {}
 
   ngOnInit() {
     this.getCustomersList();
@@ -143,6 +144,17 @@ getProductsList(){
     this.activeCardIndex = index;
   }
 
-
+  getSoldQuantity(item: any): number {
+    return item.quantity - item.sold;
+  }
   
+  getProgressWidth(item: any): string {
+    const progress = (this.getSoldQuantity(item) / item.quantity) * 100;
+    return progress + '%';
+  }
+  
+  formatDate(date: string): string {
+    const formattedDate = this.datePipe.transform(date, 'MMM d, y');
+    return formattedDate || '';
+  }
 }
