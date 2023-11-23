@@ -61,3 +61,15 @@
   border-radius: 10px;
   border: 1px solid rgba(158, 156, 156, 0.397);
 }
+.progress {
+  --bs-progress-height: 8px!important;
+  margin: 15px 0;
+}
+.topProd{
+  height: 50%;
+    overflow: auto;
+}
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}

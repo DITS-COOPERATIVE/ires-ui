@@ -32,10 +32,6 @@
 border: #12243b 1px solid;
 border-radius: 5px;
 }
-.filterButton:hover{
-  border: #12243b 1px solid;
-  border-radius: 5px;
-  }
 .filterButton{
   position: absolute;
   right: 11rem;

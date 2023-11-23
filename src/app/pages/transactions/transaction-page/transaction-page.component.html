@@ -249,14 +249,18 @@
     </div>
     <div class="col-lg-8 d-flex flex-wrap align-items-start productsContainer">
       <div class="row">
-        <div>
-          <select [(ngModel)]="selectedCategory" (ngModelChange)="updateFilteredProducts()" class="border-0 px-2 py-1 mb-2 dropdownUni">
-            <option value="all">All</option>
-            <option value="Services">Services</option>
-            <option value="router">Router</option>
-            <option value="vendo">Vendo</option>
-            <option value="tools">Tools</option>
-          </select>
+        <div class="dropdown filterButton mb-2 d-flex justify-content-end">
+          <button class="dropdown-toggle btn btn-sm"(ngModelChange)="updateFilteredProducts()" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <i class="fas fa-filter"></i> Filter
+          </button>
+          <div class="dropdown-menu cursor" aria-labelledby="dropdownMenuButton" style="margin-top: 30px;">
+            <a class="dropdown-item" value="all">All</a>
+            <a class="dropdown-item" value="Services">Services</a>
+            <a class="dropdown-item" value="Router">Router</a>
+            <a class="dropdown-item" value="Vendo">Vendo</a>
+            <a class="dropdown-item" value="Tools">Tools</a>
+          </div>
         </div>
         <div class="wrapper">
           <div class="box" *ngFor="let item of filteredProducts; let i = index" (click)="addToCart(item)">

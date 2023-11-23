@@ -1,4 +1,4 @@
-<div class="d-flex justify-content align-items-center mb-3">
+<div class="d-flex justify-content align-items-center mb-3 ms-4">
   <button style="position: relative; bottom: 100%" class="toggle-button" (click)="toggleView()" matTooltip="Card View"
     matTooltipPosition="above">
     <i class="fas fa-th-large"></i>
@@ -34,7 +34,7 @@
           <!-- Card View -->
           <div class="col-md-6" *ngFor="let item of customers; let i = index">
             <div class="card customise-card" [ngClass]="{ active: i === activeCardIndex }" (click)="activateCard(i)"
-              routerLink="/customers/{{ item.id }}" class="card-link border">
+              routerLink="/customers/{{ item.id }}" class="card-link border border-secondary shadow">
               <div class="row no-gutters">
                 <div class="col-md-4">
                   <img class="card-img card-img-height"
@@ -67,27 +67,27 @@
           </div>
         </ng-container>
         <ng-template #listView>
-          <table class="table">
+          <table class="table shadow">
             <thead>
               <tr>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Mobile Number</th>
                 <th>Gender</th>
-                <th>Privilege</th>
+                <th class="text-center">Privilege</th>
                 <th>Address</th>
                 <th>Points</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of customers; let i = index">
-                <td>{{ item.full_name }}</td>
-                <td>{{ item.email }}</td>
-                <td>{{ item.mobile_no }}</td>
-                <td>{{ item.gender }}</td>
-                <td>{{ item.privilege }}</td>
-                <td>{{ item.address }}</td>
-                <td>{{ item.points }}</td>
+              <tr *ngFor="let item of customers; let i = index" class="text-center">
+                <td width="15%" title="{{ item.full_name }}">{{ item.full_name }}</td>
+                <td width="20%" title="{{ item.email }}">{{ item.email }}</td>
+                <td width="15%" title="{{ item.mobile_no }}">{{ item.mobile_no }}</td>
+                <td width="8%" title="{{ item.gender }}">{{ item.gender }}</td>
+                <td width="10%" title="{{ item.privilege }}" [attr.data-privilege]="item.privilege" class="px-3 "><span>{{ item.privilege }}</span></td>
+                <td width="25%" title="{{ item.address }}">{{ item.address }}</td>
+                <td width="8%" title="{{ item.points }}" >{{ item.points }}</td>
               </tr>
             </tbody>
           </table>
@@ -96,7 +96,7 @@
     </div>
 
     <div *ngIf="isCardView" class="col-lg-4">
-      <form (ngSubmit)="saveCustomer()" class="custom-form" style="position: relative; bottom: 7%">
+      <form (ngSubmit)="saveCustomer()" class="custom-form shadow border border-secondary" style="position: relative; bottom: 7%">
         <h4>New Customer</h4>
         <div class="mb-2">
           <label for="full_name">Name</label>

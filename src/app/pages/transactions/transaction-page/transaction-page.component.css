@@ -134,3 +134,19 @@ minmax(90px, 1fr));
   position: relative;
   border: solid 1px rgba(128, 128, 128, 0.425);
 }
+.dropdown:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown>.dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+.dropdown-toggle::after{
+  display: none;
+}
+.filterButton>button:hover{
+  background-color: transparent!important;
+  border: 1px solid;
+  
+}

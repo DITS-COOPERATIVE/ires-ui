@@ -1,14 +1,18 @@
-<div class="d-flex mt-5 mb-3 justify-content-between">
-    <div>
-      <select name="" id="" class="border-0 mt-2">
-        <option value="Today">Today</option>
-        <option value="Yesterday">Yesterday</option>
-        <option value="">Last 7 days</option>
-        <option value="">Last Month</option>
-      </select>
+<div class="d-flex mt-3 mb-3 justify-content-between">
+    <div class="dropdown filterButton">
+      <button class="dropdown-toggle btn btn-sm" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-calendar"></i>&nbsp; Date
+      </button>
+      <div class="dropdown-menu cursor" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item">Today</a>
+        <a class="dropdown-item">Yesterday</a>
+        <a class="dropdown-item">Last 7 days</a>
+        <a class="dropdown-item">Last Month</a>
+      </div>
     </div>
+   
     <div class="">
-      <a routerLink="" class="btn btn-primary btn-sm printButton"
+      <a class="btn btn-sm printButton"
         ><i class="fas fa-print"></i> Print Report</a>
     </div>
   </div>
@@ -19,11 +23,14 @@
         <th scope="col">Customer</th>
         <th scope="col">Product</th>
         <th scope="col">Quantity</th>
-        <th scope="col">Status</th>
+        <th scope="col">Sale</th>
       </tr>
     </thead>
     <tbody>
-     
+     <td>1</td>
+     <td>2</td>
+     <td>3</td>
+     <td>4</td>
     </tbody>
   </table>
   
