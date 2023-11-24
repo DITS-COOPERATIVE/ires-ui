@@ -44,6 +44,8 @@ import { TransactionCustomerComponent } from './pages/transactions/transaction-c
 import { TransactionCustomerCreateComponent } from './pages/transactions/transaction-customer-create/transaction-customer-create.component';
 import { PaymentComponent } from './pages/transactions/payment/payment.component';
 import { DatePipe } from '@angular/common';
+import { ServiceComponent } from './pages/service/service.component';
+import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,8 @@ import { DatePipe } from '@angular/common';
     TransactionCustomerComponent,
     TransactionCustomerCreateComponent,
     PaymentComponent,
+    ServiceComponent,
+    CustomerCreateComponent,
   ],
   imports: [
     BrowserModule,

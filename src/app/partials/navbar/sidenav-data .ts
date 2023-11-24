@@ -20,6 +20,11 @@ export const navbarData =[
         label: 'Customer'
     },
     {
+        routeLink: 'service',
+        icon: 'fa fa-cogs',
+        label: 'Services'
+    },
+    {
         routeLink: 'reports',
         icon: 'fal fa-file-chart-line',
         label: 'Reports'
@@ -32,7 +37,7 @@ export const navbarData =[
     {
         routeLink: 'transactions',
         icon: 'fal fa-cash-register',
-        label: 'Transaction'
+        label: 'P.O.S'
     },
     {
         routeLink: 'settings',
