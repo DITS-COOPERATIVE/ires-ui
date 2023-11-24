@@ -3,13 +3,27 @@
       <button class="dropdown-toggle btn btn-sm" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fa fa-calendar"></i>&nbsp; Date
       </button>
+      
       <div class="dropdown-menu cursor" aria-labelledby="dropdownMenuButton">
         <a class="dropdown-item">Today</a>
         <a class="dropdown-item">Yesterday</a>
         <a class="dropdown-item">Last 7 days</a>
         <a class="dropdown-item">Last Month</a>
       </div>
+    
     </div>
+    <span> Create a Report <input type="text"
+      ngxDaterangepickerMd
+      [(ngModel)]="selected"
+      [showCustomRangeLabel]="true"
+      [alwaysShowCalendars]="true"
+      [ranges]="ranges"
+      [linkedCalendars]="true"
+      [isInvalidDate] = "isInvalidDate"
+      [showClearButton]="true"
+      placeholder="Choose Date"></span>
+  
+    
    
     <div class="">
       <a class="btn btn-sm printButton"

@@ -44,6 +44,7 @@ import { TransactionCustomerComponent } from './pages/transactions/transaction-c
 import { TransactionCustomerCreateComponent } from './pages/transactions/transaction-customer-create/transaction-customer-create.component';
 import { PaymentComponent } from './pages/transactions/payment/payment.component';
 import { DatePipe } from '@angular/common';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { DatePipe } from '@angular/common';
     MatCheckboxModule,
     MatIconModule,
     DragDropModule,
+    NgxDaterangepickerMd.forRoot()
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent], 
