@@ -36,28 +36,33 @@ export class PaymentComponent {
   paymentMade: boolean = false;
   receiptContent: string = '';
 
-  onCancel(): void {
+  newOrder(): void {
     this.paymentSuccess = true;
+    this.dialogRef.close();
+  }
 
+  onBack(): void {
     this.dialogRef.close();
   }
   calculateSubtotal(cartItem: any): number {
-    // Calculate the subtotal for a cart item
     const subtotal = cartItem.price * cartItem.quantity;
     return subtotal;
   }
   calculateTotal(): number {
-    // Calculate the total by summing up all the subtotals
     let total = 0;
     for (const cartItem of this.cart) {
       total += this.calculateSubtotal(cartItem);
     }
     return total;
   }
-  onAdd(): void {
+
+  onPay(): void {
     this.paymentSuccess = true;
     this.paymentMade = true;
-    console.log('Printing...');
+    const amountRendered = this.amountPaid;
+    const change = this.calculateChange();
+
+    this.dialogRef.close({ success: true, amountRendered, change });
   }
 
   calculateChange(): number {
@@ -69,10 +74,7 @@ export class PaymentComponent {
     this.paymentSuccess = true;
   }
 
-
-
   onPrintReceipt(): void {
     window.print();
-    
-}
+  }
 }

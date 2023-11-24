@@ -108,6 +108,10 @@ export class TransactionPageComponent {
     this.isCartEmpty = this.cart.length === 0;
   }
 
+  clearCart(): void {
+    this.cart = [];
+  }
+
   selectCartItem(cartItem: ProductsResponse, index: number) {
     this.selectedProduct = cartItem;
     this.selectedProductIndex = index;
@@ -314,15 +318,55 @@ export class TransactionPageComponent {
       data: { product: item },
     });
   }
+  
   openPaymentDialog(): void {
-    const totalPrice = this.getTotalPrice();
+    const totalAmount = this.getTotalPrice();
     const dialogRef = this.dialog.open(PaymentComponent, {
       width: '500px',
       disableClose: true,
-      data: { totalAmount: totalPrice, cart: this.cart },
+      data: { totalAmount: totalAmount, cart: this.cart },
     });
-
-    dialogRef.afterClosed().subscribe((result) => {
+  
+    dialogRef.beforeClosed().subscribe((result) => {
+      if (result && result.success) {
+        const totalAmount = this.getTotalPrice();
+  
+        const inputData = {
+          ...this.getTransactionDetails(), 
+          amountRendered: result.amountRendered,
+          change: result.change,
+        };
+  
+        this.transactionsService.saveTransaction(inputData).subscribe(
+          (response) => {
+            console.log('Transaction saved:', response);
+          },
+          (error) => {
+            console.error('Error saving transaction:', error);
+          }
+        );
+      }
     });
   }
+  
+
+  getTransactionDetails(): any {
+    const selectedCustomer = this.sharedService.getSelectedCustomerObject();
+    const sub_Total = this.getTotalPrice();
+    return {
+      customer: selectedCustomer ? [{ id: selectedCustomer.id, full_name: selectedCustomer.full_name }] : [],
+      products: this.cart.map((item) => ({
+        id: item.id,
+        qty: item.quantity,
+        price: item.price,
+        totalPrice: item.quantity * parseFloat(item.price),
+        discount: item.discount,
+        points:item.points,
+        note: item.note,
+        internalNote: item.internalNote,
+      })),
+      sub_Total: sub_Total,
+    };
+  }
+  
 }
