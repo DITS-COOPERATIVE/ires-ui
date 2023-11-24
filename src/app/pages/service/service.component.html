@@ -1,0 +1,40 @@
+<p>name and type of service = installation</p>
+<div class="container">
+    <h3>Reservation</h3>
+    <div class="modal-actions">
+        <button style="position: relative; bottom: 100%" class="btn btn-primary">
+          <a
+            routerLink="/transaction-customer-create/"
+            style="text-decoration: none; color: inherit"
+          >
+            Create</a
+          >
+        </button>
+      
+        <button class="btn btn-secondary">
+          <a routerLink="/transactions/" style="text-decoration: none; color: inherit"
+            >Choose</a
+          >
+        </button>
+      </div>
+    <form action="" class="d-flex justify-content-between">
+        <input type="text" placeholder="Name">
+    <input type="number" name="" id="" placeholder="Price">
+    <select name="" id="">
+        <option value="">Programming</option>
+        <option value="">Software Installation</option>
+        <option value="">Layout</option>
+        <option value="">CCTV Installation</option>
+        <option value="">Print/Photocopy</option>
+        <option value="">Internet Services</option>
+        <option value="">Repair Services</option>
+        <option value="">Load Services</option>
+    </select>
+    <select name="" id="">
+        <option value="">Available</option>
+        <option value="">Not Available</option>
+    </select>
+    <button class="btn btn-sm btn-outline-primary" (click)="saveProduct()">Reserve</button>
+    </form>
+    
+</div>

@@ -47,7 +47,7 @@ table {
 
 th,
 td {
-  padding: 20px 5px;
+  padding: 20px 10px;
   text-align: left;
   text-align: left;
   font-size: smaller;
@@ -151,17 +151,12 @@ td {
 
 .card-view {
   position: relative;
-  left: 50%;
+  left: 78%;
 }
 
 .list-view {
   position: relative;
   left: 85%;
-}
-.sort-by {
-  font-family: "Poppins-Bold", Helvetica;
-  font-size: 15px;
-  text-align: center;
 }
 th {
   font-weight: 400;
@@ -227,3 +222,7 @@ td {
 th, tr, td{
   border: none;
 }
+.addButton:hover{
+  border: #12243b 1px solid;
+  border-radius: 5px;
+  }

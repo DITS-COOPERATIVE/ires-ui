@@ -6,24 +6,6 @@
   <button class="toggle-button" (click)="cardView()" matTooltip="List View" matTooltipPosition="above">
     <i class="fas fa-list"></i>
   </button>
-<!-- 
-  <div class="d-flex sort-by">
-    <select [(ngModel)]="selectedCategory" name="" id="" class="border-0 dropdownUni" (change)="sortProducts()">
-      <option value="date">Date</option>
-      <option value="points">Points</option>
-      <option value="price">Price</option>
-      <option value="category">Category</option>
-    </select>
-
-    <select [(ngModel)]="selectedCategory" *ngIf="selectedCategory === 'category'" [(ngModel)]="selectedFilterCategory"
-      name="" id="" class="border-0 dropdownUni" (change)="filterProducts()">
-      <option value="all">All</option>
-      <option value="services">Wifi</option>
-      <option value="software">Router</option>
-      <option value="tools">Tools</option>
-      <option value="vendo">Vendo</option>
-    </select>
-  </div> -->
   <div class="dropdown filterButton">
     <button class="dropdown-toggle btn btn-sm" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <i class="fas fa-filter"></i> Filter
