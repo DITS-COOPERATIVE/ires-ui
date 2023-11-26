@@ -1,18 +1,19 @@
 <div class="d-flex mt-3 mb-3 justify-content-between">
-    <div class="dropdown filterButton">
-      <button class="dropdown-toggle btn btn-sm" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fa fa-calendar"></i>&nbsp; Date
-      </button>
-      <div class="dropdown-menu cursor" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item">Today</a>
-        <a class="dropdown-item">Yesterday</a>
-        <a class="dropdown-item">Last 7 days</a>
-        <a class="dropdown-item">Last Month</a>
-      </div>
-    </div>
+    <span class="report"> Create a Report &nbsp;<input type="text"
+      ngxDaterangepickerMd
+      [(ngModel)]="selected"
+      [showCustomRangeLabel]="true"
+      [alwaysShowCalendars]="true"
+      [ranges]="ranges"
+      [linkedCalendars]="true"
+      [isInvalidDate] = "isInvalidDate"
+      [showClearButton]="true"
+      placeholder="mm/dd/yy"
+      style="padding: 2px 1px;
+      border: 0.20px solid;"></span>
    
     <div class="">
-      <a class="btn btn-sm printButton"
+      <a class="btn btn-sm printButton p-2"
         ><i class="fas fa-print"></i> Print Report</a>
     </div>
   </div>

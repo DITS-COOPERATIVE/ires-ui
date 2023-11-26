@@ -151,12 +151,12 @@ td {
 
 .card-view {
   position: relative;
-  left: 78%;
+  left: 75%;
 }
 
 .list-view {
-  position: relative;
-  left: 85%;
+  position: absolute;
+  left: 80%;
 }
 th {
   font-weight: 400;

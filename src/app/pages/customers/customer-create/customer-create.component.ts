@@ -20,6 +20,7 @@ export class CustomerCreateComponent {
   customers: CustomersResponse[] = [];
   errors: any = {};
   uploadedImage: any;
+  selectedImage: string = '';
   constructor(
     private customersService: CustomersService,
     public dialog: MatDialog
@@ -82,6 +83,16 @@ export class CustomerCreateComponent {
     if (file) {
       reader.readAsDataURL(file);
     }
+  }
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (e: any) => {
+      this.selectedImage = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
   }
 
 }

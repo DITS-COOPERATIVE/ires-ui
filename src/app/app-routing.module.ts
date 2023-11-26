@@ -6,16 +6,13 @@ import { ProductPageComponent } from './pages/products/product-page/product-page
 import { CustomerPageComponent } from './pages/customers/customer-page/customer-page.component';
 import { CustomerEditComponent } from './pages/customers/customer-edit/customer-edit.component';
 import { OrderPageComponent } from './pages/orders/order-page/order-page.component';
-import { OrderCreateComponent } from './pages/orders/order-create/order-create.component';
 import { TransactionPageComponent } from './pages/transactions/transaction-page/transaction-page.component';
-import { TransactionCreateComponent } from './pages/transactions/transaction-create/transaction-create.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { StocksComponent } from './pages/stocks/stocks.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProductViewComponent } from './pages/products/product-view/product-view.component';
 import { PaymentComponent } from './pages/transactions/payment/payment.component';
-import { TransactionCustomerCreateComponent } from './pages/transactions/transaction-customer-create/transaction-customer-create.component';
 import { TransactionCustomerComponent } from './pages/transactions/transaction-customer/transaction-customer.component';
 import { ServiceComponent } from './pages/service/service.component';
 import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
@@ -34,15 +31,12 @@ const routes: Routes = [
   { path: 'customers/create', component: CustomerCreateComponent, title: 'Add New Customer'},
 
   { path: 'orders', component: OrderPageComponent, title: 'Orders' },
-  { path: 'orders/create',component: OrderCreateComponent,title: 'Create New Orders',  },
 
   { path: 'service', component: ServiceComponent, title: 'Services' },
 
   { path: 'transactions',component: TransactionPageComponent,title: 'Transactions',  },
-  { path: 'transactions/create',component: TransactionCreateComponent,title: 'Create New Transactions', },
   { path: 'transaction-customer',component: TransactionCustomerComponent,title: 'Create New Customer Transaction', },
-  { path: 'transaction-customer-create',component: TransactionCustomerCreateComponent,title: 'Create New Customer',},
-  
+
   { path: 'payment', component: PaymentComponent, title: 'Payment' },
   { path: 'reports', component: ReportsComponent, title: 'Reports' },
   { path: 'stocks', component: StocksComponent, title: 'Stocks' },
