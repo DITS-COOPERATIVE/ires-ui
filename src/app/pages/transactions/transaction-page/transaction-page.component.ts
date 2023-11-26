@@ -37,6 +37,7 @@ export class TransactionPageComponent {
   code!: string;
   model!: string;
   note!: string;
+  internalNote!:string;
   price!: string;
   quantity!: string;
   points!: string;
@@ -327,46 +328,58 @@ export class TransactionPageComponent {
       data: { totalAmount: totalAmount, cart: this.cart },
     });
   
-    dialogRef.beforeClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.success) {
-        const totalAmount = this.getTotalPrice();
-  
         const inputData = {
-          ...this.getTransactionDetails(), 
+          ...this.getTransactionDetails(),
           amountRendered: result.amountRendered,
           change: result.change,
+          
         };
+        console.log(result)
   
-        this.transactionsService.saveTransaction(inputData).subscribe(
+        this.ordersService.saveOrder(inputData).subscribe(
           (response) => {
             console.log('Transaction saved:', response);
           },
           (error) => {
             console.error('Error saving transaction:', error);
           }
+          
         );
       }
     });
   }
+
   
 
   getTransactionDetails(): any {
     const selectedCustomer = this.sharedService.getSelectedCustomerObject();
-    const sub_Total = this.getTotalPrice();
-    return {
-      customer: selectedCustomer ? [{ id: selectedCustomer.id, full_name: selectedCustomer.full_name }] : [],
+    const total = this.getTotalPrice();
+  
+    const payload = {
+      customer_id: selectedCustomer?.id,
+      total: total,
       products: this.cart.map((item) => ({
         id: item.id,
+        price: parseFloat(item.price),
         qty: item.quantity,
-        price: item.price,
-        totalPrice: item.quantity * parseFloat(item.price),
+        points: item.points,
+        sub_total: item.quantity * parseFloat(item.price),
         discount: item.discount,
-        points:item.points,
-        note: item.note,
-        internalNote: item.internalNote,
       })),
-      sub_Total: sub_Total,
+      internal_note: this.internalNote || '-',
+      customer_note: this.note || '-',
+      discount: 0,
     };
+    if(!selectedCustomer){
+       delete payload.customer_id
+    }
+  
+    return payload;
   }
+
+
+
   
 }
