@@ -79,24 +79,25 @@
         </button>
 
         <div class="col-md-5">
-          <div
-            class="row h-25 text-center bg-lightd-flex align-items-center customer btn-hover"
-          >
-            <a
-              routerLink="/transaction-customer/"
-              style="text-decoration: none; color: inherit"
-            >
-              <a
-                routerLink="/transaction-customer/"
-                style="text-decoration: none; color: inherit"
-              >
-                <h6>
-                  <i class="fas fa-user"></i>
-                  {{ selectedCustomerName || "Customer" }}
-                </h6>
-              </a></a
-            >
-          </div>
+         <div class="row h-25 text-center bg-lightd-flex align-items-center customer btn-hover">
+  <div class="col-lg-12">
+    <select
+    name="customer"
+    id="customer"
+    [(ngModel)]="selectedCustomer"
+    (ngModelChange)="onCustomerChange()"
+    class="form-control w-25 m-auto mb-3"
+  >
+    <option [ngValue]="undefined">Select a customer</option>
+    <option
+      *ngFor="let customer of customers"
+      [ngValue]="customer"
+    >
+      {{ customer.full_name }}
+    </option>
+  </select>
+  </div>
+</div>
           <div
             class="row text-center text-white paymentContainer h-75 d-flex align-items-center click-hover"
             [class.disabled]="isCartEmpty"

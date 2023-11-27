@@ -1,4 +1,4 @@
-<div *ngIf="paymentMade" id="content">
+<div *ngIf="payment" id="content">
   <div class="row d-flex justify-content-around">
     <div class="container px-3">
       <div class="receipt_header">
@@ -56,7 +56,7 @@
     </div>
   </div>
 </div>
-<div *ngIf="!paymentMade">
+<div *ngIf="!payment">
   <span *ngIf="!paymentSuccess" style="margin: 2% 2% 2% 2%;"><i class="fas fa-arrow-circle-left"(click)="onBack()"></i></span>
  
   <h1 class="row d-flex justify-content-around">Payment</h1>

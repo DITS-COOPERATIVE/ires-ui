@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { CustomersResponse } from 'src/app/services/customers/customers.service';
 
 export interface ProductsResponse {
   id: number;
@@ -17,6 +18,7 @@ export interface ProductsResponse {
   points: number;
   created_at: string;
   updated_at: string;
+  customer: CustomersResponse;
 }
 
 export interface ProductsResponseType {
@@ -31,7 +33,7 @@ export interface ProductEditResponse {
   providedIn: 'root',
 })
 export class ProductsService {
-  private endpoint = 'products/';
+  private endpoint = 'products';
 
   private domain: string | undefined;
 

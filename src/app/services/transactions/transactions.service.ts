@@ -63,7 +63,7 @@ export interface TransactionEditResponse {
   providedIn: 'root'
 })
 export class TransactionsService {
-  private endpoint = "transactions/";
+  private endpoint = "transactions";
   private domain: string | undefined;
 
   constructor( private httpClient: HttpClient ) {
