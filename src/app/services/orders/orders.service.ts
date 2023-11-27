@@ -45,8 +45,7 @@ export interface OrdersResponse {
 }
 
 export interface OrdersResponseType {
-  status: number,
-  result: OrdersResponse []
+  rest: OrdersResponse []
 }
 
 export interface OrderEditResponse {
@@ -66,7 +65,7 @@ export class OrdersService {
 
   getOrdersLists() {
 
-    return  this.httpClient.get<OrdersResponseType>(`${this.domain}${this.endpoint}`);
+    return  this.httpClient.get<OrdersResponseType[]>(`${this.domain}${this.endpoint}`);
   }
 
   getOrder(orderId : number) {
