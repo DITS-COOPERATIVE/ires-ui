@@ -68,10 +68,6 @@ export class CustomerCreateComponent {
       },
     });
   }
-  getErrorPosition(index: number): number {
-    const spacing = 10;
-    return index * spacing;
-  }
   onImageSelected(event: any) {
     const file: File = event.target.files[0];
     const reader = new FileReader();

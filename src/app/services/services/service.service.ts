@@ -1,15 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { CustomersResponse } from '../customers/customers.service';
-
 
 export interface ServiceResponse {
   id: number;
-  customer:CustomersResponse;
+  name:string;
   price: string;
-  serviceType:string;
-  points: number;
+  type:string;
   status: string;
   created_at: string;
   updated_at: string;
@@ -27,7 +24,7 @@ export interface ServiceEditResponse {
   providedIn: 'root'
 })
 export class ServiceService {
-  private endpoint = 'service/';
+  private endpoint = 'services/';
 
   private domain: string | undefined;
 
@@ -41,9 +38,9 @@ export class ServiceService {
     );
   }
 
-  getService(productId: number) {
+  getService(serviceId: number) {
     return this.httpClient.get<ServiceResponse>(
-      `${this.domain}${this.endpoint}${productId}`
+      `${this.domain}${this.endpoint}${serviceId}`
     );
   }
 
@@ -51,15 +48,15 @@ export class ServiceService {
     return this.httpClient.post(`${this.domain}${this.endpoint}`, inputData);
   }
 
-  updateService(inputData: object, productId: number) {
+  updateService(inputData: object, serviceId: number) {
     return this.httpClient.put(
-      `${this.domain}${this.endpoint}${productId}`,
+      `${this.domain}${this.endpoint}${serviceId}`,
       inputData
     );
   }
 
-  destroyService(productId: number) {
-    return this.httpClient.delete(`${this.domain}${this.endpoint}${productId}`);
+  destroyService(serviceId: number) {
+    return this.httpClient.delete(`${this.domain}${this.endpoint}${serviceId}`);
   }
 }
 

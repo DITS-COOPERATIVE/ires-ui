@@ -20,9 +20,9 @@ export const navbarData =[
         label: 'Customer'
     },
     {
-        routeLink: 'service',
-        icon: 'fa fa-cogs',
-        label: 'Services'
+        routeLink: 'reservations',
+        icon: 'far fa-calendar-alt',
+        label: 'Reservations'
     },
     {
         routeLink: 'reports',

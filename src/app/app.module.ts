@@ -44,6 +44,7 @@ import { DatePipe } from '@angular/common';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { ServiceComponent } from './pages/service/service.component';
 import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
+import { ReservationPageComponent } from './pages/reservation/reservation-page/reservation-page.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { CustomerCreateComponent } from './pages/customers/customer-create/custo
     PaymentComponent,
     ServiceComponent,
     CustomerCreateComponent,
+    ReservationPageComponent,
   ],
   imports: [
     BrowserModule,
