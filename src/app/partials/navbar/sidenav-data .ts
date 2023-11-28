@@ -20,6 +20,11 @@ export const navbarData =[
         label: 'Customer'
     },
     {
+        routeLink: 'reservations',
+        icon: 'far fa-calendar-alt',
+        label: 'Reservations'
+    },
+    {
         routeLink: 'reports',
         icon: 'fal fa-file-chart-line',
         label: 'Reports'
@@ -32,7 +37,7 @@ export const navbarData =[
     {
         routeLink: 'transactions',
         icon: 'fal fa-cash-register',
-        label: 'Transaction'
+        label: 'POS'
     },
     {
         routeLink: 'settings',

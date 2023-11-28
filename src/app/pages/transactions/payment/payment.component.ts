@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CustomersResponse } from 'src/app/services/customers/customers.service';
 import { ProductsResponse } from 'src/app/services/products/products.service';
@@ -9,6 +9,7 @@ import { ProductsResponse } from 'src/app/services/products/products.service';
   styleUrls: ['./payment.component.css'],
 })
 export class PaymentComponent {
+  @Output() paymentMade: EventEmitter<any> = new EventEmitter<any>();
   constructor(
     public dialogRef: MatDialogRef<PaymentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -33,33 +34,39 @@ export class PaymentComponent {
   model!: string;
   price!: string;
   quantity!: string;
-  paymentMade: boolean = false;
+  payment: boolean = false;
   receiptContent: string = '';
 
-  onCancel(): void {
+  newOrder(): void {
     this.paymentSuccess = true;
+    this.paymentMade.emit({ success: true });
+    this.dialogRef.close();
+  }
 
+  onBack(): void {
     this.dialogRef.close();
   }
   calculateSubtotal(cartItem: any): number {
-    // Calculate the subtotal for a cart item
     const subtotal = cartItem.price * cartItem.quantity;
     return subtotal;
   }
   calculateTotal(): number {
-    // Calculate the total by summing up all the subtotals
     let total = 0;
     for (const cartItem of this.cart) {
       total += this.calculateSubtotal(cartItem);
     }
     return total;
   }
-  onAdd(): void {
-    this.paymentSuccess = true;
-    this.paymentMade = true;
-    console.log('Printing...');
-  }
 
+  onPay(): void {
+    this.paymentSuccess = true;
+    this.payment = true;
+    const amountRendered = this.amountPaid;
+    const change = this.calculateChange();
+
+  
+    this.paymentMade.emit({ success: true, amountRendered, change });
+  }
   calculateChange(): number {
     const change = this.amountPaid - this.totalAmount;
     return change < 0 ? 0 : change;
@@ -69,10 +76,7 @@ export class PaymentComponent {
     this.paymentSuccess = true;
   }
 
-
-
   onPrintReceipt(): void {
     window.print();
-    
-}
+  }
 }

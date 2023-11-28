@@ -5,19 +5,20 @@
     <div class="row mt-3">
       <div class="col totalCol text-white" (click)="updateChartType(0)">
         <p class="mt-2 ms-2">Total Orders</p>
-        <i class="fas fa-list-ul float-end"></i>
+        <span>{{totalOrders}}<i class="fas fa-keyboard float-end"></i></span>
       </div>
       <div class="col totalCol mx-1 text-white" (click)="updateChartType(1)">
         <p class="mt-2 ms-2">Total Income</p>
-        <i class="far fa-money-bill-alt float-end"></i>
+        <span>{{totalIncome}}<i class="far fa-money-bill-alt float-end"></i></span>
       </div>
       <div class="col totalCol me-1 text-white" (click)="updateChartType(2)">
         <p class="mt-2 ms-2">Total Customer</p>
         <span>{{ totalCustomers }}<i class="fas fa-users float-end"></i></span>
       </div>
       <div class="col totalCol text-white" (click)="updateChartType(3)">
-        <p class="mt-2 ms-2">Total Transaction</p>
-        <i class="fas fa-keyboard float-end"></i>
+        <p class="mt-2 ms-2">Total Reservation</p>
+        <span>{{totalReservations}}<i class="fas fa-list-ul float-end"></i> </span>
+        
       </div>
     </div>
     <br />

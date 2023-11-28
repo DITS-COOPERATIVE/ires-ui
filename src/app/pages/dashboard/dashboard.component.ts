@@ -2,7 +2,9 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { CustomersResponse, CustomersService } from 'src/app/services/customers/customers.service';
+import { OrdersResponse, OrdersResponseType, OrdersService } from 'src/app/services/orders/orders.service';
 import { ProductsResponse, ProductsService } from 'src/app/services/products/products.service';
+import { ReservationResponse, ReservationService } from 'src/app/services/reservation/reservation.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,16 +14,27 @@ import { ProductsResponse, ProductsService } from 'src/app/services/products/pro
 export class DashboardComponent implements OnInit {
   customers: CustomersResponse[] = [];
   products: ProductsResponse[] = [];
+  reservations: ReservationResponse[] = [];
+  orders: OrdersResponse[] = [];
   totalCustomers: number = 0;
+  totalOrders: number = 0;
+  totalIncome: number = 0;
+  totalReservations: number = 0;
   activeCardIndex: number | null = null;
   myChart: any;
   
 
-  constructor(private customersService: CustomersService, private productsService: ProductsService,private datePipe: DatePipe) {}
+  constructor(private customersService: CustomersService,
+     private productsService: ProductsService,
+     private datePipe: DatePipe,
+     private ordersService: OrdersService,
+     private reservationService: ReservationService) {}
 
   ngOnInit() {
+    this.getReservationList()
     this.getCustomersList();
     this.getProductsList();
+    this.getOrdersList();
     this.createChart()
 
     
@@ -37,14 +50,14 @@ export class DashboardComponent implements OnInit {
         datasets: [
           {
             label: 'Total Orders',
-            data: [2, 19, 43, 75, 20, 40, 4, 7, 5, 81, 79, 60],
+            data: [],
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 1
           },
           {
             label: 'Total Income',
-            data: [10, 20, 15, 30, 50, 18, 22, 40, 35, 30, 25, 20],
+            data: [],
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderColor: 'rgba(54, 162, 235, 1)',
             borderWidth: 1
@@ -57,8 +70,8 @@ export class DashboardComponent implements OnInit {
             borderWidth: 1
           },
           {
-            label: 'Total Transactions',
-            data: [50, 45, 60, 70, 55, 40, 80, 75, 90, 85, 70, 60],
+            label: 'Total Reservations',
+            data: [],
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1
@@ -90,6 +103,8 @@ export class DashboardComponent implements OnInit {
     });
   
     this.getCustomersList();
+    this.getOrdersList();
+    this.getReservationList();
   }
   
   updateChartType(clickedDatasetIndex: number) {
@@ -120,33 +135,101 @@ export class DashboardComponent implements OnInit {
   
   updateChartData() {
     const customersData = Array(12).fill(0); 
+    const ordersData = Array(12).fill(0);
+    const incomeData = Array(12).fill(0); 
+    const reservationData = Array(12).fill(0);
+    
     for (const customer of this.customers) {
       const monthIndex = new Date(customer.created_at).getMonth();
       customersData[monthIndex]++;
     }
-  
+    
+    for (const order of this.orders) {
+      const monthIndex = new Date(order.created_at).getMonth();
+      ordersData[monthIndex]++;
+      incomeData[monthIndex] += parseFloat(order.total);
+    }
+    for (const reserve of this.reservations) {
+      const monthIndex = new Date(reserve.created_at).getMonth();
+      reservationData[monthIndex]++;
+    }
+
+    
     const totalCustomersDataset = this.myChart.data.datasets.find((dataset: any) => dataset.label === 'Total Customers');
+    const totalOrdersDataset = this.myChart.data.datasets.find((dataset: any) => dataset.label === 'Total Orders');
+    const totalIncomeDataset = this.myChart.data.datasets.find((dataset: any) => dataset.label === 'Total Income');
+    const totalReservationDataset = this.myChart.data.datasets.find((dataset: any) => dataset.label === 'Total Reservations');
+
     if (totalCustomersDataset) {
       totalCustomersDataset.data = customersData;
     }
+    
+    if (totalOrdersDataset) {
+      totalOrdersDataset.data = ordersData;
+    }
+    
+    if (totalIncomeDataset) {
+      totalIncomeDataset.data = incomeData;
+    }
+    if (totalReservationDataset){
+      totalReservationDataset.data = reservationData;
+    }
+    
     this.myChart.update();
   }
   
-getProductsList(){
-  this.productsService.getProductsLists().subscribe((products: ProductsResponse[]) => {
-    this.products = products;
-    this.products.sort((a, b) => b.quantity - a.quantity);
+  getProductsList() {
+    this.productsService.getProductsLists().subscribe((products: ProductsResponse[]) => {
+      this.products = products;
+      this.products.sort((a, b) => b.quantity - a.quantity);
+  
+  
+      const productsWithSoldQuantity = this.products.map(item => {
+        const soldQuantity = item.quantity - item.sold;
+        return {
+          ...item,
+          soldQuantity: soldQuantity
+        };
+      });
+  
 
+      this.products = productsWithSoldQuantity;
+    });
+  }
+
+getSoldQuantity(item: any): number {
+
+  return item.soldQuantity;
+}
+
+getReservationList(){
+  this.reservationService.getReservationList().subscribe((reservation: ReservationResponse[]) =>{
+    this.reservations = reservation;
+    this.totalReservations = reservation.length;
+    this.updateChartData();
+  });
+}
+
+getOrdersList(){
+  this.ordersService.getOrdersLists().subscribe((orders:OrdersResponse[])=>{
+    this.orders = orders;
+    this.totalOrders = orders.length;
+    this.updateChartData();
+    this.totalIncome = orders.reduce((sum, order) => sum + parseFloat(order.total), 0);
   });
 }
 
   activateCard(index: number): void {
     this.activeCardIndex = index;
   }
+  
 
-  getSoldQuantity(item: any): number {
-    return item.quantity - item.sold;
-  }
+  // getSoldQuantity(item: any): number {
+  //   console.log('item.quantity:', item.quantity);
+  //   console.log('item.sold:', item.sold);
+    
+  //   return item.quantity - item.sold;
+  // }
   
   getProgressWidth(item: any): string {
     const progress = (this.getSoldQuantity(item) / item.quantity) * 100;

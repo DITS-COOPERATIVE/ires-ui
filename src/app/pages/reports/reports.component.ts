@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import moment from 'moment';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-reports',
@@ -27,4 +27,5 @@ isInvalidDate = (m: moment.Moment) =>  {
 constructor() {
   this.alwaysShowCalendars = true;
 }
+
 }
