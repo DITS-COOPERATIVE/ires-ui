@@ -29,7 +29,7 @@
     <div class="row">
       <ng-container *ngIf="isCardView; else listView">
         <!-- Card View -->
-        <div class="col-md-3" *ngFor="let item of filteredProducts; let i = index" routerLink="/products/{{ item.id }}">
+        <div class="col-md-3" *ngFor="let item of filteredProducts; let i = index" routerLink="/products/{{ item.id }}/edit">
           <div class="row shadow mb-4 product-card border bg-white ms-2" [ngClass]="{ active: i === activeCardIndex }"
             (click)="activateCard(i)">
             <div class="col-md-3 p-0 ">

@@ -34,7 +34,7 @@ export interface ProductEditResponse {
   providedIn: 'root',
 })
 export class ProductsService {
-  private endpoint = 'products';
+  private endpoint = 'products/';
 
   private domain: string | undefined;
 
