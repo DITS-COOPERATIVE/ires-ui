@@ -42,7 +42,6 @@ import { TransactionCustomerComponent } from './pages/transactions/transaction-c
 import { PaymentComponent } from './pages/transactions/payment/payment.component';
 import { DatePipe } from '@angular/common';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
-
 import { ServiceComponent } from './pages/service/service.component';
 import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
 import { ReservationPageComponent } from './pages/reservation/reservation-page/reservation-page.component';
@@ -97,6 +96,7 @@ import { ReservationPageComponent } from './pages/reservation/reservation-page/r
     MatIconModule,
     DragDropModule,
     NgxDaterangepickerMd.forRoot()
+
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent], 
