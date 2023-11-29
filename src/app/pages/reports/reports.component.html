@@ -1,5 +1,5 @@
 <div class="d-flex mt-3 mb-3 justify-content-between">
-  <span class="report"> Create a Report &nbsp;<input type="text"
+  <span class="report"> Generate a Report &nbsp;<input type="text"
     ngxDaterangepickerMd
     [(ngModel)]="selected"
     [showCustomRangeLabel]="true"
@@ -12,7 +12,7 @@
     style="padding: 2px 1px;
     border: 0.20px solid;"></span>
   <div class="">
-    <a class="btn btn-sm printButton p-2"><i class="fas fa-print"></i> Print Report</a>
+    <a class="btn btn-sm printButton p-2" (click)="printReport()"><i class="fas fa-print"></i> Print Report</a>
   </div>
 </div>
 
@@ -29,7 +29,7 @@
   <tbody>
     <tr *ngFor="let reportItem of generateReport()">
       <td>{{ reportItem.id }}</td>
-      <td>{{ reportItem.customer }}</td>
+      <td>{{ reportItem.customer ||'-' }}</td>
       <td>{{ reportItem.product }}</td>
       <td>{{ reportItem.quantity }}</td>
       <td>{{ reportItem.total }}</td>

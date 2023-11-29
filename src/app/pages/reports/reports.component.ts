@@ -3,6 +3,8 @@ import * as moment from 'moment';
 import { CustomersResponse, CustomersService } from '../../services/customers/customers.service';
 import { ProductsResponse, ProductsService } from '../../services/products/products.service';
 import { OrdersResponse, OrdersService } from '../../services/orders/orders.service';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 
 @Component({
@@ -32,6 +34,7 @@ export class ReportsComponent implements OnInit {
   orders: OrdersResponse[] = [];
   filterOrders: OrdersResponse[]=[];
   errors: any = {};
+  reportData: any[] = [];
   isLoading: boolean = false;
 
   constructor(
@@ -51,6 +54,7 @@ export class ReportsComponent implements OnInit {
     this.getCustomersLists();
     this.getProductsLists();
     this.getOrdersList();
+    this.reportData = this.generateReport();
     
   }
 
@@ -97,28 +101,45 @@ export class ReportsComponent implements OnInit {
       return moment(orderDate).isBetween(startDate, endDate, undefined, '[]');
     });
 
-   
     const reportData = filteredOrders.map((order, index) => {
       const customer = this.customers.find(cust => cust.id === order.customer_id);
       const product = this.products.find(prod => prod.id === order.id);
-      console.log('order:', order);
-      console.log('customer:', customer);
-      console.log('product:', product);
-      console.log('qty:', order.qty);
-
 
       return {
         id: index + 1,
         customer: customer?.full_name,
         product: product?.name,
-        quantity: order.qty,
+        quantity: order.quantity,
         total: order.total
         
       };
-     
     });
-    console.log('here',reportData); 
 
+    this.reportData = reportData;
     return reportData;
   }
+
+  printReport() {
+    const doc = new jsPDF();
+  
+    const headers = ['ID', 'Customer', 'Product', 'Quantity', 'Sale'];
+  
+    const data = this.generateReport().map(item => [
+      item.id.toString(),
+      item.customer || '-',
+      item.product,
+      item.quantity.toString(),
+      item.total.toString()
+    ]);
+  
+   ( doc as any).autoTable({
+      head: [headers],
+      body: data,
+      styles: { cellPadding: 1, fontSize: 8 },
+      margin: { top: 15 },
+    });
+  
+    doc.save('report.pdf');
+  }
+  
 }
