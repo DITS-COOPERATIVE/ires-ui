@@ -1,39 +1,38 @@
 <div class="d-flex mt-3 mb-3 justify-content-between">
-
- 
-  <span class="report"> Create a Report &nbsp;<input type="text"
+  <span class="report"> Generate a Report &nbsp;<input type="text"
     ngxDaterangepickerMd
     [(ngModel)]="selected"
     [showCustomRangeLabel]="true"
     [alwaysShowCalendars]="true"
     [ranges]="ranges"
     [linkedCalendars]="true"
-    [isInvalidDate] = "isInvalidDate"
+    [isInvalidDate]="isInvalidDate"
     [showClearButton]="true"
     placeholder="mm/dd/yy"
     style="padding: 2px 1px;
     border: 0.20px solid;"></span>
-   
-    <div class="">
-      <a class="btn btn-sm printButton p-2"
-        ><i class="fas fa-print"></i> Print Report</a>
-    </div>
+  <div class="">
+    <a class="btn btn-sm printButton p-2" (click)="printReport()"><i class="fas fa-print"></i> Print Report</a>
   </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Customer</th>
-        <th scope="col">Product</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Sale</th>
-      </tr>
-    </thead>
-    <tbody>
-     <td>1</td>
-     <td>2</td>
-     <td>3</td>
-     <td>4</td>
-    </tbody>
-  </table>
-  
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Customer</th>
+      <th scope="col">Product</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Sale</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let reportItem of generateReport()">
+      <td>{{ reportItem.id }}</td>
+      <td>{{ reportItem.customer ||'-' }}</td>
+      <td>{{ reportItem.product }}</td>
+      <td>{{ reportItem.quantity }}</td>
+      <td>{{ reportItem.total }}</td>
+    </tr>
+  </tbody>
+</table>
