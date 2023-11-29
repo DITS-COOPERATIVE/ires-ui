@@ -13,24 +13,36 @@
         [(ngModel)]="name"
         class="form-control mb-4"
       />
+      <span *ngIf="errors.name" class="alert alert-danger p-1"
+      >{{ errors.name }}</span>
       <input
-        type="text"
+        type="number"
         placeholder="price"
         [(ngModel)]="price"
         class="form-control mb-4"
       />
+      <span *ngIf="errors.price" class="alert alert-danger p-1"
+      >{{ errors.price }}</span>
     </div>
     <div class="col-lg-6">
       <select name="" id=" " [(ngModel)]="status" class="form-control mb-4">
         <option value="Available">Available</option>
         <option value="Not Available">Not Available</option>
       </select>
-      <input
-        type="text"
-        placeholder="type"
-        [(ngModel)]="type"
-        class="form-control mb-4"
-      />
+      <span *ngIf="errors.status" class="alert alert-danger p-1"
+      >{{ errors.status }}</span>
+      <select name="" id=" " [(ngModel)]="type" class="form-control mb-4">
+        <option value="Programming">Programming</option>
+        <option value="Software Installation">Software Installation</option>
+        <option value="Layout">Layout</option>
+        <option value="CCTV Installation">CCTV Installation</option>
+        <option value="Print/Photocopy">Print/Photocopy</option>
+        <option value="Internet Services">Internet Services</option>
+        <option value="Repair Services">Repair Services</option>
+        <option value="Load Services">Load Services</option>
+      </select>
+      <span *ngIf="errors.type" class="alert alert-danger p-1"
+      >{{ errors.type }}</span>
     </div>
 </div>
     <button type="submit" class="btn btn-outline-primary btn-sm m-auto d-flex mb-5" (click)="saveService()">submit</button>

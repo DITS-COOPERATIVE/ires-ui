@@ -59,6 +59,7 @@ export class ProductCreateComponent {
         this.quantity = '';
         this.category = '';
         this.points = '';
+        this.selectedImage = '';
         this.successMessage = 'Success! Product saved.';
         setTimeout(() => this.successMessage = null, 1500);
         this.isLoading = false  

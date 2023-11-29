@@ -103,10 +103,4 @@ export class CustomerEditComponent {
     }
   }
 
-  openImageInput() {
-    const inputElement: HTMLInputElement = document.getElementById(
-      'imageInput'
-    ) as HTMLInputElement;
-    inputElement.click();
-  }
 }

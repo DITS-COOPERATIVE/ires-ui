@@ -58,7 +58,7 @@ export class CustomerCreateComponent {
         this.privilege = '';
         this.points = 0;
         this.image = '';
-
+        this.selectedImage = '';
         const newCustomer: CustomersResponse = res;
         this.customers.push(newCustomer);
         this.openDialog();

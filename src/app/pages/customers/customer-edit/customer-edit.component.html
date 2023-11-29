@@ -13,16 +13,8 @@
           (change)="onImageSelected($event)"
           style="display: none"
         />
-        <div class="editable-image-container">
-          <img
-            src="https://i.pinimg.com/originals/0d/dd/85/0ddd859c5208d3db2dae14f2dfbf00dd.png"
-            class="img-thumbnail"
-            alt="..."
-          />
-          <i class="fa fa-pencil edit-icon" (click)="openImageInput()"></i>
-        </div>
       </div>
-      <div class="prodImage" *ngIf="!isEditable">
+      <div class="prodImage">
         <img
           src="https://i.pinimg.com/originals/0d/dd/85/0ddd859c5208d3db2dae14f2dfbf00dd.png"
           class="img-thumbnail"
@@ -100,8 +92,8 @@
                 />
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="form-group mb-4">
+            <div class="col-md-6 ">
+              <div class="form-group mb-4 ">
                 <label for="product-model" class="mb-2">Gender</label>
                 <select
                   name="gender"
