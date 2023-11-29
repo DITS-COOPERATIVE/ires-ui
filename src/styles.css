@@ -44,3 +44,13 @@
   .cursor{
     cursor: pointer;
   }
+  input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.alert-danger{
+  background-color: transparent!important;
+    border: none!important;
+    color: red!important;
+}
