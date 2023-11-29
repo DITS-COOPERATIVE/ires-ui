@@ -401,7 +401,7 @@ export class TransactionPageComponent {
       internal_note: this.internalNote || '-',
       customer_note: this.note || '-',
       quantity: this.cart.reduce((totalQuantity, item) => totalQuantity + item.quantity, 0), 
-      discount: 0,
+      discount: this.cart.reduce((totalDiscount, item) => totalDiscount + item.discount, 0)
     };
 
     return payload;

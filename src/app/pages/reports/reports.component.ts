@@ -54,7 +54,7 @@ export class ReportsComponent implements OnInit {
     this.getCustomersLists();
     this.getProductsLists();
     this.getOrdersList();
-    this.reportData = this.generateReport();
+ 
     
   }
 
@@ -87,7 +87,6 @@ export class ReportsComponent implements OnInit {
   getOrdersList() {
     this.ordersService.getOrdersLists().subscribe((orders: OrdersResponse[]) => {
       this.orders = orders;
-      console.log('ini',orders);
     });
    
   }
@@ -98,7 +97,7 @@ export class ReportsComponent implements OnInit {
 
     const filteredOrders = this.orders.filter(order => {
       const orderDate = moment(order.created_at).format('YYYY-MM-DD');
-      return moment(orderDate).isBetween(startDate, endDate, undefined, '[]');
+      return moment(orderDate).isBetween(startDate, endDate, undefined, '[]' );
     });
 
     const reportData = filteredOrders.map((order, index) => {

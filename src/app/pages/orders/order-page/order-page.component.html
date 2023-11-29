@@ -3,20 +3,22 @@
       <tr>
         <th>ID</th>
         <th>Customer</th>
+        <th>Product</th>
         <th>Discount</th>
         <th>Quantity</th>
-        <th>Product</th>
         <th>Points</th>
         <th>Total</th>
       </tr>
     </thead>
     <tbody>
-      <!-- <tr *ngFor="let item of reservation">
-        <td>{{ item.customer_name }}</td>
-        <td>{{ item.when }}</td>
-        <td>{{ getServiceType(item.service_id) }}</td>
-        <td>{{ item.location }}</td>
-        <td>{{ item.status }}</td>
-      </tr> -->
+      <tr *ngFor="let item of orders">
+        <td>{{ item.id}}</td>
+        <td>{{ getCustomerName(item.customer_id) ||'-'}}</td>
+        <td>{{ getProductName(item.product_id) }}</td>
+        <td>{{item.discount}}%</td>
+        <td>{{item.quantity}}</td>
+        <td>{{item.points}}</td>
+        <td>{{item.total}}</td>
+      </tr>
     </tbody>
   </table>
