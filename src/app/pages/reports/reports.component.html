@@ -1,4 +1,4 @@
-<div class="d-flex mt-3 mb-3 justify-content-between">
+<!-- <div class="d-flex mt-3 mb-3 justify-content-between">
   <span class="report"> Generate a Report &nbsp;<input type="text"
     ngxDaterangepickerMd
     [(ngModel)]="selected"
@@ -35,4 +35,73 @@
       <td>{{ reportItem.total }}</td>
     </tr>
   </tbody>
-</table>
+</table> -->
+
+<h2>Gerate Reports</h2>
+<div class="addButton cursor" class="btn btn-sm" style="color: #12243b;">
+  <i class="fas fa-user"></i> Sales Report
+</div>
+
+<br>
+
+<div class="form-container">
+  <form>
+    <label for="reportName">Report Name:</label>
+    <input type="text" id="reportName" name="reportName">
+
+    <label for="category">Category:</label>
+    <select id="category" name="category">
+      <option value="sales">All</option>
+      <option value="inventory">Inventory</option>
+      <option value="expenses">Expenses</option>
+      <!-- Add more options as needed -->
+    </select>
+
+    <label for="stockOptions">Stock Options:</label>
+    <select id="stockOptions" name="stockOptions">
+      <option value="option1">All</option>
+      <option value="option2">Option 2</option>
+      <option value="option3">Option 3</option>
+      <!-- Add more options as needed -->
+    </select>
+
+    <button type="submit">Generate Report</button>
+  </form>
+</div>
+
+<div class="form-container">
+  <form>
+    <label for="reportName">Report Name:</label>
+    <input type="text" id="reportName" name="reportName">
+
+    <label for="category">Category:</label>
+    <select id="category" name="category">
+      <option value="sales">All</option>
+      <option value="inventory">Inventory</option>
+      <option value="expenses">Expenses</option>
+      <!-- Add more options as needed -->
+    </select>
+
+    <label for="stockOptions">Stock Options:</label>
+    <select id="stockOptions" name="stockOptions">
+      <option value="option1">All</option>
+      <option value="option2">Option 2</option>
+      <option value="option3">Option 3</option>
+      <!-- Add more options as needed -->
+    </select>
+
+    <label for="dateSection">Date Section:</label>
+    <div id="dateSection">
+      <input type="radio" id="dateRange" name="dateSection" value="dateRange" [(ngModel)]="selectedDateSection">
+      <label for="dateRange">Date Range</label>
+
+      <input type="radio" id="asOfDate" name="dateSection" value="asOfDate" [(ngModel)]="selectedDateSection">
+      <label for="asOfDate">As of Date</label>
+    </div>
+
+    <label for="datePicker">Date:</label>
+    <input type="{{ getDatePickerType() }}" id="datePicker" name="datePicker" [(ngModel)]="selectedDate">
+
+    <button type="submit">Generate Report</button>
+  </form>
+</div>

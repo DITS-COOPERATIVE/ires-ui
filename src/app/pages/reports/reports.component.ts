@@ -14,6 +14,8 @@ import 'jspdf-autotable';
 })
 export class ReportsComponent implements OnInit {
   selected: any;
+  selectedDateSection!: string;
+  selectedDate!: string;
   alwaysShowCalendars: boolean;
   ranges: any = {
     'Today': [moment(), moment()],
@@ -141,4 +143,9 @@ export class ReportsComponent implements OnInit {
     doc.save('report.pdf');
   }
   
+
+
+  getDatePickerType(): string {
+    return this.selectedDateSection === 'dateRange' ? 'date' : 'text';
+  }
 }
