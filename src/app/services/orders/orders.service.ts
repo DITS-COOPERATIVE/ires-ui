@@ -27,7 +27,7 @@ export interface OrderEditResponse {
   providedIn: 'root'
 })
 export class OrdersService {
-  private endpoint = "orders";
+  private endpoint = "orders/";
   private domain: string | undefined;
 
   constructor( private httpClient: HttpClient ) {

@@ -1,0 +1,31 @@
+<h3>Customer info</h3>
+
+<div *ngIf="orderDetails && orderDetails.length > 0">
+    <h2>Order Details</h2>
+    <p>Customer Name: {{ getCustomerDetails(orderDetails[0]?.customer_id)?.fullName }}</p>
+    <p>Address: {{ getCustomerDetails(orderDetails[0]?.customer_id)?.address }}</p>
+    <p>Mobile Number: {{ getCustomerDetails(orderDetails[0]?.customer_id)?.mobileNumber }}</p>
+    <p>Email: {{ getCustomerDetails(orderDetails[0]?.customer_id)?.email }}</p>
+    <p>Gender: {{ getCustomerDetails(orderDetails[0]?.customer_id)?.gender }}</p>
+    <p>Previlege: {{ getCustomerDetails(orderDetails[0]?.customer_id)?.previlege }}</p>
+    <p>Points: {{ getCustomerDetails(orderDetails[0]?.customer_id)?.points }}</p>
+    <!-- Add more details as needed -->
+
+    <h3>Products Info</h3>
+    
+    <ul>
+        <p>Total: {{ orderDetails[0]?.total }}</p>
+        <p>Quantity: {{ orderDetails[0]?.quantity }}</p>
+        <p>Discount: {{ orderDetails[0]?.discount }}</p>
+        
+      <li *ngFor="let product of orderDetails[0]?.products">
+        <p>Product ID: {{ product.id }}</p>
+        <p>Product Image: {{ product.image }}</p>
+        <p>Name: {{ product.name }}</p>
+        <p>Code: {{ product.code }}</p>
+        <p>Price: {{ product.price }}</p>
+        <p>Quantity: {{ product.quantity }}</p>
+        <!-- Add more product details as needed -->
+      </li>
+    </ul>
+  </div>

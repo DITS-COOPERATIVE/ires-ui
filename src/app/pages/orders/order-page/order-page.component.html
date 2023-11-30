@@ -1,24 +1,53 @@
-<table class="table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Customer</th>
-        <th>Product</th>
-        <th>Discount</th>
-        <th>Quantity</th>
-        <th>Points</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of orders">
-        <td>{{ item.id}}</td>
-        <td>{{ getCustomerName(item.customer_id) ||'-'}}</td>
-        <td>{{ getProductName(item.product_id) }}</td>
-        <td>{{item.discount}}%</td>
-        <td>{{item.quantity}}</td>
-        <td>{{item.points}}</td>
-        <td>{{item.total}}</td>
-      </tr>
-    </tbody>
-  </table>
+<!-- <div class="dropdown filterButton">
+  <button class="dropdown-toggle btn btn-sm" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+    aria-expanded="false">
+    <i class="fas fa-filter"></i> Filter
+  </button>
+  <div class="dropdown-menu cursor" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" >Name</a>
+    <a class="dropdown-item" >Date</a>
+    <a class="dropdown-item" >Points</a>
+    <a class="dropdown-item" >Gender</a>
+  </div>
+</div> -->
+
+
+<mat-table class="table" [dataSource]="dataSource" matSort>
+  <!-- Table headers -->
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+    <mat-cell *matCellDef="let order">
+      <a [routerLink]="['/orders', order.id]">{{ order.id }}</a>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="customer">
+    <mat-header-cell *matHeaderCellDef>Customer</mat-header-cell>
+    <mat-cell *matCellDef="let order">{{ getCustomerName(order.customer_id) }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="products">
+    <mat-header-cell *matHeaderCellDef>Products</mat-header-cell>
+    <mat-cell *matCellDef="let order">{{ order.quantity }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="dateOrdered">
+    <mat-header-cell *matHeaderCellDef>Date Ordered</mat-header-cell>
+    <mat-cell *matCellDef="let order">{{ order.created_at | date }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+    <mat-cell *matCellDef="let order" >
+      Paid
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" 
+[pageSize]="10" [length]="orders.length" 
+[pageIndex]="paginator.pageIndex" 
+#paginator></mat-paginator>

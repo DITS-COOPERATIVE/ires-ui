@@ -1,56 +1,61 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 import { CustomersResponse, CustomersService } from 'src/app/services/customers/customers.service';
 import { OrdersResponse, OrdersService } from 'src/app/services/orders/orders.service';
 import { ProductsResponse, ProductsService } from 'src/app/services/products/products.service';
 
 @Component({
-  selector: 'app-order-page',
-  templateUrl: './order-page.component.html',
-  styleUrls: ['./order-page.component.css']
+  selector: 'app-orders-view',
+  templateUrl: './orders-view.component.html',
+  styleUrls: ['./orders-view.component.css']
 })
-export class OrderPageComponent {
-
+export class OrdersViewComponent {
   constructor(private ordersService: OrdersService, private customersService: CustomersService,
-    private productsService: ProductsService,) { }
-    @ViewChild(MatPaginator) paginator!: MatPaginator;
-    dataSource!: MatTableDataSource<OrdersResponse>;
-    displayedColumns: string[] = ['id', 'customer', 'products', 'dateOrdered', 'status'];
+    private productsService: ProductsService,  private route: ActivatedRoute,) { }
+
 
   errors: any = [];
   orders: OrdersResponse []=[];
-  customers: CustomersResponse[] = [];
-  products: ProductsResponse[] = [];
-  mappedOrders: any[] = [];
-
+  customers: any[] = [];
+  products: any[] = [];
+  customer: any = {};
+  orderDetails: any={};
   isLoading: boolean = false;
 
   ngOnInit() {
-
+    this.getOrder();
     this.getOrdersLists(); 
     this.getCustomersLists();
     this.getProductsLists();
   }
+ 
+  getOrder(){
+    this.route.params.subscribe(params => {
+      const orderId = params['id']; 
+      console.log(orderId);
+      if (orderId) {
+        this.isLoading = true;
+        this.ordersService.getOrder(orderId).subscribe(
+          (res) => {
+            console.log(res);
+            this.orderDetails = res;
+            console.log(this.orderDetails);
+            this.isLoading = false;
+          }
+          
+        );
+      }
+    });
+  
 
-  initializePaginator() {
-    this.paginator.pageSize = 10; 
-    this.paginator.pageIndex = 0; 
-    this.paginator.length = this.orders.length; 
-  }
-
-  filterByDate(date: Date) {
-    this.dataSource.filter = date.toString().trim().toLowerCase();
   }
   getOrdersLists(){
     try {
 
       this.isLoading = true;
-      this.ordersService.getOrdersLists().subscribe((res: any) =>{
+      this.ordersService.getOrdersLists().subscribe((res) =>{
         this.orders = res
-        this.isLoading = false 
-        this.dataSource = new MatTableDataSource(this.orders);
-      this.dataSource.paginator = this.paginator;
+        this.isLoading = false;
       });
 
     } catch (error) {
@@ -85,15 +90,28 @@ export class OrderPageComponent {
     }
   }
 
-  getCustomerName(customerId: number): string {
+  getCustomerDetails(customerId: number): any {
     const customer = this.customers.find(cust => cust.id === customerId);
-    return customer ? customer.full_name : '';
+    return customer ? {
+      fullName: customer.full_name,
+      address: customer.address,
+      mobileNumber: customer.mobile_no,
+      email: customer.email,
+      gender: customer.gender,
+      previlege: customer.previlege,
+      points: customer.points
+    } : null;
   }
 
-  getProductName(productId: number): string {
+  getProductName(productId: number): any {
     const product = this.products.find(prod => prod.id === productId);
-    return product ? product.name : '';
+    return product ?{
+    
+    Name: product.name 
+    
+  }:null
   }
+
 
   
   

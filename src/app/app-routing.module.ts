@@ -17,6 +17,7 @@ import { TransactionCustomerComponent } from './pages/transactions/transaction-c
 import { ServiceComponent } from './pages/service/service.component';
 import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
 import { ReservationPageComponent } from './pages/reservation/reservation-page/reservation-page.component';
+import { OrdersViewComponent } from './pages/orders-view/orders-view.component';
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent, title: 'Dashboard' },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'customers/create', component: CustomerCreateComponent, title: 'Add New Customer'},
 
   { path: 'orders', component: OrderPageComponent, title: 'Orders' },
+  { path: 'orders/:id', component: OrdersViewComponent, title: 'Orders View' },
 
   { path: 'services', component: ServiceComponent, title: 'Services' },
   { path: 'reservations', component: ReservationPageComponent, title: 'Reservations' },
