@@ -1,54 +1,94 @@
-<h3>Customer info</h3>
-<div *ngIf="orderDetails && orderDetails.length > 0">
-  <div class="row">
-    <p>Customer Name: {{ getCustomerDetails(orderDetails[0]?.customer_id)?.fullName }}</p>
-    <p>Address: {{ getCustomerDetails(orderDetails[0]?.customer_id)?.address }}</p>
-    <p>Mobile Number: {{ getCustomerDetails(orderDetails[0]?.customer_id)?.mobileNumber }}</p>
-    <p>Email: {{ getCustomerDetails(orderDetails[0]?.customer_id)?.email }}</p>
-    <p>Gender: {{ getCustomerDetails(orderDetails[0]?.customer_id)?.gender }}</p>
-    <p>Previlege: {{ getCustomerDetails(orderDetails[0]?.customer_id)?.previlege }}</p>
-    <p>Points: {{ getCustomerDetails(orderDetails[0]?.customer_id)?.points }}</p>
-    <!-- Add more details as needed -->
-  </div>
-  <div class="row">
-    <div class="col">
-      <h3>Products Info</h3>
-      <table class="table shadow">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Code</th>
-            <th>Quantity</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="text-center" *ngFor="let product of orderDetails[0]?.products">
-            <td width="15%" title="">{{ product.id }}</td>
-            <td width="20%" title="">{{ product.image }}</td>
-            <td width="15%" title="">{{ product.name }}</td>
-            <td width="8%" title="">{{ product.code }}</td>
-            <td width="25%" title="">{{ product.quantity }}</td>
-            <td width="10%" title=""> <b>₱</b> {{ product.price }}</td>
-          </tr>
-          <tr>
-            <td colspan="5">
-              <p class="float-end">Total:</p>
-            </td>
-            <td width="25%" class="text-center">
-              <b>₱ {{ orderDetails[0]?.total }}</b> 
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <ul>
-        <p>Total: {{ orderDetails[0]?.total }}</p>
-        <p>Quantity: {{ orderDetails[0]?.quantity }}</p>
-        <p>Discount: {{ orderDetails[0]?.discount }}</p>
+<div class="container">
+  <div *ngIf="orderDetails && orderDetails.length > 0">
+    <div class="row mb-2 rounded">
+      <div class="col bg-white mx-4 rounded" >
+        <img
+          class="img-fluid "
+          src="https://img.freepik.com/premium-vector/young-girl-anime-style-character-vector-illustration-design-manga-anime-girl_147933-100.jpg"
+          alt="Card image"
+        />
+      </div>
+      <div class="col-md-8 bg-white rounded">
+        <div class="col">
+          <small class="card-text float-end text-secondary"
+            ><i class="fas fa-star"></i
+            >{{
+              getCustomerDetails(orderDetails[0]?.customer_id)?.points
+            }}</small
+          >
+          <p>
+            Customer Name:
+            {{ getCustomerDetails(orderDetails[0]?.customer_id)?.fullName }}
+          </p>
+          <p>
+            Address:
+            {{ getCustomerDetails(orderDetails[0]?.customer_id)?.address }}
+          </p>
+        </div>
+        <div class="col">
+          <p>
+            Mobile Number:
+            {{ getCustomerDetails(orderDetails[0]?.customer_id)?.mobileNumber }}
+          </p>
+          <p>
+            Email: {{ getCustomerDetails(orderDetails[0]?.customer_id)?.email }}
+          </p>
+        </div>
+        <div class="col">
+          <p>
+            Gender:
+            {{ getCustomerDetails(orderDetails[0]?.customer_id)?.gender }}
+          </p>
+          <p>
+            Previlege:
+            {{ getCustomerDetails(orderDetails[0]?.customer_id)?.previlege }}
+          </p>
+        </div>
+      </div>
 
-        <!-- <li >
+      <!-- Add more details as needed -->
+    </div>
+    <div class="row">
+      <div class="col">
+        <table class="table shadow">
+          <thead class="text-center">
+            <tr>
+              <th>ID</th>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Code</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="text-center"
+              *ngFor="let product of orderDetails[0]?.products"
+            >
+              <td  title="">{{ product.id }}</td>
+              <td title="">{{ product.image }}</td>
+              <td  title="">{{ product.name }}</td>
+              <td title="">{{ product.code }}</td>
+              <td  title="">{{ product.quantity }}</td>
+              <td  title=""><b>₱</b> {{ product.price }}</td>
+            </tr>
+            <tr>
+              <td colspan="5">
+                <p class="float-end">Total:</p>
+              </td>
+              <td width="25%" class="text-center">
+                <b>₱ {{ orderDetails[0]?.total }}</b>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <ul>
+          <p>Total: {{ orderDetails[0]?.total }}</p>
+          <p>Quantity: {{ orderDetails[0]?.quantity }}</p>
+          <p>Discount: {{ orderDetails[0]?.discount }}</p>
+
+          <!-- <li >
           <p>Product ID: </p>
           <p>Product Image: {{ product.image }}</p>
           <p>Name: {{ product.name }}</p>
@@ -57,10 +97,7 @@
           <p>Quantity: {{ product.quantity }}</p>
           Add more product details as needed 
         </li> -->
-      </ul>
-    </div>
-    <div class="col">
-      gfdgfg
+        </ul>
+      </div>
     </div>
   </div>
-</div>

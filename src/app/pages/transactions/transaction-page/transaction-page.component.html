@@ -86,9 +86,9 @@
     id="customer"
     [(ngModel)]="selectedCustomer"
     (ngModelChange)="onCustomerChange()"
-    class="form-control w-25 m-auto mb-3"
+    class="form-control m-auto"
   >
-    <option [ngValue]="undefined">Select a customer</option>
+    <option [ngValue]="undefined"> &#x1F464;  Customer</option>
     <option
       *ngFor="let customer of customers"
       [ngValue]="customer"
