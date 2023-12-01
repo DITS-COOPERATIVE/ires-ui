@@ -17,30 +17,30 @@
             }}</small
           >
           <p>
-            Customer Name:
+           <b>Customer Name:</b> 
             {{ getCustomerDetails(orderDetails[0]?.customer_id)?.fullName }}
           </p>
           <p>
-            Address:
+           <b>Address:</b> 
             {{ getCustomerDetails(orderDetails[0]?.customer_id)?.address }}
           </p>
         </div>
         <div class="col">
           <p>
-            Mobile Number:
+           <b>Mobile Number:</b> 
             {{ getCustomerDetails(orderDetails[0]?.customer_id)?.mobileNumber }}
           </p>
           <p>
-            Email: {{ getCustomerDetails(orderDetails[0]?.customer_id)?.email }}
+           <b>Email: </b> {{ getCustomerDetails(orderDetails[0]?.customer_id)?.email }}
           </p>
         </div>
         <div class="col">
           <p>
-            Gender:
+           <b> Gender:</b>
             {{ getCustomerDetails(orderDetails[0]?.customer_id)?.gender }}
           </p>
           <p>
-            Previlege:
+           <b>Previlege:</b> 
             {{ getCustomerDetails(orderDetails[0]?.customer_id)?.previlege }}
           </p>
         </div>
