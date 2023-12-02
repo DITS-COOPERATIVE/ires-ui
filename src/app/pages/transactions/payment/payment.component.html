@@ -70,7 +70,7 @@
 </div>
 <div class="modal-body"></div>
 <div mat-dialog-actions class="modal-actions">
-  <button class="btn btn-primary" (click)="onPay()">Pay</button>
+  <button class="btn btn-primary" (click)="onPay()" [disabled]="amountPaid < totalAmount">Pay</button>
   <button *ngIf="paymentSuccess" class="btn btn-success" (click)="onPrintReceipt()">
     Print Receipt
   </button>

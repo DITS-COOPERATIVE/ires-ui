@@ -38,6 +38,11 @@ export class ReportsComponent implements OnInit {
   errors: any = {};
   reportData: any[] = [];
   isLoading: boolean = false;
+  showStockModal: boolean = false;
+  showSalesModal: boolean = false;
+  showSecondForm: boolean = false;
+  buttonLabel: string = 'Inventory Report';
+
 
   constructor(
     private customersService: CustomersService,
@@ -58,6 +63,11 @@ export class ReportsComponent implements OnInit {
     this.getOrdersList();
  
     
+  }
+
+  toggleForm() {
+    this.showSecondForm = !this.showSecondForm;
+    this.buttonLabel = this.showSecondForm ? 'Sales Report' : 'Inventory Report';
   }
 
   getCustomersLists() {
@@ -147,5 +157,31 @@ export class ReportsComponent implements OnInit {
 
   getDatePickerType(): string {
     return this.selectedDateSection === 'dateRange' ? 'date' : 'text';
+  }
+
+
+  generateSalesReports() {
+
+    this.reportData = [
+      { id: 1, customer: 'John', product: 'Widget', quantity: 5, sale: '$100' },
+      { id: 2, customer: 'Jane', product: 'Gadget', quantity: 3, sale: '$50' },
+    ];
+
+    this.showSalesModal = true;
+  }
+  generateInventoryReports() {
+
+    this.reportData = [
+      { id: 1, customer: 'John', product: 'Widget', quantity: 5, sale: '$100' },
+      { id: 2, customer: 'Jane', product: 'Gadget', quantity: 3, sale: '$50' },
+    ];
+
+    this.showStockModal = true;
+  }
+
+
+  closeModal() {
+    this.showStockModal = false;
+    this.showSalesModal = false;
   }
 }

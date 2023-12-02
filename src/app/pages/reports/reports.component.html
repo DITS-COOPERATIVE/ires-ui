@@ -37,71 +37,137 @@
   </tbody>
 </table> -->
 
-<h2>Gerate Reports</h2>
-<div class="addButton cursor" class="btn btn-sm" style="color: #12243b;">
-  <i class="fas fa-user"></i> Sales Report
+<h2>Generate Reports</h2>
+<br>
+<div class="addButton cursor" class="btn btn-sm" style="color: #12243b;" (click)="toggleForm()">
+  <i class="fas fa-user"></i> {{ buttonLabel }}
 </div>
 
 <br>
 
-<div class="form-container">
-  <form>
+<div class="form-container" [hidden]="showSecondForm">
+  <form (ngSubmit)="generateInventoryReports()">
+    <!-- First form inputs -->
     <label for="reportName">Report Name:</label>
     <input type="text" id="reportName" name="reportName">
 
     <label for="category">Category:</label>
     <select id="category" name="category">
       <option value="sales">All</option>
-      <option value="inventory">Inventory</option>
-      <option value="expenses">Expenses</option>
-      <!-- Add more options as needed -->
+      <option value="inventory">Software</option>
+      <option value="expenses">Hardware</option>
     </select>
 
     <label for="stockOptions">Stock Options:</label>
     <select id="stockOptions" name="stockOptions">
       <option value="option1">All</option>
-      <option value="option2">Option 2</option>
-      <option value="option3">Option 3</option>
-      <!-- Add more options as needed -->
+      <option value="option2">With stocks</option>
+      <option value="option3">No stocks</option>
     </select>
 
     <button type="submit">Generate Report</button>
   </form>
 </div>
 
-<div class="form-container">
-  <form>
+<div class="form-container" [hidden]="!showSecondForm">
+  <form (ngSubmit)="generateSalesReports()">
+    <!-- Second form inputs -->
     <label for="reportName">Report Name:</label>
     <input type="text" id="reportName" name="reportName">
 
     <label for="category">Category:</label>
     <select id="category" name="category">
       <option value="sales">All</option>
-      <option value="inventory">Inventory</option>
-      <option value="expenses">Expenses</option>
-      <!-- Add more options as needed -->
+      <option value="inventory">Software</option>
+      <option value="expenses">Hardware</option>
     </select>
-
-    <label for="stockOptions">Stock Options:</label>
-    <select id="stockOptions" name="stockOptions">
-      <option value="option1">All</option>
-      <option value="option2">Option 2</option>
-      <option value="option3">Option 3</option>
-      <!-- Add more options as needed -->
+    
+    <label for="customer">Customer:</label>
+    <select id="customer" name="customer">
+      <option value="">All</option>
+      <option value="">Jamaila</option>
+      <option value="">Lorgem</option>
     </select>
 
     <label for="dateSection">Date Section:</label>
-    <div id="dateSection">
-      <input type="radio" id="dateRange" name="dateSection" value="dateRange" [(ngModel)]="selectedDateSection">
-      <label for="dateRange">Date Range</label>
-
-      <input type="radio" id="asOfDate" name="dateSection" value="asOfDate" [(ngModel)]="selectedDateSection">
-      <label for="asOfDate">As of Date</label>
-    </div>
-
-    <label for="datePicker">Date:</label>
-    <input type="{{ getDatePickerType() }}" id="datePicker" name="datePicker" [(ngModel)]="selectedDate">
+    <input type="text"
+    ngxDaterangepickerMd
+    [(ngModel)]="selected"
+    [showCustomRangeLabel]="true"
+    [alwaysShowCalendars]="true"
+    [ranges]="ranges"
+    [linkedCalendars]="true"
+    [isInvalidDate]="isInvalidDate"
+    [showClearButton]="true"
+    placeholder="mm/dd/yy"
+    style="padding: 2px 1px;
+    border: 0.20px solid;">
 
     <button type="submit">Generate Report</button>
   </form>
+</div>
+
+<div id="reportModal" class="modal" [ngStyle]="{ display: showSalesModal ? 'block' : 'none' }">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <div class="">
+      <a class="btn btn-sm printButton p-2 float-end" ><i class="fas fa-print"></i> Print Report</a>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Customer</th>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Sale</th>
+          <th>Available Stocks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of reportData">
+          <td>{{ report.id }}</td>
+          <td>{{ report.customer }}</td>
+          <td>{{ report.product }}</td>
+          <td>{{ report.quantity }}</td>
+          <td>{{ report.sale }}</td>
+          <td>{{ report.sale }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div id="reportModal" class="modal" [ngStyle]="{ display: showStockModal ? 'block' : 'none' }">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <div class="">
+      <a class="btn btn-sm printButton p-2 float-end" ><i class="fas fa-print"></i> Print Report</a>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Item Code</th>
+          <th>Name</th>
+          <th>Low stock Alert</th>
+          <th>Over Stock Alert</th>
+          <th>Stock</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of reportData">
+          <td>{{ report.id }}</td>
+          <td>{{ report.customer }}</td>
+          <td>{{ report.product }}</td>
+          <td>{{ report.quantity }}</td>
+          <td>{{ report.sale }}</td>
+          <td>{{ report.sale }}</td>
+          <td>{{ report.sale }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
