@@ -276,8 +276,11 @@ export class TransactionPageComponent {
         }
       }
     }
-
     this.isCartEmpty = this.cart.length === 0;
+    if(this.isCartEmpty){
+      this.internalNote = "";
+      this.note = "";
+    }
   }
 
   toggleSign() {
@@ -308,7 +311,7 @@ export class TransactionPageComponent {
     });
 
     dialogRef.componentInstance.noteAdded.subscribe((updatedCart) => {
-      this.cart = updatedCart;
+      this.note = updatedCart;
     });
   }
 
@@ -318,9 +321,10 @@ export class TransactionPageComponent {
       data: { cart: this.cart, selectedProduct: this.selectedProduct },
     });
     dialogRef.componentInstance.internalNoteAdded.subscribe((updatedCart) => {
-      this.cart = updatedCart;
+      this.internalNote = updatedCart;
     });
   }
+  
   openInfoDialog(item: any, event: Event): void {
     event.stopPropagation(); 
     const dialogRef = this.dialog.open(InfoComponent, {
@@ -358,6 +362,8 @@ export class TransactionPageComponent {
         (response) => {
         
           this.clearCartAndCustomer();
+          this.internalNote = "";
+          this.note = "";
         },
         (error) => {
           
@@ -398,11 +404,12 @@ export class TransactionPageComponent {
         sub_total: item.quantity * parseFloat(item.price),
         discount: item.discount,
       })),
-      internal_note: this.internalNote || '-',
-      customer_note: this.note || '-',
+      internal_note: this.internalNote || "-",
+      customer_note: this.note || "-",
       quantity: this.cart.reduce((totalQuantity, item) => totalQuantity + item.quantity, 0), 
       discount: this.cart.reduce((totalDiscount, item) => totalDiscount + item.discount, 0)
     };
+    console.log(this.internalNote,this.note);
 
     return payload;
   }

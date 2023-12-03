@@ -1,5 +1,5 @@
 <div class="container">
-  <div *ngIf="orderDetails && orderDetails.length > 0">
+  <div *ngIf="orderDetails">
     <div class="row mb-2 rounded">
       <div class="col bg-white mx-4 rounded" >
         <img
@@ -13,35 +13,35 @@
           <small class="card-text float-end text-secondary"
             ><i class="fas fa-star"></i
             >{{
-              getCustomerDetails(orderDetails[0]?.customer_id)?.points
+             customer.points 
             }}</small
           >
           <p>
            <b>Customer Name:</b> 
-            {{ getCustomerDetails(orderDetails[0]?.customer_id)?.fullName }}
+            {{ customer.full_name }}
           </p>
           <p>
            <b>Address:</b> 
-            {{ getCustomerDetails(orderDetails[0]?.customer_id)?.address }}
+            {{ customer.address }}
           </p>
         </div>
         <div class="col">
           <p>
            <b>Mobile Number:</b> 
-            {{ getCustomerDetails(orderDetails[0]?.customer_id)?.mobileNumber }}
+            {{ customer.mobile_no }}
           </p>
           <p>
-           <b>Email: </b> {{ getCustomerDetails(orderDetails[0]?.customer_id)?.email }}
+           <b>Email: </b> {{ customer.email }}
           </p>
         </div>
         <div class="col">
           <p>
            <b> Gender:</b>
-            {{ getCustomerDetails(orderDetails[0]?.customer_id)?.gender }}
+            {{ customer.gender }}
           </p>
           <p>
            <b>Previlege:</b> 
-            {{ getCustomerDetails(orderDetails[0]?.customer_id)?.previlege }}
+            {{ customer.previlege }}
           </p>
         </div>
       </div>
@@ -64,7 +64,7 @@
           <tbody>
             <tr
               class="text-center"
-              *ngFor="let product of orderDetails[0]?.products"
+              *ngFor="let product of orderDetails.products"
             >
               <td  title="">{{ product.id }}</td>
               <td title="">{{ product.image }}</td>
@@ -78,26 +78,19 @@
                 <p class="float-end">Total:</p>
               </td>
               <td width="25%" class="text-center">
-                <b>₱ {{ orderDetails[0]?.total }}</b>
+                <b>₱ {{ orderDetails.total }}</b>
               </td>
             </tr>
           </tbody>
         </table>
         <ul>
-          <p>Total: {{ orderDetails[0]?.total }}</p>
-          <p>Quantity: {{ orderDetails[0]?.quantity }}</p>
-          <p>Discount: {{ orderDetails[0]?.discount }}</p>
-
-          <!-- <li >
-          <p>Product ID: </p>
-          <p>Product Image: {{ product.image }}</p>
-          <p>Name: {{ product.name }}</p>
-          <p>Code: {{ product.code }}</p>
-          <p>Price: {{ product.price }}</p>
-          <p>Quantity: {{ product.quantity }}</p>
-          Add more product details as needed 
-        </li> -->
+          <p>Total: {{ orderDetails.total }}</p>
+          <p>Quantity: {{ orderDetails.quantity }}</p>
+          <p>Discount: {{ orderDetails.discount }}</p>
         </ul>
+        <ul class="float-end">
+          <p>Customer Note:{{orderDetails.customer_note}}</p>
+          <p>Internal Note:{{orderDetails.internal_note}}</p></ul>
       </div>
     </div>
   </div>

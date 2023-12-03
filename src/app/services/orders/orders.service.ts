@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { CustomersResponse } from '../customers/customers.service';
 
 export interface OrdersResponse {
   id: number,
   customer_id: number,
   product_id: number,
+  customer:CustomersResponse,
   quantity: number,
   price: number,
   discount: number,
@@ -40,8 +42,7 @@ export class OrdersService {
   }
 
   getOrder(orderId : number) {
-
-    return  this.httpClient.get<OrderEditResponse>(`${this.domain}${this.endpoint}${orderId}`);
+    return  this.httpClient.get<OrdersResponse>(`${this.domain}${this.endpoint}${orderId}`);
   }
 
   saveOrder(inputData: object){

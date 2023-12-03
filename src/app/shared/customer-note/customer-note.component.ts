@@ -35,7 +35,7 @@ export class CustomerNoteComponent {
       }
       return item;
     });
-    this.noteAdded.emit(updatedCart);
+    this.noteAdded.emit(this.textInput);
     this.dialogRef.close(updatedCart);
   }
 }

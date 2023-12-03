@@ -37,18 +37,21 @@
               <span *ngIf="cartItem.discount > 0"
                 >with a {{ cartItem.discount }}% discount</span
               >
-              <span *ngIf="cartItem.note"
-                ><br />
-                <i class="fas fa-sticky-note"></i>
-                {{ cartItem.note }}</span
-              >
-              <span *ngIf="cartItem.internalNote"
-                ><br />
-                <i class="fas fa-tag"></i>
-                {{ cartItem.internalNote }}</span
-              >
+            
+            
             </li>
           </ul>
+          <span *ngIf="note"
+          ><br />
+          <i class="fas fa-sticky-note"></i>
+          {{ note }}</span
+        >
+          <span *ngIf="internalNote"
+          ><br />
+          <i class="fas fa-tag"></i>
+          {{ internalNote }}</span
+        >
+
           <div class="total">
             <span *ngIf="!isCartEmpty"
               >Total: <b>₱ {{ getTotalPrice() }}</b>
@@ -66,17 +69,18 @@
           >
             <i class="fas fa-sticky-note"></i> Customer Note
           </button>
-          <button class="btn btn-hover w-50 rounded-0 border-dark">
+          <!-- <button class="btn btn-hover w-50 rounded-0 border-dark">
             <i class="fas fa-undo"></i> Refund
-          </button>
-        </div>
-        <button
-          class="btn btn-hover rounded-0 border-dark"
+          </button> -->
+          <button
+          class="btn btn-hover w-50 rounded-0 border-dark p-0"
           [disabled]="isCartEmpty"
           (click)="!isCartEmpty && openNoteDialog()"
         >
           <i class="fas fa-tag"></i> Internal Note
         </button>
+        </div>
+       
 
         <div class="col-md-5">
          <div class="row h-25 text-center bg-lightd-flex align-items-center customer btn-hover">

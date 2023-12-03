@@ -115,7 +115,7 @@ export class ReportsComponent implements OnInit {
     const reportData = filteredOrders.map((order, index) => {
       const customer = this.customers.find(cust => cust.id === order.customer_id);
       const product = this.products.find(prod => prod.id === order.id);
-
+      
       return {
         id: index + 1,
         customer: customer?.full_name,
@@ -124,16 +124,40 @@ export class ReportsComponent implements OnInit {
         total: order.total
         
       };
+     
     });
 
     this.reportData = reportData;
     return reportData;
   }
 
-  printReport() {
+  printInventoryReport() {
     const doc = new jsPDF();
   
-    const headers = ['ID', 'Customer', 'Product', 'Quantity', 'Sale'];
+    const headers = ['ID', 'Item Code', 'Name', 'Low Stock Alert', 'Over Stock Alert', 'Stock', 'Status'];
+  
+    const data = this.generateReport().map(item => [
+      item.id.toString(),
+      item.customer || '-',
+      item.product,
+      item.quantity.toString(),
+      item.total.toString()
+    ]);
+  
+   ( doc as any).autoTable({
+      head: [headers],
+      body: data,
+      styles: { cellPadding: 1, fontSize: 8 },
+      margin: { top: 15 },
+    });
+  
+    doc.save('report.pdf');
+  }
+  
+  printSalesReport() {
+    const doc = new jsPDF();
+  
+    const headers = ['ID', 'Customer', 'Product', 'Quantity', 'Sale','Availabe Stocks'];
   
     const data = this.generateReport().map(item => [
       item.id.toString(),

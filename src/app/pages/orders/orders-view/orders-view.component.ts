@@ -19,12 +19,11 @@ export class OrdersViewComponent {
   customers: any[] = [];
   products: any[] = [];
   customer: any = {};
-  orderDetails: any={};
+  orderDetails: any ={};
   isLoading: boolean = false;
 
   ngOnInit() {
     this.getOrder();
-    this.getOrdersLists(); 
     this.getCustomersLists();
     this.getProductsLists();
   }
@@ -37,8 +36,8 @@ export class OrdersViewComponent {
         this.isLoading = true;
         this.ordersService.getOrder(orderId).subscribe(
           (res) => {
-            console.log(res);
             this.orderDetails = res;
+            this.customer = res.customer? res.customer:{};
             console.log(this.orderDetails);
             this.isLoading = false;
           }
@@ -48,20 +47,6 @@ export class OrdersViewComponent {
     });
   
 
-  }
-  getOrdersLists(){
-    try {
-
-      this.isLoading = true;
-      this.ordersService.getOrdersLists().subscribe((res) =>{
-        this.orders = res
-        this.isLoading = false;
-      });
-
-    } catch (error) {
-      this.errors = error
-    }
-    
   }
 
   getCustomersLists() {
@@ -101,13 +86,14 @@ export class OrdersViewComponent {
       previlege: customer.previlege,
       points: customer.points
     } : null;
+    
   }
 
   getProductName(productId: number): any {
     const product = this.products.find(prod => prod.id === productId);
     return product ?{
     
-    Name: product.name 
+    Name: product.name
     
   }:null
   }

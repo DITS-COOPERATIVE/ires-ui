@@ -58,7 +58,7 @@
           </span>
         </ng-container>
         <ng-template #quantityDisplay>
-          {{ product[column] }} <span class="pencil" (click)="editQuantity($event, product)">
+          {{ product[column] }} <span class="pencil" matTooltip="Edit" matTooltipPosition="above" (click)="editQuantity($event, product)">
             <i class="fa fa-pencil"></i>
           </span>
         </ng-template>
