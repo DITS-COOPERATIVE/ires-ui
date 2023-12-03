@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { CustomersResponse, CustomersService } from 'src/app/services/customers/customers.service';
@@ -11,7 +12,7 @@ import { ServiceResponse, ServiceService } from 'src/app/services/services/servi
 })
 export class ReservationPageComponent {
   constructor(private serviceService: ServiceService, private customersService: CustomersService, 
-    private reservationService: ReservationService) {}
+    private reservationService: ReservationService, private http: HttpClient) {}
   
     ngOnInit() {
       this.getCustomersLists();
@@ -99,5 +100,19 @@ export class ReservationPageComponent {
   getServiceType(serviceId: number): string {
     const service = this.services.find(service => service.id === serviceId);
     return service ? service.type : 'Unknown';
+  }
+  onDateChange() {
+    if (this.service_id && this.when) {
+      const apiUrl = `services/${this.service_id}/availability`;
+      const payload = { when: this.when };
+      this.http.post(apiUrl, payload).subscribe(
+        (response) => {
+          console.log('API response:', response);
+        },
+        (error) => {
+          console.error('API error:', error);
+        }
+      );
+    }
   }
 }

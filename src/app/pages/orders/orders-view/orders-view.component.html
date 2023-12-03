@@ -1,7 +1,7 @@
 <div class="container">
   <div *ngIf="orderDetails">
     <div class="row mb-2 rounded">
-      <div class="col bg-white mx-4 rounded" >
+      <div class="col bg-white mx-4 rounded d-flex justify-content-center" >
         <img
           class="img-fluid "
           src="https://img.freepik.com/premium-vector/young-girl-anime-style-character-vector-illustration-design-manga-anime-girl_147933-100.jpg"
@@ -11,7 +11,7 @@
       <div class="col-md-8 bg-white rounded">
         <div class="col">
           <small class="card-text float-end text-secondary"
-            ><i class="fas fa-star"></i
+            ><i class="fas fa-star text-warning"></i
             >{{
              customer.points 
             }}</small
@@ -49,7 +49,7 @@
       <!-- Add more details as needed -->
     </div>
     <div class="row">
-      <div class="col">
+      <div class="col p-0 ps-4">
         <table class="table shadow">
           <thead class="text-center">
             <tr>

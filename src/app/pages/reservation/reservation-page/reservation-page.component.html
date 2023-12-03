@@ -34,6 +34,8 @@
             id="when"
             [(ngModel)]="when"
             class="form-control mb-3"
+            [disabled]="!service_id" 
+            (change)="onDateChange()"
           />
           <input
             type="text"
