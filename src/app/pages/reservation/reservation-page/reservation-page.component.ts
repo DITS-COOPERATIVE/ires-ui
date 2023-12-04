@@ -4,6 +4,7 @@ import { forkJoin } from 'rxjs';
 import { CustomersResponse, CustomersService } from 'src/app/services/customers/customers.service';
 import { ReservationResponse, ReservationService } from 'src/app/services/reservation/reservation.service';
 import { ServiceResponse, ServiceService } from 'src/app/services/services/service.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-reservation-page',
@@ -11,8 +12,9 @@ import { ServiceResponse, ServiceService } from 'src/app/services/services/servi
   styleUrls: ['./reservation-page.component.css']
 })
 export class ReservationPageComponent {
+  private domain: string | undefined;
   constructor(private serviceService: ServiceService, private customersService: CustomersService, 
-    private reservationService: ReservationService, private http: HttpClient) {}
+    private reservationService: ReservationService, private http: HttpClient) {   this.domain = environment.domain;}
   
     ngOnInit() {
       this.getCustomersLists();
@@ -101,11 +103,16 @@ export class ReservationPageComponent {
     const service = this.services.find(service => service.id === serviceId);
     return service ? service.type : 'Unknown';
   }
+
   onDateChange() {
     if (this.service_id && this.when) {
-      const apiUrl = `services/${this.service_id}/availability`;
+      const apiUrl = `${this.domain}services/${this.service_id}/availability`;
       const payload = { when: this.when };
-      this.http.post(apiUrl, payload).subscribe(
+      const headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      };
+      this.http.post(apiUrl, payload, { headers }).subscribe(
         (response) => {
           console.log('API response:', response);
         },
