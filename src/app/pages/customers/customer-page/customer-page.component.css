@@ -190,7 +190,7 @@ td {
   /*Without this, clicking will make it sticky*/
   pointer-events: none;
 }
-[data-privilege="student"] > span {
+[data-privilege="Student"] > span {
   background-color: #fdead6;
   padding: 5px 15px;
   border-radius: 15px;
@@ -198,21 +198,21 @@ td {
     justify-content: center;
 }
 
-[data-privilege="pwd"] > span {
+[data-privilege="PWD"] > span {
   background-color: #c3dfe0;
   padding: 5px 15px;
   border-radius: 15px;
   display: flex;
     justify-content: center;
 }
-[data-privilege="senior"] > span {
+[data-privilege="Senior"] > span {
   background-color: #d5f096;
   padding: 5px 15px;
   border-radius: 15px;
   display: flex;
     justify-content: center;
 }
-[data-privilege="none"] > span {
+[data-privilege="None"] > span {
   background-color: #fbbfca;
   padding: 5px 15px;
   border-radius: 15px;

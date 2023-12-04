@@ -46,6 +46,7 @@ export class ProductPageComponent {
         this.products = res;
         this.filteredProducts = this.products
         this.sortProducts(this.selectedCategory);
+        this.products = res.sort((a, b) => a.name.localeCompare(b.name));
         this.isLoading = false
   
       })
@@ -60,7 +61,7 @@ export class ProductPageComponent {
       case 'date':
         this.products.sort((a, b) => {
           const dateA = new Date(a.created_at).getTime();
-          const dateB = new Date(b.updated_at).getTime();
+          const dateB = new Date(b.created_at).getTime();
           return dateB - dateA;
         });
         break;
@@ -69,9 +70,6 @@ export class ProductPageComponent {
         break;
       case 'price':
         this.products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
-        break;
-      case 'name':
-        
         break;
       default:
         break;
