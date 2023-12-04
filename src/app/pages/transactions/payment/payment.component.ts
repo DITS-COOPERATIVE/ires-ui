@@ -28,7 +28,7 @@ export class PaymentComponent {
   customers!: CustomersResponse[];
   cart: ProductsResponse[] = [];
   full_name!: string;
-  amountPaid: number = 0;
+  amountPaid: number | null = null;
   name!: string;
   code!: string;
   model!: string;
@@ -68,7 +68,7 @@ export class PaymentComponent {
     this.paymentMade.emit({ success: true, amountRendered, change });
   }
   calculateChange(): number {
-    const change = this.amountPaid - this.totalAmount;
+    const change = this.amountPaid !== null ? this.amountPaid - this.totalAmount : 0;
     return change < 0 ? 0 : change;
   }
 
