@@ -128,9 +128,9 @@ ul {
 .wrapper {
    display: grid;
    grid-template-columns: repeat(auto-fill, 
-minmax(130px, 1fr));
-  grid-column-gap: 6px;
-  grid-row-gap:6px;
+minmax(110px, 1fr));
+  grid-column-gap: 10px;
+  grid-row-gap:10px;
 }
 .box{
   position: relative;

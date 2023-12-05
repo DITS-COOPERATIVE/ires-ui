@@ -45,7 +45,9 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { ServiceComponent } from './pages/service/service.component';
 import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
 import { ReservationPageComponent } from './pages/reservation/reservation-page/reservation-page.component';
-import { OrdersViewComponent } from './pages/orders/orders-view/orders-view.component';
+import { OrdersViewComponent } from './pages/orders-view/orders-view.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { ProductKitComponent } from './pages/products/product-kit/product-kit.component';
 
 
 @NgModule({
@@ -76,6 +78,8 @@ import { OrdersViewComponent } from './pages/orders/orders-view/orders-view.comp
     CustomerCreateComponent,
     ReservationPageComponent,
     OrdersViewComponent,
+    ProfileComponent,
+    ProductKitComponent,
   ],
   imports: [
     BrowserModule,

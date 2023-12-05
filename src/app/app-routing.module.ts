@@ -17,7 +17,9 @@ import { TransactionCustomerComponent } from './pages/transactions/transaction-c
 import { ServiceComponent } from './pages/service/service.component';
 import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
 import { ReservationPageComponent } from './pages/reservation/reservation-page/reservation-page.component';
-import { OrdersViewComponent } from './pages/orders/orders-view/orders-view.component';
+import { OrdersViewComponent } from './pages/orders-view/orders-view.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { ProductKitComponent } from './pages/products/product-kit/product-kit.component';
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent, title: 'Dashboard' },
@@ -25,6 +27,7 @@ const routes: Routes = [
 
   { path: 'products', component: ProductPageComponent, title: 'Products' },
   { path: 'products/create', component: ProductCreateComponent, title: 'Create New Product'},
+  { path: 'products/kit', component: ProductKitComponent, title: 'Kit Product'},
   { path: 'products/:id/edit', component: ProductViewComponent, title: 'Edit Product'},
   { path: 'products/:id', component: ProductViewComponent, title: 'View Product'},
 
@@ -45,6 +48,8 @@ const routes: Routes = [
   { path: 'reports', component: ReportsComponent, title: 'Reports' },
   { path: 'stocks', component: StocksComponent, title: 'Stocks' },
   { path: 'settings', component: SettingsComponent, title: 'Settings' },
+  { path: 'profile', component: ProfileComponent, title: 'Profile' },
+
 ];
 
 @NgModule({
