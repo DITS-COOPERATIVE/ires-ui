@@ -20,7 +20,7 @@ import { ReservationPageComponent } from './pages/reservation/reservation-page/r
 import { OrdersViewComponent } from './pages/orders/orders-view/orders-view.component';
 import { RegisterComponent } from './pages/register/register.component';
 const routes: Routes = [
-  { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent, title: 'Dashboard' },
   { path: 'login', component: LoginComponent, title: 'User Login' },
   { path: 'register', component: RegisterComponent, title: 'User Register' },

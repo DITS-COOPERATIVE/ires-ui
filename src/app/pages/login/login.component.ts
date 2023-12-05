@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
 @Component({
@@ -13,27 +14,29 @@ export class LoginComponent {
   isLoading: boolean = false;
   errors: any = [];
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(private authService: AuthenticationService, private router: Router) {}
 
+ 
   login() {
-    var inputData = {
-      email:this.email,
-      password:this.password
-    };
-
-    this.authService.loginUser(inputData).subscribe({
-      next: (res: any) => {
-        this.email = '';
-        this.password = '';
-        this.errors = {};
-        alert(res);
-      },
-
-      error: (err: any) => {
-        this.errors = err.error.errors;
-        this.isLoading = false
-        alert(this.errors);
-      }
-    })
-  }
+    
+      var inputData = {
+        email: this.email,
+        password: this.password
+      };
+    
+      this.authService.loginUser(inputData).subscribe({
+        next: (res: any) => {
+          this.authService.storeToken(res.token); 
+          this.authService.isAuthenticatedSubject.next(true);
+          this.email = '';
+          this.password = '';
+          this.errors = {};
+        },
+    
+        error: (err: any) => {
+          this.errors = err.error.errors;
+          this.isLoading = false;
+        }
+      });
+}
 }

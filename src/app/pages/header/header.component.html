@@ -88,11 +88,18 @@
     <div class="overlay overlay-user overlay-fall" cdkMenu>
         <ul>
             <li *ngFor="let item of userItems">
-                <a>
+              <a *ngIf="!item.action; else logoutButton" [routerLink]="[item.routeLink]"
+                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <i class="icon" [ngClass]="item.icon"></i>
-                <span>{{item. label}}</span>
+                <span>{{ item.label }}</span>
+              </a>
+              <ng-template #logoutButton>
+                <a *ngIf="item.action" (click)="item.action()">
+                  <i class="icon" [ngClass]="item.icon"></i>
+                  <span>{{ item.label }}</span>
                 </a>
+              </ng-template>
             </li>
-        </ul>
+          </ul>
     </div>
 </ng-template>

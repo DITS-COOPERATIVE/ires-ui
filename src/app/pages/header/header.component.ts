@@ -1,6 +1,13 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { notifications, userItems } from './header-dummy-data';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
+interface UserItem {
+  icon: string;
+  label: string;
+  routeLink?: string;
+  action?: () => void;
+}
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -11,9 +18,18 @@ export class HeaderComponent implements OnInit {
   @Input () screenWidth = 0;
   canShowSearchAsOverlay = false;
   notifications = notifications;
-  userItems = userItems;
+  userItems: UserItem[] = [
+    ...userItems,
+    {
+      icon: 'far fa-power-off',
+      label: 'Logout',
+      action: () => this.authService.logout() 
+    },
+  ];
 
-  constructor() { }
+
+
+  constructor(private authService: AuthenticationService) {}
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
