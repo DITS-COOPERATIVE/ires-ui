@@ -6,7 +6,7 @@
   <div class="row">
     <div class="col-lg-4 mt-1">
       <div
-        class="row bg-white mb-3"
+        class="row bg-white mb-1"
         style="height: 13rem; overflow-y: auto; border-radius: 10px"
       >
         <div class="order-empty" *ngIf="isCartEmpty">
@@ -61,7 +61,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="d-flex justify-content-around p-0 mb-2">
+        <div class="d-flex justify-content-around p-0 mb-3">
           <button
             class="btn btn-hover w-50 border-white p-1"
             type="submit"
@@ -83,7 +83,7 @@
           id="customer"
           [(ngModel)]="selectedCustomer"
           (ngModelChange)="onCustomerChange()"
-          class="form-control shadow mb-3 text-center"
+          class="form-control shadow mb-1 text-center"
         >
           <option [ngValue]="undefined">Customer</option>
           <option *ngFor="let customer of customers" [ngValue]="customer">

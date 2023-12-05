@@ -5,28 +5,26 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col">
-      <div class="prodImage" (click)="onImageClick()" *ngIf="isEditable">
-        <input
-          type="file"
-          id="imageInput"
-          accept="image/*"
-          (change)="onImageSelected($event)"
-          style="display: none"
-        />
-      </div>
       <div class="prodImage">
-        <img
-          src="https://i.pinimg.com/originals/0d/dd/85/0ddd859c5208d3db2dae14f2dfbf00dd.png"
-          class="img-thumbnail"
-          alt="..."
+        <label for="image-upload" class="image-label">
+          <img src="assets/image.png" class="img-thumbnail" alt="Product Image" />
+          <span class="choose-file" *ngIf="isEditing"></span>
+        </label>
+        <input
+          id="image-upload"
+          type="file"
+          accept="image/*"
+          [disabled]="!isEditing"
+          style="display: none"
+          (change)="handleImageUpload($event)"
         />
       </div>
     </div>
     <div class="col-lg-9">
       <div class="container p-3">
         <form>
-          <div class="icon-wrapper">
-            <i class="fa fa-pencil custom-icon" (click)="edit()">
+          <div class="icon-wrapper" (click)="toggleEditButton()">
+            <i class="fa fa-pencil custom-icon">
               <span class="fix-editor">&nbsp;</span>
             </i>
           </div>
@@ -104,8 +102,8 @@
                   [class.editable]="isEditable"
                   [(ngModel)]="customer.gender"
                 >
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
                 </select>
               </div>
               <div class="form-group mb-4">
@@ -120,23 +118,22 @@
                   [value]="customer.privilege"
 
                 >
-                  <option value="none">None</option>
-                  <option value="student">Student</option>
-                  <option value="pwd">PWD</option>
-                  <option value="seniorCitizen">Senior Citizen</option>
+                  <option value="None">None</option>
+                  <option value="Student">Student</option>
+                  <option value="PWD">PWD</option>
+                  <option value="Senior Citizen">Senior Citizen</option>
                 </select>
               </div>
               <div class="form-group mb-4">
                 <label for="product-points" class="mb-2">Points</label>
                 <input
-                  type="text"
+                  type="number"
                   name="points"
                   id="points"
                   class="form-control"
                   placeholder=""
                   [value]="customer.points"
-                  [readonly]="isReadOnly"
-                  [class.editable]="isEditable"
+                  disabled
                   [(ngModel)]="customer.points"
                 
                 />
@@ -146,7 +143,7 @@
               <button class="btn btn-primary" (click)="updateCustomer()">
                 Save
               </button>
-              <button class="btn btn-secondary ms-3">Cancel</button>
+              <button class="btn btn-secondary ms-3" (click)="cancel()">Cancel</button>
             </div>
           </div>
         </form>

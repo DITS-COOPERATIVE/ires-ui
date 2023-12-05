@@ -47,6 +47,8 @@ import { CustomerCreateComponent } from './pages/customers/customer-create/custo
 import { ReservationPageComponent } from './pages/reservation/reservation-page/reservation-page.component';
 import { OrdersViewComponent } from './pages/orders/orders-view/orders-view.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { ProductKitComponent } from './pages/products/product-kit/product-kit.component';
 
 
 @NgModule({
@@ -77,7 +79,10 @@ import { RegisterComponent } from './pages/register/register.component';
     CustomerCreateComponent,
     ReservationPageComponent,
     OrdersViewComponent,
+    login-register
     RegisterComponent,
+    ProfileComponent,
+    ProductKitComponent,
   ],
   imports: [
     BrowserModule,

@@ -36,12 +36,19 @@ export class CustomerEditComponent {
       this.isLoading = false;
     });
   }
-
-  edit() {
-    this.isReadOnly = false;
-    this.isEditable = true;
+  
+  cancel() {
+    this.isReadOnly = true;
+    this.isEditable = false;
   }
-
+  handleImageUpload(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement && inputElement.files && inputElement.files.length > 0) {
+      const file = inputElement.files[0];
+      // Handle the file upload logic here
+    }
+  }
+  
   toggleEditButton() {
     this.isEditing = !this.isEditing;
     if (this.isEditing) {
