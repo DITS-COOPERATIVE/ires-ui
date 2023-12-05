@@ -2,27 +2,28 @@ import { Component } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-
-export class LoginComponent {
+export class RegisterComponent {
+  name: string = '';
   email: string = '';
   password: string = '';
   isLoading: boolean = false;
-  errors: any = [];
+  errors: object = [];
 
   constructor(private authService: AuthenticationService) {}
 
-  login() {
+  register() {
     var inputData = {
+      name:this.name,
       email:this.email,
       password:this.password
     };
-
-    this.authService.loginUser(inputData).subscribe({
+    this.authService.createUser(inputData).subscribe({
       next: (res: any) => {
+        this.name = '';
         this.email = '';
         this.password = '';
         this.errors = {};

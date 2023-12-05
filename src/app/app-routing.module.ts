@@ -18,10 +18,12 @@ import { ServiceComponent } from './pages/service/service.component';
 import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
 import { ReservationPageComponent } from './pages/reservation/reservation-page/reservation-page.component';
 import { OrdersViewComponent } from './pages/orders/orders-view/orders-view.component';
+import { RegisterComponent } from './pages/register/register.component';
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent, title: 'Dashboard' },
-  { path: 'login', component: LoginComponent, title: 'login' },
+  { path: 'login', component: LoginComponent, title: 'User Login' },
+  { path: 'register', component: RegisterComponent, title: 'User Register' },
 
   { path: 'products', component: ProductPageComponent, title: 'Products' },
   { path: 'products/create', component: ProductCreateComponent, title: 'Create New Product'},

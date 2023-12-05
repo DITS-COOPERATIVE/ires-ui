@@ -46,6 +46,7 @@ import { ServiceComponent } from './pages/service/service.component';
 import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
 import { ReservationPageComponent } from './pages/reservation/reservation-page/reservation-page.component';
 import { OrdersViewComponent } from './pages/orders/orders-view/orders-view.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 
 @NgModule({
@@ -76,6 +77,7 @@ import { OrdersViewComponent } from './pages/orders/orders-view/orders-view.comp
     CustomerCreateComponent,
     ReservationPageComponent,
     OrdersViewComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
