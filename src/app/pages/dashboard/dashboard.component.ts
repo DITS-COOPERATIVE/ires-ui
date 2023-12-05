@@ -35,6 +35,7 @@ export class DashboardComponent implements OnInit {
   totalReservations: number = 0;
   activeCardIndex: number | null = null;
   myChart: any;
+  topSellingProducts: string[] = [];
 
   constructor(
     private customersService: CustomersService,
@@ -167,6 +168,11 @@ export class DashboardComponent implements OnInit {
         this.updateChartData();
       });
   }
+  
+updateTopSellingProducts() {
+  const topProducts = this.products.slice(0, 5);
+  this.topSellingProducts = topProducts.map((product) => product.name);
+}
 
   updateChartData() {
     const customersData = Array(12).fill(0);
@@ -226,7 +232,18 @@ export class DashboardComponent implements OnInit {
       .subscribe((products: ProductsResponse[]) => {
         this.products = products;
         this.products.sort((a, b) => b.quantity - a.quantity);
+        this.updateTopSellingProducts();
       });
+  }
+
+  getPercentage(productName: string): string {
+    const product = this.products.find((item) => item.name === productName);
+    if (product) {
+      const maxQuantity = this.products[0].quantity; // Assuming the first product has the highest quantity
+      const percentage = Math.round((product.quantity / maxQuantity) * 100);
+      return `${percentage}%`;
+    }
+    return '0%';
   }
 
   getReservationList() {
@@ -257,17 +274,6 @@ export class DashboardComponent implements OnInit {
     this.activeCardIndex = index;
   }
 
-  getSoldQuantity(item: any): number {
-    console.log('item.quantity:', item.quantity);
-    console.log('item.sold:', item.sold);
-
-    return item.quantity - item.sold;
-  }
-
-  getProgressWidth(item: any): string {
-    const progress = (this.getSoldQuantity(item) / item.quantity) * 100;
-    return progress + '%';
-  }
 
   formatDate(date: string): string {
     const formattedDate = this.datePipe.transform(date, 'MMM d, y');

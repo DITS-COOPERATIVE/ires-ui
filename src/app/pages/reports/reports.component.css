@@ -3,7 +3,6 @@
   }
   
   .dropdown>.dropdown-toggle:active {
-    /*Without this, clicking will make it sticky*/
       pointer-events: none;
   }
   .dropdown-toggle::after{
@@ -19,7 +18,7 @@
 
 
     .form-container {
-      width: 300px;
+      width: 700px;
       padding: 20px;
       border: 1px solid #ccc;
       border-radius: 5px;
