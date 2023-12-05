@@ -33,6 +33,7 @@ export class ReservationPageComponent {
   status!: string;
   when!: string;
   location!: string;
+  isDateAvailable: boolean = true;
 
   saveReservation() {
     var inputData = {
@@ -112,12 +113,16 @@ export class ReservationPageComponent {
         Accept: 'application/json',
         'Content-Type': 'application/json'
       };
+  
       this.http.post(apiUrl, payload, { headers }).subscribe(
-        (response) => {
-          console.log('API response:', response);
+        (response: any) => {
+
+          this.isDateAvailable = response === 1 || (response && response.preview === 1);
         },
         (error) => {
-          console.error('API error:', error);
+
+          console.error('Error checking service availability:', error);
+          this.isDateAvailable = false;
         }
       );
     }
