@@ -18,10 +18,13 @@ export const notifications = [
 
 export const userItems =[
     {
+        routeLink: 'profile',
         icon: 'far fa-user',
         label: 'Profile'
+        
     },
     {
+        routeLink: 'settings',
         icon: 'far fa-cog',
         label: 'Setting'
     },

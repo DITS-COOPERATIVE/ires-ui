@@ -1,0 +1,15 @@
+.center-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 110%;
+    font-size: 120%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  .status-cell {
+    background-color: rgb(16, 226, 9);
+    padding: 2px 7px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+  }

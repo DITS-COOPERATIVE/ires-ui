@@ -15,7 +15,8 @@
           type="file"
           accept="image/*"
           [disabled]="!isEditing"
-          style="display: none"
+          style="display: none" 
+          [(ngModel)]="product.image"
           (change)="handleImageUpload($event)"
         />
       </div>

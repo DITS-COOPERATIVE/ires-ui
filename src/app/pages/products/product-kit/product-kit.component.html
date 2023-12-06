@@ -1,0 +1,20 @@
+<div class="container-fluid">
+    <div class="bubbles">
+        <div class="bubble" *ngFor="let item of products" >
+            <div class="bubble-content" (click)="removeProduct(item.id)">
+                <img src="https://via.placeholder.com/150" alt="">
+          <span>{{item.name}}</span>
+            </div>
+        </div>
+      </div>  
+    <div class="d-flex justify-content-center" (click)="showPreview = !showPreview;">
+          <i class="fas fa-box-open" style="font-size: 20rem;"></i>
+    </div>
+    <div *ngIf="showPreview" class="preview">
+        <h3>Removed Products Preview:</h3>
+        <div *ngFor="let removedProduct of removedProducts">
+          <p>{{ removedProduct.name }}</p>
+          <!-- Display other details of the removed product -->
+        </div>
+     <!-- <button (click)="saveRemovedProducts()">Save</button> -->
+</div>
