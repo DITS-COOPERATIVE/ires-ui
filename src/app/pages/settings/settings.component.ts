@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { CashierService } from 'src/app/services/settings/cashier.service';
 
 @Component({
@@ -7,41 +8,31 @@ import { CashierService } from 'src/app/services/settings/cashier.service';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent {
-  constructor(  private cashiersService: CashierService){
+  constructor(  private cashierService: CashierService){
   }
-  full_name!: string;
-  gender!: string;
-  mobile_no!: string;
+  name!: string;
   email!: string;
-  address!: string;
-  image!: string;
   password!: string;
   errors: any = {};
-  uploadedImage: any;
-  selectedImage: string = '';
+  user_type!: string;
 
 
 
   saveCashier() {
     var inputData = {
-      full_name: this.full_name,
+     name: this.name,
       email:this.email,
-      gender: this.gender,
-      mobile_no: this.mobile_no,
-      address: this.address,
       password:this.password,
-      image: this.image,
+      user_type: 'Cashier',
+
     };
 
-    this.cashiersService.saveCustomer(inputData).subscribe({
+    this.cashierService.saveCustomer(inputData).subscribe({
       next: (res:any) => {
-        this.full_name ='' ;
+        this.name ='' ;
         this.email;
-        this.gender = '';
-        this.address = '';
-        this.image = '';
-        this.selectedImage = '';
         this.password = '';
+        this.user_type ='';
       },
       error: (err: any) => {
         this.errors = err.error.errors;

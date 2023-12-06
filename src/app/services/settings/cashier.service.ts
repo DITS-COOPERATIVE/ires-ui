@@ -27,7 +27,7 @@ export interface CustomerEditResponse {
   providedIn: 'root'
 })
 export class CashierService {
-  private endpoint = 'cashiers/';
+  private endpoint = 'auth/register';
   private domain: string | undefined;
 
   constructor(private httpClient: HttpClient) {
