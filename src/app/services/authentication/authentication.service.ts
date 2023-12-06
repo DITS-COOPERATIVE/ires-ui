@@ -48,10 +48,21 @@ export class AuthenticationService {
     return this.httpClient.post(`${this.domain}${this.endpoint}`, inputData);
   }
   
+  logoutUser(): Observable<any> {
+    return this.httpClient.post(`${this.domain}auth/logout`, {});
+  }
+
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('email');
-    this.isAuthenticatedSubject.next(false);
+    this.logoutUser().subscribe(
+      () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('email');
+        this.isAuthenticatedSubject.next(false);
+      },
+      error => {
+        console.error('Logout failed:', error);
+      }
+    );
   }
   
 }
