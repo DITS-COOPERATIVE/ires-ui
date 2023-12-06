@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProductsService } from '../../../services/products/products.service';
+import { ProductsResponse, ProductsService } from '../../../services/products/products.service';
 
 @Component({
   selector: 'app-product-create',
@@ -9,7 +9,8 @@ import { ProductsService } from '../../../services/products/products.service';
 export class ProductCreateComponent {
   successMessage: string | null = null;
   selectedImage: string = '';
-
+  products!: ProductsResponse [];
+  product_id : any
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     const reader = new FileReader();
@@ -33,7 +34,24 @@ export class ProductCreateComponent {
   errors: any = [];
   isLoading: boolean = false;
   loadingTitle: string = 'Loading';
+  ngOnInit() {
 
+    this.getProductsLists();
+
+  }
+  getProductsLists(){
+    
+    try {
+
+      this.productsService.getProductsLists().subscribe((res) =>{
+        this.products = res;
+          
+      })
+    } catch (error) {
+      this.errors = error
+    };
+    
+  }
   saveProduct() {
     this.loadingTitle = 'Saving';
     this.isLoading = true;

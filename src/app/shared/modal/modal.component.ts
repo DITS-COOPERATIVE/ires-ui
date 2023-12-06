@@ -1,9 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {
-  CustomersResponse,
-  CustomersService,
-} from 'src/app/services/customers/customers.service';
+import { CustomersResponse, CustomersService } from '../../services/customers/customers.service';
 
 @Component({
   selector: 'app-modal',

@@ -44,6 +44,7 @@ export class ServiceComponent {
         setTimeout(() => (this.successMessage = null), 1500);
         this.isLoading = false;
         this.errors = {};
+        this.getServiceLists();
       },
 
       error: (err: any) => {

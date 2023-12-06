@@ -15,8 +15,8 @@ input:focus{
     border-bottom: solid 1px black;
   }
   .image-previews {
-	width: 150px;
-	height: 150px;
+	width: 280px;
+	height: 280px;
 	border: 2px dashed #dcdee3;
 	margin: 3px;
 	position: relative;

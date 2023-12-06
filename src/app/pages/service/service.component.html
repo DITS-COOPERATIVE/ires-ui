@@ -4,34 +4,28 @@
       ><i class="fas fa-arrow-left"></i>&nbsp; Back</a
     >
   </div>
-  <h3>Service</h3>
-  <div class="row">
-    <div class="col-lg-6">
-      <input
-        type="text"
-        placeholder="name"
-        [(ngModel)]="name"
-        class="form-control mb-4"
-      />
-      <span *ngIf="errors.name" class="alert alert-danger p-1"
-      >{{ errors.name }}</span>
-      <input
-        type="number"
-        placeholder="price"
-        [(ngModel)]="price"
-        class="form-control mb-4"
-      />
-      <span *ngIf="errors.price" class="alert alert-danger p-1"
-      >{{ errors.price }}</span>
-    </div>
-    <div class="col-lg-6">
-      <select name="" id=" " [(ngModel)]="status" class="form-control mb-4">
+  <div class="row pt-5">
+    <div class="col-lg-4 bg-white rounded shadow mb-4">
+      <label for="" class="mt-3">Name</label>
+      <input type="text" [(ngModel)]="name" class="form-control" />
+      <span *ngIf="errors.name" class="alert alert-danger p-1">{{
+        errors.name
+      }}</span>
+      <label for="">Price</label>
+      <input type="number" [(ngModel)]="price" class="form-control" />
+      <span *ngIf="errors.price" class="alert alert-danger p-1">{{
+        errors.price
+      }}</span>
+      <label for="">Status</label>
+      <select name="" id=" " [(ngModel)]="status" class="form-control">
         <option value="Available">Available</option>
         <option value="Not Available">Not Available</option>
       </select>
-      <span *ngIf="errors.status" class="alert alert-danger p-1"
-      >{{ errors.status }}</span>
-      <select name="" id=" " [(ngModel)]="type" class="form-control mb-4">
+      <span *ngIf="errors.status" class="alert alert-danger p-1">{{
+        errors.status
+      }}</span>
+      <label for="">Type</label>
+      <select name="" id=" " [(ngModel)]="type" class="form-control">
         <option value="Programming">Programming</option>
         <option value="Software Installation">Software Installation</option>
         <option value="Layout">Layout</option>
@@ -41,27 +35,36 @@
         <option value="Repair Services">Repair Services</option>
         <option value="Load Services">Load Services</option>
       </select>
-      <span *ngIf="errors.type" class="alert alert-danger p-1"
-      >{{ errors.type }}</span>
+      <span *ngIf="errors.type" class="alert alert-danger p-1">{{
+        errors.type
+      }}</span>
+      <button
+        type="submit"
+        class="btn btn-outline-primary btn-sm m-auto d-flex mb-5 mt-2"
+        (click)="saveService()"
+      >
+        submit
+      </button>
     </div>
-</div>
-    <button type="submit" class="btn btn-outline-primary btn-sm m-auto d-flex mb-5" (click)="saveService()">submit</button>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Status</th>
-        <th>Type</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of services">
-        <td>{{ item.name }}</td>
-        <td>₱ {{ item.price }}</td>
-        <td>{{ item.status }}</td>
-        <td>{{ item.type }}</td>
-      </tr>
-    </tbody>
-  </table>
+    <div class="col-lg-8">
+      <table class="table shadow">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of services">
+            <td>{{ item.name }}</td>
+            <td>₱ {{ item.price }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.type }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

@@ -55,6 +55,7 @@ export class ReservationPageComponent {
         setTimeout(() => (this.successMessage = null), 1500);
         this.isLoading = false;
         this.errors = {};
+        this.getReservationLists();
       },
 
       error: (err: any) => {
