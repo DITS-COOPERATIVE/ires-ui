@@ -15,6 +15,7 @@ export class CustomerCreateComponent {
   mobile_no!: string;
   address!: string;
   privilege!: string;
+  barcode!: string;
   points: number = 0;
   image!: string;
   customers: CustomersResponse[] = [];
@@ -25,16 +26,18 @@ export class CustomerCreateComponent {
     private customersService: CustomersService,
     public dialog: MatDialog
   ) {}
-  openDialog(): void {
+
+  openDialog(newCustomer: CustomersResponse): void {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '500px',
       data: {
-        name: 'John Doe',
-        barcode: '1234567890',
-        dateCreated: new Date(),
+        full_name: newCustomer.full_name,
+        barcode: newCustomer.barcode,
+        createdDate: newCustomer.created_at,
       },
     });
   }
+  
   saveCustomer() {
     this.image = this.image || 'default_image.jpg';
 
@@ -47,10 +50,13 @@ export class CustomerCreateComponent {
       privilege: this.privilege,
       points: this.points,
       image: this.image,
+      barcode: this.barcode
     };
 
     this.customersService.saveCustomer(inputData).subscribe({
       next: (res:any) => {
+        console.log(res);
+        this.barcode;
         this.full_name ='' ;
         this.gender = '';
         this.email = '';
@@ -60,8 +66,7 @@ export class CustomerCreateComponent {
         this.image = '';
         this.selectedImage = '';
         const newCustomer: CustomersResponse = res;
-        this.customers.push(newCustomer);
-        this.openDialog();
+        this.openDialog(newCustomer);        
       },
       error: (err: any) => {
         this.errors = err.error.errors;

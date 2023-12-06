@@ -49,6 +49,8 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ProductKitComponent } from './pages/products/product-kit/product-kit.component';
 import { OrdersViewComponent } from './pages/orders-view/orders-view.component';
+import { NgxBarcodeModule } from '@greatcloak/ngx-barcode';
+import { ModalComponent } from './shared/modal/modal.component';
 
 
 @NgModule({
@@ -82,6 +84,7 @@ import { OrdersViewComponent } from './pages/orders-view/orders-view.component';
     RegisterComponent,
     ProfileComponent,
     ProductKitComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -103,6 +106,7 @@ import { OrdersViewComponent } from './pages/orders-view/orders-view.component';
     MatCheckboxModule,
     MatIconModule,
     DragDropModule,
+    NgxBarcodeModule,
     NgxDaterangepickerMd.forRoot()
 
   ],

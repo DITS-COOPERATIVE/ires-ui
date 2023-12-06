@@ -15,9 +15,10 @@ export class ModalComponent {
     private customersService: CustomersService,
     public dialogRef: MatDialogRef<ModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) {this.value = this.data.barcode;}
   customers!: CustomersResponse[];
   full_name!: string;
+  value: any; 
 
   onCancel(): void {
     this.dialogRef.close();
