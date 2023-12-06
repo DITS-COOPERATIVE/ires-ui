@@ -13,6 +13,8 @@ export class SettingsComponent {
   name!: string;
   email!: string;
   password!: string;
+  address!: string;
+  mobile_no!:string;
   errors: any = {};
   user_type!: string;
 
@@ -22,6 +24,8 @@ export class SettingsComponent {
     var inputData = {
      name: this.name,
       email:this.email,
+      address:this.address,
+      mobile_no: this.mobile_no,
       password:this.password,
       user_type: 'Cashier',
 
@@ -31,6 +35,8 @@ export class SettingsComponent {
       next: (res:any) => {
         this.name ='' ;
         this.email;
+        this.address ='';
+        this.mobile_no ='';
         this.password = '';
         this.user_type ='';
       },
