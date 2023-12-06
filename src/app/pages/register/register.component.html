@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="div-wrapper">
+        <div class="overlap-group-wrapper">
+          <div class="overlap-group">
+            <div class="overlap">
+              <img class="screen-shot" alt="Screen shot" src="assets/image.png" />
+            </div>
+            <div class="div">DITS Inventory</div>
+            <div class="overlap-2">
+                <div class="text-wrapper-2"></div>
+                <input type="text" [(ngModel)]="name" name="name" placeholder="Enter your name" />
+            </div>
+            <div class="overlap-2">
+              <div class="text-wrapper-2"></div>
+              <input type="text" [(ngModel)]="email" name="email" placeholder="Enter your email" />
+            </div>
+            <div class="overlap-3">
+              <div class="text-wrapper-2"></div>
+              <input type="password" [(ngModel)]="password" name="password" placeholder="Enter your password" />
+            </div>
+            <img
+              class="imgbin-person-logo"
+              alt="Imgbin person logo"
+              src="assets/user (1).png"
+            />
+            <img 
+            class="login-password" 
+            alt="Login password" 
+            src="assets/padlock.png" 
+            />
+            <button class="component-2" type="button" (click)="register()">Register</button>
+          </div>
+        </div>
+      </div>
+    </div>

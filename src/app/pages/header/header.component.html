@@ -33,12 +33,12 @@
                     </button>
                 </div>
            </div>
-                <div class="head-user-avatar-container" [cdkMenuTriggerFor]="userOverlay">
-                    <div class="head-user-avatar">
-                    <img src="assets/user-profile.jpg" alt="user" class="user-avatar">
-                    <div class="circle-indicator pulse"></div>
-                 </div>
+           <div class="head-user-avatar-container" [cdkMenuTriggerFor]="userOverlay">
+            <div class="head-user-avatar">
+              <div class="user-avatar circle-avatar">{{ getFirstLetterOfEmail() }}</div>
+              <div class="circle-indicator pulse"></div>
             </div>
+          </div>
         </div>
     </div>
 </div>
@@ -88,13 +88,18 @@
     <div class="overlay overlay-user overlay-fall" cdkMenu>
         <ul>
             <li *ngFor="let item of userItems">
-                <a [routerLink]="[item.routeLink]" 
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{exact: true}">
+              <a *ngIf="!item.action; else logoutButton" [routerLink]="[item.routeLink]"
+                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <i class="icon" [ngClass]="item.icon"></i>
-                <span>{{item. label}}</span>
+                <span>{{ item.label }}</span>
+              </a>
+              <ng-template #logoutButton>
+                <a *ngIf="item.action" (click)="item.action()">
+                  <i class="icon" [ngClass]="item.icon"></i>
+                  <span>{{ item.label }}</span>
                 </a>
+              </ng-template>
             </li>
-        </ul>
+          </ul>
     </div>
 </ng-template>

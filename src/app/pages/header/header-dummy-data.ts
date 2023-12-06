@@ -28,8 +28,5 @@ export const userItems =[
         icon: 'far fa-cog',
         label: 'Setting'
     },
-    {
-        icon: 'far fa-power-off',
-        label: 'Logout'
-    },
 ]
+
