@@ -45,10 +45,12 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { ServiceComponent } from './pages/service/service.component';
 import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
 import { ReservationPageComponent } from './pages/reservation/reservation-page/reservation-page.component';
-import { OrdersViewComponent } from './pages/orders/orders-view/orders-view.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ProductKitComponent } from './pages/products/product-kit/product-kit.component';
+import { OrdersViewComponent } from './pages/orders-view/orders-view.component';
+import { NgxBarcodeModule } from '@greatcloak/ngx-barcode';
+import { ModalComponent } from './shared/modal/modal.component';
 
 
 @NgModule({
@@ -79,10 +81,10 @@ import { ProductKitComponent } from './pages/products/product-kit/product-kit.co
     CustomerCreateComponent,
     ReservationPageComponent,
     OrdersViewComponent,
-    login-register
     RegisterComponent,
     ProfileComponent,
     ProductKitComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,6 +106,7 @@ import { ProductKitComponent } from './pages/products/product-kit/product-kit.co
     MatCheckboxModule,
     MatIconModule,
     DragDropModule,
+    NgxBarcodeModule,
     NgxDaterangepickerMd.forRoot()
 
   ],
