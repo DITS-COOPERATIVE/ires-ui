@@ -27,14 +27,18 @@ export class AuthenticationService {
     return !!token;
   }
   
-
+  storeToken(token: string, email: string): void {
+    localStorage.setItem('token', token);
+    localStorage.setItem('email', email);
+  }
+  
+  getUserEmail(): string | null {
+    return localStorage.getItem('email');
+  }
   isAuthenticated(): Observable<boolean> {
     return this.isAuthenticatedSubject.asObservable();
   }
   
-  storeToken(token: string): void {
-    localStorage.setItem('token', token);
-  }
 
   getToken(): string | null {
     return localStorage.getItem('token');
@@ -46,6 +50,7 @@ export class AuthenticationService {
   
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('email');
     this.isAuthenticatedSubject.next(false);
   }
   

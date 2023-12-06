@@ -35,7 +35,10 @@ export class HeaderComponent implements OnInit {
   onResize(event: any) {
     this.checkCanShowSearchAsOverlay(window.innerWidth);
   }
-  
+  getFirstLetterOfEmail(): string {
+    const userEmail = this.authService.getUserEmail();
+    return userEmail ? userEmail.charAt(0).toUpperCase() : '';
+  }
 
   ngOnInit(): void {
     this.checkCanShowSearchAsOverlay(window.innerWidth);

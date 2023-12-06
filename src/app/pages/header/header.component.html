@@ -33,12 +33,12 @@
                     </button>
                 </div>
            </div>
-                <div class="head-user-avatar-container" [cdkMenuTriggerFor]="userOverlay">
-                    <div class="head-user-avatar">
-                    <img src="assets/user-profile.jpg" alt="user" class="user-avatar">
-                    <div class="circle-indicator pulse"></div>
-                 </div>
+           <div class="head-user-avatar-container" [cdkMenuTriggerFor]="userOverlay">
+            <div class="head-user-avatar">
+              <div class="user-avatar circle-avatar">{{ getFirstLetterOfEmail() }}</div>
+              <div class="circle-indicator pulse"></div>
             </div>
+          </div>
         </div>
     </div>
 </div>
