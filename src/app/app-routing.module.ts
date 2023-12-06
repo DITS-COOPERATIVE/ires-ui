@@ -17,10 +17,10 @@ import { TransactionCustomerComponent } from './pages/transactions/transaction-c
 import { ServiceComponent } from './pages/service/service.component';
 import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
 import { ReservationPageComponent } from './pages/reservation/reservation-page/reservation-page.component';
-import { OrdersViewComponent } from './pages/orders/orders-view/orders-view.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ProductKitComponent } from './pages/products/product-kit/product-kit.component';
+import { OrdersViewComponent } from './pages/orders-view/orders-view.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent, title: 'Dashboard' },
