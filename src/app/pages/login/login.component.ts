@@ -16,23 +16,23 @@ export class LoginComponent {
 
   constructor(private authService: AuthenticationService, private router: Router) {}
 
- 
+
   login() {
-    
+
       var inputData = {
         email: this.email,
         password: this.password
       };
-    
+
       this.authService.loginUser(inputData).subscribe({
         next: (res: any) => {
-          this.authService.storeToken(res.token, this.email); 
+          this.authService.storeToken(res.token, res.user);
           this.authService.isAuthenticatedSubject.next(true);
           this.email = '';
           this.password = '';
           this.errors = {};
         },
-    
+
         error: (err: any) => {
           this.errors = err.error.errors;
           this.isLoading = false;

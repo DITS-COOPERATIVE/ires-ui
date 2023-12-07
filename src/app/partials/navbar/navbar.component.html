@@ -1,5 +1,5 @@
 <!-- sidenav -->
-  <div class= "sidenav" [ngClass]="collapsed ? 'sidenav-collapsed':''" (mouseenter)="onMouseEnter()" 
+  <div class= "sidenav" [ngClass]="collapsed ? 'sidenav-collapsed':''" (mouseenter)="onMouseEnter()"
   (mouseleave)="onMouseLeave()">
     <div class="logo-container">
         <button class="logo"><img src="assets/dits.png" alt="" width="55px" (click)="toggleCollapse()"></button>
@@ -9,8 +9,9 @@
         </button> -->
     </div>
     <ul class="sidenav-nav">
-        <li class="sidenav-nav-item" *ngFor=" let data of navData">
-            <a class="sidenav-nav-link" [routerLink]="[data.routeLink]" 
+        <ng-container *ngFor=" let data of navData">
+          <li class="sidenav-nav-item" *ngIf="permission.canAccess(data.roles)">
+            <a class="sidenav-nav-link" [routerLink]="[data.routeLink]"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{exact: true}"
             >
@@ -18,7 +19,8 @@
                 <span class= "sidenav-link-text" @fadeInOut *ngIf="collapsed">{{data.label}}</span>
             </a>
         </li>
+        </ng-container>
+
     </ul>
 </div>
 
-  
