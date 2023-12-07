@@ -35,7 +35,10 @@
            </div>
            <div class="head-user-avatar-container" [cdkMenuTriggerFor]="userOverlay">
             <div class="head-user-avatar">
-              <div class="user-avatar circle-avatar">{{ getFirstLetterOfEmail() }}</div>
+              <div class="user-avatar circle-avatar" (mouseenter)="showEmailTooltip()" (mouseleave)="hideEmailTooltip()">
+                {{ getFirstLetterOfEmail() }}
+                <div class="email-tooltip" *ngIf="showTooltip">{{ userEmail }}</div>
+              </div>
               <div class="circle-indicator pulse"></div>
             </div>
           </div>
