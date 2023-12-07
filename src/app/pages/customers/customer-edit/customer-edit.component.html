@@ -140,10 +140,13 @@
               </div>
             </div>
             <div class="button-group" [class.hidden]="!isEditable">
-              <button class="btn btn-primary" (click)="updateCustomer()">
+              <button  style="position: relative; right: 200px;" (click)="generateBarcode()" class="btn btn-success">
+                Generate Code
+              </button>  
+              <button  style="position: relative; right: 90px;" class="btn btn-primary" (click)="updateCustomer()">
                 Save
               </button>
-              <button class="btn btn-secondary ms-3" (click)="cancel()">Cancel</button>
+              <button style="position: relative; right: 90px;" class="btn btn-primary" class="btn btn-secondary ms-3" (click)="cancel()">Cancel</button>
             </div>
           </div>
         </form>

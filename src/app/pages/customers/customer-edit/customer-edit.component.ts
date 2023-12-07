@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { CustomersService } from 'src/app/services/customers/customers.service';
+import { CustomersResponse, CustomersService } from 'src/app/services/customers/customers.service';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
 
 @Component({
   selector: 'app-customer-edit',
@@ -25,7 +27,8 @@ export class CustomerEditComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private customersService: CustomersService
+    private customersService: CustomersService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -45,7 +48,6 @@ export class CustomerEditComponent {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement && inputElement.files && inputElement.files.length > 0) {
       const file = inputElement.files[0];
-      // Handle the file upload logic here
     }
   }
   
@@ -82,6 +84,7 @@ export class CustomerEditComponent {
         this.isEditing = false;
         this.isReadOnly = true;
         this.isEditable = false;
+        
       },
       error: (err: any) => {
         this.errors = err.error.errors;
@@ -89,6 +92,33 @@ export class CustomerEditComponent {
       },
     });
   }
+  generateBarcode() {
+    this.isLoading = true;
+
+    this.customersService.getCustomer(this.customerId).subscribe({
+      next: (res: any) => {
+        this.openDialog(res);
+      },
+      error: (err: any) => {
+        this.errors = err.error.errors;
+        this.isLoading = false;
+      },
+    });
+   
+  }
+  
+
+  openDialog(customer: CustomersResponse): void {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '500px',
+      data: {
+        full_name: customer.full_name,
+        barcode: customer.barcode,
+        createdDate: customer.created_at,
+      },
+    });
+  }
+  
 
   onImageClick() {
     const fileInput = document.getElementById('imageInput');
