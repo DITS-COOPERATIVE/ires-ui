@@ -20,6 +20,7 @@
       </select>
       <label for="">Service</label>
       <select [(ngModel)]="service_id" class="form-control mb-3">
+        <option value="">Select a service</option>
         <option *ngFor="let service of services" [value]="service.id">
           {{ service.type }}
         </option>
