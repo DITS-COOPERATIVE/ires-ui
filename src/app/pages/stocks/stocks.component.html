@@ -1,3 +1,4 @@
+
 <table
   mat-table
   [dataSource]="dataSource"
@@ -70,7 +71,9 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
-
+<div *ngIf="!dataSource?.data?.length" class="text-center p-3">
+  <p>No stock available</p>
+</div>
 <mat-paginator
   [pageSizeOptions]="[10, 25, 50, 100]"
   showFirstLastButtons

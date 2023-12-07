@@ -78,9 +78,8 @@
             errors.price
           }}</span>
         </div>
-        <label for="product-price" class="mb-2"> Kit</label>
-        <div class="form-group mb-4 d-flex" *ngIf="products && products.length > 0">
-          
+        <label for="product-price" class="mb-2"> Kit</label> <br>
+        <div class="form-group mb-4 d-flex" *ngIf="products && products.length > 0"> 
           <select
             [(ngModel)]="product_id"
             name="selectedProductId"

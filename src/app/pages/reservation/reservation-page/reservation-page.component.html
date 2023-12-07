@@ -1,6 +1,6 @@
-<div class="addButton cursor float-end mb-1 me-2">
+<div class="addButton cursor float-end mb-1 me-4">
   <a routerLink="/services" class="btn btn-sm" style="color: #12243b"
-    ><i class="fas fa-plus"></i> Create Service</a
+    ><i class="fas fa-tools"></i>&nbsp;Add Service</a
   >
 </div>
 <div class="container-fluid">
@@ -86,13 +86,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of reservation">
-            <td>{{ item.customer_name }}</td>
-            <td>{{ item.when | date : "MMMM dd, yyyy" }}</td>
-            <td>{{ getServiceType(item.service_id) }}</td>
-            <td>{{ item.location }}</td>
-            <td>{{ item.status }}</td>
-          </tr>
+          <ng-container *ngIf="reservation.length > 0; else noData">
+            <tr *ngFor="let item of reservation">
+              <td>{{ item.customer_name }}</td>
+              <td>{{ item.when | date : "MMMM dd, yyyy" }}</td>
+              <td>{{ getServiceType(item.service_id) }}</td>
+              <td>{{ item.location }}</td>
+              <td>{{ item.status }}</td>
+            </tr>
+          </ng-container>
+          <ng-template #noData>
+            <tr>
+              <td colspan="5" class="text-center"> <i class='fas fa-calendar-times'></i>&nbsp;No reservations available</td>
+            </tr>
+          </ng-template>
         </tbody>
       </table>
     </div>

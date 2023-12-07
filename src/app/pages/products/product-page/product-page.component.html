@@ -77,4 +77,13 @@
       </ng-template>
     </div>
   </div>
+  <div class="row text-center" *ngIf="!products || products.length === 0">
+    <div style="display: table; height: 400px; overflow: hidden;">
+      <div style="display: table-cell; vertical-align: middle;">
+        <div>
+          <p><i class='fas fa-box-open'></i> No products available</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
