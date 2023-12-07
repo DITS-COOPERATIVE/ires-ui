@@ -11,6 +11,7 @@ export class ProductCreateComponent {
   selectedImage: string = '';
   products!: ProductsResponse [];
   product_id : any
+  productForm: any;
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     const reader = new FileReader();

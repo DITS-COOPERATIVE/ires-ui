@@ -1,5 +1,5 @@
 <div class="container bg-white">
-  <form (ngSubmit)="saveProduct()">
+  <form (ngSubmit)="saveProduct()" #productForm="ngForm">
   <div>
     <div class="image-upload-container">
       <input
@@ -20,9 +20,6 @@
         </div>
       </label>
     </div>
-    <span *ngIf="errors.image" class="text-danger errorimage">{{
-      errors.image
-    }}</span>
   </div>
   
     <div
@@ -41,10 +38,9 @@
           id="product-name"
           class="form-control text-center"
           placeholder="Product Name"
+          required
         />
-        <span *ngIf="errors.name" class="text-danger errorname">{{
-          errors.name
-        }}</span>
+        <span *ngIf="productForm.submitted && !name" class="text-danger errorname">Product Name is required.</span>
       </div>
       <div class="col-md-6">
         <div class="form-group mb-4">
@@ -60,9 +56,7 @@
             <option value="Hardware">Hardware</option>
             <option value="Services">Services</option>
           </select>
-          <span *ngIf="errors.category" class="text-danger">{{
-            errors.category
-          }}</span>
+          <span *ngIf="productForm.submitted && !category" class="text-danger">Category is required.</span>
         </div>
         <div class="form-group mb-4">
           <label for="product-price" class="mb-2"> Price</label>
@@ -74,9 +68,7 @@
             class="form-control"
             placeholder=""
           />
-          <span *ngIf="errors.price" class="text-danger">{{
-            errors.price
-          }}</span>
+          <span *ngIf="productForm.submitted && !price" class="text-danger">Price is required.</span>
         </div>
         <label for="product-price" class="mb-2"> Kit</label>
         <div class="form-group mb-4 d-flex" *ngIf="products && products.length > 0">
@@ -95,9 +87,6 @@
             </option>
           </select>
           <input  type="number" *ngFor="let prod of products" class="form-control w-25" name="selectedProductQuantity" [value]="prod.quantity" id="">
-          <span *ngIf="errors.price" class="text-danger">{{
-            errors.price
-          }}</span>
         </div>
       </div>
       <div class="col-md-6">
@@ -111,9 +100,7 @@
             class="form-control"
             placeholder=""
           />
-          <span *ngIf="errors.model" class="text-danger">{{
-            errors.model
-          }}</span>
+          <span *ngIf="productForm.submitted && !model" class="text-danger">Product model is required.</span>
         </div>
         <div class="form-group mb-4">
           <label for="product-quantity" class="mb-2"> Quantity</label>
@@ -125,9 +112,7 @@
             class="form-control"
             placeholder=""
           />
-          <span *ngIf="errors.quantity" class="text-danger">{{
-            errors.quantity
-          }}</span>
+          <span *ngIf="productForm.submitted && !quantity" class="text-danger">Quantity is required.</span>
         </div>
         <div class="form-group mb-4">
           <label for="product-points" class="mb-2"> Points</label>
@@ -139,9 +124,7 @@
             class="form-control"
             placeholder=""
           />
-          <span *ngIf="errors.points" class="text-danger">{{
-            errors.points
-          }}</span>
+          <span *ngIf="productForm.submitted && !points" class="text-danger error">Points is required.</span>
         </div>
       </div>
       <div class="text-center pb-3">
