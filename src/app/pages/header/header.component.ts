@@ -18,6 +18,8 @@ export class HeaderComponent implements OnInit {
   @Input () screenWidth = 0;
   canShowSearchAsOverlay = false;
   notifications = notifications;
+  showTooltip = false;
+  userEmail: string | null = '';
   userItems: UserItem[] = [
     ...userItems,
     {
@@ -36,8 +38,16 @@ export class HeaderComponent implements OnInit {
     this.checkCanShowSearchAsOverlay(window.innerWidth);
   }
   getFirstLetterOfEmail(): string {
-    const userEmail = this.authService.getUserEmail();
-    return userEmail ? userEmail.charAt(0).toUpperCase() : '';
+    this.userEmail = this.authService.getUserEmail();
+    return this.userEmail ? this.userEmail.charAt(0).toUpperCase() : '';
+  }
+
+  showEmailTooltip(): void {
+    this.showTooltip = true;
+  }
+
+  hideEmailTooltip(): void {
+    this.showTooltip = false;
   }
 
   ngOnInit(): void {
