@@ -39,9 +39,7 @@
               routerLink="/customers/{{ item.id }}/edit" class="card-link border border-secondary shadow">
               <div class="row">
                 <div class="col-md-4 pe-0">
-                  <div class="card-img card-img-height text-center" style="width: 100%; height: 100%; object-fit: cover; border-top-left-radius: 10px; border-bottom-left-radius: 10px; background-color: {{ getRandomColor() }}">
-                    <h1 style="margin: 0; line-height: 100%; font-size: 80px; color: white; display: flex; justify-content: center; align-items: center;">{{ item.full_name[0] }}</h1>
-                  </div>
+                  <img src="{{item.image}}" alt="" class="card-img card-img-height">
                 </div>
                 <div class="col-md-8 p-0">
                   <div class="card-body">

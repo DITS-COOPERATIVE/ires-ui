@@ -21,6 +21,7 @@ export class ReservationPageComponent {
       this.getServiceLists();
       this.getReservationLists();
     } 
+    
   services: ServiceResponse[] = [];
   reservation: ReservationResponse[] = [];
   customers: CustomersResponse[] = [];

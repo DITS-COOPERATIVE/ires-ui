@@ -51,7 +51,6 @@
           <table class="table">
             <thead>
               <tr>
-                <th>Code</th>
                 <th class="ps-5">Name</th>
                 <th>Price</th>
                 <th>Points</th>
@@ -61,7 +60,6 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of products">
-                <td>{{ item.code }}</td>
                 <td width="25%"><img class="img-fluid img-thumbnail imgTable me-3" src="assets/gojo.jpg"
                     alt="Card image" />{{ item.name }}</td>
                 <td>₱ {{ item.price }}</td>

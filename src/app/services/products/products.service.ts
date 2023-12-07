@@ -8,7 +8,6 @@ export interface ProductsResponse {
   image: string;
   category: string;
   name: string;
-  code: string;
   note?: string;
   internalNote?: string;
   model: string;

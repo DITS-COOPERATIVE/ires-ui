@@ -39,8 +39,14 @@ export class CustomerCreateComponent {
   }
   
   saveCustomer() {
-    this.image = this.image || 'default_image.jpg';
-
+    if (this.gender === 'Female' && !this.image) {
+      // Set a default image path when gender is Female and image is not selected
+      this.image = 'assets/female.png';
+  }else if (this.gender === 'Male' && !this.image){
+    this.image = 'assets/male.png';
+  }else if(this.image && this.image.includes('C:\\fakepath\\')){
+    this.image = this.image.replace('C:\\fakepath\\', '');
+  }
     var inputData = {
       full_name: this.full_name,
       gender: this.gender,

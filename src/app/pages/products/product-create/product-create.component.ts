@@ -25,7 +25,6 @@ export class ProductCreateComponent {
   constructor(private productsService: ProductsService) {}
   image!: string
   name!: string
-  code!: string
   model!: string
   price!: string
   category!: string
@@ -59,7 +58,6 @@ export class ProductCreateComponent {
     var inputData = {
       image:this.image,
       name: this.name,
-      code: this.code,
       model: this.model,
       price: this.price,
       quantity: this.quantity,
@@ -71,7 +69,6 @@ export class ProductCreateComponent {
       next: (res: any) => {
         this.image = '';
         this.name = '';
-        this.code = '';
         this.model = '';
         this.price = '';
         this.quantity = '';
