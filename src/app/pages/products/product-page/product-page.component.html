@@ -48,7 +48,7 @@
       <ng-template #listView>
         <!-- Table View -->
         <div class="table-container">
-          <table class="table">
+          <table class="table shadow">
             <thead>
               <tr>
                 <th class="ps-5">Name</th>
@@ -67,8 +67,11 @@
                 <td>{{ item.category }}</td>
 
                 <td>
-                  <a routerLink="/products/{{ item.id }}" class="btn btn-sm btn-info"> <i
-                      class="fa fa-eye text-white"></i> </a>
+                  <a routerLink="/products/{{ item.id }}" class="btn btn-sm btn-success"> <i
+                      class="fa fa-eye text-white"></i> </a> &nbsp;
+                      <a (click)="deleteProduct(item.id)" class="btn btn-sm btn-danger">
+                        <i class="fa fa-trash text-white"></i>
+                      </a>
                 </td>
               </tr>
             </tbody>

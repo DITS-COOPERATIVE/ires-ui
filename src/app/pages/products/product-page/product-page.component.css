@@ -55,6 +55,7 @@ tr > th {
 }
 td {
   font-weight: bold;
+  vertical-align: middle;
 }
 .fa-star {
   color: #ffc107;

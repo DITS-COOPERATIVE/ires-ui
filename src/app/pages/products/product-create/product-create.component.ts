@@ -80,7 +80,7 @@ export class ProductCreateComponent {
         setTimeout(() => this.successMessage = null, 1500);
         this.isLoading = false  
         this.errors = {};
-      },
+      }, 
 
       error: (err: any) => {
         this.errors = err.error.errors;

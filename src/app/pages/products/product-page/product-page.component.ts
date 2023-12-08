@@ -82,4 +82,19 @@ export class ProductPageComponent {
       this.filteredProducts = this.products.filter(item => item.category === this.selectedFilterCategory);
     }
   }
+  deleteProduct(productId: number) {
+    if (confirm('Are you sure you want to delete this product?')) {
+      this.productsService.destroyProduct(productId).subscribe(
+        (res: any) => {
+          this.getProductsLists();
+          alert(res.message);
+        },
+        (error: any) => {
+          console.error('Error deleting product:', error);
+          alert('Failed to delete product.'); 
+        }
+      );
+    }
+  }
+  
 }
