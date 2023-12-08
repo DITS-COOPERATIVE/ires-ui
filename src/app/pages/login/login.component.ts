@@ -18,25 +18,31 @@ export class LoginComponent {
 
 
   login() {
-
-      var inputData = {
-        email: this.email,
-        password: this.password
-      };
-
-      this.authService.loginUser(inputData).subscribe({
-        next: (res: any) => {
-          this.authService.storeToken(res.token, res.user);
-          this.authService.isAuthenticatedSubject.next(true);
-          this.email = '';
-          this.password = '';
-          this.errors = {};
-        },
-
-        error: (err: any) => {
-          this.errors = err.error.errors;
-          this.isLoading = false;
+    var inputData = {
+      email: this.email,
+      password: this.password
+    };
+  
+    this.authService.loginUser(inputData).subscribe({
+      next: (res: any) => {
+        this.authService.storeToken(res.token, res.user);
+        this.authService.isAuthenticatedSubject.next(true);
+        this.email = '';
+        this.password = '';
+        this.errors = {};
+  
+        if (this.authService.getUserRole() === 'Admin') {
+          location.reload();
+          this.router.navigate(['/dashboard']);
+        } else if (this.authService.getUserRole() === 'Cashier') {
+          this.router.navigate(['/transactions']);
         }
-      });
-}
+      },
+  
+      error: (err: any) => {
+        this.errors = err.error.errors;
+        this.isLoading = false;
+      }
+    });
+  }
 }

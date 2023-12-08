@@ -62,7 +62,9 @@ export class AuthenticationService {
       () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        
         this.isAuthenticatedSubject.next(false);
+       location.reload();
       },
       error => {
         console.error('Logout failed:', error);

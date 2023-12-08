@@ -23,14 +23,14 @@ import { ProductKitComponent } from './pages/products/product-kit/product-kit.co
 import { OrdersViewComponent } from './pages/orders-view/orders-view.component';
 import { PermissionService } from './services/permission/permission.service';
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/', pathMatch: 'full' },
   {
     path: 'dashboard',
     component: DashboardComponent,
     title: 'Dashboard',
     canActivate: [() => inject(PermissionService).canAccess(['Admin'])],
   },
-  { path: 'login', component: LoginComponent, title: 'User Login' },
+  { path: 'login', component: LoginComponent, title: 'User Login' ,canActivate: [() => inject(PermissionService).canAccess(['Admin'])],},
   { path: 'register', component: RegisterComponent, title: 'User Register' },
 
   {
@@ -126,7 +126,7 @@ const routes: Routes = [
     path: 'payment',
     component: PaymentComponent,
     title: 'Payment',
-    canActivate: [() => inject(PermissionService).canAccess(['Admin'])],
+    canActivate: [() => inject(PermissionService).canAccess(['Admin','Cashier'])],
   },
   {
     path: 'reports',

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { Role } from 'src/app/shared/interfaces/Role';
-
 @Injectable({
   providedIn: 'root'
 })
 export class PermissionService {
-  role = Role.CASHIER
+  role: Role = Role.ADMIN;
+
   constructor(auth: AuthenticationService) {
-    this.role = auth.getUserRole()
+    this.role = auth.getUserRole();
   }
 
   canAccess(roles: string[]): boolean {
