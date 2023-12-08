@@ -111,6 +111,31 @@ export class CustomerPageComponent {
     }
   }
 
+  searchCustomer(){
+    var input = (<HTMLInputElement>document.getElementById("search_id")).value;
+    console.log(input);
+    try {
+      this.isLoading = true;
+      if (input) {
+        this.customersService.getCustomersLists().subscribe((res) =>{
+          this.customers = res;
+          this.customers = this.customers.filter(item => item.barcode === input)
+          console.log(this.customers  );
+          if (this.customers.length == 0) {
+            alert ("Not found.");
+            this.ngOnInit();
+            (<HTMLInputElement>document.getElementById("search_id")).value = "";
+          }
+          this.isLoading = false;
+        });
+      } else {
+        this.ngOnInit();
+      }
+    } catch (error) {
+      this.errors = error
+    };
+  }
+
   sortCustomers(selectedCategory: string) {
     switch (selectedCategory) {
       case 'date':

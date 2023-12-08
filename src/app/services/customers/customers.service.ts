@@ -10,7 +10,7 @@ export interface CustomersResponse {
   mobile_no: string;
   address: string;
   privilege: string;
-  barcode: number;
+  barcode: any;
   points: number;
   image: string;
   created_at: string;

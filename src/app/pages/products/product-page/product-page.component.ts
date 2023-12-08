@@ -13,6 +13,7 @@ export class ProductPageComponent {
   
   errors: any = [];
   products!: ProductsResponse [];
+  product!: ProductsResponse;
   isLoading: boolean = false;
   isCardView: boolean = true;
   filteredProducts: any[] = [];
@@ -21,9 +22,7 @@ export class ProductPageComponent {
   activeCardIndex: number | null = null;
 
   ngOnInit() {
-
     this.getProductsLists();
-
   }
 
   toggleView(): void {
@@ -38,7 +37,6 @@ export class ProductPageComponent {
   }
 
   getProductsLists(){
-    
     try {
       this.isLoading = true;
 
@@ -53,7 +51,33 @@ export class ProductPageComponent {
     } catch (error) {
       this.errors = error
     };
-    
+  }
+
+  searchProduct(){
+    var input = (<HTMLInputElement>document.getElementById("search_id")).value;
+    console.log(input);
+    try {
+      this.isLoading = true;
+      if (input) {
+        this.productsService.getProductsLists().subscribe((res) =>{
+          this.products = res;
+          this.filteredProducts = this.products.filter(item => item.barcode === input )
+          this.filteredProducts = this.products.filter(item => item.id === parseInt(input) )
+          this.filteredProducts = this.products.filter(item => item.name === input )
+          console.log(this.products);
+          if (this.products.length == 0) {
+            alert ("Not found.");
+            this.ngOnInit();
+            (<HTMLInputElement>document.getElementById("search_id")).value = "";
+          }
+          this.isLoading = false;
+        })
+      } else {
+        this.ngOnInit();
+      }
+    } catch (error) {
+      this.errors = error
+    };
   }
 
   sortProducts(selectedCategory: string) {
