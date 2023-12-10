@@ -7,23 +7,16 @@ import { ProductsResponse, ProductsService } from '../../../services/products/pr
   styleUrls: ['./product-create.component.css'],
 })
 export class ProductCreateComponent {
+
+  constructor(private productsService: ProductsService ) {this.rows = [];}
   successMessage: string | null = null;
   selectedImage: string = '';
   products!: ProductsResponse [];
   product_id : any
   productForm: any;
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = (e: any) => {
-      this.selectedImage = e.target.result;
-    };
-
-    reader.readAsDataURL(file);
-  }
-
-  constructor(private productsService: ProductsService) {}
+  rows: any[] = [];
+  showEditable: boolean = false;
+  editRowId: any;
   image!: string
   name!: string
   model!: string
@@ -31,7 +24,14 @@ export class ProductCreateComponent {
   category!: string
   quantity!: string
   points!: string
+  subID!: string;
+  subQuan!: number;
   errors: any = [];
+  i!: number;
+  subProducts: { id: string; qty: number }[] = [];
+  newSubProduct: { id: string; qty: number } = { id: '', qty: 0 };
+
+
   isLoading: boolean = false;
   loadingTitle: string = 'Loading';
   ngOnInit() {
@@ -39,6 +39,7 @@ export class ProductCreateComponent {
     this.getProductsLists();
 
   }
+  
   getProductsLists(){
     
     try {
@@ -52,20 +53,50 @@ export class ProductCreateComponent {
     };
     
   }
+
+  removeRow(index: number) {
+    this.rows.splice(index, 1);
+  }
+  toggle(val: any) {
+    this.editRowId = val;
+  }
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (e: any) => {
+      this.selectedImage = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  addRow() {
+    this.rows.push({ subID: '', subQuan: null });
+  }
+  
+  submitForm() {
+    this.subProducts = this.rows.map(row => ({ id: row.subID, qty: row.subQuan }));
+    this.saveProduct();
+
+  }
+
   saveProduct() {
     this.loadingTitle = 'Saving';
     this.isLoading = true;
 
-    var inputData = {
-      image:this.image,
+    const inputData = {
+      image: this.image,
       name: this.name,
       model: this.model,
       price: this.price,
       quantity: this.quantity,
       category: this.category,
       points: this.points,
+      subProducts:this.subProducts
+     
     };
-
+  
     this.productsService.saveProduct(inputData).subscribe({
       next: (res: any) => {
         this.image = '';
@@ -76,16 +107,20 @@ export class ProductCreateComponent {
         this.category = '';
         this.points = '';
         this.selectedImage = '';
+        this.subID = '';
+        this.subQuan = 0;
+  
         this.successMessage = 'Success! Product saved.';
-        setTimeout(() => this.successMessage = null, 1500);
-        this.isLoading = false  
+        setTimeout(() => (this.successMessage = null), 1500);
+  
+        this.isLoading = false;
         this.errors = {};
-      }, 
-
+      },
       error: (err: any) => {
         this.errors = err.error.errors;
-        this.isLoading = false  
+        this.isLoading = false;
       }
-    })
+    });
   }
 }
+

@@ -1,19 +1,4 @@
-input {
-    border: none;
-    border-radius: 0;
-    width: 20rem;
-}
-input:focus{
-    outline: none;
-}
-.form-control:hover{
-    border-bottom: solid 1px black;
-}
-.form-control:focus {
-    outline: none;
-    box-shadow: none;
-    border-bottom: solid 1px black;
-  }
+
   .image-previews {
 	width: 280px;
 	height: 280px;
@@ -38,10 +23,6 @@ input:focus{
   position: relative;
 }
 
-.container-click-area {
-  float: right;
-}
-
 .selected-image {
   position: absolute;
   width: 100%;
@@ -57,16 +38,6 @@ input:focus{
 .submitbtn{
     background-color: #12243B;
 }
-.prodName{
-  width: 100%;
-}
-.prodName>input{
-  width: unset;
-  margin: auto;
-  font-size: xx-large;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-}
 .errorname {
   display: block;
   margin-top: -30px;
@@ -77,4 +48,51 @@ input:focus{
   position: absolute;
   right: 5rem;
   top: 13rem;
+}
+
+
+
+.textbox-4 {
+	width: 275px;
+	height: 50px;
+	border: 1px solid grey;
+	font-size: 14px;
+	padding: 10px 5px;
+	color: #000;
+	border-radius: 5px;
+	background: #ffffff;
+	outline: none;
+}
+.form-group {
+	position: relative;
+	margin-bottom: 30px;
+}
+.form-label-4 {
+	position: absolute;
+	top: 50%;
+	left: 2rem;
+	transform: translateY(-50%);
+	font-size: 16px;
+	color: #000;
+	transition: all .25s linear;
+	pointer-events: none;
+}
+ .form-label-4,
+.textbox-4:not(:focus):valid ~ .form-label-4 {
+	transform: translateY(50%);
+	top: -50%;
+	left: 1rem;
+	font-size: 17px;
+	padding: 0 .3rem;
+	background-color: white;
+	color: #000;
+}
+table{
+  border: none;
+}
+.col{
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

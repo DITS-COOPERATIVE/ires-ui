@@ -15,10 +15,12 @@ export interface ProductsResponse {
   discount: number;
   quantity: number;
   sold: number;
+  sub_Products: number;
   points: number;
   created_at: string;
   updated_at: string;
   customer: CustomersResponse;
+
 }
 
 export interface ProductsResponseType {

@@ -5,6 +5,7 @@ import { ProductsResponse, ProductsService } from '../../services/products/produ
 import { OrdersResponse, OrdersService } from '../../services/orders/orders.service';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { ReportService } from 'src/app/services/services/reports/report.service';
 
 
 @Component({
@@ -42,12 +43,18 @@ export class ReportsComponent implements OnInit {
   showSalesModal: boolean = false;
   showSecondForm: boolean = false;
   buttonLabel: string = 'Inventory Report';
+  from!: string;
+  to!:string;
+ 
+  reportName!: string;
+  selectedType!: string;
 
 
   constructor(
     private customersService: CustomersService,
     private productsService: ProductsService,
-    private ordersService: OrdersService
+    private ordersService: OrdersService,
+    private reportService: ReportService
   ) {
     this.alwaysShowCalendars = true;
   }
@@ -103,105 +110,117 @@ export class ReportsComponent implements OnInit {
    
   }
 
-  generateReport() {
-    const startDate = moment(this.selected.startDate).format('YYYY-MM-DD');
-    const endDate = moment(this.selected.endDate).format('YYYY-MM-DD');
+  generateReports() {
+    const payload = {
+      name: this.reportName,
+      from: moment(this.selected.startDate).format('YYYY-MM-DD'),
+      to: moment(this.selected.endDate).format('YYYY-MM-DD'),
+      type: this.selectedType
+    };
+    this.reportService.saveReport(payload).subscribe({
+      next: (res: any) => {
+        this.reportName ='';
+        this.from = '';
+        this.to = '';
+        this. selectedType ='';
+      },
+    }
+    )};
+    
+  
+  
 
-    const filteredOrders = this.orders.filter(order => {
-      const orderDate = moment(order.created_at).format('YYYY-MM-DD');
-      return moment(orderDate).isBetween(startDate, endDate, undefined, '[]' );
-    });
+  // generateReport() {
+  //   const startDate = moment(this.selected.startDate).format('YYYY-MM-DD');
+  //   const endDate = moment(this.selected.endDate).format('YYYY-MM-DD');
 
-    const reportData = filteredOrders.map((order, index) => {
-      const customer = this.customers.find(cust => cust.id === order.customer_id);
-      const product = this.products.find(prod => prod.id === order.id);
+  //   const filteredOrders = this.orders.filter(order => {
+  //     const orderDate = moment(order.created_at).format('YYYY-MM-DD');
+  //     return moment(orderDate).isBetween(startDate, endDate, undefined, '[]' );
+  //   });
+
+  //   const reportData = filteredOrders.map((order, index) => {
+  //     const customer = this.customers.find(cust => cust.id === order.customer_id);
+  //     const product = this.products.find(prod => prod.id === order.id);
       
-      return {
-        id: index + 1,
-        customer: customer?.full_name,
-        product: product?.name,
-        quantity: order.quantity,
-        total: order.total
+  //     return {
+  //       id: index + 1,
+  //       customer: customer?.full_name,
+  //       product: product?.name,
+  //       quantity: order.quantity,
+  //       total: order.total
         
-      };
+  //     };
      
-    });
+  //   });
 
-    this.reportData = reportData;
-    return reportData;
-  }
+  //   this.reportData = reportData;
+  //   return reportData;
+  // }
 
-  printInventoryReport() {
-    const doc = new jsPDF();
+  // printInventoryReport() {
+  //   const doc = new jsPDF();
   
-    const headers = ['ID', 'Item Code', 'Name', 'Low Stock Alert', 'Over Stock Alert', 'Stock', 'Status'];
+  //   const headers = ['ID', 'Item Code', 'Name', 'Low Stock Alert', 'Over Stock Alert', 'Stock', 'Status'];
   
-    const data = this.generateReport().map(item => [
-      item.id.toString(),
-      item.customer || '-',
-      item.product,
-      item.quantity.toString(),
-      item.total.toString()
-    ]);
+  //     this.generateReports().subscribe((item:any[])=> {
+  //     const data = item.map(item => [
+  //       item.id.toString(),
+  //       item.customer || '-',
+  //       item.product,
+  //       item.quantity.toString(),
+  //       item.total.toString()
+  //     ]);
+  //     (doc as any).autoTable({
+  //       head: [headers],
+  //       body: data,
+  //       styles: { cellPadding: 1, fontSize: 8 },
+  //       margin: { top: 15 },
+  //     });
   
-   ( doc as any).autoTable({
-      head: [headers],
-      body: data,
-      styles: { cellPadding: 1, fontSize: 8 },
-      margin: { top: 15 },
-    });
+  //     doc.save('report.pdf');
+  //   });
+  // }
   
-    doc.save('report.pdf');
-  }
+  // printSalesReport() {
+  //   const doc = new jsPDF();
   
-  printSalesReport() {
-    const doc = new jsPDF();
+  //   const headers = ['ID', 'Customer', 'Product', 'Quantity', 'Sale','Availabe Stocks'];
   
-    const headers = ['ID', 'Customer', 'Product', 'Quantity', 'Sale','Availabe Stocks'];
+  //   const data = this.generateReport().map(item => [
+  //     item.id.toString(),
+  //     item.customer || '-',
+  //     item.product,
+  //     item.quantity.toString(),
+  //     item.total.toString()
+  //   ]);
   
-    const data = this.generateReport().map(item => [
-      item.id.toString(),
-      item.customer || '-',
-      item.product,
-      item.quantity.toString(),
-      item.total.toString()
-    ]);
+  //  ( doc as any).autoTable({
+  //     head: [headers],
+  //     body: data,
+  //     styles: { cellPadding: 1, fontSize: 8 },
+  //     margin: { top: 15 },
+  //   });
   
-   ( doc as any).autoTable({
-      head: [headers],
-      body: data,
-      styles: { cellPadding: 1, fontSize: 8 },
-      margin: { top: 15 },
-    });
+  //   doc.save('report.pdf');
+  // }
   
-    doc.save('report.pdf');
-  }
-  
-
-
-  getDatePickerType(): string {
-    return this.selectedDateSection === 'dateRange' ? 'date' : 'text';
-  }
 
 
   generateSalesReports() {
 
     this.reportData = [
-      { id: 1, customer: 'John', product: 'Widget', quantity: 5, sale: '$100' },
-      { id: 2, customer: 'Jane', product: 'Gadget', quantity: 3, sale: '$50' },
     ];
 
     this.showSalesModal = true;
   }
-  generateInventoryReports() {
+  // generateInventoryReports() {
 
-    this.reportData = [
-      { id: 1, customer: 'John', product: 'Widget', quantity: 5, sale: '$100' },
-      { id: 2, customer: 'Jane', product: 'Gadget', quantity: 3, sale: '$50' },
-    ];
+  //   this.reportData = [
+  //   ];
 
-    this.showStockModal = true;
-  }
+  //   this.showStockModal = true;
+  // }
 
 
   closeModal() {
