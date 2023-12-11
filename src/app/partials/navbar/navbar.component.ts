@@ -1,6 +1,7 @@
 import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { navbarData } from './sidenav-data ';
 import { trigger, transition, style, animate, keyframes } from '@angular/animations';
+import { PermissionService } from 'src/app/services/permission/permission.service';
 
 interface SideNavToggle{
   screenWidth: number;
@@ -37,15 +38,15 @@ interface SideNavToggle{
         ])
       ])
   ]
- 
+
 })
 export class NavbarComponent implements OnInit {
 
   @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
- 
+
   collapsed = true;
   screenWidth = 0;
-  navData = navbarData; 
+  navData = navbarData;
 
   @HostListener('window:rezise',['$event'])
   onResize(event:any){
@@ -53,6 +54,9 @@ export class NavbarComponent implements OnInit {
       this.collapsed = false;
       this.onToggleSideNav.emit({collapsed: this.collapsed,screenWidth: this.screenWidth});
     }
+  }
+
+  constructor(public permission: PermissionService) {
   }
 
   ngOnInit(): void {

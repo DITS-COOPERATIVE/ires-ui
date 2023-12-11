@@ -41,11 +41,13 @@
 </ng-container>
 
 <ng-template #noOrders>
-  <div class="center-message">
-    <span
-    class="order-empty text-center d-flex flex-column align-items-center"
-  >
-    <i class="fas fa-shopping-cart"></i><br />There are no orders available.
-  </span>
+  <div class="row text-center" *ngIf="!products || products.length === 0">
+    <div style="display: table; height: 400px; overflow: hidden;">
+      <div style="display: table-cell; vertical-align: middle;">
+        <div>
+          <p><i class='fas fa-shopping-cart'></i> No orders yet</p>
+        </div>
+      </div>
+    </div>
   </div>
 </ng-template>

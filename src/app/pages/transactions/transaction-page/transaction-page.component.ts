@@ -173,6 +173,7 @@ export class TransactionPageComponent {
   }
 
 
+
   changeSelectedMode(mode: 'quantity' | 'price' | 'discount') {
     this.selectedMode = mode;
     this.inputValue = '';

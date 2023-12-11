@@ -331,3 +331,42 @@ input::-webkit-input-placeholder {
   width: 60px; 
   height: 60px; 
 }
+.email-tooltip {
+  position: absolute;
+  top: 100%;
+  left: px;
+  transform: translateX(-50%);
+  background-color: #000;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+}.tooltip {
+  position: relative;
+  cursor: pointer;
+}
+
+.tooltip:before {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px;
+  background-color: #000;
+  color: #fff;
+  font-size: 12px;
+  border-radius: 5px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.tooltip:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
+.disabled {
+  display: none;
+}

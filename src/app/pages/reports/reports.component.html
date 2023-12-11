@@ -1,6 +1,4 @@
-<br>
-<br />
-<div class="addButton cursor" class="btn btn-sm" style="color: #12243b;" (click)="toggleForm()">
+<div class="addButton cursor" class="btn btn-sm" style="color: #12243b;" >
   <i class="fas fa-chart-line"></i> {{ buttonLabel }}
 </div>
 
@@ -8,36 +6,40 @@
 
 <div class="container d-flex justify-content-center align-items-center">
 <div class="form-container" [hidden]="showSecondForm">
-  <form (ngSubmit)="generateInventoryReports()">
-    <!-- First form inputs -->
-    <label for="reportName">Report Name:</label>
-    <input type="text" id="reportName" name="reportName">
+<form (ngSubmit)="generateReports()">
+  <label for="reportName">Report Name:</label>
+  <input type="text" id="reportName" name="reportName" [(ngModel)]="reportName">
 
-    <label for="category">Category:</label>
-    <select id="category" name="category">
-      <option value="sales">All</option>
-      <option value="inventory">Software</option>
-      <option value="expenses">Hardware</option>
-    </select>
+  <input
+    type="text"
+    ngxDaterangepickerMd
+    [(ngModel)]="selected"
+    [showCustomRangeLabel]="true"
+    [alwaysShowCalendars]="true"
+    [ranges]="ranges"
+    [linkedCalendars]="true"
+    [isInvalidDate]="isInvalidDate"
+    [showClearButton]="true"
+    placeholder="mm/dd/yy"
+    style="padding: 2px 1px; border: 0.20px solid;"
+  />
 
-    <label for="stockOptions">Stock Options:</label>
-    <select id="stockOptions" name="stockOptions">
-      <option value="option1">All</option>
-      <option value="option2">With stocks</option>
-      <option value="option3">No stocks</option>
-    </select>
+  <label for="category">Type:</label>
+  <select id="category" name="category" [(ngModel)]="selectedType">
+    <option value="">Select Type</option>
+    <option value="Service">Services</option>
+    <option value="Product">Products</option>
+  </select>
 
-    <button type="submit">Generate Report</button>
-  </form>
-</div>
+  <button type="submit">Generate Inventory Report</button>
+</form>
 
-<div class="form-container" [hidden]="!showSecondForm">
+<!-- 
+<div class="form-container" [hidden]="showSecondForm">
   <form (ngSubmit)="generateSalesReports()">
-    <!-- Second form inputs -->
     <label for="reportName">Report Name:</label>
     <input type="text" id="reportName" name="reportName">
 
-    <label for="dateSection">Date Section:</label>
     <input type="text"
     ngxDaterangepickerMd
     [(ngModel)]="selected"
@@ -51,29 +53,25 @@
     style="padding: 2px 1px;
     border: 0.20px solid;">
 
-    <label for="category">Category:</label>
-    <select id="category" name="category">
-      <option value="sales">All</option>
-      <option value="inventory">Software</option>
-      <option value="expenses">Hardware</option>
-    </select>
     
-    <label for="customer">Customer:</label>
-    <select id="customer" name="customer">
-      <option value="">All</option>
-      <option value="">Jamaila</option>
-      <option value="">Lorgem</option>
+
+    <label for="category">Type:</label>
+    <select id="category" name="category">
+      <option value="">Select Type</option>
+      <option value="service">Services</option>
+      <option value="product">Products</option>
     </select>
-    <button type="submit">Generate Report</button>
+
+    <button type="submit">Generate Sales Report</button>
   </form>
 </div>
-</div>
+</div> -->
 
 <div id="reportModal" class="modal" [ngStyle]="{ display: showSalesModal ? 'block' : 'none' }">
   <div class="modal-content">
     <span class="close" (click)="closeModal()">&times;</span>
     <div class="">
-      <a class="btn btn-sm printButton p-2 float-end" (click)="printSalesReport()"><i class="fas fa-print"></i> Print Report</a>
+      <a class="btn btn-sm printButton p-2 float-end"><i class="fas fa-print"></i> Print Report</a>
     </div>
     <table>
       <thead>
@@ -89,7 +87,7 @@
       <tbody>
         <tr *ngFor="let report of reportData">
           <td>{{ report.id }}</td>
-          <td>{{ report.customer }}</td>
+          <td>{{ report.customer.full_name }}</td>
           <td>{{ report.product }}</td>
           <td>{{ report.quantity }}</td>
           <td>{{ report.sale }}</td>
@@ -105,7 +103,7 @@
   <div class="modal-content">
     <span class="close" (click)="closeModal()">&times;</span>
     <div class="">
-      <a class="btn btn-sm printButton p-2 float-end" (click)="printInventoryReport()"><i class="fas fa-print"></i> Print Report</a>
+      <a class="btn btn-sm printButton p-2 float-end"><i class="fas fa-print"></i> Print Report</a>
     </div>
     <table>
       <thead>

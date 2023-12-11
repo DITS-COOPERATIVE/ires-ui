@@ -105,4 +105,13 @@
       </div>
     </div>
   </div>
+  <div class="row text-center" *ngIf="!customers || customers.length === 0">
+    <div style="display: table; height: 400px; overflow: hidden;">
+      <div style="display: table-cell; vertical-align: middle;">
+        <div>
+          <p><i class='fas fa-user-alt'></i> No customers available</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

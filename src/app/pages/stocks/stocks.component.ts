@@ -31,7 +31,6 @@ export class StocksComponent {
   constructor(private productsService: ProductsService, private router: Router) {}
   displayedColumns: string[] = [
     'name',
-    'code',
     'model',
     'price',
     'quantity',
@@ -39,7 +38,6 @@ export class StocksComponent {
   ];
   columnHeaders: TableColumnHeaders = {
     name: 'Name',
-    code: 'Code',
     model: 'Model',
     price: 'Price',
     quantity: 'Quantity',

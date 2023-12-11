@@ -17,7 +17,7 @@ export class LoginComponent {
 
   constructor(private authService: AuthenticationService, private router: Router, private toast: NgToastService) {}
 
- 
+
   login() {
     
       var inputData = {
@@ -39,7 +39,7 @@ export class LoginComponent {
           this.errors = err.error.errors;
           this.isLoading = false;
           this.toast.error({detail:"ERROR",summary:'Log in unsuccessful',duration:4000,});
-        }
-      });
-}
+      }
+    });
+  }
 }

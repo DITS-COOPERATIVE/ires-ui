@@ -2,48 +2,55 @@ export const navbarData =[
     {
         routeLink: 'dashboard',
         icon: 'fal fa-home',
-        label: 'Dashboard'
+        label: 'Dashboard',
+        roles: ['Admin']
     },
     {
         routeLink: 'orders',
         icon: 'fal fa-shopping-cart',
-        label: 'Order'
+        label: 'Order',
+        roles: ['Admin']
     },
     {
         routeLink: 'products',
         icon: 'fal fa-box-open',
-        label: 'Product'
+        label: 'Product',
+        roles: ['Admin']
     },
     {
         routeLink: 'customers',
         icon: 'fal fa-users',
-        label: 'Customer'
+        label: 'Customer',
+        roles: ['Admin']
     },
     {
         routeLink: 'reservations',
         icon: 'far fa-calendar-alt',
-        label: 'Reservations'
+        label: 'Reservations',
+        roles: ['Admin']
     },
     {
         routeLink: 'reports',
         icon: 'fal fa-file-chart-line',
-        label: 'Reports'
+        label: 'Reports',
+        roles: ['Admin']
     },
     {
         routeLink: 'stocks',
         icon: 'fal fa-chart-bar',
-        label: 'Stock'
+        label: 'Stock',
+        roles: ['Admin']
     },
     {
         routeLink: 'transactions',
         icon: 'fal fa-cash-register',
-        label: 'POS'
+        label: 'POS',
+        roles: ['Admin', 'Cashier']
     },
     {
         routeLink: 'settings',
         icon: 'fal fa-cog',
-        label: 'Settings'
-    }   
-      
-
+        label: 'Settings',
+        roles: ['Admin']
+    }
 ];
