@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomersResponse, CustomersService } from 'src/app/services/customers/customers.service';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-customer-create',
@@ -24,7 +25,8 @@ export class CustomerCreateComponent {
   selectedImage: string = '';
   constructor(
     private customersService: CustomersService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private toast: NgToastService
   ) {}
 
   openDialog(newCustomer: CustomersResponse): void {
@@ -40,7 +42,6 @@ export class CustomerCreateComponent {
   
   saveCustomer() {
     if (this.gender === 'Female' && !this.image) {
-      // Set a default image path when gender is Female and image is not selected
       this.image = 'assets/female.png';
   }else if (this.gender === 'Male' && !this.image){
     this.image = 'assets/male.png';
@@ -61,7 +62,6 @@ export class CustomerCreateComponent {
 
     this.customersService.saveCustomer(inputData).subscribe({
       next: (res:any) => {
-        console.log(res);
         this.barcode;
         this.full_name ='' ;
         this.gender = '';
@@ -72,10 +72,12 @@ export class CustomerCreateComponent {
         this.image = '';
         this.selectedImage = '';
         const newCustomer: CustomersResponse = res;
+        this.toast.success({detail:"SUCCESS",summary:'New Customer Added',duration:5000, position:'topCenter'});
         this.openDialog(newCustomer);        
       },
       error: (err: any) => {
         this.errors = err.error.errors;
+        this.toast.error({detail:"ERROR",summary:'Faild to Add Customer',duration:5000, position:'topCenter'});
       },
     });
   }

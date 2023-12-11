@@ -9,6 +9,17 @@
   <button class="toggle-button" routerLink="/products/kit" matTooltip="Kit" matTooltipPosition="above">
     <i class="fas fa-box-open"></i>
   </button>
+  <div>
+    <form>
+      <select id="sortBy">
+        <option value="1">ID</option>
+        <option value="2">Product Name</option>
+        <option value="3">Barcode</option>
+      </select>
+      <input type="search" class="search" minlength="2" required name="" id="search_id" placeholder="Search..."/>
+      <input type="submit" (click)="searchProduct()">
+    </form>
+  </div>
   <div class="dropdown filterButton">
     <button class="dropdown-toggle btn btn-sm" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <i class="fas fa-filter"></i> Filter

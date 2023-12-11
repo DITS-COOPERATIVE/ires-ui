@@ -84,12 +84,12 @@
                   id="product-code"
                   class="form-control"
                   placeholder=""  
-                  [value]="product.code"
-                  [(ngModel)]="product.code"
+                  [value]="product.barcode"
+                  [(ngModel)]="product.barcode"
                   #productCodeInput
                   readonly
                 />
-                <span *ngIf="errors.code" class="text-danger">{{
+                <span *ngIf="errors.barcode" class="text-danger">{{
                   errors.code
                 }}</span>
               </div>
@@ -189,6 +189,9 @@
               <button class="btn btn-primary" (click)="updateProduct()">
                 Save
               </button>
+              <button  style="position: relative; right: 200px;" (click)="generateBarcode()" class="btn btn-success">
+                Generate Code
+              </button>  
             </div>
           </div>
         </form>

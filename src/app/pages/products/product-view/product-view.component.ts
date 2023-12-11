@@ -1,6 +1,9 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProductsService } from 'src/app/services/products/products.service';
+import { ProductsResponse, ProductsService } from 'src/app/services/products/products.service';
+import { NgToastService } from 'ng-angular-popup';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-product-view',
   templateUrl: './product-view.component.html',
@@ -18,11 +21,26 @@ export class ProductViewComponent {
   errors: any = [];
   isLoading: boolean = false;
   loadingTitle: string = 'Loading';
+  constructor(
+    private route: ActivatedRoute,
+    private productsService: ProductsService,
+    private toast: NgToastService,
+    public dialog: MatDialog,
+  ) {}
+
+  ngOnInit() {
+    this.productId = this.route.snapshot.paramMap.get('id');
+    this.isLoading = true;
+    this.productsService.getProduct(this.productId).subscribe((res) => {
+      this.product = res;
+      this.isLoading = false;
+    });
+  }
+
   handleImageUpload(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement && inputElement.files && inputElement.files.length > 0) {
       const file = inputElement.files[0];
-      // Handle the file upload logic here
     }
   }
   toggleEditButton() {
@@ -38,22 +56,6 @@ export class ProductViewComponent {
   edit() {
     this.isReadOnly = false;
     this.isEditable = true;
-  }
-
- 
-
-  constructor(
-    private route: ActivatedRoute,
-    private productsService: ProductsService
-  ) {}
-
-  ngOnInit() {
-    this.productId = this.route.snapshot.paramMap.get('id');
-    this.isLoading = true;
-    this.productsService.getProduct(this.productId).subscribe((res) => {
-      this.product = res;
-      this.isLoading = false;
-    });
   }
 
   updateProduct() {
@@ -73,6 +75,7 @@ export class ProductViewComponent {
     this.productsService.updateProduct(inputData, this.productId).subscribe({
       next: (res: any) => {
         this.isLoading = false;
+        this.toast.success({detail:"SUCCESS",summary:'Product Succesfully Updated!',duration:3000, position:'topCenter'});
         this.successMessage = 'Success! Product updated.';
         setTimeout(() => (this.successMessage = null), 1500);
         this.isEditing = false;
@@ -81,8 +84,34 @@ export class ProductViewComponent {
         this.errors = {};
       },
       error: (err: any) => {
+        this.toast.error({detail:"ERROR",summary:'Failed to Updated!',duration:3000, position:'topCenter'});
         this.errors = err.error.errors;
         this.isLoading = false;
+      },
+    });
+  }
+
+  generateBarcode() {
+    this.isLoading = true;
+
+    this.productsService.getProduct(this.productId).subscribe({
+      next: (res: any) => {
+        this.openDialog(res);
+      },
+      error: (err: any) => {
+        this.errors = err.error.errors;
+        this.isLoading = false;
+      },
+    });
+   
+  }
+  openDialog(product: ProductsResponse): void {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '500px',
+      data: {
+        full_name: product.name,
+        barcode: product.barcode,
+        createdDate: product.created_at,
       },
     });
   }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ProductsService , ProductsResponse } from 'src/app/services/products/products.service';
+import { SearchService } from 'src/app/shared/search.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-product-page',
@@ -8,11 +10,14 @@ import { ProductsService , ProductsResponse } from 'src/app/services/products/pr
 })
 export class ProductPageComponent {
 
-  constructor(private productsService: ProductsService) { this.filteredProducts = this.products;}
+  constructor(private productsService: ProductsService,
+    private searchService: SearchService,
+    private toast: NgToastService) { this.filteredProducts = this.products;}
 
   
   errors: any = [];
-  products!: ProductsResponse [];
+  products: ProductsResponse [] =[];
+  product!: ProductsResponse;
   isLoading: boolean = false;
   isCardView: boolean = true;
   filteredProducts: any[] = [];
@@ -21,9 +26,10 @@ export class ProductPageComponent {
   activeCardIndex: number | null = null;
 
   ngOnInit() {
-
+    this.searchService.searchQuery$.subscribe((query) => {
+      this.searchsCustomer(query);
+    });
     this.getProductsLists();
-
   }
 
   toggleView(): void {
@@ -38,7 +44,6 @@ export class ProductPageComponent {
   }
 
   getProductsLists(){
-    
     try {
       this.isLoading = true;
 
@@ -53,7 +58,81 @@ export class ProductPageComponent {
     } catch (error) {
       this.errors = error
     };
-    
+  }
+
+  searchsCustomer(query: string) {
+    try {
+      this.isLoading = true;
+
+      if (query) {
+        this.productsService.getProductsLists().subscribe((res) => {
+          this.products = res;
+
+          
+          this.products  = this.products .filter((item) => {
+            return (
+              item.id.toString() === query ||
+              item.name.toString().toLowerCase().includes(query.toLowerCase()) ||
+              item.barcode.toString() === query
+            );
+          });
+
+          console.log(this.products );
+
+          if (this.products .length === 0) {
+       
+              this.toast.info({detail:"WARNING",summary:'Search not found',duration:3000, position:'topCenter'});
+            
+          }
+
+          this.isLoading = false;
+        });
+      } else {
+        this.getProductsLists();
+      }
+    } catch (error) {
+      this.errors = error;
+    }
+  }
+
+  searchProduct(){
+    var input = (<HTMLInputElement>document.getElementById("search_id")).value;
+    var sort = (<HTMLInputElement>document.getElementById("sortBy")).value;
+    console.log(input);
+    try {
+      this.isLoading = true;
+      if (input) {
+        this.productsService.getProductsLists().subscribe((res) =>{
+          switch (sort) {
+
+            case "1":
+              this.filteredProducts = this.products.filter(item => item.id === parseInt(input))
+              break;
+            
+            case "2":
+              this.filteredProducts = this.products.filter(item => item.name.toLowerCase().includes(input.toLowerCase()))
+              break;
+          
+            case "3":
+              this.filteredProducts = this.products.filter(item => item.barcode === parseInt(input))
+              break;
+
+            default:
+              break;
+          }
+          if (this.products.length == 0) {
+            alert ("Not found.");
+            this.ngOnInit();
+            (<HTMLInputElement>document.getElementById("search_id")).value = "";
+          }
+          this.isLoading = false;
+        })
+      } else {
+        this.ngOnInit();
+      }
+    } catch (error) {
+      this.errors = error
+    };
   }
 
   sortProducts(selectedCategory: string) {
@@ -75,26 +154,4 @@ export class ProductPageComponent {
         break;
     }
   }
-  filterProducts() {
-    if (this.selectedCategory === 'all') {
-      this.filteredProducts = this.products;
-    } else {
-      this.filteredProducts = this.products.filter(item => item.category === this.selectedFilterCategory);
-    }
-  }
-  deleteProduct(productId: number) {
-    if (confirm('Are you sure you want to delete this product?')) {
-      this.productsService.destroyProduct(productId).subscribe(
-        (res: any) => {
-          this.getProductsLists();
-          alert(res.message);
-        },
-        (error: any) => {
-          console.error('Error deleting product:', error);
-          alert('Failed to delete product.'); 
-        }
-      );
-    }
-  }
-  
 }
