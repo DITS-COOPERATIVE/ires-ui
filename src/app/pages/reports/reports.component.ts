@@ -6,6 +6,7 @@ import { OrdersResponse, OrdersService } from '../../services/orders/orders.serv
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { ReportService } from 'src/app/services/services/reports/report.service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -14,17 +15,21 @@ import { ReportService } from 'src/app/services/services/reports/report.service'
   styleUrls: ['./reports.component.css']
 })
 export class ReportsComponent implements OnInit {
-  selected: any;
+
+  selected: any = {
+    startDate: moment().subtract(6, 'days'),
+    endDate: moment()
+  };
   selectedDateSection!: string;
   selectedDate!: string;
   alwaysShowCalendars: boolean;
   ranges: any = {
-    'Today': [moment(), moment()],
-    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-    'This Month': [moment().startOf('month'), moment().endOf('month')],
-    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+    'Today': [moment(this.selected.startDate), moment(this.selected.startDate)],
+    'Yesterday': [moment(this.selected.startDate).subtract(1, 'days'), moment(this.selected.endtDate).subtract(1, 'days')],
+    'Last 7 Days': [moment(this.selected.startDate).subtract(6, 'days'), moment(this.selected.endDate)],
+    'Last 30 Days': [moment(this.selected.startDate).subtract(29, 'days'), moment(this.selected.endDate)],
+    'This Month': [moment(this.selected.startDate).startOf('month'), moment(this.selected.endDate).endOf('month')],
+    'Last Month': [moment(this.selected.startDate).subtract(1, 'month').startOf('month'), moment(this.selected.endDate).subtract(1, 'month').endOf('month')]
   };
   invalidDates: moment.Moment[] = [moment().add(2, 'days'), moment().add(3, 'days'), moment().add(5, 'days')];
 
@@ -45,16 +50,19 @@ export class ReportsComponent implements OnInit {
   buttonLabel: string = 'Inventory Report';
   from!: string;
   to!:string;
+
  
   reportName!: string;
   selectedType!: string;
+  
 
 
   constructor(
     private customersService: CustomersService,
     private productsService: ProductsService,
     private ordersService: OrdersService,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private http: HttpClient
   ) {
     this.alwaysShowCalendars = true;
   }
@@ -72,10 +80,10 @@ export class ReportsComponent implements OnInit {
     
   }
 
-  toggleForm() {
-    this.showSecondForm = !this.showSecondForm;
-    this.buttonLabel = this.showSecondForm ? 'Sales Report' : 'Inventory Report';
-  }
+  // toggleForm() {
+  //   this.showSecondForm = !this.showSecondForm;
+  //   this.buttonLabel = this.showSecondForm ? 'Sales Report' : 'Inventory Report';
+  // }
 
   getCustomersLists() {
     try {
@@ -117,15 +125,67 @@ export class ReportsComponent implements OnInit {
       to: moment(this.selected.endDate).format('YYYY-MM-DD'),
       type: this.selectedType
     };
+
     this.reportService.saveReport(payload).subscribe({
       next: (res: any) => {
-        this.reportName ='';
+        this.reportName = '';
         this.from = '';
         this.to = '';
-        this. selectedType ='';
+        this.selectedType = '';
+
+        this.reportService.getReport(res.id).subscribe({
+          next: (reportData: any) => {
+
+            console.log('Report Data:', reportData);
+            this.reportData = reportData
+            this.showSalesModal = true;
+
+           
+          },
+          error: (error: any) => {
+          }
+        });
       },
-    }
-    )};
+      error: (error: any) => {
+      }
+    });
+  }
+
+  getCustomerName(customerId: number): string {
+    const customer = this.customers.find(cust => cust.id === customerId);
+    return customer ? customer.full_name : '';
+  }
+  getProductName(productId: number): string {
+    const product = this.products.find(prod => prod.id === productId);
+    return product ? product.name : '';
+  }
+
+
+
+
+
+
+  // onDateChange() {
+  //   if (this.report_id && this.when) {
+  //     const apiUrl = `${this.domain}reports/${this.service_id}/data`;
+  //     const payload = { when: this.when };
+  //     const headers = {
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json'
+  //     };
+  
+  //     this.http.get(apiUrl, payload, { headers }).subscribe(
+  //       (response: any) => {
+
+  //         this.isDateAvailable = response === 1 || (response && response.preview === 1);
+  //       },
+  //       (error) => {
+
+      
+  //       }
+  //     );
+  //   }
+  // }
     
   
   
@@ -209,9 +269,7 @@ export class ReportsComponent implements OnInit {
 
   generateSalesReports() {
 
-    this.reportData = [
-    ];
-
+   
     this.showSalesModal = true;
   }
   // generateInventoryReports() {

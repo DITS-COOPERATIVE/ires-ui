@@ -1,4 +1,4 @@
-<div class="addButton cursor" class="btn btn-sm" style="color: #12243b;" (click)="toggleForm()">
+<div class="addButton cursor" class="btn btn-sm" style="color: #12243b;" >
   <i class="fas fa-chart-line"></i> {{ buttonLabel }}
 </div>
 
@@ -6,7 +6,6 @@
 
 <div class="container d-flex justify-content-center align-items-center">
 <div class="form-container" [hidden]="showSecondForm">
-<!-- Update your form with ngModel bindings for the report name and category -->
 <form (ngSubmit)="generateReports()">
   <label for="reportName">Report Name:</label>
   <input type="text" id="reportName" name="reportName" [(ngModel)]="reportName">
@@ -15,7 +14,6 @@
     type="text"
     ngxDaterangepickerMd
     [(ngModel)]="selected"
-    name="selected"
     [showCustomRangeLabel]="true"
     [alwaysShowCalendars]="true"
     [ranges]="ranges"
@@ -27,7 +25,7 @@
   />
 
   <label for="category">Type:</label>
-  <select id="category" name="selectType" [(ngModel)]="selectedType">
+  <select id="category" name="category" [(ngModel)]="selectedType">
     <option value="">Select Type</option>
     <option value="Service">Services</option>
     <option value="Product">Products</option>
@@ -36,8 +34,8 @@
   <button type="submit">Generate Inventory Report</button>
 </form>
 
-
-<div class="form-container" [hidden]="!showSecondForm">
+<!-- 
+<div class="form-container" [hidden]="showSecondForm">
   <form (ngSubmit)="generateSalesReports()">
     <label for="reportName">Report Name:</label>
     <input type="text" id="reportName" name="reportName">
@@ -60,20 +58,20 @@
     <label for="category">Type:</label>
     <select id="category" name="category">
       <option value="">Select Type</option>
-      <option value="Service">Services</option>
-      <option value="Product">Products</option>
+      <option value="service">Services</option>
+      <option value="product">Products</option>
     </select>
 
-    <button type="submit" (click)="generateReports()">Generate Sales Report</button>
+    <button type="submit">Generate Sales Report</button>
   </form>
 </div>
-</div>
+</div> -->
 
 <div id="reportModal" class="modal" [ngStyle]="{ display: showSalesModal ? 'block' : 'none' }">
   <div class="modal-content">
     <span class="close" (click)="closeModal()">&times;</span>
     <div class="">
-      <a class="btn btn-sm printButton p-2 float-end" ><i class="fas fa-print"></i> Print Report</a>
+      <a class="btn btn-sm printButton p-2 float-end"><i class="fas fa-print"></i> Print Report</a>
     </div>
     <table>
       <thead>
@@ -89,7 +87,7 @@
       <tbody>
         <tr *ngFor="let report of reportData">
           <td>{{ report.id }}</td>
-          <td>{{ report.customer }}</td>
+          <td>{{ report.customer.full_name }}</td>
           <td>{{ report.product }}</td>
           <td>{{ report.quantity }}</td>
           <td>{{ report.sale }}</td>
@@ -105,7 +103,7 @@
   <div class="modal-content">
     <span class="close" (click)="closeModal()">&times;</span>
     <div class="">
-      <a class="btn btn-sm printButton p-2 float-end" ><i class="fas fa-print"></i> Print Report</a>
+      <a class="btn btn-sm printButton p-2 float-end"><i class="fas fa-print"></i> Print Report</a>
     </div>
     <table>
       <thead>

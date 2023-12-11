@@ -38,9 +38,9 @@ export class ReportService {
     );
   }
 
-  getReport(serviceId: number) {
+  getReport(report:number) {
     return this.httpClient.get<ReportResponse>(
-      `${this.domain}${this.endpoint}${serviceId}`
+      `${this.domain}${this.endpoint}${report}/data`
     );
   }
 
