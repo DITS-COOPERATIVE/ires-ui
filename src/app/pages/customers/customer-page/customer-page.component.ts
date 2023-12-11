@@ -113,13 +113,31 @@ export class CustomerPageComponent {
 
   searchCustomer(){
     var input = (<HTMLInputElement>document.getElementById("search_id")).value;
+    var sort = (<HTMLInputElement>document.getElementById("sortBy")).value;
     console.log(input);
+    console.log(sort);
     try {
       this.isLoading = true;
       if (input) {
         this.customersService.getCustomersLists().subscribe((res) =>{
           this.customers = res;
-          this.customers = this.customers.filter(item => item.barcode === input)
+          switch (sort) {
+
+            case "1":
+              this.customers = this.customers.filter(item => item.id === parseInt(input))
+              break;
+            
+            case "2":
+              this.customers = this.customers.filter(item => item.full_name.toLowerCase().includes(input.toLowerCase()))
+              break;
+          
+            case "3":
+              this.customers = this.customers.filter(item => item.barcode === parseInt(input))
+              break;
+
+            default:
+              break;
+          }
           console.log(this.customers  );
           if (this.customers.length == 0) {
             alert ("Not found.");

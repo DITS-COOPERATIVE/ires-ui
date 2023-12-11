@@ -55,16 +55,29 @@ export class ProductPageComponent {
 
   searchProduct(){
     var input = (<HTMLInputElement>document.getElementById("search_id")).value;
+    var sort = (<HTMLInputElement>document.getElementById("sortBy")).value;
     console.log(input);
     try {
       this.isLoading = true;
       if (input) {
         this.productsService.getProductsLists().subscribe((res) =>{
-          this.products = res;
-          this.filteredProducts = this.products.filter(item => item.barcode === input )
-          this.filteredProducts = this.products.filter(item => item.id === parseInt(input) )
-          this.filteredProducts = this.products.filter(item => item.name === input )
-          console.log(this.products);
+          switch (sort) {
+
+            case "1":
+              this.filteredProducts = this.products.filter(item => item.id === parseInt(input))
+              break;
+            
+            case "2":
+              this.filteredProducts = this.products.filter(item => item.name.toLowerCase().includes(input.toLowerCase()))
+              break;
+          
+            case "3":
+              this.filteredProducts = this.products.filter(item => item.barcode === parseInt(input))
+              break;
+
+            default:
+              break;
+          }
           if (this.products.length == 0) {
             alert ("Not found.");
             this.ngOnInit();
