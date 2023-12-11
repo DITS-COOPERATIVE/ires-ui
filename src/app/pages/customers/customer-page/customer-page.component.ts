@@ -5,6 +5,8 @@ import {
 } from '../../../services/customers/customers.service';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SearchService } from 'src/app/shared/search.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-customer-page',
@@ -18,7 +20,9 @@ export class CustomerPageComponent {
 
   constructor(
     private customersService: CustomersService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private searchService: SearchService,
+    private toast: NgToastService
   ) {}
   selectedCategory: string = '';
   activeCardIndex: number | null = null;
@@ -38,6 +42,11 @@ export class CustomerPageComponent {
   loadingTitle: string = 'Loading';
 
   ngOnInit() {
+    this.searchService.searchQuery$.subscribe((query) => {
+      this.searchsCustomer(query);
+    });
+
+
     this.getCustomersLists();
   }
   toggleView(): void {
@@ -45,6 +54,47 @@ export class CustomerPageComponent {
   }
   cardView(): void {
     this.isCardView = false;
+  }
+
+  searchCustomers(input: string, sort: string): void {
+    this.searchService.searchCustomers(input, sort).subscribe((result) => {
+      this.customers = result;
+    });
+  }
+
+  searchsCustomer(query: string) {
+    try {
+      this.isLoading = true;
+
+      if (query) {
+        this.customersService.getCustomersLists().subscribe((res) => {
+          this.customers = res;
+
+          
+          this.customers = this.customers.filter((item) => {
+            return (
+              item.id.toString() === query ||
+              item.full_name.toLowerCase().includes(query.toLowerCase()) ||
+              item.barcode.toString() === query
+            );
+          });
+
+          console.log(this.customers);
+
+          if (this.customers.length === 0) {
+       
+              this.toast.info({detail:"WARNING",summary:'Search not found',duration:3000, position:'topCenter'});
+            
+          }
+
+          this.isLoading = false;
+        });
+      } else {
+        this.getCustomersLists();
+      }
+    } catch (error) {
+      this.errors = error;
+    }
   }
 
   openDialog(): void {

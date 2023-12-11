@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ProductsService , ProductsResponse } from 'src/app/services/products/products.service';
+import { SearchService } from 'src/app/shared/search.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-product-page',
@@ -8,11 +10,13 @@ import { ProductsService , ProductsResponse } from 'src/app/services/products/pr
 })
 export class ProductPageComponent {
 
-  constructor(private productsService: ProductsService) { this.filteredProducts = this.products;}
+  constructor(private productsService: ProductsService,
+    private searchService: SearchService,
+    private toast: NgToastService) { this.filteredProducts = this.products;}
 
   
   errors: any = [];
-  products!: ProductsResponse [];
+  products: ProductsResponse [] =[];
   product!: ProductsResponse;
   isLoading: boolean = false;
   isCardView: boolean = true;
@@ -22,6 +26,9 @@ export class ProductPageComponent {
   activeCardIndex: number | null = null;
 
   ngOnInit() {
+    this.searchService.searchQuery$.subscribe((query) => {
+      this.searchsCustomer(query);
+    });
     this.getProductsLists();
   }
 
@@ -51,6 +58,41 @@ export class ProductPageComponent {
     } catch (error) {
       this.errors = error
     };
+  }
+
+  searchsCustomer(query: string) {
+    try {
+      this.isLoading = true;
+
+      if (query) {
+        this.productsService.getProductsLists().subscribe((res) => {
+          this.products = res;
+
+          
+          this.products  = this.products .filter((item) => {
+            return (
+              item.id.toString() === query ||
+              item.name.toString().toLowerCase().includes(query.toLowerCase()) ||
+              item.barcode.toString() === query
+            );
+          });
+
+          console.log(this.products );
+
+          if (this.products .length === 0) {
+       
+              this.toast.info({detail:"WARNING",summary:'Search not found',duration:3000, position:'topCenter'});
+            
+          }
+
+          this.isLoading = false;
+        });
+      } else {
+        this.getProductsLists();
+      }
+    } catch (error) {
+      this.errors = error;
+    }
   }
 
   searchProduct(){
@@ -110,13 +152,6 @@ export class ProductPageComponent {
         break;
       default:
         break;
-    }
-  }
-  filterProducts() {
-    if (this.selectedCategory === 'all') {
-      this.filteredProducts = this.products;
-    } else {
-      this.filteredProducts = this.products.filter(item => item.category === this.selectedFilterCategory);
     }
   }
 }

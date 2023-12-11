@@ -9,8 +9,11 @@
                     class="search"
                     minlength="2" required
                     name=""
-                    id=""
+                    id="search_id"
                     placeholder="Search..."
+                    [(ngModel)]="searchQuery" 
+                    (input)="onSearch(searchQuery)"
+
                   />
                   <i class="far fa-search search-icon"></i>
                 </div>
@@ -23,7 +26,6 @@
                   </button>
                 </div>
               </div>
-
         </div>
         <div class="head-content-right">
             <div class="head-menu">
