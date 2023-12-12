@@ -233,7 +233,6 @@
         <div class="dropdown filterButton mb-2 d-flex justify-content-end">
           <button
             class="dropdown-toggle btn btn-sm"
-            (ngModelChange)="updateFilteredProducts()"
             id="dropdownMenuButton"
             data-toggle="dropdown"
             aria-haspopup="true"
@@ -241,16 +240,12 @@
           >
             <i class="fas fa-filter"></i> Filter
           </button>
-          <div
-            class="dropdown-menu cursor"
-            aria-labelledby="dropdownMenuButton"
-            style="margin-top: 30px"
-          >
-            <a class="dropdown-item" value="all">All</a>
-            <a class="dropdown-item" value="Services">Services</a>
-            <a class="dropdown-item" value="Router">Router</a>
-            <a class="dropdown-item" value="Vendo">Vendo</a>
-            <a class="dropdown-item" value="Tools">Tools</a>
+          <div class="dropdown-menu cursor" aria-labelledby="dropdownMenuButton" style="margin-top: 30px">
+            <a class="dropdown-item" (click)="updateCategory('all')">All</a>
+            <a class="dropdown-item" (click)="updateCategory('Services')">Services</a>
+            <a class="dropdown-item" (click)="updateCategory('Software')">Software</a>
+            <a class="dropdown-item" (click)="updateCategory('Hardware')">Hardware</a>
+            <a class="dropdown-item" (click)="updateCategory('Tools')">Tools</a>
           </div>
         </div>
         <div class="wrapper"  *ngIf="filteredProducts && filteredProducts.length > 0; else noProductsMessage">

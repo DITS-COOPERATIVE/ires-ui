@@ -69,8 +69,8 @@ export class ProductPageComponent {
         this.productsService.getProductsLists().subscribe((res) => {
           this.products = res;
 
-          
-          this.products  = this.products .filter((item) => {
+          console.log(res);
+          this.filteredProducts  = this.products .filter((item) => {
             return (
               item.id.toString() === query ||
               item.name.toString().toLowerCase().includes(query.toLowerCase()) ||
@@ -79,7 +79,7 @@ export class ProductPageComponent {
           });
 
 
-          if (this.products .length === 0) {
+          if (this.filteredProducts .length === 0) {
        
               this.toast.info({detail:"WARNING",summary:'Search not found',duration:3000, position:'topCenter'});
             
@@ -93,46 +93,6 @@ export class ProductPageComponent {
     } catch (error) {
       this.errors = error;
     }
-  }
-
-  searchProduct(){
-    var input = (<HTMLInputElement>document.getElementById("search_id")).value;
-    var sort = (<HTMLInputElement>document.getElementById("sortBy")).value;
-    console.log(input);
-    try {
-      this.isLoading = true;
-      if (input) {
-        this.productsService.getProductsLists().subscribe((res) =>{
-          switch (sort) {
-
-            case "1":
-              this.filteredProducts = this.products.filter(item => item.id === parseInt(input))
-              break;
-            
-            case "2":
-              this.filteredProducts = this.products.filter(item => item.name.toLowerCase().includes(input.toLowerCase()))
-              break;
-          
-            case "3":
-              this.filteredProducts = this.products.filter(item => item.barcode === parseInt(input))
-              break;
-
-            default:
-              break;
-          }
-          if (this.products.length == 0) {
-            alert ("Not found.");
-            this.ngOnInit();
-            (<HTMLInputElement>document.getElementById("search_id")).value = "";
-          }
-          this.isLoading = false;
-        })
-      } else {
-        this.ngOnInit();
-      }
-    } catch (error) {
-      this.errors = error
-    };
   }
 
   sortProducts(selectedCategory: string) {

@@ -79,8 +79,6 @@ export class CustomerPageComponent {
             );
           });
 
-          console.log(this.customers);
-
           if (this.customers.length === 0) {
        
               this.toast.info({detail:"WARNING",summary:'Search not found',duration:3000, position:'topCenter'});

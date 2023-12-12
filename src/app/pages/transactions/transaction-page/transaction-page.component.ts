@@ -16,6 +16,8 @@ import { PaymentComponent } from '../payment/payment.component';
 import { SharedService } from 'src/app/shared/shared.service';
 import { OrdersService } from 'src/app/services/orders/orders.service';
 import { CustomersResponse, CustomersService } from 'src/app/services/customers/customers.service';
+import { SearchService } from 'src/app/shared/search.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-transaction-page',
@@ -24,15 +26,17 @@ import { CustomersResponse, CustomersService } from 'src/app/services/customers/
 })
 export class TransactionPageComponent {
   filteredProducts: any[] = [];
-  selectedCategory: string = 'all';
-  products: any[] = [];
+  selectedCategory: string = 'all' ;
+  products:  ProductsResponse[]=[];
   constructor(
     private transactionsService: TransactionsService,
     private orderService: OrdersService,
     private customersService: CustomersService,
     private productsService: ProductsService,
     public dialog: MatDialog,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private searchService: SearchService,
+    private toast: NgToastService
   ) {
     this.filteredProducts = this.products; 
   }
@@ -69,18 +73,25 @@ export class TransactionPageComponent {
  
 
   ngOnInit() {
+    this.searchService.searchQuery$.subscribe((query) => {
+      this.searchsCustomer(query);
+    });
     this.getCustomersLists();
-   
     this.getProductsLists();
   }
 
+  updateCategory(category: string): void {
+    this.selectedCategory = category;
+    this.updateFilteredProducts();
+  }
+  
   updateFilteredProducts() {
     if (this.selectedCategory === 'all') {
-      this.filteredProducts = this.products; 
+      this.filteredProducts = this.products;
     } else {
       this.filteredProducts = this.products.filter(item => item.category === this.selectedCategory);
     }
-  }
+}
 
   getCustomersLists(): void {
     try {
@@ -92,6 +103,40 @@ export class TransactionPageComponent {
         console.log(res);
       });
   
+    } catch (error) {
+      this.errors = error;
+    }
+  }
+
+  searchsCustomer(query: string) {
+    try {
+      this.isLoading = true;
+
+      if (query) {
+        this.productsService.getProductsLists().subscribe((res) => {
+          this.products = res;
+
+          console.log(res);
+          this.filteredProducts  = this.products .filter((item) => {
+            return (
+              item.id.toString() === query ||
+              item.name.toString().toLowerCase().includes(query.toLowerCase()) ||
+              item.barcode.toString() === query
+            );
+          });
+
+
+          if (this.filteredProducts .length === 0) {
+       
+              this.toast.info({detail:"WARNING",summary:'Search not found',duration:3000, position:'topCenter'});
+            
+          }
+
+          this.isLoading = false;
+        });
+      } else {
+        this.getProductsLists();
+      }
     } catch (error) {
       this.errors = error;
     }

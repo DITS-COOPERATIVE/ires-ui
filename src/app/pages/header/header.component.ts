@@ -3,6 +3,7 @@ import { notifications, userItems } from './header-dummy-data';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { SearchService } from 'src/app/shared/search.service';
 import { Role } from 'src/app/shared/interfaces/Role';
+import { NotificationService } from 'src/app/shared/notification.service';
 interface UserItem {
   icon: string;
   label: string;
@@ -25,9 +26,12 @@ export class HeaderComponent implements OnInit {
   showTooltip = false;
   userEmail: string | null = '';
   userItems: UserItem[] = [];
+  notification: any[] = [];
+  unreadCount: number = 0;
+
   
 
-  constructor(private authService: AuthenticationService,  private searchService: SearchService) {}
+  constructor(private authService: AuthenticationService,  private searchService: SearchService, private notificationService: NotificationService) {}
   searchQuery: string = '';
 
   @HostListener('window:resize', ['$event'])
@@ -69,6 +73,9 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.notificationService.notification$.subscribe((notification) => {
+      this.notification.unshift(notification);
+    });
     this.checkCanShowSearchAsOverlay(window.innerWidth);
     this.updateUserItems();
   }
