@@ -14,10 +14,13 @@ export class LoginComponent {
   password: string = '';
   isLoading: boolean = false;
   errors: any = [];
+  showPassword: boolean = false;
 
   constructor(private authService: AuthenticationService, private router: Router, private toast: NgToastService) {}
 
-
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
   login() {
     
       var inputData = {
