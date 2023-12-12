@@ -30,7 +30,7 @@ export class LoginComponent {
     
       this.authService.loginUser(inputData).subscribe({
         next: (res: any) => {
-          this.authService.storeToken(res.token, this.email); 
+          this.authService.storeToken(res.token, res.user); 
           this.authService.isAuthenticatedSubject.next(true);
           this.email = '';
           this.password = '';
