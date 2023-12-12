@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ProductsService , ProductsResponse } from 'src/app/services/products/products.service';
 import { SearchService } from 'src/app/shared/search.service';
 import { NgToastService } from 'ng-angular-popup';
+import { AppearanceAnimation, ConfirmBoxInitializer, DialogLayoutDisplay, DisappearanceAnimation } from '@costlydeveloper/ngx-awesome-popup';
 
 @Component({
   selector: 'app-product-page',
@@ -77,7 +78,6 @@ export class ProductPageComponent {
             );
           });
 
-          console.log(this.products );
 
           if (this.products .length === 0) {
        
@@ -154,4 +154,35 @@ export class ProductPageComponent {
         break;
     }
   }
+
+  deleteProduct(productId: number) {
+    const newConfirmBox = new ConfirmBoxInitializer();
+  
+    newConfirmBox.setTitle('Confirm Deletion!');
+    newConfirmBox.setMessage('Are you sure you want to delete this Item?');
+  
+    newConfirmBox.setConfig({
+      layoutType: DialogLayoutDisplay.DANGER,
+      animationIn: AppearanceAnimation.BOUNCE_IN,
+      animationOut: DisappearanceAnimation.BOUNCE_OUT,
+      buttonPosition: 'right',
+    });
+  
+    newConfirmBox.setButtonLabels('Yes', 'No');
+  
+    newConfirmBox.openConfirmBox$().subscribe({
+      next: (resp) => {
+        if (resp.clickedButtonID === 'yes') {
+          this.productsService.destroyProduct(productId).subscribe({
+            next: (resp: any) => {
+              this.getProductsLists();
+            },
+          });
+        } else {
+        }
+      },
+    });
+    
+  }
+  
 }

@@ -11,6 +11,7 @@ import {
 } from 'src/app/services/products/products.service';
 import { TableColumnHeaders } from 'src/app/shared/TableColumnHeaders ';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-stocks',
@@ -28,9 +29,10 @@ export class StocksComponent {
   editingProductId: string | null = null;
   errors: any = [];
 
-  constructor(private productsService: ProductsService, private router: Router) {}
+  constructor(private productsService: ProductsService, private router: Router, private toast: NgToastService) {}
   displayedColumns: string[] = [
     'name',
+    'barcode',
     'model',
     'price',
     'quantity',
@@ -38,6 +40,7 @@ export class StocksComponent {
   ];
   columnHeaders: TableColumnHeaders = {
     name: 'Name',
+    barcode: 'Code',
     model: 'Model',
     price: 'Price',
     quantity: 'Quantity',
@@ -77,17 +80,15 @@ export class StocksComponent {
     this.productsService.updateProduct(inputData, product.id).subscribe({
       next: (res: any) => {
         this.isLoading = false;
-        this.successMessage = 'Success! Quantity saved.';
-        setTimeout(() => (this.successMessage = null), 3000);
+        this.toast.success({detail:"SUCCESS",summary:'Quantity Updated',duration:4000, position:'topCenter'});
         this.errors = {};
       },
       error: (err: any) => {
+        this.toast.error({detail:"ERROR",summary:'Failed to Updated Quantity',duration:4000, position:'topCenter'});
         this.errors = err.error.errors;
         this.isLoading = false;
       },
     });
-  
-    console.log('Saving quantity:', product.quantity);
     this.editingProductId = null;
   }
 
@@ -119,7 +120,6 @@ export class StocksComponent {
     });
     this.selection.clear();
     this.dataSource._updateChangeSubscription();
-    console.log('Delete Selected Items:', selectedItems);
   }
 
   validateResize = (event: ResizeEvent): boolean => {

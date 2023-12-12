@@ -52,6 +52,7 @@ import { OrdersViewComponent } from './pages/orders-view/orders-view.component';
 import { NgxBarcodeModule } from '@greatcloak/ngx-barcode';
 import { ModalComponent } from './shared/modal/modal.component';
 import { NgToastModule } from 'ng-angular-popup'
+import { ConfirmBoxConfigModule, NgxAwesomePopupModule } from '@costlydeveloper/ngx-awesome-popup';
 
 
 @NgModule({
@@ -109,7 +110,9 @@ import { NgToastModule } from 'ng-angular-popup'
     DragDropModule,
     NgxBarcodeModule,
     NgxDaterangepickerMd.forRoot(),
-    NgToastModule
+    NgToastModule,
+    NgxAwesomePopupModule.forRoot(),
+    ConfirmBoxConfigModule.forRoot(),
 
   ],
   providers: [DatePipe],

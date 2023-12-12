@@ -2,7 +2,7 @@ import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CustomersResponse } from 'src/app/services/customers/customers.service';
 import { ProductsResponse } from 'src/app/services/products/products.service';
-
+import { NgToastService } from 'ng-angular-popup';
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
@@ -11,8 +11,9 @@ import { ProductsResponse } from 'src/app/services/products/products.service';
 export class PaymentComponent {
   @Output() paymentMade: EventEmitter<any> = new EventEmitter<any>();
   constructor(
-    public dialogRef: MatDialogRef<PaymentComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    public dialogRef: MatDialogRef<PaymentComponent
+    >,
+    @Inject(MAT_DIALOG_DATA) public data: any, private toast: NgToastService
   ) {
     if (data && data.totalAmount) {
       this.totalAmount = data.totalAmount;
@@ -64,7 +65,7 @@ export class PaymentComponent {
     this.payment = true;
     const amountRendered = this.amountPaid;
     const change = this.calculateChange();
-
+    this.toast.success({detail:"SUCCESS",summary:'Success ordered',duration:4000});
   
     this.paymentMade.emit({ success: true, amountRendered, change });
   }
@@ -75,6 +76,7 @@ export class PaymentComponent {
 
   onPaymentSuccess(): void {
     this.paymentSuccess = true;
+    
   }
 
 

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ProductsResponse, ProductsService } from '../../../services/products/products.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-product-create',
@@ -8,7 +9,7 @@ import { ProductsResponse, ProductsService } from '../../../services/products/pr
 })
 export class ProductCreateComponent {
 
-  constructor(private productsService: ProductsService ) {this.rows = [];}
+  constructor(private productsService: ProductsService, private toast: NgToastService ) {this.rows = [];}
   successMessage: string | null = null;
   selectedImage: string = '';
   products!: ProductsResponse [];
@@ -109,6 +110,7 @@ export class ProductCreateComponent {
         this.selectedImage = '';
         this.subID = '';
         this.subQuan = 0;
+        this.toast.success({detail:"SUCCESS",summary:'Added Product',duration:5000, position:'topCenter'});
   
         this.successMessage = 'Success! Product saved.';
         setTimeout(() => (this.successMessage = null), 1500);
@@ -117,6 +119,7 @@ export class ProductCreateComponent {
         this.errors = {};
       },
       error: (err: any) => {
+        this.toast.error({detail:"ERROR",summary:'Failed to Added Product',duration:5000, position:'topCenter'});
         this.errors = err.error.errors;
         this.isLoading = false;
       }
