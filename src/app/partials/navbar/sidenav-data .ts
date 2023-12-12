@@ -49,8 +49,8 @@ export const navbarData =[
     },
     {
         routeLink: 'settings',
-        icon: 'fal fa-cog',
-        label: 'Settings',
+        icon: 'fas fa-user-cog',
+        label: 'Cashier',
         roles: ['Admin']
     }
 ];

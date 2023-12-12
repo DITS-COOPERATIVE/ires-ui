@@ -37,6 +37,7 @@ export class ProductCreateComponent {
   ngOnInit() {
 
     this.getProductsLists();
+    this.addRow();
 
   }
   
