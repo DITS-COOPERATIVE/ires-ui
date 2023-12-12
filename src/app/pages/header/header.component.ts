@@ -1,6 +1,7 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { notifications, userItems } from './header-dummy-data';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { SearchService } from 'src/app/shared/search.service';
 import { Role } from 'src/app/shared/interfaces/Role';
 interface UserItem {
   icon: string;
@@ -26,9 +27,15 @@ export class HeaderComponent implements OnInit {
   userItems: UserItem[] = [];
   
 
-  constructor(public authService: AuthenticationService) {}
+  constructor(private authService: AuthenticationService,  private searchService: SearchService) {}
+  searchQuery: string = '';
 
   @HostListener('window:resize', ['$event'])
+
+  onSearch(query: string) {
+    this.searchService.sendSearchQuery(query);
+  }
+
   onResize(event: any) {
     this.checkCanShowSearchAsOverlay(window.innerWidth);
   }
@@ -45,6 +52,21 @@ export class HeaderComponent implements OnInit {
   hideEmailTooltip(): void {
     this.showTooltip = false;
   }
+  searchCustomer(input: string, sort: string): void {
+    this.searchService.searchCustomers(input, sort).subscribe({
+      next: (searchResults) => {
+      },
+      error: (error) => {
+       
+      }
+    });
+  }
+
+  searchCustomers(input: string, sort: string): void {
+    this.searchService.searchCustomers(input, sort).subscribe((result) => {
+    });
+  }
+
 
   ngOnInit(): void {
     this.checkCanShowSearchAsOverlay(window.innerWidth);

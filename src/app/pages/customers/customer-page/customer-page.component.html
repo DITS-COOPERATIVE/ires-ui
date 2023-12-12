@@ -6,7 +6,17 @@
   <button class="toggle-button" (click)="cardView()" matTooltip="List View" matTooltipPosition="above">
     <i class="fas fa-list"></i>
   </button>
-
+  <div>
+    <form>
+      <select id="sortBy">
+        <option value="1">ID</option>
+        <option value="2">Full Name</option>
+        <option value="3">Barcode</option>
+      </select>
+      <input type="search" class="search" minlength="2" required name="" id="search_id" placeholder="Search..."/>
+      <input type="submit" (click)="searchCustomer()">
+    </form>
+  </div>
   <div class="d-flex sort-by" [ngClass]="{ 'card-view': isCardView, 'list-view': !isCardView }">
     <div class="dropdown filterButton">
       <button class="dropdown-toggle btn btn-sm" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"

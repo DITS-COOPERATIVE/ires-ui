@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { CustomersResponse, CustomersService } from 'src/app/services/customers/customers.service';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-customer-edit',
@@ -28,7 +29,8 @@ export class CustomerEditComponent {
   constructor(
     private route: ActivatedRoute,
     private customersService: CustomersService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private toast: NgToastService
   ) {}
 
   ngOnInit() {
@@ -79,6 +81,7 @@ export class CustomerEditComponent {
     this.customersService.updateCustomer(inputData, this.customerId).subscribe({
       next: (res: any) => {
         this.isLoading = false;
+        this.toast.success({detail:"SUCCESS",summary:'Updated Customer',duration:5000, position:'topCenter'});
         this.successMessage = 'Success! Customer saved.';
         setTimeout(() => (this.successMessage = null), 3000);
         this.isEditing = false;
@@ -89,9 +92,11 @@ export class CustomerEditComponent {
       error: (err: any) => {
         this.errors = err.error.errors;
         this.isLoading = false;
+        this.toast.error({detail:"ERROR",summary:'Failed to Update Customer',duration:5000, position:'topCenter'});
       },
     });
   }
+  
   generateBarcode() {
     this.isLoading = true;
 

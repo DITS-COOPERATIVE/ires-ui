@@ -14,6 +14,7 @@ export interface ProductsResponse {
   price: string;
   discount: number;
   quantity: number;
+  barcode: any;
   sold: number;
   sub_Products: number;
   points: number;

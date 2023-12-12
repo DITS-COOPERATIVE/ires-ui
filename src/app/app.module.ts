@@ -51,6 +51,8 @@ import { ProductKitComponent } from './pages/products/product-kit/product-kit.co
 import { OrdersViewComponent } from './pages/orders-view/orders-view.component';
 import { NgxBarcodeModule } from '@greatcloak/ngx-barcode';
 import { ModalComponent } from './shared/modal/modal.component';
+import { NgToastModule } from 'ng-angular-popup'
+import { ConfirmBoxConfigModule, NgxAwesomePopupModule } from '@costlydeveloper/ngx-awesome-popup';
 
 
 @NgModule({
@@ -107,7 +109,10 @@ import { ModalComponent } from './shared/modal/modal.component';
     MatIconModule,
     DragDropModule,
     NgxBarcodeModule,
-    NgxDaterangepickerMd.forRoot()
+    NgxDaterangepickerMd.forRoot(),
+    NgToastModule,
+    NgxAwesomePopupModule.forRoot(),
+    ConfirmBoxConfigModule.forRoot(),
 
   ],
   providers: [DatePipe],
