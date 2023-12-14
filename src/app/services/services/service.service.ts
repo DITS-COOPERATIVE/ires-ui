@@ -7,7 +7,6 @@ export interface ServiceResponse {
   name:string;
   price: string;
   type:string;
-  status: string;
   created_at: string;
   updated_at: string;
 }

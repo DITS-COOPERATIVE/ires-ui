@@ -35,7 +35,18 @@ export class ReservationPageComponent {
   when!: string;
   location!: string;
   isDateAvailable: boolean = true;
+  selectedItem: any; // Define a variable to hold the selected item
 
+  // Method to handle row selection
+  selectRow(item: any) {
+    this.selectedItem = item; // Set the selected item
+    // Update the form fields with the selected item's data
+    this.customer_name = item.customer_name;
+    this.service_id = item.service_id;
+    this.when = item.when;
+    this.location = item.location;
+    this.status = item.status;
+  }
   saveReservation() {
     var inputData = {
       service_id: this.service_id,

@@ -20,12 +20,19 @@ export class ServiceComponent {
   successMessage: string | null = null;
   errors: any = [];
   isLoading: boolean = false;
-  
+  selectedService: any;
   ngOnInit() {
 
     this.getServiceLists();
 
   } 
+  editService(service: any) {
+    this.selectedService = { ...service }; // Copy the clicked service to the selectedService variable
+    // Update the form fields using the details of this.selectedService
+    this.name = this.selectedService.name;
+    this.price = this.selectedService.price;
+    this.type = this.selectedService.type;
+  }
   saveService() {
     var inputData = {
       name: this.name,

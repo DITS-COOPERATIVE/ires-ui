@@ -148,7 +148,13 @@ export class ReportsComponent implements OnInit {
       to: moment(this.selected.endDate).format('YYYY-MM-DD'),
       type: this.selectedType,
     };
-
+    if (this.selectedType === 'Product') {
+      this.showSalesModal = true;
+      this.showServiceModal = false;
+    } else if (this.selectedType === 'Service') {
+      this.showServiceModal = true;
+      this.showSalesModal = false;
+    }
     this.reportService.saveReport(payload).subscribe({
       next: (res: any) => {
         this.reportName = '';
@@ -158,13 +164,7 @@ export class ReportsComponent implements OnInit {
 
         this.reportService.getReport(res.id).subscribe({
           next: (reportData: any) => {
-            if (this.selectedType === 'Product') {
-              this.showSalesModal = true;
-              this.showServiceModal = false;
-            } else if (this.selectedType === 'Service') {
-              this.showServiceModal = true;
-              this.showSalesModal = false;
-            }
+           
 
             console.log('Report Data:', reportData);
             this.reportData = reportData;

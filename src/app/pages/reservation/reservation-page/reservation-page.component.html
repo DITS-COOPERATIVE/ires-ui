@@ -87,7 +87,7 @@
         </thead>
         <tbody>
           <ng-container *ngIf="reservation.length > 0; else noData">
-            <tr *ngFor="let item of reservation">
+            <tr *ngFor="let item of reservation" (click)="selectRow(item)" [class.selected]="item === selectedItem">
               <td>{{ item.customer_name }}</td>
               <td>{{ item.when | date : "MMMM dd, yyyy" }}</td>
               <td>{{ getServiceType(item.service_id) }}</td>
