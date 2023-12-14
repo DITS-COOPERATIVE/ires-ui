@@ -205,12 +205,13 @@ td {
   display: flex;
     justify-content: center;
 }
-[data-privilege="Senior"] > span {
+[data-privilege="Senior Citizen"] > span {
   background-color: #d5f096;
   padding: 5px 15px;
   border-radius: 15px;
   display: flex;
     justify-content: center;
+    width: 97px;
 }
 [data-privilege="None"] > span {
   background-color: #fbbfca;

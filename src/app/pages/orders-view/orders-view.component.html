@@ -1,6 +1,6 @@
 <div class="container">
   <div *ngIf="orderDetails">
-    <div class="row mb-2 rounded">
+    <div class="row mb-2 rounded"  *ngIf="customer.full_name">
       <div class="col bg-white mx-4 rounded d-flex justify-content-center" >
         <img
           class="img-fluid "
@@ -87,10 +87,9 @@
           <p>Total: {{ orderDetails.total }}</p>
           <p>Quantity: {{ orderDetails.quantity }}</p>
           <p>Discount: {{ orderDetails.discount }}</p>
-        </ul>
-        <ul class="float-end">
           <p>Customer Note:{{orderDetails.customer_note}}</p>
-          <p>Internal Note:{{orderDetails.internal_note}}</p></ul>
+          <p>Internal Note:{{orderDetails.internal_note}}</p>
+        </ul>
       </div>
     </div>
   </div>

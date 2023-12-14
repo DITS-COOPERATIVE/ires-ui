@@ -51,6 +51,7 @@
             <thead>
               <tr>
                 <th class="ps-5">Name</th>
+                <th>Code</th>
                 <th>Price</th>
                 <th>Points</th>
                 <th>Category</th>
@@ -61,6 +62,7 @@
               <tr *ngFor="let item of filteredProducts">
                 <td width="25%"><img class="img-fluid img-thumbnail imgTable me-3" src="assets/gojo.jpg"
                     alt="Card image" />{{ item.name }}</td>
+                <td>{{ item.barcode }}</td>
                 <td>₱ {{ item.price }}</td>
                 <td>{{ item.points }}</td>
                 <td>{{ item.category }}</td>
