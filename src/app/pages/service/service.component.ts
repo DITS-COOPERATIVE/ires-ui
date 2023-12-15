@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AppearanceAnimation, ConfirmBoxInitializer, DialogLayoutDisplay, DisappearanceAnimation } from '@costlydeveloper/ngx-awesome-popup';
 import { NgToastService } from 'ng-angular-popup';
 import { CustomersResponse, CustomersService } from 'src/app/services/customers/customers.service';
+import { PermissionService } from 'src/app/services/permission/permission.service';
 import { ReservationResponse, ReservationService } from 'src/app/services/reservation/reservation.service';
 import { ServiceResponse, ServiceService } from 'src/app/services/services/service.service';
 
@@ -12,7 +13,7 @@ import { ServiceResponse, ServiceService } from 'src/app/services/services/servi
 })
 export class ServiceComponent {
   constructor(private serviceService: ServiceService, private customersService: CustomersService, 
-    private toast: NgToastService, private reservationService: ReservationService) {}
+    private toast: NgToastService, private reservationService: ReservationService,public permissionService: PermissionService,) {}
   services: ServiceResponse[] = [];
   reservation: ReservationResponse[] = [];
   name!: string;

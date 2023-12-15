@@ -116,11 +116,10 @@ export class TransactionPageComponent {
         this.productsService.getProductsLists().subscribe((res) => {
           this.products = res;
 
-          console.log(res);
           this.filteredProducts  = this.products .filter((item) => {
             return (
               item.id.toString() === query ||
-              item.name.toString().toLowerCase().includes(query.toLowerCase()) ||
+              (item.name && item.name.toString().toLowerCase().includes(query.toLowerCase())) ||
               item.barcode.toString() === query
             );
           });

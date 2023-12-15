@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
 import { SearchService } from 'src/app/shared/search.service';
 import { Role } from 'src/app/shared/interfaces/Role';
 import { NotificationService } from 'src/app/shared/notification.service';
+import { ActivatedRoute, Router } from '@angular/router';
 interface UserItem {
   icon: string;
   label: string;
@@ -31,10 +32,18 @@ export class HeaderComponent implements OnInit {
 
   
 
-  constructor(private authService: AuthenticationService,  private searchService: SearchService, private notificationService: NotificationService) {}
+  constructor(private authService: AuthenticationService,  private searchService: SearchService, 
+    private route: ActivatedRoute, private notificationService: NotificationService, private router: Router) {}
   searchQuery: string = '';
 
   @HostListener('window:resize', ['$event'])
+  
+  isSearchVisible(): boolean {
+    const routePath = this.router.url.split('/')[1];
+    return ['products', 'customers', 'transactions'].includes(routePath);
+  }
+  
+  
 
   onSearch(query: string) {
     this.searchService.sendSearchQuery(query);

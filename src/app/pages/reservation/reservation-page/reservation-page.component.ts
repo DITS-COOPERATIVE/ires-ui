@@ -5,6 +5,7 @@ import { AppearanceAnimation, ConfirmBoxInitializer, DialogLayoutDisplay, Disapp
 import { NgToastService } from 'ng-angular-popup';
 import { forkJoin } from 'rxjs';
 import { CustomersResponse, CustomersService } from 'src/app/services/customers/customers.service';
+import { PermissionService } from 'src/app/services/permission/permission.service';
 import { ReservationResponse, ReservationService } from 'src/app/services/reservation/reservation.service';
 import { ServiceResponse, ServiceService } from 'src/app/services/services/service.service';
 import { environment } from 'src/environments/environment';
@@ -19,6 +20,7 @@ export class ReservationPageComponent {
   constructor(private serviceService: ServiceService, private customersService: CustomersService, 
     private route: ActivatedRoute,
     private reservationService: ReservationService, private http: HttpClient,
+    public permissionService: PermissionService,
     private toast: NgToastService) {   this.domain = environment.domain;}
   
  
@@ -39,6 +41,7 @@ export class ReservationPageComponent {
   selectedItem: any; 
   reservationId!: any;
   isUpdateMode: boolean = false;
+  userRole: string = 'Admin'
 
 
   selectRow(item: any) {
@@ -51,8 +54,15 @@ export class ReservationPageComponent {
     this.isUpdateMode = true;
   }
 
+  isAdmin(): boolean {
+    console.log(this.userRole);
+    return this.userRole === 'Admin';  
+    
+  }
+  
 
   ngOnInit() { 
+    console.log(this.userRole);
     this.getCustomersLists();
     this.getServiceLists();
     this.getReservationLists();
