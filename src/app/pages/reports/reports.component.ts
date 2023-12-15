@@ -16,6 +16,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { ReportService } from 'src/app/services/reports/report.service';
 import { HttpClient } from '@angular/common/http';
+import { ServiceResponse, ServiceService } from 'src/app/services/services/service.service';
 
 @Component({
   selector: 'app-reports',
@@ -67,6 +68,7 @@ export class ReportsComponent implements OnInit {
   products: ProductsResponse[] = [];
   orders: OrdersResponse[] = [];
   filterOrders: OrdersResponse[] = [];
+  services: ServiceResponse[] = [];
   errors: any = {};
   reportData: any[] = [];
   isLoading: boolean = false;
@@ -86,6 +88,7 @@ export class ReportsComponent implements OnInit {
     private productsService: ProductsService,
     private ordersService: OrdersService,
     private reportService: ReportService,
+    private serviceService: ServiceService,
     private http: HttpClient
   ) {
     this.alwaysShowCalendars = true;
@@ -100,13 +103,24 @@ export class ReportsComponent implements OnInit {
     this.getCustomersLists();
     this.getProductsLists();
     this.getOrdersList();
+    this.getServiceLists();
   }
 
   // toggleForm() {
   //   this.showSecondForm = !this.showSecondForm;
   //   this.buttonLabel = this.showSecondForm ? 'Sales Report' : 'Inventory Report';
   // }
-
+  getServiceLists(){
+  
+    try {
+      this.serviceService.getServiceList().subscribe((res) =>{
+        this.services = res;
+      })
+    } catch (error) {
+      this.errors = error
+    };
+    
+  }
   getCustomersLists() {
     try {
       this.isLoading = true;
@@ -164,9 +178,6 @@ export class ReportsComponent implements OnInit {
 
         this.reportService.getReport(res.id).subscribe({
           next: (reportData: any) => {
-           
-
-            console.log('Report Data:', reportData);
             this.reportData = reportData;
           },
           error: (error: any) => {},
@@ -185,8 +196,14 @@ export class ReportsComponent implements OnInit {
     return product ? product.name : '';
   }
 
- 
-
+  getServiceType(serviceId: number): string {
+    const service = this.services.find((service) => service.id === serviceId);
+    return service ? service.type : '';
+  }
+  getServicePrice(serviceId: number): string {
+    const service = this.services.find((service) => service.id === serviceId);
+    return service ? service.price : '';
+  }
   // generateReport() {
   //   const startDate = moment(this.selected.startDate).format('YYYY-MM-DD');
   //   const endDate = moment(this.selected.endDate).format('YYYY-MM-DD');

@@ -76,32 +76,45 @@
         <tr>
           <th>ID</th>
           <th>Customer</th>
-          <th>Product </th>
+          <th>Product</th>
           <th>Quantity</th>
-          <th>Sale</th>
-          <th>Available Stocks</th>
+          <th>Available Stock</th>
+          <th>Price</th>
+          <th>Revenue</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let report of reportData">
-          <td>{{ report.id }}</td>
-          <td>{{ getCustomerName(report.customer_id) }}</td>
-          <td>
-            <span *ngFor="let product of report.products">
-              {{ getProductName(product.id) }}{{product.quantity}}{{$last ? '' : ', '}}
-            </span>
-        
-          </td>
-          <td>{{ report.quantity }}</td>
-          <td>{{  report.total  }}</td>
-          <td>{{ report.sale }}</td>
-        </tr>
+        <ng-container *ngFor="let report of reportData">
+          <ng-container *ngIf="report.products && report.products.length > 0">
+            <ng-container *ngIf="report.products.length > 1">
+              <tr *ngFor="let product of report.products; let first = first">
+                <td *ngIf="first" [attr.rowspan]="report.products.length">{{ report.id }}</td>
+                <td *ngIf="first" [attr.rowspan]="report.products.length">{{ getCustomerName(report.customer_id) }}</td>
+                <td>{{ getProductName(product.id) }}</td>
+                <td>{{ product.pivot.qty }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>{{ product.price }}</td>
+                <td *ngIf="first" [attr.rowspan]="report.products.length">{{ report.total }}</td>
+              </tr>
+            </ng-container>
+            <ng-container *ngIf="report.products.length === 1">
+              <tr>
+                <td>{{ report.id }}</td>
+                <td>{{ getCustomerName(report.customer_id) }}</td>
+                <td>{{ getProductName(report.products[0].id) }}</td>
+                <td>{{ report.products[0].pivot.qty }}</td>
+                <td>{{ report.products[0].quantity }}</td>
+                <td>{{ report.products[0].price }}</td>
+                <td>{{ report.total }}</td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </ng-container>
       </tbody>
     </table>
+    
   </div>
 </div>
-
-
 <div id="reportServiceModal" class="modal" [ngStyle]="{ display: showServiceModal ? 'block' : 'none' }">
   <div class="modal-content">
     <span class="close" (click)="closeModal()">&times;</span>
@@ -112,23 +125,23 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>Item Code</th>
           <th>Name</th>
-          <th>Low stock Alert</th>
-          <th>Over Stock Alert</th>
-          <th>Stock</th>
+          <th>Location</th>
+          <th>Service</th>
           <th>Status</th>
+          <th>Date</th>
+          <th>Sale</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let report of reportData">
           <td>{{ report.id }}</td>
-          <td>{{ report.customer }}</td>
-          <td>{{ report.product }}</td>
-          <td>{{ report.quantity }}</td>
-          <td>{{ report.sale }}</td>
-          <td>{{ report.sale }}</td>
-          <td>{{ report.sale }}</td>
+          <td>{{ report.customer_name }}</td>
+          <td>{{ report.location }}</td>
+          <td>{{ getServiceType(report.service_id) }}</td>
+          <td>{{ report.status }}</td>
+          <td>{{ report.when | date : "MMMM dd, yyyy" }}</td>
+          <td>{{ getServicePrice(report.service_id) }}</td>
         </tr>
       </tbody>
     </table>
