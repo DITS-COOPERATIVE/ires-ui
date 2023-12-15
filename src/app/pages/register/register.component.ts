@@ -27,7 +27,6 @@ export class RegisterComponent {
         this.email = '';
         this.password = '';
         this.errors = {};
-        alert(res);
       },
 
       error: (err: any) => {

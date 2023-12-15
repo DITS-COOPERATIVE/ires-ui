@@ -111,10 +111,6 @@ export class ProductCreateComponent {
         this.subID = '';
         this.subQuan = 0;
         this.toast.success({detail:"SUCCESS",summary:'Added Product',duration:5000, position:'topCenter'});
-  
-        this.successMessage = 'Success! Product saved.';
-        setTimeout(() => (this.successMessage = null), 1500);
-  
         this.isLoading = false;
         this.errors = {};
       },

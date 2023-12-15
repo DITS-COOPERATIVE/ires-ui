@@ -19,10 +19,8 @@ export class ProductKitComponent {
     try {
       this.productsService.getProductsLists().subscribe((res) =>{
         this.products = res;
-        console.log(res);
       })
     } catch (error) {
-      console.log(error);
       this.errors = error
     };
   }
@@ -38,7 +36,6 @@ export class ProductKitComponent {
   }
 
   saveRemovedProducts() {
-    console.log('Removed Products:', this.removedProducts);
   }
 }
 

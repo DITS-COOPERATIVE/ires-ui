@@ -55,14 +55,12 @@ export class ReservationPageComponent {
   }
 
   isAdmin(): boolean {
-    console.log(this.userRole);
     return this.userRole === 'Admin';  
     
   }
   
 
   ngOnInit() { 
-    console.log(this.userRole);
     this.getCustomersLists();
     this.getServiceLists();
     this.getReservationLists();

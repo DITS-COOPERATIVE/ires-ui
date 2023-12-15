@@ -38,14 +38,11 @@ export class LoginComponent {
           this.toast.success({detail:"SUCCESS",summary:'Log in successful',duration:3000,});
 
           if (res.user.role === 'Admin') {
-            // Redirect to the dashboard page
             this.router.navigate(['/dashboard']);
           } else if (res.user.role === 'Cashier') {
-            // Redirect to the transaction page
+
             this.router.navigate(['/transaction']);
           } else {
-            // Handle other roles or scenarios
-            // Redirect to a default page or show an error message
           }
           location.reload();
         },
