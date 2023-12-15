@@ -100,13 +100,13 @@ const routes: Routes = [
     path: 'services',
     component: ServiceComponent,
     title: 'Services',
-    canActivate: [() => inject(PermissionService).canAccess(['Admin'])],
+    canActivate: [() => inject(PermissionService).canAccess(['Admin','Cashier'])],
   },
   {
     path: 'reservations',
     component: ReservationPageComponent,
     title: 'Reservations',
-    canActivate: [() => inject(PermissionService).canAccess(['Admin'])],
+    canActivate: [() => inject(PermissionService).canAccess(['Admin', 'Cashier'])],
   },
 
   {
@@ -134,12 +134,12 @@ const routes: Routes = [
     title: 'Reports',
     canActivate: [() => inject(PermissionService).canAccess(['Admin'])],
   },
-  {
-    path: 'stocks',
-    component: StocksComponent,
-    title: 'Stocks',
-    canActivate: [() => inject(PermissionService).canAccess(['Admin'])],
-  },
+  // {
+  //   path: 'stocks',
+  //   component: StocksComponent,
+  //   title: 'Stocks',
+  //   canActivate: [() => inject(PermissionService).canAccess(['Admin'])],
+  // },
   {
     path: 'settings',
     component: SettingsComponent,

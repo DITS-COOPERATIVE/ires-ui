@@ -27,7 +27,7 @@ export const navbarData =[
         routeLink: 'reservations',
         icon: 'far fa-calendar-alt',
         label: 'Reservations',
-        roles: ['Admin']
+        roles: ['Admin','Cashier']
     },
     {
         routeLink: 'reports',
@@ -35,12 +35,12 @@ export const navbarData =[
         label: 'Reports',
         roles: ['Admin']
     },
-    {
-        routeLink: 'stocks',
-        icon: 'fal fa-chart-bar',
-        label: 'Stock',
-        roles: ['Admin']
-    },
+    // {
+    //     routeLink: 'stocks',
+    //     icon: 'fal fa-chart-bar',
+    //     label: 'Stock',
+    //     roles: ['Admin']
+    // },
     {
         routeLink: 'transactions',
         icon: 'fal fa-cash-register',

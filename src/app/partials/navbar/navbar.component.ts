@@ -79,7 +79,7 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  // Function to handle mouse leave event
+
   onMouseLeave() {
     if (this.screenWidth > 769) {
       this.collapsed = false;

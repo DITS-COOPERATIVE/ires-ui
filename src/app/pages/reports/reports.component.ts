@@ -185,26 +185,7 @@ export class ReportsComponent implements OnInit {
     return product ? product.name : '';
   }
 
-  // onDateChange() {
-  //   if (this.report_id && this.when) {
-  //     const apiUrl = `${this.domain}reports/${this.service_id}/data`;
-  //     const payload = { when: this.when };
-  //     const headers = {
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json'
-  //     };
-
-  //     this.http.get(apiUrl, payload, { headers }).subscribe(
-  //       (response: any) => {
-
-  //         this.isDateAvailable = response === 1 || (response && response.preview === 1);
-  //       },
-  //       (error) => {
-
-  //       }
-  //     );
-  //   }
-  // }
+ 
 
   // generateReport() {
   //   const startDate = moment(this.selected.startDate).format('YYYY-MM-DD');

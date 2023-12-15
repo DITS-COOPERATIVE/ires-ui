@@ -3,21 +3,18 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ServiceResponse, ServiceService } from '../services/service.service';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ReservationResponse {
 
-  constructor( private serviceService: ServiceService, ) { }
-  service_id!: number;
-  customer_id!:string;
-  customer_name!: string;
-  service: ServiceResponse[] = [];
-  status!:string;
-  when!: string;
-  location!: string;
-  created_at!: string;
-  updated_at!: string;
+export interface ReservationResponse {
+  id:number;
+  service_id: number;
+  customer_id:string;
+  customer_name: string;
+  service: ServiceResponse[];
+  status:string;
+  when: string;
+  location: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface ReservationResponseType {
@@ -63,7 +60,7 @@ export class ReservationService {
     );
   }
 
-  destroyService(reservationId: number) {
+  destroyReservation(reservationId: number) {
     return this.httpClient.delete(`${this.domain}${this.endpoint}${reservationId}`);
   }
 }

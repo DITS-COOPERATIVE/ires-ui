@@ -7,6 +7,7 @@ import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SearchService } from 'src/app/shared/search.service';
 import { NgToastService } from 'ng-angular-popup';
+import { AppearanceAnimation, ConfirmBoxInitializer, DialogLayoutDisplay, DisappearanceAnimation } from '@costlydeveloper/ngx-awesome-popup';
 
 @Component({
   selector: 'app-customer-page',
@@ -74,7 +75,7 @@ export class CustomerPageComponent {
           this.customers = this.customers.filter((item) => {
             return (
               item.id.toString() === query ||
-              item.full_name.toLowerCase().includes(query.toLowerCase()) ||
+              (item.full_name && item.full_name.toLowerCase().includes(query.toLowerCase())) ||
               item.barcode.toString() === query
             );
           });
@@ -88,6 +89,7 @@ export class CustomerPageComponent {
           this.isLoading = false;
         });
       } else {
+        this.customers = [];
         this.getCustomersLists();
       }
     } catch (error) {
@@ -243,19 +245,37 @@ export class CustomerPageComponent {
     return index * spacing;
   }
 
-  deleteCustomer(event: any, customerId: number) {
-    if (confirm('Are you sure you want to delete this customer?')) {
-      event.target.innerText = 'Deleting...';
 
-      this.customersService
-        .destroyCustomer(customerId)
-        .subscribe((res: any) => {
-          this.getCustomersLists();
-
-          alert(res.message);
-        });
-    }
+  deleteCustomer(productId: number) {
+    const newConfirmBox = new ConfirmBoxInitializer();
+  
+    newConfirmBox.setTitle('Confirm Deletion!');
+    newConfirmBox.setMessage('Are you sure you want to delete this Item?');
+  
+    newConfirmBox.setConfig({
+      layoutType: DialogLayoutDisplay.DANGER,
+      animationIn: AppearanceAnimation.BOUNCE_IN,
+      animationOut: DisappearanceAnimation.BOUNCE_OUT,
+      buttonPosition: 'right',
+    });
+  
+    newConfirmBox.setButtonLabels('Yes', 'No');
+  
+    newConfirmBox.openConfirmBox$().subscribe({
+      next: (resp) => {
+        if (resp.clickedButtonID === 'yes') {
+          this.customersService.destroyCustomer(productId).subscribe({
+            next: (resp: any) => {
+              this.getCustomersLists();
+            },
+          });
+        } else {
+        }
+      },
+    });
+    
   }
+
   getRandomColor(): string {
     const letters = '0123456789ABCDEF';
     let color = '#';

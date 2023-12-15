@@ -59,20 +59,19 @@
       <label for="">Status</label>
       <select name="status" [(ngModel)]="status" class="form-control mb-3">
         <option value="Pending">Pending</option>
-        <option value="Waiting">Waiting</option>
         <option value="Cancelled">Cancelled</option>
         <option value="Paid">Paid</option>
       </select>
       <p *ngIf="errors.status" class="text-danger">{{
         errors.status
       }}</p>
-      <button
-        class="btn btn-sm btn-outline-primary d-flex m-auto mb-3 mt-4"
-        (click)="saveReservation()"
-        [disabled]="!isDateAvailable"
-      >
-        Reserve
-      </button>
+     <button
+     class="btn btn-sm btn-outline-primary d-flex m-auto mb-3 mt-4"
+     (click)="saveOrUpdateReservation()"
+     [disabled]="!isDateAvailable"
+   >
+     {{ isUpdateMode ? 'Update' : 'Reserve' }}
+   </button>
     </div>
     <div class="col-lg-8">
       <table class="table shadow">
@@ -83,6 +82,7 @@
             <th>Service</th>
             <th>Location</th>
             <th>Status</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -93,6 +93,9 @@
               <td>{{ getServiceType(item.service_id) }}</td>
               <td>{{ item.location }}</td>
               <td>{{ item.status }}</td>
+              <td><a (click)="  deleteReservation(item.id)" class="btn btn-sm btn-danger">
+                <i class="fa fa-trash text-white"></i>
+              </a></td>
             </tr>
           </ng-container>
           <ng-template #noData>

@@ -29,9 +29,12 @@
       <span *ngIf="errors.type" class="alert alert-danger p-1">{{
         errors.type
         }}</span>
-      <button type="submit" class="btn btn-outline-primary btn-sm m-auto d-flex mb-5 mt-2" (click)="saveService()">
-        submit
-      </button>
+<button
+class="btn btn-sm btn-outline-primary d-flex m-auto mb-3 mt-4"
+(click)=" saveOrupadateService()"
+>
+{{ isUpdateMode ? 'Update' : 'Submit' }}
+</button>
     </div>
     <div class="col-lg-8">
       <table class="table shadow">
@@ -49,10 +52,9 @@
               <td>{{ item.name }}</td>
               <td>₱ {{ item.price }}</td>
               <td>{{ item.type }}</td>
-              <td> <a  class="btn btn-sm btn-danger">
-                  <i class="fa fa-trash-alt text-white"></i>
-                </a></td>
-                <!-- (click)="deleteProduct(item.id)" -->
+              <td> <a (click)="  deleteReservation(item.id)" class="btn btn-sm btn-danger">
+                <i class="fa fa-trash text-white"></i>
+              </a></td>
             </tr>
           </ng-container>
           <ng-template #noServiceData>

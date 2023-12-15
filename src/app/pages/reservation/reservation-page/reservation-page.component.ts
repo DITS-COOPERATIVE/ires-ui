@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AppearanceAnimation, ConfirmBoxInitializer, DialogLayoutDisplay, DisappearanceAnimation } from '@costlydeveloper/ngx-awesome-popup';
+import { NgToastService } from 'ng-angular-popup';
 import { forkJoin } from 'rxjs';
 import { CustomersResponse, CustomersService } from 'src/app/services/customers/customers.service';
 import { ReservationResponse, ReservationService } from 'src/app/services/reservation/reservation.service';
@@ -14,13 +17,11 @@ import { environment } from 'src/environments/environment';
 export class ReservationPageComponent {
   private domain: string | undefined;
   constructor(private serviceService: ServiceService, private customersService: CustomersService, 
-    private reservationService: ReservationService, private http: HttpClient) {   this.domain = environment.domain;}
+    private route: ActivatedRoute,
+    private reservationService: ReservationService, private http: HttpClient,
+    private toast: NgToastService) {   this.domain = environment.domain;}
   
-    ngOnInit() {
-      this.getCustomersLists();
-      this.getServiceLists();
-      this.getReservationLists();
-    } 
+ 
     
   services: ServiceResponse[] = [];
   reservation: ReservationResponse[] = [];
@@ -35,20 +36,30 @@ export class ReservationPageComponent {
   when!: string;
   location!: string;
   isDateAvailable: boolean = true;
-  selectedItem: any; // Define a variable to hold the selected item
+  selectedItem: any; 
+  reservationId!: any;
+  isUpdateMode: boolean = false;
 
-  // Method to handle row selection
+
   selectRow(item: any) {
-    this.selectedItem = item; // Set the selected item
-    // Update the form fields with the selected item's data
+    this.selectedItem = item; 
     this.customer_name = item.customer_name;
     this.service_id = item.service_id;
     this.when = item.when;
     this.location = item.location;
     this.status = item.status;
+    this.isUpdateMode = true;
   }
-  saveReservation() {
-    var inputData = {
+
+
+  ngOnInit() { 
+    this.getCustomersLists();
+    this.getServiceLists();
+    this.getReservationLists();
+  } 
+
+  saveOrUpdateReservation() {
+    const inputData = {
       service_id: this.service_id,
       customer_name: this.customer_name,
       status: this.status,
@@ -56,26 +67,53 @@ export class ReservationPageComponent {
       location: this.location
     };
 
-    this.reservationService.saveReservation(inputData).subscribe({
-      next: (res: any) => {
-        this.service_id = 0;
-        this.customer_name = '';
-        this.status = '';
-        this.when = '';
-        this.location = '';
-        this.successMessage = 'Success! Product saved.';
-        setTimeout(() => (this.successMessage = null), 1500);
-        this.isLoading = false;
-        this.errors = {};
-        this.getReservationLists();
-      },
-
-      error: (err: any) => {
-        this.errors = err.error.errors;
-        this.isLoading = false;
-      },
-    });
+    if (this.isUpdateMode) {
+      this.reservationService.updateReservation(inputData, this.selectedItem.id).subscribe({
+        next: (res: any) => {
+          this.resetForm();
+          this.toast.success({detail:"SUCCESS",summary:'Succesfully Updated!',duration:3000, position:'topCenter'});
+          this.successMessage = 'Success! Reservation updated.';
+          setTimeout(() => (this.successMessage = null), 1500);
+          this.isUpdateMode = false; 
+        },
+        error: (err: any) => {
+          this.toast.error({detail:"ERROR",summary:'Failed to Update!',duration:3000, position:'topCenter'});
+          this.errors = err.error.errors;
+          this.isLoading = false;
+        },
+      });
+    } else {
+  
+      this.reservationService.saveReservation(inputData).subscribe({
+        next: (res: any) => {
+   
+          this.resetForm();
+          this.toast.success({detail:"SUCCESS",summary:'Succesfully Save!',duration:3000, position:'topCenter'});
+          this.successMessage = 'Success! Reservation saved.';
+          setTimeout(() => (this.successMessage = null), 1500);
+        },
+        error: (err: any) => {
+          this.toast.error({detail:"ERROR",summary:'Falied to Save!',duration:3000, position:'topCenter'});
+ 
+          this.errors = err.error.errors;
+          this.isLoading = false;
+        },
+      });
+    }
   }
+
+  resetForm() {
+
+    this.service_id = 0;
+    this.customer_name = '';
+    this.status = '';
+    this.when = '';
+    this.location = '';
+    this.isLoading = false;
+    this.errors = {};
+    this.getReservationLists();
+  }
+
   getCustomersLists() {
     try {
       this.isLoading = true;
@@ -139,5 +177,35 @@ export class ReservationPageComponent {
         }
       );
     }
+  }
+  
+  deleteReservation(reservationId: number) {
+    const newConfirmBox = new ConfirmBoxInitializer();
+  
+    newConfirmBox.setTitle('Confirm Deletion!');
+    newConfirmBox.setMessage('Are you sure you want to delete this Item?');
+  
+    newConfirmBox.setConfig({
+      layoutType: DialogLayoutDisplay.DANGER,
+      animationIn: AppearanceAnimation.BOUNCE_IN,
+      animationOut: DisappearanceAnimation.BOUNCE_OUT,
+      buttonPosition: 'right',
+    });
+  
+    newConfirmBox.setButtonLabels('Yes', 'No');
+  
+    newConfirmBox.openConfirmBox$().subscribe({
+      next: (resp) => {
+        if (resp.clickedButtonID === 'yes') {
+          this.reservationService.destroyReservation(reservationId).subscribe({
+            next: (resp: any) => {
+              this.getReservationLists();
+            },
+          });
+        } else {
+        }
+      },
+    });
+    
   }
 }

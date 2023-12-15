@@ -159,8 +159,10 @@
                   placeholder=""
                   [value]="product.quantity"
                   [(ngModel)]="product.quantity"
+                  [class.editable]="isEditable"
+                  [readonly]="isReadOnly"
                   #productQuantityInput
-                  readonly
+                 
                 />
                 <span *ngIf="errors.quantity" class="text-danger">{{
                   errors.quantity

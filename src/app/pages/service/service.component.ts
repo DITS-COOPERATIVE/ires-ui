@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AppearanceAnimation, ConfirmBoxInitializer, DialogLayoutDisplay, DisappearanceAnimation } from '@costlydeveloper/ngx-awesome-popup';
+import { NgToastService } from 'ng-angular-popup';
 import { CustomersResponse, CustomersService } from 'src/app/services/customers/customers.service';
 import { ReservationResponse, ReservationService } from 'src/app/services/reservation/reservation.service';
 import { ServiceResponse, ServiceService } from 'src/app/services/services/service.service';
@@ -10,7 +12,7 @@ import { ServiceResponse, ServiceService } from 'src/app/services/services/servi
 })
 export class ServiceComponent {
   constructor(private serviceService: ServiceService, private customersService: CustomersService, 
-    private reservationService: ReservationService) {}
+    private toast: NgToastService, private reservationService: ReservationService) {}
   services: ServiceResponse[] = [];
   reservation: ReservationResponse[] = [];
   name!: string;
@@ -21,19 +23,23 @@ export class ServiceComponent {
   errors: any = [];
   isLoading: boolean = false;
   selectedService: any;
+  isUpdateMode: boolean = false;
+
+
   ngOnInit() {
 
     this.getServiceLists();
 
   } 
   editService(service: any) {
-    this.selectedService = { ...service }; // Copy the clicked service to the selectedService variable
-    // Update the form fields using the details of this.selectedService
+    this.selectedService = { ...service }; 
     this.name = this.selectedService.name;
     this.price = this.selectedService.price;
     this.type = this.selectedService.type;
+    this.isUpdateMode = true;
   }
-  saveService() {
+
+  saveOrupadateService() {
     var inputData = {
       name: this.name,
       type: this.type,
@@ -41,7 +47,23 @@ export class ServiceComponent {
       status: this.status,
     };
 
-    this.serviceService.saveService(inputData).subscribe({
+    if (this.isUpdateMode){
+      this.reservationService.updateReservation(inputData, this.  selectedService.id).subscribe({
+        next: (res: any) => {
+          this.resetForm();
+          this.toast.success({detail:"SUCCESS",summary:'Succesfully Updated!',duration:3000, position:'topCenter'});
+          this.successMessage = 'Success! Reservation updated.';
+          setTimeout(() => (this.successMessage = null), 1500);
+          this.isUpdateMode = false; 
+        },
+        error: (err: any) => {
+          this.toast.error({detail:"ERROR",summary:'Failed to Update!',duration:3000, position:'topCenter'});
+          this.errors = err.error.errors;
+          this.isLoading = false;
+        },
+      });
+    }else{
+      this.serviceService.saveService(inputData).subscribe({
       next: (res: any) => {
         this.name = '';
         this.price = '';
@@ -60,6 +82,14 @@ export class ServiceComponent {
       },
     });
   }
+  }
+  resetForm() {
+
+    this.name = '';
+    this.price = '';
+    this.type = '';
+    this.getServiceLists();
+  }
 
   getServiceLists(){
   
@@ -70,6 +100,36 @@ export class ServiceComponent {
     } catch (error) {
       this.errors = error
     };
+    
+  }
+
+  deleteReservation(serviceId: number) {
+    const newConfirmBox = new ConfirmBoxInitializer();
+  
+    newConfirmBox.setTitle('Confirm Deletion!');
+    newConfirmBox.setMessage('Are you sure you want to delete this Item?');
+  
+    newConfirmBox.setConfig({
+      layoutType: DialogLayoutDisplay.DANGER,
+      animationIn: AppearanceAnimation.BOUNCE_IN,
+      animationOut: DisappearanceAnimation.BOUNCE_OUT,
+      buttonPosition: 'right',
+    });
+  
+    newConfirmBox.setButtonLabels('Yes', 'No');
+  
+    newConfirmBox.openConfirmBox$().subscribe({
+      next: (resp) => {
+        if (resp.clickedButtonID === 'yes') {
+          this.serviceService.destroyService(serviceId).subscribe({
+            next: (resp: any) => {
+              this.getServiceLists();
+            },
+          });
+        } else {
+        }
+      },
+    });
     
   }
 }

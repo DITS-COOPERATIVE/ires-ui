@@ -35,10 +35,9 @@ export class ProductCreateComponent {
 
   isLoading: boolean = false;
   loadingTitle: string = 'Loading';
-  ngOnInit() {
 
+  ngOnInit() {
     this.getProductsLists();
-    this.addRow();
 
   }
   

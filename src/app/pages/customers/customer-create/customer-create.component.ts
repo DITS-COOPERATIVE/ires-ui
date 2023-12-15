@@ -57,7 +57,6 @@ export class CustomerCreateComponent {
       privilege: this.privilege,
       points: this.points,
       image: this.image,
-      barcode: this.barcode
     };
 
     this.customersService.saveCustomer(inputData).subscribe({

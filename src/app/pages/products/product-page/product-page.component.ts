@@ -28,7 +28,7 @@ export class ProductPageComponent {
 
   ngOnInit() {
     this.searchService.searchQuery$.subscribe((query) => {
-      this.searchsCustomer(query);
+      this.searchsProduct(query);
     });
     this.getProductsLists();
   }
@@ -61,7 +61,7 @@ export class ProductPageComponent {
     };
   }
 
-  searchsCustomer(query: string) {
+  searchsProduct(query: string) {
     try {
       this.isLoading = true;
 
@@ -69,11 +69,10 @@ export class ProductPageComponent {
         this.productsService.getProductsLists().subscribe((res) => {
           this.products = res;
 
-          console.log(res);
           this.filteredProducts  = this.products .filter((item) => {
             return (
               item.id.toString() === query ||
-              item.name.toString().toLowerCase().includes(query.toLowerCase()) ||
+              (item.name && item.name.toString().toLowerCase().includes(query.toLowerCase())) ||
               item.barcode.toString() === query
             );
           });
@@ -88,6 +87,7 @@ export class ProductPageComponent {
           this.isLoading = false;
         });
       } else {
+        this.filteredProducts = [];
         this.getProductsLists();
       }
     } catch (error) {
