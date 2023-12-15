@@ -106,10 +106,6 @@ export class ReportsComponent implements OnInit {
     this.getServiceLists();
   }
 
-  // toggleForm() {
-  //   this.showSecondForm = !this.showSecondForm;
-  //   this.buttonLabel = this.showSecondForm ? 'Sales Report' : 'Inventory Report';
-  // }
   getServiceLists(){
   
     try {
@@ -204,91 +200,98 @@ export class ReportsComponent implements OnInit {
     const service = this.services.find((service) => service.id === serviceId);
     return service ? service.price : '';
   }
-  // generateReport() {
-  //   const startDate = moment(this.selected.startDate).format('YYYY-MM-DD');
-  //   const endDate = moment(this.selected.endDate).format('YYYY-MM-DD');
+  printReport() {
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      const reportTable = document.getElementById('reportTable');
+      if (reportTable) {
+        printWindow.document.write(`
+          <html>
+            <head>
+              <title>DTIS Report</title>
+              <style>
+                body {
+                  font-family: 'Arial', sans-serif;
+                  margin: 10px;
+                }
+                table {
+                  width: 100%;
+                  border-collapse: collapse;
+                }
+                th, td {
+                  border: 1px solid #dddddd;
+                  text-align: left;
+                  padding: 8px;
+                }
+                th {
+                  background-color: #f2f2f2;
+                }
+              </style>
+            </head>
+            <body>
+              <table>
+                ${reportTable.innerHTML}
+              </table>
+            </body>
+          </html>
+        `);
+        printWindow.print();
+      } else {
+        console.error('Report table element not found');
+      }
+    } else {
+      console.error('Failed to open print window');
+    }
+  }
+ 
+  printServiceReport() {
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      const reportServiceModal = document.getElementById('reportServiceModal');
+      if (reportServiceModal) {
+        const modalContent = reportServiceModal.innerHTML;
+        printWindow.document.write(`
+          <html>
+            <head>
+              <title>DTIS Report</title>
+              <style>
+                body {
+                  font-family: 'Arial', sans-serif;
+                  margin: 10px;
+                }
+                table {
+                  width: 100%;
+                  border-collapse: collapse;
+                }
+                th, td {
+                  border: 1px solid #dddddd;
+                  text-align: left;
+                  padding: 8px;
+                }
+                th {
+                  background-color: #f2f2f2;
+                }
+              </style>
+            </head>
+            <body>
+              ${modalContent}
+            </body>
+          </html>
+        `);
+        printWindow.print();
+      } else {
+        console.error('ReportServiceModal element not found');
+      }
+    } else {
+      console.error('Failed to open print window');
+    }
+  }
+  
 
-  //   const filteredOrders = this.orders.filter(order => {
-  //     const orderDate = moment(order.created_at).format('YYYY-MM-DD');
-  //     return moment(orderDate).isBetween(startDate, endDate, undefined, '[]' );
-  //   });
-
-  //   const reportData = filteredOrders.map((order, index) => {
-  //     const customer = this.customers.find(cust => cust.id === order.customer_id);
-  //     const product = this.products.find(prod => prod.id === order.id);
-
-  //     return {
-  //       id: index + 1,
-  //       customer: customer?.full_name,
-  //       product: product?.name,
-  //       quantity: order.quantity,
-  //       total: order.total
-
-  //     };
-
-  //   });
-
-  //   this.reportData = reportData;
-  //   return reportData;
-  // }
-
-  // printInventoryReport() {
-  //   const doc = new jsPDF();
-
-  //   const headers = ['ID', 'Item Code', 'Name', 'Low Stock Alert', 'Over Stock Alert', 'Stock', 'Status'];
-
-  //     this.generateReports().subscribe((item:any[])=> {
-  //     const data = item.map(item => [
-  //       item.id.toString(),
-  //       item.customer || '-',
-  //       item.product,
-  //       item.quantity.toString(),
-  //       item.total.toString()
-  //     ]);
-  //     (doc as any).autoTable({
-  //       head: [headers],
-  //       body: data,
-  //       styles: { cellPadding: 1, fontSize: 8 },
-  //       margin: { top: 15 },
-  //     });
-
-  //     doc.save('report.pdf');
-  //   });
-  // }
-
-  // printSalesReport() {
-  //   const doc = new jsPDF();
-
-  //   const headers = ['ID', 'Customer', 'Product', 'Quantity', 'Sale','Availabe Stocks'];
-
-  //   const data = this.generateReport().map(item => [
-  //     item.id.toString(),
-  //     item.customer || '-',
-  //     item.product,
-  //     item.quantity.toString(),
-  //     item.total.toString()
-  //   ]);
-
-  //  ( doc as any).autoTable({
-  //     head: [headers],
-  //     body: data,
-  //     styles: { cellPadding: 1, fontSize: 8 },
-  //     margin: { top: 15 },
-  //   });
-
-  //   doc.save('report.pdf');
-  // }
 
   generateSalesReports() {
     this.showSalesModal = true;
   }
-  // generateInventoryReports() {
-
-  //   this.reportData = [
-  //   ];
-
-  //   this.showStockModal = true;
-  // }
 
   closeModal() {
     this.showServiceModal = false;
