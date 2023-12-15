@@ -208,7 +208,7 @@ export class ReportsComponent implements OnInit {
         printWindow.document.write(`
           <html>
             <head>
-              <title>DTIS Report</title>
+              <title>DITS Report</title>
               <style>
                 body {
                   font-family: 'Arial', sans-serif;
