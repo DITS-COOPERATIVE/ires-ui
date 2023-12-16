@@ -27,7 +27,10 @@ export class AuthenticationService {
     const token = localStorage.getItem('token');
     return !!token;
   }
-
+  getUserName(): string | null {
+    const userData = JSON.parse(localStorage.getItem('user') as string);
+    return userData?.name || null;
+  }
   storeToken(token: string, user: Object): void {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));

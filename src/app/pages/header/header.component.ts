@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
   userItems: UserItem[] = [];
   notification: any[] = [];
   unreadCount: number = 0;
-
+  userName!: string | null ;
   
 
   constructor(private authService: AuthenticationService,  private searchService: SearchService, 
@@ -81,12 +81,17 @@ export class HeaderComponent implements OnInit {
   }
 
 
+  getName() {
+    this.userName = this.authService.getUserName();
+  }
   ngOnInit(): void {
     this.notificationService.notification$.subscribe((notification) => {
       this.notification.unshift(notification);
     });
     this.checkCanShowSearchAsOverlay(window.innerWidth);
     this.updateUserItems();
+      this.getName();
+  
   }
 
   getHeadClass(): string {

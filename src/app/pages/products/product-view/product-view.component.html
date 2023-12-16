@@ -22,20 +22,19 @@
       </div>
       <div class="prodKitting">
         <h3 class="text-center mt-2">Sub Product</h3>
-        <div class="col-md-12 border p-2 d-flex align-items-center">
-          <div class="col-md-6">
-            <img
-              src="https://images.unsplash.com/photo-1592743263126-bb241ee76ac7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhdXRpZnVsJTIwc2NlbmVyeXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
-              class="rounded-circle"
-              width="50"
-              height="50"
-            />
+            <div class="d-flex flex-column"  *ngIf="!isLoading && product" >
+              <div *ngFor="let subProduct of product.sub_products" class="d-flex align-items-center border mb-3 p-2 justify-content-between">
+                <div>
+                  <img [src]="subProduct.image ? subProduct.image : 'https://via.placeholder.com/50'" class="rounded-circle" width="50" height="50" />
+                </div>
+                <div>
+                  <span class="me-4">{{ subProduct.name }}</span>
+                </div>
+                <div *ngIf="isEditing">
+                  <span> <i class="fa fa-trash"></i> </span>
+                </div>
+            </div>
           </div>
-          <div class="col-md-6 text-center">
-            <span>John Doe</span>
-          </div>
-        </div>
-        <br />
       </div>
     </div>
     <div class="col-lg-9">

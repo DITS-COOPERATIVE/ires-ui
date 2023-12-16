@@ -78,3 +78,7 @@ input,select:focus{
   .form-control:disabled {
     background-color: white;
   }
+  .prodImage{
+    display: flex;
+    justify-content: center;
+  }

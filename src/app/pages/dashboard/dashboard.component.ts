@@ -270,9 +270,6 @@ updateTopSellingProducts() {
       });
   }
 
-  activateCard(index: number): void {
-    this.activeCardIndex = index;
-  }
 
 
   formatDate(date: string): string {

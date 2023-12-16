@@ -100,5 +100,6 @@ table{
   margin: auto;
 }
 td{
-  margin: 10px;
+  padding-right: 20px;
+  padding-bottom: 20px;
 }

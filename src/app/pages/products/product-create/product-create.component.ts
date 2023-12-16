@@ -27,6 +27,7 @@ export class ProductCreateComponent {
   points!: string
   subID!: string;
   subQuan!: number;
+  showHeaders: boolean = false;
   errors: any = [];
   i!: number;
   subProducts: { id: string; qty: number }[] = [];
@@ -73,6 +74,7 @@ export class ProductCreateComponent {
   }
 
   addRow() {
+    this.showHeaders = true;
     this.rows.push({ subID: '', subQuan: null });
   }
   
