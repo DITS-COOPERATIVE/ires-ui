@@ -31,7 +31,7 @@
                   <span class="me-4">{{ subProduct.name }}</span>
                 </div>
                 <div *ngIf="isEditing">
-                  <span> <i class="fa fa-trash"></i> </span>
+                  <span (click)="deleteSubProduct(product.id, subProduct.id)"><i class="fa fa-trash"></i> </span>
                 </div>
             </div>
           </div>

@@ -67,6 +67,7 @@ export class CustomerCreateComponent {
         this.email = '';
         this.address = '';
         this.privilege = '';
+        this.mobile_no = '';
         this.points = 0;
         this.image = '';
         this.selectedImage = '';

@@ -32,8 +32,6 @@ export class ProductCreateComponent {
   i!: number;
   subProducts: { id: string; qty: number }[] = [];
   newSubProduct: { id: string; qty: number } = { id: '', qty: 0 };
-
-
   isLoading: boolean = false;
   loadingTitle: string = 'Loading';
 
@@ -76,13 +74,17 @@ export class ProductCreateComponent {
   addRow() {
     this.showHeaders = true;
     this.rows.push({ subID: '', subQuan: null });
+    if (this.rows.length >= 3) {
+      
+    }
+
   }
   
   submitForm() {
     this.subProducts = this.rows.map(row => ({ id: row.subID, qty: row.subQuan }));
     this.saveProduct();
 
-  }
+}
 
   saveProduct() {
     this.loadingTitle = 'Saving';
@@ -112,12 +114,12 @@ export class ProductCreateComponent {
         this.selectedImage = '';
         this.subID = '';
         this.subQuan = 0;
-        this.toast.success({detail:"SUCCESS",summary:'Added Product',duration:5000, position:'topCenter'});
+        this.toast.success({detail:"SUCCESS",summary:'Product Added',duration:5000, position:'topCenter'});
         this.isLoading = false;
         this.errors = {};
       },
       error: (err: any) => {
-        this.toast.error({detail:"ERROR",summary:'Failed to Added Product',duration:5000, position:'topCenter'});
+        this.toast.error({detail:"ERROR",summary:'Failed to add product',duration:5000, position:'topCenter'});
         this.errors = err.error.errors;
         this.isLoading = false;
       }

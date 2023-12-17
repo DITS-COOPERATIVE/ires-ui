@@ -117,18 +117,18 @@ export class HeaderComponent implements OnInit {
   
     if (userRole === Role.ADMIN) {
       this.userItems  = [
-        {
-          routeLink: 'profile',
-          icon: 'far fa-user',
-          label: 'Profile',
-          disabled: false,
-        },
-        {
-          routeLink: 'settings',
-          icon: 'far fa-cog',
-          label: 'Setting',
-          disabled: false,
-        },
+        // {
+        //   routeLink: 'profile',
+        //   icon: 'far fa-user',
+        //   label: 'Profile',
+        //   disabled: false,
+        // },
+        // {
+        //   routeLink: 'settings',
+        //   icon: 'far fa-cog',
+        //   label: 'Setting',
+        //   disabled: false,
+        // },
         {
           icon: 'far fa-power-off',
           label: 'Logout',

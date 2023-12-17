@@ -4,6 +4,7 @@ import { ProductsResponse, ProductsService } from 'src/app/services/products/pro
 import { NgToastService } from 'ng-angular-popup';
 import { ModalComponent } from 'src/app/shared/modal/modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AppearanceAnimation, ConfirmBoxInitializer, DialogLayoutDisplay, DisappearanceAnimation } from '@costlydeveloper/ngx-awesome-popup';
 @Component({
   selector: 'app-product-view',
   templateUrl: './product-view.component.html',
@@ -17,6 +18,8 @@ export class ProductViewComponent {
   category: string = '';
   productId!: any;
   product: any = {};
+  products: ProductsResponse [] =[];
+  filteredProducts: any[] = [];
 
   errors: any = [];
   isLoading: boolean = false;
@@ -29,6 +32,7 @@ export class ProductViewComponent {
   ) {}
 
   ngOnInit() {
+    this.getProductsLists()
     this.productId = this.route.snapshot.paramMap.get('id');
     this.isLoading = true;
     this.productsService.getProduct(this.productId).subscribe((res) => {
@@ -116,4 +120,50 @@ export class ProductViewComponent {
     });
   }
 
+  getProductsLists(){
+    try {
+      this.isLoading = true;
+
+      this.productsService.getProductsLists().subscribe((res) =>{
+        this.products = res;
+        this.filteredProducts = this.products
+        this.products = res.sort((a, b) => a.name.localeCompare(b.name));
+        this.isLoading = false
+  
+      })
+    } catch (error) {
+      this.errors = error
+    };
+  }
+
+  deleteSubProduct(productId: number, subProductId: number) {
+    const newConfirmBox = new ConfirmBoxInitializer();
+  
+    newConfirmBox.setTitle('Confirm Deletion!');
+    newConfirmBox.setMessage('Are you sure you want to delete this Item?');
+  
+    newConfirmBox.setConfig({
+      layoutType: DialogLayoutDisplay.DANGER,
+      animationIn: AppearanceAnimation.BOUNCE_IN,
+      animationOut: DisappearanceAnimation.BOUNCE_OUT,
+      buttonPosition: 'right',
+    });
+  
+    newConfirmBox.setButtonLabels('Yes', 'No');
+  
+    newConfirmBox.openConfirmBox$().subscribe({
+      next: (resp) => {
+        if (resp.clickedButtonID === 'yes') {
+          this.productsService.deleteSubProduct(productId, subProductId).subscribe({
+            next: (resp: any) => {
+              this.getProductsLists();
+              
+            },
+          });
+        } else {
+        }
+      },
+    });
+    
+  }
 }

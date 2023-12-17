@@ -87,7 +87,7 @@
         </thead>
         <tbody>
           <ng-container *ngIf="reservation.length > 0; else noData">
-            <tr *ngFor="let item of reservation" (click)="selectRow(item)" [class.selected]="item === selectedItem">
+            <tr *ngFor="let item of reservation" [class.selected]="item === selectedItem">
               <td>{{ item.customer_name }}</td>
               <td>{{ item.when | date : "MMMM dd, yyyy" }}</td>
               <td>{{ getServiceType(item.service_id) }}</td>
@@ -95,6 +95,9 @@
               <td>{{ item.status }}</td>
               <td *ngIf="permissionService.canAccess(['Admin'])"><a  (click)="deleteReservation(item.id)" class="btn btn-sm btn-danger">
                 <i class="fa fa-trash text-white"></i>
+              </a> &nbsp;
+              <a (click)="selectRow(item)" class="btn btn-sm btn-success">
+                <i class="fa fa-pencil text-white"></i>
               </a></td>
             </tr>
           </ng-container>

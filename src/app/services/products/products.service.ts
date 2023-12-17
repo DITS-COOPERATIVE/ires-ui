@@ -70,4 +70,9 @@ export class ProductsService {
   destroyProduct(productId: number) {
     return this.httpClient.delete(`${this.domain}${this.endpoint}${productId}`);
   }
+  
+  deleteSubProduct(productId: number, subProductId: number) {
+    return this.httpClient.delete(`${this.domain}${this.endpoint}${productId}/sub-products/${subProductId}`);
+  }
+  
 }
