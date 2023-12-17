@@ -208,9 +208,14 @@ export class TransactionPageComponent {
   getTotalPrice(): number {
     return this.cart.reduce((total, item) => {
       const itemPrice = parseFloat(item.price) || 0;
-      return total + itemPrice * item.quantity;
+      const itemQuantity = item.quantity || 0;
+      const itemDiscount = item.discount || 0;  
+      const discountedPrice = itemPrice - (itemPrice * itemDiscount / 100);
+      return total + discountedPrice * itemQuantity;
     }, 0);
   }
+  
+  
 
   getTotalQuantity(): number {
     return this.cart.reduce((total, item) => total + item.quantity, 0);
