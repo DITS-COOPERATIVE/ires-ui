@@ -6,9 +6,9 @@ export const navbarData =[
         roles: ['Admin']
     },
     {
-        routeLink: 'orders',
-        icon: 'fal fa-shopping-cart',
-        label: 'Orders',
+        routeLink: 'customers',
+        icon: 'fal fa-users',
+        label: 'Customers',
         roles: ['Admin']
     },
     {
@@ -18,11 +18,13 @@ export const navbarData =[
         roles: ['Admin']
     },
     {
-        routeLink: 'customers',
-        icon: 'fal fa-users',
-        label: 'Customers',
+        routeLink: 'orders',
+        icon: 'fal fa-shopping-cart',
+        label: 'Orders',
         roles: ['Admin']
     },
+   
+   
     {
         routeLink: 'reservations',
         icon: 'far fa-calendar-alt',
@@ -38,7 +40,7 @@ export const navbarData =[
     {
         routeLink: 'stocks',
         icon: 'fal fa-chart-bar',
-        label: 'Stock',
+        label: 'Stocks',
         roles: ['Admin']
     },
     {
