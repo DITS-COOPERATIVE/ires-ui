@@ -43,6 +43,9 @@
       {{ columnHeaders[column] }}
     </th>
     <td mat-cell *matCellDef="let product">
+      <ng-container *ngIf="column === 'name'">
+        <a [routerLink]="['/products', product.id, 'edit']">{{ product.name }}</a>
+      </ng-container>
       <ng-container *ngIf="column === 'price'">
         {{ product[column] | currency:'PHP':'symbol':'1.2-2' }}
       </ng-container>
@@ -62,9 +65,10 @@
           </span>
         </ng-template>
       </ng-container>
-      <ng-container *ngIf="column !== 'price' && column !== 'quantity'">
+      <ng-container *ngIf="column !== 'price' && column !== 'quantity'&& column !=='name'">
         {{ product[column] }}
       </ng-container>
+      
     </td>
   </ng-container>
 

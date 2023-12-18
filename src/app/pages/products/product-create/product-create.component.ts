@@ -98,14 +98,16 @@ saveProduct() {
   this.isLoading = true;
 
   const productData = new FormData();
+  const formattedPrice = parseFloat(this.price).toFixed(2);
 
   if (this.image) {
-    productData.append('image', this.image, this.image.name); // Append the File object to the FormData
+    productData.append('image', this.image, this.image.name); 
+    
   }
 
   productData.append('name', this.name);
   productData.append('model', this.model);
-  productData.append('price', this.price);
+  productData.append('price', formattedPrice);
   productData.append('quantity', this.quantity);
   productData.append('category', this.category);
   productData.append('points', this.points);
