@@ -38,7 +38,6 @@ export class OrdersViewComponent {
           (res) => {
             this.orderDetails = res;
             this.customer = res.customer? res.customer:{};
-            console.log(this.orderDetails);
             this.isLoading = false;
           }
           
@@ -56,6 +55,7 @@ export class OrdersViewComponent {
       this.customersService.getCustomersLists().subscribe((res) => {
         this.customers = res;
         this.isLoading = false;
+       
       });
     } catch (error) {
       this.errors = error;

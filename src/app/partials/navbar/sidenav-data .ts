@@ -8,19 +8,19 @@ export const navbarData =[
     {
         routeLink: 'orders',
         icon: 'fal fa-shopping-cart',
-        label: 'Order',
+        label: 'Orders',
         roles: ['Admin']
     },
     {
         routeLink: 'products',
         icon: 'fal fa-box-open',
-        label: 'Product',
+        label: 'Products',
         roles: ['Admin']
     },
     {
         routeLink: 'customers',
         icon: 'fal fa-users',
-        label: 'Customer',
+        label: 'Customers',
         roles: ['Admin']
     },
     {
@@ -35,12 +35,12 @@ export const navbarData =[
         label: 'Reports',
         roles: ['Admin']
     },
-    // {
-    //     routeLink: 'stocks',
-    //     icon: 'fal fa-chart-bar',
-    //     label: 'Stock',
-    //     roles: ['Admin']
-    // },
+    {
+        routeLink: 'stocks',
+        icon: 'fal fa-chart-bar',
+        label: 'Stock',
+        roles: ['Admin']
+    },
     {
         routeLink: 'transactions',
         icon: 'fal fa-cash-register',

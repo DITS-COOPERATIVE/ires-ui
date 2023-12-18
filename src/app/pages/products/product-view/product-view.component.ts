@@ -64,7 +64,6 @@ export class ProductViewComponent {
 
   updateProduct() {
     var inputData = {
-      image: this.product.image,
       name: this.product.name,
       model: this.product.model,
       code: this.product.code,

@@ -7,16 +7,15 @@
     <div class="col">
       <div class="prodImage">
         <label for="image-upload" class="image-label">
-          <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2f9e8780-1e9b-4920-85b8-bb5270cb1e1e/dg37osc-1d6b2c2a-f025-4881-b742-47b6408f1d6c.jpg/v1/fill/w_1280,h_1703,q_75,strp/gojo_satoru_jujutsu_kaisen_season_2_by_nico2713_dg37osc-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTcwMyIsInBhdGgiOiJcL2ZcLzJmOWU4NzgwLTFlOWItNDkyMC04NWI4LWJiNTI3MGNiMWUxZVwvZGczN29zYy0xZDZiMmMyYS1mMDI1LTQ4ODEtYjc0Mi00N2I2NDA4ZjFkNmMuanBnIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.SZT_kvya8EULAQ19CNjJupErJC_tyEyBwaDb_qJRpwg" class="img-thumbnail" alt="Product Image" />
+          <img [src]="'http://localhost:8000/' + product.image"class="img-thumbnail" alt="Product Image" />
           <span class="choose-file" *ngIf="isEditing"></span>
         </label>
         <input
           id="image-upload"
           type="file"
           accept="image/*"
-          [disabled]="!isEditing"
+          [disabled]
           style="display: none" 
-          [(ngModel)]="product.image"
           (change)="handleImageUpload($event)"
         />
       </div>
@@ -25,7 +24,7 @@
             <div class="d-flex flex-column"  *ngIf="!isLoading && product" >
               <div *ngFor="let subProduct of product.sub_products" class="d-flex align-items-center border mb-3 p-2 justify-content-between">
                 <div>
-                  <img [src]="subProduct.image ? subProduct.image : 'https://via.placeholder.com/50'" class="rounded-circle" width="50" height="50" />
+                  <img  [src]="'http://localhost:8000/' + subProduct.image"  class="rounded-circle" width="50" height="50" />
                 </div>
                 <div>
                   <span class="me-4">{{ subProduct.name }}</span>
@@ -63,7 +62,6 @@
               id="product-name"
               class="form-control display-1"
               placeholder=""
-              [value]="product.name"
               [readonly]="isReadOnly"
               [class.editable]="isEditable"
               [(ngModel)]="product.name"
@@ -83,7 +81,6 @@
                   id="product-code"
                   class="form-control"
                   placeholder=""  
-                  [value]="product.barcode"
                   [(ngModel)]="product.barcode"
                   #productCodeInput
                   readonly
@@ -100,7 +97,6 @@
                   id="product-price"
                   class="form-control"
                   placeholder=""
-                  [value]="product.price"
                   [readonly]="isReadOnly"
                   [class.editable]="isEditable"
                   [(ngModel)]="product.price"
@@ -119,7 +115,6 @@
                   [disabled]="isReadOnly"
                   [class.editable]="isEditable"
                   [(ngModel)]="product.category"
-                  [value]="product.category"
                 >
                 <option value="Software">Software</option>
                 <option value="Hardware">Hardware</option>
@@ -136,7 +131,6 @@
                   id="product-model"
                   class="form-control"
                   placeholder=""
-                  [value]="product.model"
                   [class.editable]="isEditable"
                   [readonly]="isReadOnly"
                   [(ngModel)]="product.model"
@@ -156,7 +150,6 @@
                   id="product-quantity"
                   class="form-control"
                   placeholder=""
-                  [value]="product.quantity"
                   [(ngModel)]="product.quantity"
                   [class.editable]="isEditable"
                   [readonly]="isReadOnly"
@@ -175,7 +168,6 @@
                   id="product-points"
                   class="form-control"
                   placeholder=""
-                  [value]="product.points"
                   [readonly]="isReadOnly"
                   [class.editable]="isEditable"
                   [(ngModel)]="product.points"

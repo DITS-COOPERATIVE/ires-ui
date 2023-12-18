@@ -75,7 +75,7 @@
                 <th>Gender</th>
                 <th class="text-center">Privilege</th>
                 <th>Address</th>
-                <th>Points</th>
+                <th>Reward Points</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -91,7 +91,7 @@
                 <td>
                   <!-- <a routerLink="/customers/{{ item.id }}" class="btn btn-sm btn-success"> <i
                       class="fa fa-eye text-white"></i> </a> &nbsp; -->
-                      <a (click)="deleteCustomer(item.id)" class="btn btn-sm btn-danger">
+                      <a matTooltip="Delete" matTooltipPosition="above"  (click)="deleteCustomer(item.id)" class="btn btn-sm btn-danger">
                         <i class="fa fa-trash text-white"></i>
                       </a>
                 </td>

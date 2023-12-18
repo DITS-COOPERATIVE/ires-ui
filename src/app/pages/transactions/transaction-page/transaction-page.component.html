@@ -68,14 +68,14 @@
             [disabled]="isCartEmpty"
             (click)="!isCartEmpty && openDialog()"
           >
-            <i class="fas fa-sticky-note"></i> Customer Note
+            <i class="fas fa-sticky-note"></i> Customers Note
           </button>
           <button
             class="btn btn-hover w-50 border-white p-1"
             [disabled]="isCartEmpty"
             (click)="!isCartEmpty && openNoteDialog()"
           >
-            <i class="fas fa-tag"></i> Internal Note
+            <i class="fas fa-tag"></i> Staff Note
           </button>
         </div>
         <select
@@ -261,7 +261,7 @@
               ></i>
             </div>
             <img
-              src="assets/gojo.jpg"
+            [src]="'http://localhost:8000/' + item.image"
               class="card-img-top smaller-image"
               alt="Image Description"
             />

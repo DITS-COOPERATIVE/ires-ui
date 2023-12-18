@@ -2,7 +2,7 @@
 <mat-table class="table" [dataSource]="dataSource" matSort>
   <!-- Table headers -->
   <ng-container matColumnDef="id">
-    <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>Order Id</mat-header-cell>
     <mat-cell *matCellDef="let order" >
       <a [routerLink]="['/orders', order.id]" matTooltip="View" matTooltipPosition="above">{{ order.id }}</a>
     </mat-cell>

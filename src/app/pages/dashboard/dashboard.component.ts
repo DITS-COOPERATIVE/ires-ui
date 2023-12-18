@@ -80,6 +80,7 @@ export class DashboardComponent implements OnInit {
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 1,
+            yAxisID: 'defaultScale',
           },
           {
             label: 'Total Income',
@@ -87,6 +88,8 @@ export class DashboardComponent implements OnInit {
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderColor: 'rgba(54, 162, 235, 1)',
             borderWidth: 1,
+            yAxisID: 'incomeScale', 
+            
           },
           {
             label: 'Total Customers',
@@ -94,6 +97,7 @@ export class DashboardComponent implements OnInit {
             backgroundColor: 'rgba(255, 206, 86, 0.2)',
             borderColor: 'rgba(255, 206, 86, 1)',
             borderWidth: 1,
+            yAxisID: 'defaultScale'
           },
           {
             label: 'Total Reservations',
@@ -101,6 +105,7 @@ export class DashboardComponent implements OnInit {
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1,
+            yAxisID: 'defaultScale'
           },
         ],
       },
@@ -108,33 +113,54 @@ export class DashboardComponent implements OnInit {
         scales: {
           yAxes: [
             {
+              id: 'defaultScale',
               ticks: {
-                callback: function (value) {
-                  const numberValue = Number(value);
-                  return numberValue.toFixed(0) + '%';
-                },
+                beginAtZero: true,
+                min: 0,
+                max: 100,
+                stepSize: 10, 
+                callback: (value: any) => value.toString() + '%', 
               },
               scaleLabel: {
                 display: true,
                 labelString: 'Percentage',
               },
             },
+            {
+              id: 'incomeScale',
+              position: 'right',
+              ticks: {
+                beginAtZero: true,
+                max: 50000,
+                stepSize: 10000,
+                display: false, 
+              },
+              scaleLabel: {
+                display: true,
+              },
+            },
           ],
         },
-        onClick: (
-          event: MouseEvent,
-          activeElements: { _datasetIndex?: number }[]
-        ) => {
-          if (
-            activeElements.length > 0 &&
-            activeElements[0]._datasetIndex !== undefined
-          ) {
-            const clickedDatasetIndex: number = activeElements[0]._datasetIndex;
-            this.updateChartType(clickedDatasetIndex);
+        
+        onClick: (event: MouseEvent, activeElements: any[]) => {
+          const activeElement = this.myChart.getElementAtEvent(event);
+        
+          if (activeElement.length > 0) {
+            const clickedDatasetIndex = activeElement[0]?._datasetIndex;
+        
+            if (clickedDatasetIndex !== undefined) {
+              const isIncomeDataset = clickedDatasetIndex === 1;
+        
+              this.myChart.options.scales.yAxes[0].scaleLabel.display = !isIncomeDataset;
+              this.myChart.options.scales.yAxes[1].ticks.display = isIncomeDataset;
+        
+              this.myChart.update();
+            }
           }
         },
       },
     });
+  
 
     this.getCustomersList();
     this.getOrdersList();

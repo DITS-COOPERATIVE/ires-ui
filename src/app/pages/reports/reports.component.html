@@ -22,14 +22,14 @@
     style="padding: 2px 1px; border: 0.20px solid;"
   />
 
-  <label for="type">Type:</label>
+  <label for="type">Report Type:</label>
   <select id="type" name="type" [(ngModel)]="selectedType">
     <option value="">Select Type</option>
-    <option value="Service">Services</option>
-    <option value="Product">Products</option>
+    <option value="Service">Reservations Report</option>
+    <option value="Product">Sales Report</option>
   </select>
 
-  <button type="submit">Generate Inventory Report</button>
+  <button type="submit">Generate Report</button>
 </form>
 
 <!-- 

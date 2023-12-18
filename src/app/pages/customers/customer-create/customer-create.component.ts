@@ -45,8 +45,6 @@ export class CustomerCreateComponent {
       this.image = 'assets/female.png';
   }else if (this.gender === 'Male' && !this.image){
     this.image = 'assets/male.png';
-  }else if(this.image && this.image.includes('C:\\fakepath\\')){
-    this.image = this.image.replace('C:\\fakepath\\', '');
   }
     var inputData = {
       full_name: this.full_name,
@@ -66,6 +64,7 @@ export class CustomerCreateComponent {
         this.gender = '';
         this.email = '';
         this.address = '';
+        this.privilege = '';
         this.privilege = '';
         this.mobile_no = '';
         this.points = 0;

@@ -4,7 +4,7 @@
       <div class="col bg-white mx-4 rounded d-flex justify-content-center" >
         <img
           class="img-fluid "
-          src="https://img.freepik.com/premium-vector/young-girl-anime-style-character-vector-illustration-design-manga-anime-girl_147933-100.jpg"
+          src="{{customer.image}}"
           alt="Card image"
         />
       </div>
@@ -50,11 +50,10 @@
     </div>
     <div class="row">
       <div class="col p-0 ps-4">
-        <table class="table shadow">
+        <table class="table shadow mt-4">
           <thead class="text-center">
             <tr>
               <th>ID</th>
-              <th>Image</th>
               <th>Name</th>
               <th>Code</th>
               <th>Quantity</th>
@@ -67,14 +66,13 @@
               *ngFor="let product of orderDetails.products"
             >
               <td  title="">{{ product.id }}</td>
-              <td title="">{{ product.image }}</td>
               <td  title="">{{ product.name }}</td>
-              <td title="">{{ product.code }}</td>
+              <td title="">{{ product.barcode }}</td>
               <td  title="">{{ product.quantity }}</td>
               <td  title=""><b>₱</b> {{ product.price }}</td>
             </tr>
             <tr>
-              <td colspan="5">
+              <td colspan="4">
                 <p class="float-end">Total:</p>
               </td>
               <td width="25%" class="text-center">
@@ -88,7 +86,7 @@
           <p>Quantity: {{ orderDetails.quantity }}</p>
           <p>Discount: {{ orderDetails.discount }}</p>
           <p>Customer Note:{{orderDetails.customer_note}}</p>
-          <p>Internal Note:{{orderDetails.internal_note}}</p>
+          <p>Staff Note:{{orderDetails.internal_note}}</p>
         </ul>
       </div>
     </div>

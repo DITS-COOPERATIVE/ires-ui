@@ -18,15 +18,15 @@
         style="background-color: rgba(54, 162, 235, 0.2)"
         (click)="updateChartType(1)"
       >
-        <p class="mt-2 ms-2 mb-0">Income</p>
-        <h1 class="float-end me-5">{{ totalIncome }}</h1>
+        <p class="mt-2 ms-2 mb-0">Sales</p>
+        <h1 class="float-end me-5">₱ {{ totalIncome | number }}</h1>
       </div>
       <div
         class="col totalCol me-1"
         style="background-color: rgba(255, 206, 86, 0.2)"
         (click)="updateChartType(2)"
       >
-        <p class="mt-2 ms-2 mb-0">Customer</p>
+        <p class="mt-2 ms-2 mb-0">Customers</p>
         <h1 class="float-end me-5">{{ totalCustomers }}</h1>
       </div>
       <div
@@ -34,7 +34,7 @@
         style="background-color: rgba(75, 192, 192, 0.2)"
         (click)="updateChartType(3)"
       >
-        <p class="mt-2 ms-2 mb-0">Reservation</p>
+        <p class="mt-2 ms-2 mb-0">Reservations</p>
         <h1 class="float-end me-5">{{ totalReservations }}</h1>
       </div>
     </div>
@@ -87,7 +87,7 @@
           </div>
         </ng-template>
         <div class="col shadow rounded">
-          <h6 class="mt-2 ps-2"><b>Top Selling Products</b></h6>
+          <h6 class="mt-2 ps-2"><b>High-Stock Product</b></h6>
         <div
           class="row bg-white topProd pt-3"
           *ngIf="products.length === 0"

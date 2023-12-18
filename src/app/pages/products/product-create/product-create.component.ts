@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ProductsResponse, ProductsService } from '../../../services/products/products.service';
 import { NgToastService } from 'ng-angular-popup';
 
@@ -18,7 +18,7 @@ export class ProductCreateComponent {
   rows: any[] = [];
   showEditable: boolean = false;
   editRowId: any;
-  image!: string
+  image: File | null = null;
   name!: string
   model!: string
   price!: string
@@ -34,7 +34,7 @@ export class ProductCreateComponent {
   newSubProduct: { id: string; qty: number } = { id: '', qty: 0 };
   isLoading: boolean = false;
   loadingTitle: string = 'Loading';
-
+  @ViewChild('fileInput', { static: false }) fileInput!: ElementRef<HTMLInputElement>;
   ngOnInit() {
     this.getProductsLists();
 
@@ -60,16 +60,23 @@ export class ProductCreateComponent {
   toggle(val: any) {
     this.editRowId = val;
   }
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file: File = input.files[0];
+      this.image = file; // Store the File object
+      this.previewImage(file); // Optional: Preview the selected image
+    }
+  }
+
+  previewImage(file: File) {
     const reader = new FileReader();
-
-    reader.onload = (e: any) => {
-      this.selectedImage = e.target.result;
+    reader.onload = () => {
+      this.selectedImage = reader.result as string;
     };
-
     reader.readAsDataURL(file);
   }
+
 
   addRow() {
     this.showHeaders = true;
@@ -86,44 +93,48 @@ export class ProductCreateComponent {
 
 }
 
-  saveProduct() {
-    this.loadingTitle = 'Saving';
-    this.isLoading = true;
+saveProduct() {
+  this.loadingTitle = 'Saving';
+  this.isLoading = true;
 
-    const inputData = {
-      image: this.image,
-      name: this.name,
-      model: this.model,
-      price: this.price,
-      quantity: this.quantity,
-      category: this.category,
-      points: this.points,
-      subProducts:this.subProducts
-     
-    };
-  
-    this.productsService.saveProduct(inputData).subscribe({
-      next: (res: any) => {
-        this.image = '';
-        this.name = '';
-        this.model = '';
-        this.price = '';
-        this.quantity = '';
-        this.category = '';
-        this.points = '';
-        this.selectedImage = '';
-        this.subID = '';
-        this.subQuan = 0;
-        this.toast.success({detail:"SUCCESS",summary:'Product Added',duration:5000, position:'topCenter'});
-        this.isLoading = false;
-        this.errors = {};
-      },
-      error: (err: any) => {
-        this.toast.error({detail:"ERROR",summary:'Failed to add product',duration:5000, position:'topCenter'});
-        this.errors = err.error.errors;
-        this.isLoading = false;
-      }
-    });
+  const productData = new FormData();
+
+  if (this.image) {
+    productData.append('image', this.image, this.image.name); // Append the File object to the FormData
   }
-}
 
+  productData.append('name', this.name);
+  productData.append('model', this.model);
+  productData.append('price', this.price);
+  productData.append('quantity', this.quantity);
+  productData.append('category', this.category);
+  productData.append('points', this.points);
+  this.subProducts.forEach((subProduct, index) => {
+    productData.append(`subProducts[${index}][id]`, subProduct.id);
+    productData.append(`subProducts[${index}][qty]`, subProduct.qty.toString());
+  });
+
+  this.productsService.saveProduct(productData).subscribe({
+    next: (res: any) => {
+      this.image = null;
+      this.name = '';
+      this.model = '';
+      this.price = '';
+      this.quantity = '';
+      this.category = '';
+      this.points = '';
+      this.selectedImage = '';
+      this.subID = '';
+      this.subQuan = 0;
+      this.toast.success({detail: "SUCCESS", summary: 'Product Added', duration: 5000, position: 'topCenter'});
+      this.isLoading = false;
+      this.errors = {};
+    },
+    error: (err: any) => {
+      this.toast.error({detail: "ERROR", summary: 'Failed to add product', duration: 5000, position: 'topCenter'});
+      this.errors = err.error.errors;
+      this.isLoading = false;
+    }
+  });
+}
+}

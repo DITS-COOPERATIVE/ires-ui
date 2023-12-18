@@ -134,12 +134,12 @@ const routes: Routes = [
     title: 'Reports',
     canActivate: [() => inject(PermissionService).canAccess(['Admin'])],
   },
-  // {
-  //   path: 'stocks',
-  //   component: StocksComponent,
-  //   title: 'Stocks',
-  //   canActivate: [() => inject(PermissionService).canAccess(['Admin'])],
-  // },
+  {
+    path: 'stocks',
+    component: StocksComponent,
+    title: 'Stocks',
+    canActivate: [() => inject(PermissionService).canAccess(['Admin'])],
+  },
   {
     path: 'settings',
     component: SettingsComponent,
