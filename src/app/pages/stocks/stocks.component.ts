@@ -44,7 +44,7 @@ export class StocksComponent {
     barcode: 'Code',
     model: 'Model',
     price: 'Price',
-    quantity: 'Quantity',
+    quantity: 'On Hand',
     category: 'Category',
   };
 

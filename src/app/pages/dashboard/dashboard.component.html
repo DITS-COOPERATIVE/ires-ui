@@ -14,13 +14,16 @@
         <h1 class="float-end me-5">{{ totalOrders }}</h1>
       </div>
       <div
-        class="col totalCol mx-1"
-        style="background-color: rgba(54, 162, 235, 0.2)"
-        (click)="updateChartType(1)"
-      >
-        <p class="mt-2 ms-2 mb-0">Sales</p>
-        <h1 class="float-end me-5">₱ {{ totalIncome | number }}</h1>
-      </div>
+      class="col totalCol mx-1"
+      style="background-color: rgba(54, 162, 235, 0.2)"
+      (click)="updateChartType(1)"
+    >
+      <p class="mt-2 ms-2 mb-0">Sales</p>
+      <h1 class="float-end me-5" style="font-size: clamp(16px, calc(4vw - 10px), 32px)">
+        ₱ {{ totalIncome | number }}
+      </h1>
+    </div>
+    
       <div
         class="col totalCol me-1"
         style="background-color: rgba(255, 206, 86, 0.2)"

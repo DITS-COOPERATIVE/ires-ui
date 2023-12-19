@@ -13,7 +13,7 @@ import { ServiceResponse, ServiceService } from 'src/app/services/services/servi
 })
 export class ServiceComponent {
   constructor(private serviceService: ServiceService, private customersService: CustomersService, 
-    private toast: NgToastService, private reservationService: ReservationService,public permissionService: PermissionService,) {}
+    private toast: NgToastService, public permissionService: PermissionService,) {}
   services: ServiceResponse[] = [];
   reservation: ReservationResponse[] = [];
   name!: string;
@@ -33,10 +33,10 @@ export class ServiceComponent {
 
   } 
   editService(service: any) {
-    this.selectedService = { ...service }; 
-    this.name = this.selectedService.name;
-    this.price = this.selectedService.price;
-    this.type = this.selectedService.type;
+    this.selectedService = service ; 
+    this.name = service.name;
+    this.price = service.price;
+    this.type = service.type;
     this.isUpdateMode = true;
   }
 
@@ -49,7 +49,7 @@ export class ServiceComponent {
     };
 
     if (this.isUpdateMode){
-      this.reservationService.updateReservation(inputData, this.  selectedService.id).subscribe({
+      this.serviceService.updateService(inputData, this.selectedService.id).subscribe({
         next: (res: any) => {
           this.resetForm();
           this.toast.success({detail:"SUCCESS",summary:'Succesfully Updated!',duration:3000, position:'topCenter'});
