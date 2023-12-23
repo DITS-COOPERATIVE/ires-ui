@@ -1,4 +1,4 @@
-<div class="d-flex justify-content align-items-center mb-3">
+<div class="d-flex justify-content align-items-center mb-3 mt-2">
   <button style="position: relative; bottom: 100%" class="toggle-button ms-4 cursor" (click)="toggleView()"
     matTooltip="Card View" matTooltipPosition="above">
     <i class="fas fa-th-large"></i>
@@ -6,30 +6,14 @@
   <button class="toggle-button" (click)="cardView()" matTooltip="List View" matTooltipPosition="above">
     <i class="fas fa-list"></i>
   </button>
-<!-- 
-  <div class="d-flex sort-by">
-    <select [(ngModel)]="selectedCategory" name="" id="" class="border-0 dropdownUni" (change)="sortProducts()">
-      <option value="date">Date</option>
-      <option value="points">Points</option>
-      <option value="price">Price</option>
-      <option value="category">Category</option>
-    </select>
-
-    <select [(ngModel)]="selectedCategory" *ngIf="selectedCategory === 'category'" [(ngModel)]="selectedFilterCategory"
-      name="" id="" class="border-0 dropdownUni" (change)="filterProducts()">
-      <option value="all">All</option>
-      <option value="services">Wifi</option>
-      <option value="software">Router</option>
-      <option value="tools">Tools</option>
-      <option value="vendo">Vendo</option>
-    </select>
-  </div> -->
+  <!-- <button class="toggle-button" routerLink="/products/kit" matTooltip="Kit" matTooltipPosition="above">
+    <i class="fas fa-box-open"></i>
+  </button> -->
   <div class="dropdown filterButton">
     <button class="dropdown-toggle btn btn-sm" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <i class="fas fa-filter"></i> Filter
     </button>
     <div class="dropdown-menu cursor" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" (click)="sortProducts('name')">Name</a>
       <a class="dropdown-item" (click)="sortProducts('date')">Date</a>
       <a class="dropdown-item" (click)="sortProducts('points')">Points</a>
       <a class="dropdown-item" (click)="sortProducts('price')">Price</a>
@@ -47,12 +31,12 @@
     <div class="row">
       <ng-container *ngIf="isCardView; else listView">
         <!-- Card View -->
-        <div class="col-md-3" *ngFor="let item of filteredProducts; let i = index" routerLink="/products/{{ item.id }}">
+        <div class="col-md-3" *ngFor="let item of filteredProducts; let i = index" routerLink="/products/{{ item.id }}/edit">
           <div class="row shadow mb-4 product-card border bg-white ms-2" [ngClass]="{ active: i === activeCardIndex }"
             (click)="activateCard(i)">
-            <div class="col-md-3 p-0 ">
-              <img class="card-img card-img-height" src="assets/gojo.jpg" alt="Card image" />
-            </div>
+            <div class="col-md-3 p-0">
+              <img class="card-img card-img-height"  [src]="'http://localhost:8000/' + item.image" alt="Card image" />
+            </div>            
             <div class="col-md-9 py-1 text-center">
               <small class="card-text float-end text-secondary"><i class="fas fa-star"></i>{{ item.points }}</small><br>
               <h5 class="card-title text mt-2">{{ item.name }}</h5>
@@ -62,37 +46,47 @@
         </div>
       </ng-container>
       <ng-template #listView>
-        <!-- Table View -->
-        <div class="table-container">
-          <table class="table">
+        <!-- Table View -->  
+          <table class="table shadow">
             <thead>
               <tr>
-                <th>Code</th>
                 <th class="ps-5">Name</th>
+                <th>Code</th>
                 <th>Price</th>
-                <th>Points</th>
+                <th>Reward Points</th>
                 <th>Category</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of products">
-                <td>{{ item.code }}</td>
-                <td width="25%"><img class="img-fluid img-thumbnail imgTable me-3" src="assets/gojo.jpg"
+              <tr *ngFor="let item of filteredProducts">
+                <td width="25%"><img class="img-fluid img-thumbnail imgTable me-3"[src]="'http://localhost:8000/' + item.image"
                     alt="Card image" />{{ item.name }}</td>
+                <td>{{ item.barcode }}</td>
                 <td>₱ {{ item.price }}</td>
                 <td>{{ item.points }}</td>
                 <td>{{ item.category }}</td>
 
                 <td>
-                  <a routerLink="/products/{{ item.id }}" class="btn btn-sm btn-info"> <i
-                      class="fa fa-eye text-white"></i> </a>
+                  <a matTooltip="View" matTooltipPosition="above" routerLink="/products/{{ item.id }}" class="btn btn-sm btn-success"> <i
+                      class="fa fa-eye text-white"></i> </a> &nbsp;
+                      <a matTooltip="Delete" matTooltipPosition="above"  (click)="deleteProduct(item.id)" class="btn btn-sm btn-danger">
+                        <i class="fa fa-trash text-white"></i>
+                      </a>
                 </td>
               </tr>
             </tbody>
           </table>
-        </div>
       </ng-template>
+    </div>
+  </div>
+  <div class="row text-center" *ngIf="!products || products.length === 0">
+    <div style="display: table; height: 400px; overflow: hidden;">
+      <div style="display: table-cell; vertical-align: middle;">
+        <div>
+          <p><i class='fas fa-box-open'></i> No products available</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

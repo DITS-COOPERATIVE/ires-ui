@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { ProductsService , ProductsResponse } from 'src/app/services/products/products.service';
+import { SearchService } from 'src/app/shared/search.service';
+import { NgToastService } from 'ng-angular-popup';
+import { AppearanceAnimation, ConfirmBoxInitializer, DialogLayoutDisplay, DisappearanceAnimation } from '@costlydeveloper/ngx-awesome-popup';
 
 @Component({
   selector: 'app-product-page',
@@ -8,11 +11,14 @@ import { ProductsService , ProductsResponse } from 'src/app/services/products/pr
 })
 export class ProductPageComponent {
 
-  constructor(private productsService: ProductsService) { this.filteredProducts = this.products;}
+  constructor(private productsService: ProductsService,
+    private searchService: SearchService,
+    private toast: NgToastService) { this.filteredProducts = this.products;}
 
   
   errors: any = [];
-  products!: ProductsResponse [];
+  products: ProductsResponse [] =[];
+  product!: ProductsResponse;
   isLoading: boolean = false;
   isCardView: boolean = true;
   filteredProducts: any[] = [];
@@ -21,9 +27,10 @@ export class ProductPageComponent {
   activeCardIndex: number | null = null;
 
   ngOnInit() {
-
+    this.searchService.searchQuery$.subscribe((query) => {
+      this.searchsProduct(query);
+    });
     this.getProductsLists();
-
   }
 
   toggleView(): void {
@@ -38,7 +45,6 @@ export class ProductPageComponent {
   }
 
   getProductsLists(){
-    
     try {
       this.isLoading = true;
 
@@ -46,13 +52,47 @@ export class ProductPageComponent {
         this.products = res;
         this.filteredProducts = this.products
         this.sortProducts(this.selectedCategory);
+        this.products = res.sort((a, b) => a.name.localeCompare(b.name));
         this.isLoading = false
   
       })
     } catch (error) {
       this.errors = error
     };
-    
+  }
+
+  searchsProduct(query: string) {
+    try {
+      this.isLoading = true;
+
+      if (query) {
+        this.productsService.getProductsLists().subscribe((res) => {
+          this.products = res;
+
+          this.filteredProducts  = this.products .filter((item) => {
+            return (
+              item.id.toString() === query ||
+              (item.name && item.name.toString().toLowerCase().includes(query.toLowerCase())) ||
+              item.barcode.toString() === query
+            );
+          });
+
+
+          if (this.filteredProducts .length === 0) {
+       
+              this.toast.info({detail:"WARNING",summary:'Search not found',duration:3000, position:'topCenter'});
+            
+          }
+
+          this.isLoading = false;
+        });
+      } else {
+        this.filteredProducts = [];
+        this.getProductsLists();
+      }
+    } catch (error) {
+      this.errors = error;
+    }
   }
 
   sortProducts(selectedCategory: string) {
@@ -60,7 +100,7 @@ export class ProductPageComponent {
       case 'date':
         this.products.sort((a, b) => {
           const dateA = new Date(a.created_at).getTime();
-          const dateB = new Date(b.updated_at).getTime();
+          const dateB = new Date(b.created_at).getTime();
           return dateB - dateA;
         });
         break;
@@ -70,18 +110,39 @@ export class ProductPageComponent {
       case 'price':
         this.products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
         break;
-      case 'name':
-        
-        break;
       default:
         break;
     }
   }
-  filterProducts() {
-    if (this.selectedCategory === 'all') {
-      this.filteredProducts = this.products;
-    } else {
-      this.filteredProducts = this.products.filter(item => item.category === this.selectedFilterCategory);
-    }
+
+  deleteProduct(productId: number) {
+    const newConfirmBox = new ConfirmBoxInitializer();
+  
+    newConfirmBox.setTitle('Confirm Deletion!');
+    newConfirmBox.setMessage('Are you sure you want to delete this Item?');
+  
+    newConfirmBox.setConfig({
+      layoutType: DialogLayoutDisplay.DANGER,
+      animationIn: AppearanceAnimation.BOUNCE_IN,
+      animationOut: DisappearanceAnimation.BOUNCE_OUT,
+      buttonPosition: 'right',
+    });
+  
+    newConfirmBox.setButtonLabels('Yes', 'No');
+  
+    newConfirmBox.openConfirmBox$().subscribe({
+      next: (resp) => {
+        if (resp.clickedButtonID === 'yes') {
+          this.productsService.destroyProduct(productId).subscribe({
+            next: (resp: any) => {
+              this.getProductsLists();
+            },
+          });
+        } else {
+        }
+      },
+    });
+    
   }
+  
 }

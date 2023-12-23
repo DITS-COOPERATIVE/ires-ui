@@ -8,11 +8,13 @@
         <div class="div">DITS Inventory</div>
         <div class="overlap-2">
           <div class="text-wrapper-2"></div>
-          <input type="text" [(ngModel)]="username" name="username" placeholder="Enter your username" />
+          <input type="text" [(ngModel)]="email" name="email" [ngModelOptions]="{standalone: true}" placeholder="Enter your email" />
         </div>
         <div class="overlap-3">
           <div class="text-wrapper-2"></div>
-          <input type="password" [(ngModel)]="password" name="password" placeholder="Enter your password" />
+          <input type="{{ showPassword ? 'text' : 'password' }}" [(ngModel)]="password" name="password" [ngModelOptions]="{standalone: true}" placeholder="Enter your password" />
+          <i style="position: relative; left: 87%; bottom: 70%;" class="fa fa-eye" aria-hidden="true" (click)="togglePasswordVisibility()" [hidden]="!showPassword"></i>
+          <i style="position: relative; left: 87%;bottom: 70%;" class="fa fa-eye-slash" aria-hidden="true" (click)="togglePasswordVisibility()" [hidden]="showPassword"></i>
         </div>
         <img
           class="imgbin-person-logo"

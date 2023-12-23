@@ -11,6 +11,8 @@ import {
 } from 'src/app/services/products/products.service';
 import { TableColumnHeaders } from 'src/app/shared/TableColumnHeaders ';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
+import { NotificationService } from 'src/app/shared/notification.service';
 
 @Component({
   selector: 'app-stocks',
@@ -28,10 +30,10 @@ export class StocksComponent {
   editingProductId: string | null = null;
   errors: any = [];
 
-  constructor(private productsService: ProductsService, private router: Router) {}
+  constructor(private productsService: ProductsService, private router: Router, private toast: NgToastService,private notificationService: NotificationService) {}
   displayedColumns: string[] = [
     'name',
-    'code',
+    'barcode',
     'model',
     'price',
     'quantity',
@@ -39,10 +41,10 @@ export class StocksComponent {
   ];
   columnHeaders: TableColumnHeaders = {
     name: 'Name',
-    code: 'Code',
+    barcode: 'Code',
     model: 'Model',
     price: 'Price',
-    quantity: 'Quantity',
+    quantity: 'On Hand',
     category: 'Category',
   };
 
@@ -69,7 +71,7 @@ export class StocksComponent {
     this.editingProductId = product.id;
   }
 
-  saveQuantity(product: any) {
+  updateQuantity(product: any) {
     var inputData = {
       quantity: product.quantity,
     };
@@ -79,17 +81,25 @@ export class StocksComponent {
     this.productsService.updateProduct(inputData, product.id).subscribe({
       next: (res: any) => {
         this.isLoading = false;
-        this.successMessage = 'Success! Quantity saved.';
-        setTimeout(() => (this.successMessage = null), 3000);
+        this.toast.success({detail:"SUCCESS",summary:'Quantity Updated',duration:4000, position:'topCenter'});
         this.errors = {};
+
+        if (product.quantity < 20) {
+          const notification = {
+            icon: 'far fa-exclamation-circle', 
+            subject: `${product.name} is low in quantity`,
+            description: `Current quantity: ${product.quantity}`
+          };
+  
+          this.notificationService.sendNotification(notification);
+        }
       },
       error: (err: any) => {
+        this.toast.error({detail:"ERROR",summary:'Failed to Updated Quantity',duration:4000, position:'topCenter'});
         this.errors = err.error.errors;
         this.isLoading = false;
       },
     });
-  
-    console.log('Saving quantity:', product.quantity);
     this.editingProductId = null;
   }
 
@@ -121,7 +131,6 @@ export class StocksComponent {
     });
     this.selection.clear();
     this.dataSource._updateChangeSubscription();
-    console.log('Delete Selected Items:', selectedItems);
   }
 
   validateResize = (event: ResizeEvent): boolean => {

@@ -5,36 +5,26 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col">
-      <div class="prodImage" (click)="onImageClick()" *ngIf="isEditable">
+      <div class="prodImage">
+        <label for="image-upload" class="image-label">
+          <img src="{{customer.image}}" class="img-thumbnail" alt="Product Image" />
+          <span class="choose-file" *ngIf="isEditing"></span>
+        </label>
         <input
+          id="image-upload"
           type="file"
-          id="imageInput"
           accept="image/*"
-          (change)="onImageSelected($event)"
+          [disabled]="!isEditing"
           style="display: none"
-        />
-        <div class="editable-image-container">
-          <img
-            src="https://i.pinimg.com/originals/0d/dd/85/0ddd859c5208d3db2dae14f2dfbf00dd.png"
-            class="img-thumbnail"
-            alt="..."
-          />
-          <i class="fa fa-pencil edit-icon" (click)="openImageInput()"></i>
-        </div>
-      </div>
-      <div class="prodImage" *ngIf="!isEditable">
-        <img
-          src="https://i.pinimg.com/originals/0d/dd/85/0ddd859c5208d3db2dae14f2dfbf00dd.png"
-          class="img-thumbnail"
-          alt="..."
+          (change)="handleImageUpload($event)"
         />
       </div>
     </div>
     <div class="col-lg-9">
       <div class="container p-3">
         <form>
-          <div class="icon-wrapper">
-            <i class="fa fa-pencil custom-icon" (click)="edit()">
+          <div class="icon-wrapper" (click)="toggleEditButton()">
+            <i class="fa fa-pencil custom-icon">
               <span class="fix-editor">&nbsp;</span>
             </i>
           </div>
@@ -49,7 +39,7 @@
               [readonly]="isReadOnly"
               [class.editable]="isEditable"
               [(ngModel)]="customer.full_name"
-              #customerNameInput
+        
             />
           </div>
           <div class="row mt-5 ps-3">
@@ -68,7 +58,7 @@
                   [readonly]="isReadOnly"
                   [class.editable]="isEditable"
                   [(ngModel)]="customer.email"
-                  #customerEmailInput
+                 
                 />
               </div>
               <div class="form-group mb-4">
@@ -82,7 +72,7 @@
                   [readonly]="isReadOnly"
                   [class.editable]="isEditable"
                   [(ngModel)]="customer.mobile_no"
-                  #customerPhoneNumberInput
+                
                 />
               </div>
               <div class="form-group">
@@ -100,8 +90,8 @@
                 />
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="form-group mb-4">
+            <div class="col-md-6 ">
+              <div class="form-group mb-4 ">
                 <label for="product-model" class="mb-2">Gender</label>
                 <select
                   name="gender"
@@ -112,8 +102,8 @@
                   [class.editable]="isEditable"
                   [(ngModel)]="customer.gender"
                 >
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
                 </select>
               </div>
               <div class="form-group mb-4">
@@ -128,33 +118,35 @@
                   [value]="customer.privilege"
 
                 >
-                  <option value="none">None</option>
-                  <option value="student">Student</option>
-                  <option value="pwd">PWD</option>
-                  <option value="seniorCitizen">Senior Citizen</option>
+                  <option value="None">None</option>
+                  <option value="Student">Student</option>
+                  <option value="PWD">PWD</option>
+                  <option value="Senior Citizen">Senior Citizen</option>
                 </select>
               </div>
               <div class="form-group mb-4">
                 <label for="product-points" class="mb-2">Points</label>
                 <input
-                  type="text"
+                  type="number"
                   name="points"
                   id="points"
                   class="form-control"
                   placeholder=""
                   [value]="customer.points"
-                  [readonly]="isReadOnly"
-                  [class.editable]="isEditable"
+                  disabled
                   [(ngModel)]="customer.points"
-                  #customerPointsInput
+                
                 />
               </div>
             </div>
             <div class="button-group" [class.hidden]="!isEditable">
-              <button class="btn btn-primary" (click)="updateCustomer()">
+              <button  style="position: relative; right: 200px;" (click)="generateBarcode()" class="btn btn-success">
+                View Code
+              </button>  
+              <button  style="position: relative; right: 90px;" class="btn btn-primary" (click)="updateCustomer()">
                 Save
               </button>
-              <button class="btn btn-secondary ms-3">Cancel</button>
+              <button style="position: relative; right: 90px;" class="btn btn-primary" class="btn btn-secondary ms-3" (click)="cancel()">Cancel</button>
             </div>
           </div>
         </form>

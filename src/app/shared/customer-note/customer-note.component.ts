@@ -1,10 +1,7 @@
 import { Component, Inject, EventEmitter, Output, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {
-  CustomersResponse,
-  CustomersService,
-} from 'src/app/services/customers/customers.service';
-import { ProductsResponse } from 'src/app/services/products/products.service';
+import { CustomersResponse, CustomersService } from '../../services/customers/customers.service';
+import { ProductsResponse } from '../../services/products/products.service';
 
 @Component({
   selector: 'app-customer-note',
@@ -35,7 +32,7 @@ export class CustomerNoteComponent {
       }
       return item;
     });
-    this.noteAdded.emit(updatedCart);
+    this.noteAdded.emit(this.textInput);
     this.dialogRef.close(updatedCart);
   }
 }

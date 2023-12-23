@@ -1,7 +1,43 @@
-<h1>Settings works!</h1>
-<div class="card">
-    <div class="card-head">Lorem ipsum Orders</div>
-    <div class="card-body">
-     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sunt omnis error est eaque sequi autem inventore iure sapiente soluta earum similique, pariatur aspernatur? Dicta harum accusamus consequatur molestiae iusto?
-    </div>
-  </div>
+<div class="container-fluid d-flex justify-content-center">
+  <form  (ngSubmit)="saveCashier()">
+  <div class="row border shadow p-3 rounded mb-4 bg-white">
+    <h4>New Cashier</h4>
+      <div class="col-lg-12">
+        <div class="form-group mb-4">
+          <label for="exampleInputEmail1">Full Name</label>
+          <input
+          [(ngModel)]="name" name="name" id="name" class="form-control"
+            type="text"
+            aria-describedby="emailHelp"
+            placeholder="Enter fullname"
+          />
+        </div>
+        <div class="form-group mb-4">
+          <label for="email">Email</label>
+          <input type="email" [(ngModel)]="email" name="email" id="email" class="form-control"
+              placeholder="Enter Email" />
+        </div>
+        <div class="form-group mb-4">
+            <label for="exampleInputEmail1">Address</label>
+            <input type="text" [(ngModel)]="address" name="address" id="address" class="form-control"
+            placeholder="Enter Address" />
+          </div>   
+
+        <div class="form-group mb-4">
+          <label for="exampleInputEmail1">Mobile Number</label>
+          <input type="tel" [(ngModel)]="mobile_no" name="mobile_no" id="mobile_no" class="form-control"
+          placeholder="Enter Mobile Number" />
+        </div>
+     
+        <div class="form-group mb-4">
+          <label for="exampleInputPassword1">Password</label>
+          <input
+            type="password"
+            [(ngModel)]="password" name="password" id="password" class="form-control"
+            placeholder="Your Password"
+          />
+        </div>
+      </div>
+      <button class="btn btn-sm btn-outline-primary w-25 m-auto">Save</button>
+</div>
+</form>

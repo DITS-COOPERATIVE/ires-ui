@@ -2,43 +2,57 @@ export const navbarData =[
     {
         routeLink: 'dashboard',
         icon: 'fal fa-home',
-        label: 'Dashboard'
-    },
-    {
-        routeLink: 'orders',
-        icon: 'fal fa-shopping-cart',
-        label: 'Order'
-    },
-    {
-        routeLink: 'products',
-        icon: 'fal fa-box-open',
-        label: 'Product'
+        label: 'Dashboard',
+        roles: ['Admin']
     },
     {
         routeLink: 'customers',
         icon: 'fal fa-users',
-        label: 'Customer'
+        label: 'Customers',
+        roles: ['Admin']
+    },
+    {
+        routeLink: 'products',
+        icon: 'fal fa-box-open',
+        label: 'Products',
+        roles: ['Admin']
+    },
+    {
+        routeLink: 'orders',
+        icon: 'fal fa-shopping-cart',
+        label: 'Orders',
+        roles: ['Admin']
+    },
+   
+   
+    {
+        routeLink: 'reservations',
+        icon: 'far fa-calendar-alt',
+        label: 'Reservations',
+        roles: ['Admin','Cashier']
     },
     {
         routeLink: 'reports',
         icon: 'fal fa-file-chart-line',
-        label: 'Reports'
+        label: 'Reports',
+        roles: ['Admin']
     },
     {
         routeLink: 'stocks',
         icon: 'fal fa-chart-bar',
-        label: 'Stock'
+        label: 'Stocks',
+        roles: ['Admin']
     },
     {
         routeLink: 'transactions',
         icon: 'fal fa-cash-register',
-        label: 'Transaction'
+        label: 'POS',
+        roles: ['Admin', 'Cashier']
     },
     {
         routeLink: 'settings',
-        icon: 'fal fa-cog',
-        label: 'Settings'
-    }   
-      
-
+        icon: 'fas fa-user-cog',
+        label: 'Cashier',
+        roles: ['Admin']
+    }
 ];

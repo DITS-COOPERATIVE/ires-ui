@@ -1,19 +1,57 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
-  username: string = '';
-  password: string = '';
 
+export class LoginComponent {
+  email: string = '';
+  password: string = '';
+  isLoading: boolean = false;
+  errors: any = [];
+  showPassword: boolean = false;
+
+  constructor(private authService: AuthenticationService, private router: Router, private toast: NgToastService) {}
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
   login() {
-    // Here, you can implement your login logic.
-    // You can send a request to a server to authenticate the user.
-    // For this example, we'll just print the username and password to the console.
-    console.log('Username:', this.username);
-    console.log('Password:', this.password);
+    
+      var inputData = {
+        email: this.email,
+        password: this.password
+      };
+    
+      this.authService.loginUser(inputData).subscribe({
+        next: (res: any) => {
+          this.authService.storeToken(res.token, res.user); 
+          this.authService.isAuthenticatedSubject.next(true);
+          this.email = '';
+          this.password = '';
+          this.errors = {};
+          this.toast.success({detail:"SUCCESS",summary:'Log in successful',duration:3000,});
+
+          if (res.user.role === 'Admin') {
+            this.router.navigate(['/dashboard']);
+          } else if (res.user.role === 'Cashier') {
+
+            this.router.navigate(['/transaction']);
+          } else {
+          }
+          location.reload();
+        },
+    
+        error: (err: any) => {
+          this.errors = err.error.errors;
+          this.isLoading = false;
+          this.toast.error({detail:"ERROR",summary:'Log in unsuccessful',duration:4000,});
+      }
+    });
   }
 }

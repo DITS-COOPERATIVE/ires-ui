@@ -1,0 +1,9 @@
+.addButton {
+    position: absolute;
+    right: 3rem;
+  }
+  .addButton:hover{
+  border: #12243b 1px solid;
+  border-radius: 5px;
+  }
+  

@@ -1,138 +1,167 @@
-<div class="container bg-white">
-  <div>
+<div class="container-fluid bg-white d-flex">
+  <div class="col-md-4 mt-5">
     <div class="image-upload-container">
       <input
-        name="images"
-        type="file"
-        accept="image/x-png, image/jpeg"
-        style="display: none"
-        id="file-input"
-        accept="image/png, image/jpeg"
-        (change)="onFileSelected($event)"
-      />
-      <label for="file-input" class="container-click-area">
-        <div class="image-previews mt-2 me-5">
-          <div class="image">
-            <i class="fas fa-camera"></i>
-            <img [src]="selectedImage" alt="Selected Image" *ngIf="selectedImage" class="selected-image">
+      name="image"
+      type="file"
+      accept="image/x-png, image/jpeg"
+      style="display: none"
+      id="file-input"
+      (change)="onFileSelected($event)"
+      #fileInput
+    />
+    <label for="file-input" class="container-click-area">
+      <div class="image-previews mt-2 me-5">
+        <div class="image">
+          <i class="fas fa-camera"></i>
+          <img
+            [src]="selectedImage"
+            alt="Selected Image"
+            *ngIf="selectedImage"
+            class="selected-image"
+          />
           </div>
         </div>
       </label>
     </div>
-    <span *ngIf="errors.image" class="text-danger errorimage">{{
-      errors.image
-    }}</span>
   </div>
-  <form (ngSubmit)="saveProduct()">
-    <div
-      class="alert alert-success text-center"
-      role="alert"
-      *ngIf="successMessage"
-    >
-      {{ successMessage }}
-    </div>
-    <div class="row">
-      <div class="form-group prodName">
-        <input
-          [(ngModel)]="name"
-          type="text"
-          name="product-name"
-          id="product-name"
-          class="form-control text-center"
-          placeholder="Product Name"
-        />
-        <span *ngIf="errors.name" class="text-danger errorname">{{
-          errors.name
-        }}</span>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group mb-4">
-          <label for="product-category" class="mb-2">Category</label>
-          <select
-            name="product-category"
-            id="product-category"
-            class="form-control"
-            [(ngModel)]="category"
-          >
-            <option value="Software">Software</option>
-            <option value="Hardware">Hardware</option>
-            <option value="Services">Services</option>
-          </select>
-        </div>
-        <div class="form-group mb-4">
-          <label for="product-code" class="mb-2">Product Code</label>
+
+  <div class="col">
+    <div class="row mt-3">
+      <h3 class="text-center">New Product</h3>
+      <div class="col">
+        <div class="form-group mt-4">
           <input
-            [(ngModel)]="code"
             type="text"
-            name=" product-code"
-            id="product-code"
-            class="form-control"
-            placeholder=""
+            class="textbox-4"
+            [(ngModel)]="name"
+            name="product-name"
+            id="product-name"
+            required
           />
-          <span *ngIf="errors.code" class="text-danger">{{ errors.code }}</span>
+          <label class="form-label-4">Name</label>
         </div>
         <div class="form-group mb-4">
-          <label for="product-price" class="mb-2">Product Price</label>
-          <input
-            [(ngModel)]="price"
-            type="text"
-            name="product-price"
-            id="product-price"
-            class="form-control"
-            placeholder=""
-          />
-          <span *ngIf="errors.price" class="text-danger">{{
-            errors.price
-          }}</span>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group mb-4">
-          <label for="product-model" class="mb-2">Product Model</label>
           <input
             [(ngModel)]="model"
             type="text"
             name="product-model"
             id="product-model"
-            class="form-control"
+            class="textbox-4"
             placeholder=""
           />
-          <span *ngIf="errors.model" class="text-danger">{{
-            errors.model
-          }}</span>
+          <label class="form-label-4"> Model</label>
         </div>
         <div class="form-group mb-4">
-          <label for="product-quantity" class="mb-2">Product Quantity</label>
+          <label class="form-label-4">Category</label>
+          <select
+            name="product-category"
+            id="product-category"
+            class="form-control"
+            [(ngModel)]="category"
+            class="textbox-4"
+          >
+            <option value="Software">Software</option>
+            <option value="Hardware">Hardware</option>
+            <option value="Services">Services</option>
+            <option value="Tools">Tools</option>
+          </select>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group mt-4">
+          <input
+            [(ngModel)]="price"
+            type="number"
+            name="product-price"
+            id="product-price"
+            class="textbox-4"
+            placeholder=""
+          />
+          <label class="form-label-4"> Price</label>
+        </div>
+        <div class="form-group mb-4">
           <input
             [(ngModel)]="quantity"
-            type="text"
+            type="number"
             name="product-quantity"
             id="product-quantity"
-            class="form-control"
+            class="textbox-4"
             placeholder=""
           />
-          <span *ngIf="errors.quantity" class="text-danger">{{
-            errors.quantity
-          }}</span>
+          <label class="form-label-4"> Quantity</label>
         </div>
         <div class="form-group mb-4">
-          <label for="product-points" class="mb-2">Product Points</label>
           <input
             [(ngModel)]="points"
-            type="text"
+            type="number"
             name="product-points"
             id="product-points"
-            class="form-control"
+            class="textbox-4"
             placeholder=""
           />
-          <span *ngIf="errors.points" class="text-danger">{{
-            errors.points
-          }}</span>
+          <label class="form-label-4"> Points</label>
         </div>
       </div>
-      <div class="text-center pb-3">
-        <button type="submit" class="btn btn-primary submitbtn">Submit</button>
+      <div class="container mb-4">
+        <div class="pe-5">
+          <button
+            type="submit"
+            class="btn btn-warning float-end"
+            (click)="addRow()"
+          >
+            <b>Add Sub-Product</b>
+          </button>
+        </div>
+        <br><br>
+        <div style="max-height: 200px; overflow-y: auto;">
+          <table *ngIf="showHeaders" >
+            <tr class="pb-3">
+              <th>Sub Product</th>
+              <th>Quantity</th>
+              <th>Actions</th>
+            </tr>
+            <tr *ngFor="let row of rows; let i = index">
+              <td>
+                <select
+                  name="selectedProductId"
+                  class="textbox-4 form-control"
+                  [(ngModel)]="row.subID"
+                  style="width: 300px"
+                >
+                  <option *ngFor="let prod of products" [value]="prod.id">
+                    {{ prod.name }}
+                  </option>
+                </select>
+              </td>
+
+              <td>
+                <input
+                  type="number"
+                  class="textbox-4 form-control"
+                  [(ngModel)]="row.subQuan"
+                  placeholder=""
+                  style="width: 158px"
+                />
+              </td>
+              <td>
+                <button class="btn btn-danger" (click)="removeRow(i)">
+                  Remove
+                </button>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="text-center pb-3">
+          <button
+            type="submit"
+            class="btn btn-primary submitbtn"
+            (click)="submitForm()"
+          >
+            Submit
+          </button>
+        </div>
       </div>
     </div>
-  </form>
+  </div>
 </div>

@@ -14,6 +14,10 @@ import { CustomerInternalNoteComponent } from 'src/app/shared/customer-internal-
 import { InfoComponent } from 'src/app/shared/info/info.component';
 import { PaymentComponent } from '../payment/payment.component';
 import { SharedService } from 'src/app/shared/shared.service';
+import { OrdersService } from 'src/app/services/orders/orders.service';
+import { CustomersResponse, CustomersService } from 'src/app/services/customers/customers.service';
+import { SearchService } from 'src/app/shared/search.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-transaction-page',
@@ -22,13 +26,17 @@ import { SharedService } from 'src/app/shared/shared.service';
 })
 export class TransactionPageComponent {
   filteredProducts: any[] = [];
-  selectedCategory: string = 'all';
-  products: any[] = [];
+  selectedCategory: string = 'all' ;
+  products:  ProductsResponse[]=[];
   constructor(
     private transactionsService: TransactionsService,
+    private orderService: OrdersService,
+    private customersService: CustomersService,
     private productsService: ProductsService,
     public dialog: MatDialog,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private searchService: SearchService,
+    private toast: NgToastService
   ) {
     this.filteredProducts = this.products; 
   }
@@ -37,6 +45,7 @@ export class TransactionPageComponent {
   code!: string;
   model!: string;
   note!: string;
+  internalNote!:string;
   price!: string;
   quantity!: string;
   points!: string;
@@ -44,6 +53,7 @@ export class TransactionPageComponent {
   transactions!: TransactionsResponse[];
   isLoading: boolean = false;
   cart: ProductsResponse[] = [];
+  customers: CustomersResponse[] = [];
   isCartEmpty: boolean = true;
   cartHistory: ProductsResponse[][] = [];
   history: HistoryEntry[] = [];
@@ -59,21 +69,81 @@ export class TransactionPageComponent {
   highlightClass: string = '';
   selectedMode: 'quantity' | 'price' | 'discount' = 'quantity';
   selectedCustomerName: string = '';
+  selectedCustomer: any;
+ 
 
   ngOnInit() {
-    this.getTransactionsLists();
-    this.getProductsLists();
-    this.sharedService.selectedCustomer$.subscribe((customerName) => {
-      this.selectedCustomerName = customerName;
+    this.searchService.searchQuery$.subscribe((query) => {
+      this.searchsCustomer(query);
     });
+    this.getCustomersLists();
+    this.getProductsLists();
   }
 
+  updateCategory(category: string): void {
+    this.selectedCategory = category;
+    this.updateFilteredProducts();
+  }
+  
   updateFilteredProducts() {
     if (this.selectedCategory === 'all') {
-      this.filteredProducts = this.products; 
+      this.filteredProducts = this.products;
     } else {
       this.filteredProducts = this.products.filter(item => item.category === this.selectedCategory);
     }
+}
+
+  getCustomersLists(): void {
+    try {
+      this.isLoading = true;
+
+      this.customersService.getCustomersLists().subscribe((res) => {
+        this.customers = res;
+        this.isLoading = false;
+        console.log(res);
+      });
+  
+    } catch (error) {
+      this.errors = error;
+    }
+  }
+
+  searchsCustomer(query: string) {
+    try {
+      this.isLoading = true;
+
+      if (query) {
+        this.productsService.getProductsLists().subscribe((res) => {
+          this.products = res;
+
+          this.filteredProducts  = this.products .filter((item) => {
+            return (
+              item.id.toString() === query ||
+              (item.name && item.name.toString().toLowerCase().includes(query.toLowerCase())) ||
+              item.barcode.toString() === query
+            );
+          });
+
+
+          if (this.filteredProducts .length === 0) {
+       
+              this.toast.info({detail:"WARNING",summary:'Search not found',duration:3000, position:'topCenter'});
+            
+          }
+
+          this.isLoading = false;
+        });
+      } else {
+        this.getProductsLists();
+      }
+    } catch (error) {
+      this.errors = error;
+    }
+  }
+
+  selectCustomer(customer: CustomersResponse | undefined): void {
+    this.selectedCustomer = customer;
+    console.log(this.selectedCustomer);
   }
 
   getProductsLists() {
@@ -138,26 +208,20 @@ export class TransactionPageComponent {
   getTotalPrice(): number {
     return this.cart.reduce((total, item) => {
       const itemPrice = parseFloat(item.price) || 0;
-      return total + itemPrice * item.quantity;
+      const itemQuantity = item.quantity || 0;
+      const itemDiscount = item.discount || 0;  
+      const discountedPrice = itemPrice - (itemPrice * itemDiscount / 100);
+      return total + discountedPrice * itemQuantity;
     }, 0);
   }
+  
+  
 
   getTotalQuantity(): number {
     return this.cart.reduce((total, item) => total + item.quantity, 0);
   }
 
-  getTransactionsLists() {
-    try {
-      this.isLoading = true;
 
-      this.transactionsService.getTransactionsList().subscribe((res) => {
-        this.transactions = res;
-        this.isLoading = false;
-      });
-    } catch (error) {
-      this.errors = error;
-    }
-  }
 
   changeSelectedMode(mode: 'quantity' | 'price' | 'discount') {
     this.selectedMode = mode;
@@ -262,8 +326,11 @@ export class TransactionPageComponent {
         }
       }
     }
-
     this.isCartEmpty = this.cart.length === 0;
+    if(this.isCartEmpty){
+      this.internalNote = "";
+      this.note = "";
+    }
   }
 
   toggleSign() {
@@ -294,7 +361,7 @@ export class TransactionPageComponent {
     });
 
     dialogRef.componentInstance.noteAdded.subscribe((updatedCart) => {
-      this.cart = updatedCart;
+      this.note = updatedCart;
     });
   }
 
@@ -304,9 +371,10 @@ export class TransactionPageComponent {
       data: { cart: this.cart, selectedProduct: this.selectedProduct },
     });
     dialogRef.componentInstance.internalNoteAdded.subscribe((updatedCart) => {
-      this.cart = updatedCart;
+      this.internalNote = updatedCart;
     });
   }
+  
   openInfoDialog(item: any, event: Event): void {
     event.stopPropagation(); 
     const dialogRef = this.dialog.open(InfoComponent, {
@@ -314,15 +382,89 @@ export class TransactionPageComponent {
       data: { product: item },
     });
   }
+  
   openPaymentDialog(): void {
-    const totalPrice = this.getTotalPrice();
+    const totalAmount = this.getTotalPrice();
+    const customerId = this.selectedCustomer?.id;
+    
+    if (this.cart.length === 0) {
+      return;
+    }
+  
     const dialogRef = this.dialog.open(PaymentComponent, {
       width: '500px',
       disableClose: true,
-      data: { totalAmount: totalPrice, cart: this.cart },
+      data: { totalAmount: totalAmount, cart: this.cart },
     });
-
-    dialogRef.afterClosed().subscribe((result) => {
+  
+    dialogRef.componentInstance.paymentMade.subscribe((result) => {
+      const inputData = {
+        ...this.getTransactionDetails(customerId),
+        amountRendered: result.amountRendered,
+        change: result.change,
+      };
+  
+      if (this.cart.length === 0) {
+       
+        return;
+      }
+      this.orderService.saveOrder(inputData).subscribe(
+        (response) => {
+        
+          this.clearCartAndCustomer();
+          this.internalNote = "";
+          this.note = "";
+        },
+        (error) => {
+          
+        }
+      );
+    });
+  
+    dialogRef.afterClosed().subscribe(() => {
     });
   }
+
+  clearCartAndCustomer(): void {
+    this.cart = [];
+    this.selectedCustomer = undefined;
+    this.isCartEmpty = this.cart.length === 0;
+  }
+  
+  clearCart(): void {
+    this.cart = [];
+  }
+
+  onCustomerChange(): void {
+    const selectedCustomerId = this.selectedCustomer?.id;
+    this.getTransactionDetails(selectedCustomerId);
+  }
+
+  getTransactionDetails(customerId: string | undefined): any {
+    const total = this.getTotalPrice();
+
+    const payload = {
+      customer_id: customerId,
+      total: total,
+      products: this.cart.map((item) => ({
+        id: item.id,
+        price: parseFloat(item.price),
+        qty: item.quantity,
+        points: item.points,
+        sub_total: item.quantity * parseFloat(item.price),
+        discount: item.discount,
+      })),
+      internal_note: this.internalNote || "-",
+      customer_note: this.note || "-",
+      quantity: this.cart.reduce((totalQuantity, item) => totalQuantity + item.quantity, 0), 
+      discount: this.cart.reduce((totalDiscount, item) => totalDiscount + item.discount, 0)
+    };
+    console.log(this.internalNote,this.note);
+
+    return payload;
+  }
 }
+
+
+  
+

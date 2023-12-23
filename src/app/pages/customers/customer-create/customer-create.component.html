@@ -1,0 +1,66 @@
+<div class="container py-5 bg-white">
+    <form (ngSubmit)="saveCustomer()" class=" row custom-form border py-4 w-75 m-auto shadow">
+        <h4 class="text-center mb-5">New Customer</h4>
+        <div class="col-lg-6">
+            <div class="mb-2">
+                <label for="full_name">Name</label>
+                <input type="text" [(ngModel)]="full_name" name="full_name" id="full_name" class="form-control "
+                    placeholder="Enter Full Name" />
+                <span *ngIf="errors.full_name" class="alert alert-danger floating-warning">{{ errors.full_name }}</span>
+            </div>
+            <div class="mb-2">
+                <label for="mobile_no">Mobile Number</label>
+                <input type="tel" [(ngModel)]="mobile_no" name="mobile_no" id="mobile_no" class="form-control"
+                    placeholder="Enter Mobile Number" />
+                <span *ngIf="errors.mobile_no" class="alert alert-danger floating-warning">{{ errors.mobile_no }}</span>
+            </div>
+            <div class="mb-2">
+                <label>Gender</label><br />
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="maleGender" value="Male" [(ngModel)]="gender" />
+                    <label class="form-check-label" for="maleGender">Male</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="femaleGender" value="Female" [(ngModel)]="gender" />
+                    <label class="form-check-label" for="femaleGender">Female</label>
+                </div>
+            </div>            
+            <span *ngIf="errors.gender" class="alert alert-danger floating-warning">{{ errors.gender }}</span>
+        
+        </div>
+        <div class="col-lg-6">
+            <div class="mb-2">
+                <label for="email">Email</label>
+                <input type="email" [(ngModel)]="email" name="email" id="email" class="form-control"
+                    placeholder="Enter Email" />
+                <span *ngIf="errors.email" class="alert alert-danger floating-warning">{{ errors.email }}</span>
+            </div>
+            <div class="mb-2">
+                <label for="address">Address</label>
+                <input type="text" [(ngModel)]="address" name="address" id="address" class="form-control"
+                    placeholder="Enter Address" />
+                <span *ngIf="errors.address" class="alert alert-danger floating-warning">{{ errors.address }}</span>
+            </div>
+            <div class="mb-2">
+                <label>Privilege</label><br />
+                <div class="form-check form-check-inline"
+                    *ngFor="let option of ['None', 'Student', 'PWD', 'Senior Citizen']">
+                    <input class="form-check-input" type="radio" name="privilege" [id]="option" [value]="option"
+                        [(ngModel)]="privilege" />
+                    <label class="form-check-label" [for]="option">{{
+                        option
+                        }}</label>
+                </div>
+
+            </div> 
+            <span *ngIf="errors.privilege" class="alert-danger">
+                {{ errors.privilege }}
+            </span>
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Save
+            </button>
+        </div>
+    </form>
+</div>

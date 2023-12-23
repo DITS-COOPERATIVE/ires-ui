@@ -1,8 +1,8 @@
 <h2 mat-dialog-title class="modal-title">Registration Details</h2>
 <div mat-dialog-content>
-  <p>Name: {{ full_name }}</p>
-  <p>Barcode:</p>
-  <p>Date Created:</p>
+  <p>Name: {{ data.full_name }}</p>
+  <ngx-barcode [bc-value]="data.barcode" [bc-display-value]="true"></ngx-barcode>
+  <p>Date Created: {{ data.createdDate | date:'medium' }}</p>
 </div>
 <div mat-dialog-actions class="modal-actions">
   <button class="btn btn-secondary" (click)="onCancel()">Cancel</button>

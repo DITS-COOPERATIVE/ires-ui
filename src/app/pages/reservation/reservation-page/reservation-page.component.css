@@ -1,0 +1,8 @@
+.addButton:hover{
+  border: #12243b 1px solid;
+  border-radius: 5px;
+}
+  .custom-select {
+    position: relative;
+    padding-right: 30px; /* Adjust as needed */
+  }

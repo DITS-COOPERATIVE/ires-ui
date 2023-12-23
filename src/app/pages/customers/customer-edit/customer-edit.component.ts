@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { CustomersService } from 'src/app/services/customers/customers.service';
+import { CustomersResponse, CustomersService } from 'src/app/services/customers/customers.service';
+import { ModalComponent } from 'src/app/shared/modal/modal.component';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-customer-edit',
@@ -25,7 +28,9 @@ export class CustomerEditComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private customersService: CustomersService
+    private customersService: CustomersService,
+    public dialog: MatDialog,
+    private toast: NgToastService
   ) {}
 
   ngOnInit() {
@@ -36,12 +41,18 @@ export class CustomerEditComponent {
       this.isLoading = false;
     });
   }
-
-  edit() {
-    this.isReadOnly = false;
-    this.isEditable = true;
+  
+  cancel() {
+    this.isReadOnly = true;
+    this.isEditable = false;
   }
-
+  handleImageUpload(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement && inputElement.files && inputElement.files.length > 0) {
+      const file = inputElement.files[0];
+    }
+  }
+  
   toggleEditButton() {
     this.isEditing = !this.isEditing;
     if (this.isEditing) {
@@ -59,9 +70,10 @@ export class CustomerEditComponent {
       gender: this.customer.gender,
       email: this.customer.email,
       mobile_no: this.customer.mobile_no,
+      points: this.customer.points,
       address: this.customer.address,
       privilege: this.customer.privilege,
-      points: this.customer.points,
+      
     };
 
     this.isLoading = true;
@@ -69,18 +81,49 @@ export class CustomerEditComponent {
     this.customersService.updateCustomer(inputData, this.customerId).subscribe({
       next: (res: any) => {
         this.isLoading = false;
+        this.toast.success({detail:"SUCCESS",summary:'Updated Customer',duration:5000, position:'topCenter'});
         this.successMessage = 'Success! Customer saved.';
         setTimeout(() => (this.successMessage = null), 3000);
         this.isEditing = false;
         this.isReadOnly = true;
         this.isEditable = false;
+        
+      },
+      error: (err: any) => {
+        this.errors = err.error.errors;
+        this.isLoading = false;
+        this.toast.error({detail:"ERROR",summary:'Failed to Update Customer',duration:5000, position:'topCenter'});
+      },
+    });
+  }
+  
+  generateBarcode() {
+    this.isLoading = true;
+
+    this.customersService.getCustomer(this.customerId).subscribe({
+      next: (res: any) => {
+        this.openDialog(res);
       },
       error: (err: any) => {
         this.errors = err.error.errors;
         this.isLoading = false;
       },
     });
+   
   }
+  
+
+  openDialog(customer: CustomersResponse): void {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '500px',
+      data: {
+        full_name: customer.full_name,
+        barcode: customer.barcode,
+        createdDate: customer.created_at,
+      },
+    });
+  }
+  
 
   onImageClick() {
     const fileInput = document.getElementById('imageInput');
@@ -102,10 +145,4 @@ export class CustomerEditComponent {
     }
   }
 
-  openImageInput() {
-    const inputElement: HTMLInputElement = document.getElementById(
-      'imageInput'
-    ) as HTMLInputElement;
-    inputElement.click();
-  }
 }

@@ -12,10 +12,8 @@ import { LoaderComponent } from './partials/loader/loader.component';
 import { ProductPageComponent } from './pages/products/product-page/product-page.component';
 import { CustomerPageComponent } from './pages/customers/customer-page/customer-page.component';
 import { CustomerEditComponent } from './pages/customers/customer-edit/customer-edit.component';
-import { OrderCreateComponent } from './pages/orders/order-create/order-create.component';
 import { OrderPageComponent } from './pages/orders/order-page/order-page.component';
 import { TransactionPageComponent } from './pages/transactions/transaction-page/transaction-page.component';
-import { TransactionCreateComponent } from './pages/transactions/transaction-create/transaction-create.component';
 import { BodyComponent } from './pages/body/body.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ReportsComponent } from './pages/reports/reports.component';
@@ -41,8 +39,21 @@ import { CustomerNoteComponent } from './shared/customer-note/customer-note.comp
 import { CustomerInternalNoteComponent } from './shared/customer-internal-note/customer-internal-note.component';
 import { InfoComponent } from './shared/info/info.component';
 import { TransactionCustomerComponent } from './pages/transactions/transaction-customer/transaction-customer.component';
-import { TransactionCustomerCreateComponent } from './pages/transactions/transaction-customer-create/transaction-customer-create.component';
 import { PaymentComponent } from './pages/transactions/payment/payment.component';
+import { DatePipe } from '@angular/common';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { ServiceComponent } from './pages/service/service.component';
+import { CustomerCreateComponent } from './pages/customers/customer-create/customer-create.component';
+import { ReservationPageComponent } from './pages/reservation/reservation-page/reservation-page.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { ProductKitComponent } from './pages/products/product-kit/product-kit.component';
+import { OrdersViewComponent } from './pages/orders-view/orders-view.component';
+import { NgxBarcodeModule } from '@greatcloak/ngx-barcode';
+import { ModalComponent } from './shared/modal/modal.component';
+import { NgToastModule } from 'ng-angular-popup'
+import { ConfirmBoxConfigModule, NgxAwesomePopupModule } from '@costlydeveloper/ngx-awesome-popup';
+
 
 @NgModule({
   declarations: [
@@ -54,10 +65,8 @@ import { PaymentComponent } from './pages/transactions/payment/payment.component
     ProductPageComponent,
     CustomerPageComponent,
     CustomerEditComponent,
-    OrderCreateComponent,
     OrderPageComponent,
     TransactionPageComponent,
-    TransactionCreateComponent,
     BodyComponent,
     SettingsComponent,
     ReportsComponent,
@@ -69,8 +78,15 @@ import { PaymentComponent } from './pages/transactions/payment/payment.component
     CustomerInternalNoteComponent,
     InfoComponent,
     TransactionCustomerComponent,
-    TransactionCustomerCreateComponent,
     PaymentComponent,
+    ServiceComponent,
+    CustomerCreateComponent,
+    ReservationPageComponent,
+    OrdersViewComponent,
+    RegisterComponent,
+    ProfileComponent,
+    ProductKitComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,8 +108,14 @@ import { PaymentComponent } from './pages/transactions/payment/payment.component
     MatCheckboxModule,
     MatIconModule,
     DragDropModule,
+    NgxBarcodeModule,
+    NgxDaterangepickerMd.forRoot(),
+    NgToastModule,
+    NgxAwesomePopupModule.forRoot(),
+    ConfirmBoxConfigModule.forRoot(),
+
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [DatePipe],
+  bootstrap: [AppComponent], 
 })
 export class AppModule {}

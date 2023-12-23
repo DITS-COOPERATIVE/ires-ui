@@ -1,7 +1,9 @@
 .totalCol {
-  background-color: #12243b;
-  height: 5rem;
+  background-color: #FCEADE;
+  height: 6rem;
   border-radius: 10px;
+  margin: 0px 25px;
+  box-shadow: var(--bs-box-shadow)!important;
 }
 .TopProdInfo > p {
   margin-bottom: 0;
@@ -52,12 +54,19 @@
   border: 1px solid rgba(158, 156, 156, 0.397);
 }
 .col-md-4 > img {
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
   border-radius: 100%;
   object-fit: cover;
 }
 .topProd {
-  border-radius: 10px;
-  border: 1px solid rgba(158, 156, 156, 0.397);
+  padding-bottom: 12px;
+}
+.progress {
+  --bs-progress-height: 8px!important;
+  margin: 15px 0;
+}
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
 }

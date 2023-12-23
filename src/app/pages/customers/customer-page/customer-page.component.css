@@ -6,7 +6,7 @@
 
 .card-link {
   background-color: white;
-  margin: 5px 10px;
+  margin: 15px 0px;
   border-radius: 10px;
 }
 .card-body {
@@ -40,19 +40,17 @@
 }
 
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 15px;
+  width: 95%;
+  margin: auto;
+  
 }
 
 th,
 td {
-  padding: 20px 5px;
+  padding: 20px 10px;
   text-align: left;
-}
-
-th {
-  background-color: #f2f2f2;
+  text-align: left;
+  font-size: smaller;
 }
 
 .table-container {
@@ -91,8 +89,6 @@ th {
 }
 
 .custom-form {
-  border-color: #9c9c9c;
-  border: 1px solid #12243b;
   padding: 1px 1px 1px 15px;
   border-radius: 4px;
   width: 370px;
@@ -155,29 +151,22 @@ th {
 
 .card-view {
   position: relative;
-  left: 50%;
+  left: 75%;
 }
 
 .list-view {
-  position: relative;
-  left: 85%;
-}
-.sort-by {
-  font-family: "Poppins-Bold", Helvetica;
-  font-size: 15px;
-  text-align: center;
-}
-table,
-th,
-td {
-  border-color: transparent;
+  position: absolute;
+  left: 80%;
 }
 th {
-  background-color: white;
   font-weight: 400;
 }
 td {
   font-weight: bold;
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .card-text {
   white-space: nowrap;
@@ -193,11 +182,51 @@ td {
 .fas {
   font-weight: 200;
 }
-.dropdown:hover>.dropdown-menu {
+.dropdown:hover > .dropdown-menu {
   display: block;
 }
 
-.dropdown>.dropdown-toggle:active {
+.dropdown > .dropdown-toggle:active {
   /*Without this, clicking will make it sticky*/
-    pointer-events: none;
+  pointer-events: none;
 }
+[data-privilege="Student"] > span {
+  background-color: #fdead6;
+  padding: 5px 15px;
+  border-radius: 15px;
+  display: flex;
+    justify-content: center;
+}
+
+[data-privilege="PWD"] > span {
+  background-color: #c3dfe0;
+  padding: 5px 15px;
+  border-radius: 15px;
+  display: flex;
+    justify-content: center;
+}
+[data-privilege="Senior Citizen"] > span {
+  background-color: #d5f096;
+  padding: 5px 15px;
+  border-radius: 15px;
+  display: flex;
+    justify-content: center;
+    width: 97px;
+}
+[data-privilege="None"] > span {
+  background-color: #fbbfca;
+  padding: 5px 15px;
+  border-radius: 15px;
+  display: flex;
+    justify-content: center;
+}
+th, tr, td{
+  border: none;
+}
+.addButton:hover{
+  border: #12243b 1px solid;
+  border-radius: 5px;
+  }
+  
+
+  

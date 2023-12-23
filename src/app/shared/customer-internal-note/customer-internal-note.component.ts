@@ -33,7 +33,7 @@ export class CustomerInternalNoteComponent {
       }
       return item;
     });
-    this.internalNoteAdded.emit(updatedCart);
+    this.internalNoteAdded.emit(this.noteInput);
     this.dialogRef.close(updatedCart);
   }
 }

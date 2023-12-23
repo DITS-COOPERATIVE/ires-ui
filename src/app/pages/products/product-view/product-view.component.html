@@ -5,36 +5,35 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col">
-      <div class="prodImage position-relative">
+      <div class="prodImage">
         <label for="image-upload" class="image-label">
-          <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2f9e8780-1e9b-4920-85b8-bb5270cb1e1e/dg37osc-1d6b2c2a-f025-4881-b742-47b6408f1d6c.jpg/v1/fill/w_1280,h_1703,q_75,strp/gojo_satoru_jujutsu_kaisen_season_2_by_nico2713_dg37osc-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTcwMyIsInBhdGgiOiJcL2ZcLzJmOWU4NzgwLTFlOWItNDkyMC04NWI4LWJiNTI3MGNiMWUxZVwvZGczN29zYy0xZDZiMmMyYS1mMDI1LTQ4ODEtYjc0Mi00N2I2NDA4ZjFkNmMuanBnIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.SZT_kvya8EULAQ19CNjJupErJC_tyEyBwaDb_qJRpwg" class="img-thumbnail" alt="Product Image" />
+          <img [src]="'http://localhost:8000/' + product.image"class="img-thumbnail" alt="Product Image" />
           <span class="choose-file" *ngIf="isEditing"></span>
         </label>
         <input
           id="image-upload"
           type="file"
           accept="image/*"
-          [disabled]="!isEditing"
-          style="display: none"
+          [disabled]
+          style="display: none" 
           (change)="handleImageUpload($event)"
         />
       </div>
       <div class="prodKitting">
-        <h3 class="text-center mt-2">Product Kit</h3>
-        <div class="col-md-12 border p-2 d-flex align-items-center">
-          <div class="col-md-6">
-            <img
-              src="https://images.unsplash.com/photo-1592743263126-bb241ee76ac7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhdXRpZnVsJTIwc2NlbmVyeXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
-              class="rounded-circle"
-              width="50"
-              height="50"
-            />
+        <h3 class="text-center mt-2">Sub Product</h3>
+            <div class="d-flex flex-column"  *ngIf="!isLoading && product" >
+              <div *ngFor="let subProduct of product.sub_products" class="d-flex align-items-center border mb-3 p-2 justify-content-between">
+                <div>
+                  <img  [src]="'http://localhost:8000/' + subProduct.image"  class="rounded-circle" width="50" height="50" />
+                </div>
+                <div>
+                  <span class="me-4">{{ subProduct.name }}</span>
+                </div>
+                <div *ngIf="isEditing">
+                  <span (click)="deleteSubProduct(product.id, subProduct.id)"><i class="fa fa-trash"></i> </span>
+                </div>
+            </div>
           </div>
-          <div class="col-md-6 text-center">
-            <span>John Doe</span>
-          </div>
-        </div>
-        <br />
       </div>
     </div>
     <div class="col-lg-9">
@@ -63,7 +62,6 @@
               id="product-name"
               class="form-control display-1"
               placeholder=""
-              [value]="product.name"
               [readonly]="isReadOnly"
               [class.editable]="isEditable"
               [(ngModel)]="product.name"
@@ -83,12 +81,11 @@
                   id="product-code"
                   class="form-control"
                   placeholder=""  
-                  [value]="product.code"
-                  [(ngModel)]="product.code"
+                  [(ngModel)]="product.barcode"
                   #productCodeInput
                   readonly
                 />
-                <span *ngIf="errors.code" class="text-danger">{{
+                <span *ngIf="errors.barcode" class="text-danger">{{
                   errors.code
                 }}</span>
               </div>
@@ -100,7 +97,6 @@
                   id="product-price"
                   class="form-control"
                   placeholder=""
-                  [value]="product.price"
                   [readonly]="isReadOnly"
                   [class.editable]="isEditable"
                   [(ngModel)]="product.price"
@@ -119,7 +115,6 @@
                   [disabled]="isReadOnly"
                   [class.editable]="isEditable"
                   [(ngModel)]="product.category"
-                  [value]="product.category"
                 >
                 <option value="Software">Software</option>
                 <option value="Hardware">Hardware</option>
@@ -136,7 +131,6 @@
                   id="product-model"
                   class="form-control"
                   placeholder=""
-                  [value]="product.model"
                   [class.editable]="isEditable"
                   [readonly]="isReadOnly"
                   [(ngModel)]="product.model"
@@ -156,10 +150,11 @@
                   id="product-quantity"
                   class="form-control"
                   placeholder=""
-                  [value]="product.quantity"
                   [(ngModel)]="product.quantity"
+                  [class.editable]="isEditable"
+                  [readonly]="isReadOnly"
                   #productQuantityInput
-                  readonly
+                 
                 />
                 <span *ngIf="errors.quantity" class="text-danger">{{
                   errors.quantity
@@ -173,7 +168,6 @@
                   id="product-points"
                   class="form-control"
                   placeholder=""
-                  [value]="product.points"
                   [readonly]="isReadOnly"
                   [class.editable]="isEditable"
                   [(ngModel)]="product.points"
@@ -188,6 +182,9 @@
               <button class="btn btn-primary" (click)="updateProduct()">
                 Save
               </button>
+              <button  style="position: relative; right: 200px;" (click)="generateBarcode()" class="btn btn-success">
+                View Code
+              </button>  
             </div>
           </div>
         </form>

@@ -1,4 +1,3 @@
-<h2>Stocks</h2>
 
 <table
   mat-table
@@ -44,13 +43,16 @@
       {{ columnHeaders[column] }}
     </th>
     <td mat-cell *matCellDef="let product">
+      <ng-container *ngIf="column === 'name'">
+        <a style="text-decoration: none;" [routerLink]="['/products', product.id, 'edit']">{{ product.name }}</a>
+      </ng-container>
       <ng-container *ngIf="column === 'price'">
         {{ product[column] | currency:'PHP':'symbol':'1.2-2' }}
       </ng-container>
       <ng-container *ngIf="column === 'quantity'">
         <ng-container *ngIf="editingProductId === product.id; else quantityDisplay">
           <input type="number" [(ngModel)]="product[column]" />
-          <span class="check-icon me-3 text-success" (click)="saveQuantity(product)">
+          <span class="check-icon me-3 text-success" (click)="updateQuantity(product)">
             <i class="fa fa-check "></i>
           </span>
           <span class="cancel-icon text-danger" (click)="cancelEdit()">
@@ -58,21 +60,24 @@
           </span>
         </ng-container>
         <ng-template #quantityDisplay>
-          {{ product[column] }} <span class="pencil" (click)="editQuantity($event, product)">
+          {{ product[column] }} <span class="pencil" matTooltip="Stock In/Out" matTooltipPosition="above" (click)="editQuantity($event, product)">
             <i class="fa fa-pencil"></i>
           </span>
         </ng-template>
       </ng-container>
-      <ng-container *ngIf="column !== 'price' && column !== 'quantity'">
+      <ng-container *ngIf="column !== 'price' && column !== 'quantity'&& column !=='name'">
         {{ product[column] }}
       </ng-container>
+      
     </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
-
+<div *ngIf="!dataSource?.data?.length" class="text-center p-3">
+  <p>No stock available</p>
+</div>
 <mat-paginator
   [pageSizeOptions]="[10, 25, 50, 100]"
   showFirstLastButtons

@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <div class="addButton cursor">
+    <a routerLink="/reservations" class="btn btn-sm" style="color: #12243b"><i class="fas fa-arrow-left"></i>&nbsp;
+      Back</a>
+  </div>
+  <div class="row pt-5">
+    <div class="col-lg-4 bg-white rounded shadow mb-4">
+      <label for="" class="mt-3">Name</label>
+      <input type="text" [(ngModel)]="name" class="form-control" />
+      <span *ngIf="errors.name" class="alert alert-danger p-1">{{
+        errors.name
+        }}</span>
+      <label for="">Price</label>
+      <input type="number" [(ngModel)]="price" class="form-control" />
+      <span *ngIf="errors.price" class="alert alert-danger p-1">{{
+        errors.price
+        }}</span>
+      <label for="">Type</label>
+      <select name="" id=" " [(ngModel)]="type" class="form-control">
+        <option value="Programming">Programming</option>
+        <option value="Software Installation">Software Installation</option>
+        <option value="Layout">Layout</option>
+        <option value="CCTV Installation">CCTV Installation</option>
+        <option value="Print/Photocopy">Print/Photocopy</option>
+        <option value="Internet Services">Internet Services</option>
+        <option value="Repair Services">Repair Services</option>
+        <option value="Load Services">Load Services</option>
+      </select>
+      <span *ngIf="errors.type" class="alert alert-danger p-1">{{
+        errors.type
+        }}</span>
+<button
+class="btn btn-sm btn-outline-primary d-flex m-auto mb-3 mt-4"
+(click)=" saveOrupadateService()"
+>
+{{ isUpdateMode ? 'Update' : 'Submit' }}
+</button>
+    </div>
+    <div class="col-lg-8">
+      <table class="table shadow">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Type</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="services.length > 0; else noServiceData">
+            <tr *ngFor="let item of services">
+              <td>{{ item.name }}</td>
+              <td>₱ {{ item.price }}</td>
+              <td>{{ item.type }}</td>
+              <td  *ngIf="permissionService.canAccess(['Admin'])"> <a (click)="  deleteReservation(item.id)" class="btn btn-sm btn-danger">
+                <i class="fa fa-trash text-white"></i>
+              </a> &nbsp;
+              <a (click)="editService(item)" class="btn btn-sm btn-success">
+                <i class="fa fa-pencil text-white"></i>
+              </a>
+            </td>
+            </tr>
+          </ng-container>
+          <ng-template #noServiceData>
+            <tr>
+              <td colspan="5" class="text-center">
+                <i class='fas fa-tools'></i> &nbsp;No services available
+              </td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

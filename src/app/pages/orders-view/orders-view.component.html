@@ -1,0 +1,93 @@
+<div class="container">
+  <div *ngIf="orderDetails">
+    <div class="row mb-2 rounded"  *ngIf="customer.full_name">
+      <div class="col bg-white mx-4 rounded d-flex justify-content-center" >
+        <img
+          class="img-fluid "
+          src="{{customer.image}}"
+          alt="Card image"
+        />
+      </div>
+      <div class="col-md-8 bg-white rounded">
+        <div class="col">
+          <small class="card-text float-end text-secondary"
+            ><i class="fas fa-star text-warning"></i
+            >{{
+             customer.points 
+            }}</small
+          >
+          <p>
+           <b>Customer Name:</b> 
+            {{ customer.full_name }}
+          </p>
+          <p>
+           <b>Address:</b> 
+            {{ customer.address }}
+          </p>
+        </div>
+        <div class="col">
+          <p>
+           <b>Mobile Number:</b> 
+            {{ customer.mobile_no }}
+          </p>
+          <p>
+           <b>Email: </b> {{ customer.email }}
+          </p>
+        </div>
+        <div class="col">
+          <p>
+           <b> Gender:</b>
+            {{ customer.gender }}
+          </p>
+          <p>
+           <b>Previlege:</b> 
+            {{ customer.previlege }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Add more details as needed -->
+    </div>
+    <div class="row">
+      <div class="col p-0 ps-4">
+        <table class="table shadow mt-4">
+          <thead class="text-center">
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Code</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="text-center"
+              *ngFor="let product of orderDetails.products"
+            >
+              <td  title="">{{ product.id }}</td>
+              <td  title="">{{ product.name }}</td>
+              <td title="">{{ product.barcode }}</td>
+              <td  title="">{{ product.quantity }}</td>
+              <td  title=""><b>₱</b> {{ product.price }}</td>
+            </tr>
+            <tr>
+              <td colspan="4">
+                <p class="float-end">Total:</p>
+              </td>
+              <td width="25%" class="text-center">
+                <b>₱ {{ orderDetails.total }}</b>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <ul>
+          <p>Total: {{ orderDetails.total }}</p>
+          <p>Quantity: {{ orderDetails.quantity }}</p>
+          <p>Discount: {{ orderDetails.discount }}</p>
+          <p>Customer Note:{{orderDetails.customer_note}}</p>
+          <p>Staff Note:{{orderDetails.internal_note}}</p>
+        </ul>
+      </div>
+    </div>
+  </div>

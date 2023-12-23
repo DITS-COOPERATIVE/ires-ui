@@ -1,52 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { CustomersResponse } from '../customers/customers.service';
 
 export interface OrdersResponse {
-  "id": number,
-  "customer_id": number,
-  "product_id": number,
-  "quantity": number,
-  "created_at": string,
-  "updated_at": string,
-    "product": 
-      {
-      "id": number,
-      "name": string,
-      "code": string,
-      "model": string,
-      "price": number,
-      "quantity": number,
-      "points": number,
-      "created_at": string,
-      "updated_at": string
-      },
-    "customer": {
-      "id": number,
-      "first_name": string,
-      "last_name": string,
-      "gender": string,
-      "email": string,
-      "mobile_no": string,
-      "address": string,
-      "privilege": string,
-      "points": number,
-      "created_at": string,
-      "updated_at": string
-    },
-    "sale": {
-      "id": number,
-      "order_id": number,
-      "total_price": number,
-      "total_points": number,
-      "created_at": string,
-      "updated_at": string
-    }
+  id: number,
+  customer_id: number,
+  product_id: number,
+  customer:CustomersResponse,
+  quantity: number,
+  price: number,
+  discount: number,
+  points: number,
+  total:string,
+  created_at: string,
+  updated_at: string,
 }
 
 export interface OrdersResponseType {
-  status: number,
-  result: OrdersResponse []
+  res: OrdersResponse []
 }
 
 export interface OrderEditResponse {
@@ -57,7 +29,7 @@ export interface OrderEditResponse {
   providedIn: 'root'
 })
 export class OrdersService {
-  private endpoint = "orders";
+  private endpoint = "orders/";
   private domain: string | undefined;
 
   constructor( private httpClient: HttpClient ) {
@@ -66,12 +38,11 @@ export class OrdersService {
 
   getOrdersLists() {
 
-    return  this.httpClient.get<OrdersResponseType>(`${this.domain}${this.endpoint}`);
+    return  this.httpClient.get<OrdersResponse[]>(`${this.domain}${this.endpoint}`);
   }
 
   getOrder(orderId : number) {
-
-    return  this.httpClient.get<OrderEditResponse>(`${this.domain}${this.endpoint}${orderId}`);
+    return  this.httpClient.get<OrdersResponse>(`${this.domain}${this.endpoint}${orderId}`);
   }
 
   saveOrder(inputData: object){

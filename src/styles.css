@@ -1,46 +1,53 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap');
-@import '~@angular/cdk/overlay-prebuilt.css';
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto&display=swap");
+@import "~@angular/cdk/overlay-prebuilt.css";
+@import "node_modules/@costlydeveloper/ngx-awesome-popup/styles/theme";
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:
-        border-box;
-  }
-  
-  
-  body
-  {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   position: relative;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background: #f4f7fa;
-  }
-  body::-webkit-scrollbar{
-    display: none;
-  }
-  .card {
-    display: flex;
-    flex-direction: column;
-    border-radius: .5rem;
-    background-color: 1#fff;
-    margin: 1.25rem 01.25rem 0;
-    box-shadow: 0.25rem .5rem #e6edef;
-    .card-head {
+  overflow: hidden;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  background-color: 1#fff;
+  margin: 1.25rem 01.25rem 0;
+  box-shadow: 0.25rem 0.5rem #e6edef;
+  .card-head {
     padding: 1rem 1.5rem;
     border-bottom: 1px solid #edf1f7;
     font-size: 1rem;
     font-weight: 600;
     color: #495057;
-    }
   }
-  .dropdownUni{
-    float: right;
-    background-color: #0e1a29;
-    color: white;
-    border-radius: 5px;
-    outline: white;
-  }
-  .cursor{
-    cursor: pointer;
-  }
+}
+.dropdownUni {
+  float: right;
+  background-color: #0e1a29;
+  color: white;
+  border-radius: 5px;
+  outline: white;
+}
+.cursor {
+  cursor: pointer;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.alert-danger {
+  background-color: transparent !important;
+  border: none !important;
+  color: red !important;
+}

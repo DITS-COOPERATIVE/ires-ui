@@ -1,0 +1,13 @@
+.image-container {
+    max-height: 100%;
+    overflow: hidden;
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  .img-fluid {
+    height: 240px!important;
+}

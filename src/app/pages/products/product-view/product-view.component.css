@@ -47,10 +47,10 @@ input,select:focus{
     text-align: center;
     width: 90%;
   }
-  .prodImage {
-    position: relative;
+  .img-thumbnail{
+    height: 25rem;
+    object-fit: cover;
   }
-  
   .edit-icon {
     background-color: white;
     padding: 10px;
@@ -77,4 +77,8 @@ input,select:focus{
 
   .form-control:disabled {
     background-color: white;
+  }
+  .prodImage{
+    display: flex;
+    justify-content: center;
   }

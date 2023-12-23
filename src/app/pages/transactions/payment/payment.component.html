@@ -1,7 +1,7 @@
-<div *ngIf="paymentMade" id="content">
+<div *ngIf="payment" id="content">
   <div class="row d-flex justify-content-around">
-    <div class="container px-3">
-      <div class="receipt_header">
+    <div class="container px-3" style="height: 500px; overflow: auto;" id="reciept">
+      <div class="receipt_header" >
         <h1><img src="assets/dits.png" alt="" width="10%" class="mt-3"> <span>DITS</span></h1>
         <h2>365 Triumfo St, Carigara, Philippines, 6530
           <span>Tel: +1 012 345 67 89</span>
@@ -54,36 +54,28 @@
         <h3>Thank You!</h3>
       </div>
     </div>
-    <!-- <div *ngFor="let cartItem of cart">
-      {{ cartItem.name }} <br />{{ cartItem.quantity }} ₱{{ cartItem.price }}
-
-      <span>Total ₱{{ (+cartItem.price * cartItem.quantity).toFixed(2) }}</span>
-      <span  >
-        Discount: {{ cartItem.discount }}%</span>
-      <h5>
-        Cash <span>{{ amountPaid }}</span>
-      </h5>
-      <span>Change ₱{{ calculateChange() }}</span>
-    </div> -->
   </div>
 </div>
-<div *ngIf="!paymentMade" mat-dialog-content>
-  <mat-form-field appearance="outline" style="width: 450px; height: 150px">
+<div *ngIf="!payment">
+  <span *ngIf="!paymentSuccess" style="margin: 2% 2% 2% 2%;"><i class="fas fa-arrow-circle-left"(click)="onBack()"></i></span>
+ 
+  <h1 class="row d-flex justify-content-around">Payment</h1>
+  <mat-dialog-content>
     <p>Total Amount: ₱{{ totalAmount }}</p>
-    <div class="form-group">
-      <label for="amountPaid">Amount Paid</label>
-      <input type="number" class="form-control" id="amountPaid" [(ngModel)]="amountPaid" />
-    </div>
+    <mat-form-field appearance="outline" style="width: 450px; height: 50px">
+      <input class="row d-flex justify-content-around" matInput type="number" placeholder="Amount Paid" [(ngModel)]="amountPaid" name="amountPaid" />
+    </mat-form-field>
     <p>Change: ₱{{ calculateChange() }}</p>
-  </mat-form-field>
+  </mat-dialog-content>
 </div>
 <div class="modal-body"></div>
 <div mat-dialog-actions class="modal-actions">
-  <button class="btn btn-primary" (click)="onAdd()">Pay</button>
-  <button *ngIf="paymentSuccess" class="btn btn-success" (click)="onPrintReceipt()">
+  <button *ngIf="!paymentSuccess" class="btn btn-primary" style="position: relative; right: 2%;" (click)="onPay()"
+   [disabled]="amountPaid === null || amountPaid < totalAmount">Pay</button>
+  <button *ngIf="paymentSuccess" class="btn btn-success" (click)="printReceipt()">
     Print Receipt
   </button>
-  <button *ngIf="paymentSuccess" class="btn btn-secondary" (click)="onCancel()">
+  <button *ngIf="paymentSuccess" class="btn btn-secondary" (click)="newOrder()">
     New Order
   </button>
 </div>

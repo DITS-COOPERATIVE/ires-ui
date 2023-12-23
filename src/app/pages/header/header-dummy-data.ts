@@ -16,17 +16,19 @@ export const notifications = [
     }
 ];
 
-export const userItems =[
+export const userItems = [
     {
-        icon: 'far fa-user',
-        label: 'Profile'
+      routeLink: 'profile',
+      icon: 'far fa-user',
+      label: 'Profile',
+      disabled: false, 
     },
     {
-        icon: 'far fa-cog',
-        label: 'Setting'
+      routeLink: 'settings',
+      icon: 'far fa-cog',
+      label: 'Setting',
+      disabled: false,  
     },
-    {
-        icon: 'far fa-power-off',
-        label: 'Logout'
-    },
-]
+    
+  ];
+

@@ -1,29 +1,149 @@
-<div class="d-flex mt-5 mb-3 justify-content-between">
-    <div>
-      <select name="" id="" class="border-0 mt-2">
-        <option value="Today">Today</option>
-        <option value="Yesterday">Yesterday</option>
-        <option value="">Last 7 days</option>
-        <option value="">Last Month</option>
-      </select>
-    </div>
+
+<br>
+
+<div class="container d-flex justify-content-center align-items-center">
+<div class="form-container" [hidden]="showSecondForm">
+<form (ngSubmit)="generateReports()">
+  <label for="reportName">Report Name:</label>
+  <input type="text" id="reportName" name="reportName" [(ngModel)]="reportName">
+
+  <input
+    type="text"
+    ngxDaterangepickerMd
+    [(ngModel)]="selected"
+    name="selected"
+    [showCustomRangeLabel]="true"
+    [alwaysShowCalendars]="true"
+    [ranges]="ranges"
+    [linkedCalendars]="true"
+    [isInvalidDate]="isInvalidDate"
+    [showClearButton]="true"
+    placeholder="mm/dd/yy"
+    style="padding: 2px 1px; border: 0.20px solid;"
+  />
+
+  <label for="type">Report Type:</label>
+  <select id="type" name="type" [(ngModel)]="selectedType">
+    <option value="">Select Type</option>
+    <option value="Service">Reservations Report</option>
+    <option value="Product">Sales Report</option>
+  </select>
+
+  <button type="submit">Generate Report</button>
+</form>
+
+<!-- 
+<div class="form-container" [hidden]="showSecondForm">
+  <form (ngSubmit)="generateSalesReports()">
+    <label for="reportName">Report Name:</label>
+    <input type="text" id="reportName" name="reportName">
+
+    <input type="text"
+    ngxDaterangepickerMd
+    [(ngModel)]="selected"
+    [showCustomRangeLabel]="true"
+    [alwaysShowCalendars]="true"
+    [ranges]="ranges"
+    [linkedCalendars]="true"
+    [isInvalidDate]="isInvalidDate"
+    [showClearButton]="true"
+    placeholder="mm/dd/yy"
+    style="padding: 2px 1px;
+    border: 0.20px solid;">
+
+    
+
+    <label for="category">Type:</label>
+    <select id="category" name="category">
+      <option value="">Select Type</option>
+      <option value="service">Services</option>
+      <option value="product">Products</option>
+    </select>
+
+    <button type="submit">Generate Sales Report</button>
+  </form>
+</div>
+</div> -->
+
+<div id="reportSalesModal" class="modal" [ngStyle]="{ display: showSalesModal ? 'block' : 'none' }">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
     <div class="">
-      <a routerLink="" class="btn btn-primary btn-sm printButton"
-        ><i class="fas fa-print"></i> Print Report</a>
+      <a class="btn btn-sm printButton p-2 float-end" (click)=" printReport() "><i class="fas fa-print" ></i> Print Report</a>
     </div>
+    <table id="reportTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Customer</th>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Available Stock</th>
+          <th>Price</th>
+          <th>Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let report of reportData">
+          <ng-container *ngIf="report.products && report.products.length > 0">
+            <ng-container *ngIf="report.products.length > 1">
+              <tr *ngFor="let product of report.products; let first = first">
+                <td *ngIf="first" [attr.rowspan]="report.products.length">{{ report.id }}</td>
+                <td *ngIf="first" [attr.rowspan]="report.products.length">{{ getCustomerName(report.customer_id) }}</td>
+                <td>{{ getProductName(product.id) }}</td>
+                <td>{{ product.pivot.qty }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>{{ product.price }}</td>
+                <td *ngIf="first" [attr.rowspan]="report.products.length">{{ report.total }}</td>
+              </tr>
+            </ng-container>
+            <ng-container *ngIf="report.products.length === 1">
+              <tr>
+                <td>{{ report.id }}</td>
+                <td>{{ getCustomerName(report.customer_id) }}</td>
+                <td>{{ getProductName(report.products[0].id) }}</td>
+                <td>{{ report.products[0].pivot.qty }}</td>
+                <td>{{ report.products[0].quantity }}</td>
+                <td>{{ report.products[0].price }}</td>
+                <td>{{ report.total }}</td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </tbody>
+    </table>
+    
   </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Customer</th>
-        <th scope="col">Product</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Status</th>
-      </tr>
-    </thead>
-    <tbody>
-     
-    </tbody>
-  </table>
-  
+</div>
+<div id="reportServiceModal" class="modal" [ngStyle]="{ display: showServiceModal ? 'block' : 'none' }">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <div class="">
+      <a class="btn btn-sm printButton p-2 float-end" (click)="  printServiceReport() "><i class="fas fa-print"></i> Print Report</a>
+    </div>
+    <table id="reportTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Service</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th>Sale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of reportData">
+          <td>{{ report.id }}</td>
+          <td>{{ report.customer_name }}</td>
+          <td>{{ report.location }}</td>
+          <td>{{ getServiceType(report.service_id) }}</td>
+          <td>{{ report.status }}</td>
+          <td>{{ report.when | date : "MMMM dd, yyyy" }}</td>
+          <td>{{ getServicePrice(report.service_id) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

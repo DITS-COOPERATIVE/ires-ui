@@ -98,4 +98,7 @@ input,select:focus{
     border-radius: 50%;
   }
   
-  
+  .img-thumbnail{
+    height: 25rem;
+    object-fit: cover;
+  }

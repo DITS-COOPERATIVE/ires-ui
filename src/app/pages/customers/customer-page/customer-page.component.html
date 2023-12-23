@@ -1,4 +1,4 @@
-<div class="d-flex justify-content align-items-center mb-3">
+<div class="d-flex justify-content align-items-center ms-4" style="position: relative;">
   <button style="position: relative; bottom: 100%" class="toggle-button" (click)="toggleView()" matTooltip="Card View"
     matTooltipPosition="above">
     <i class="fas fa-th-large"></i>
@@ -6,7 +6,6 @@
   <button class="toggle-button" (click)="cardView()" matTooltip="List View" matTooltipPosition="above">
     <i class="fas fa-list"></i>
   </button>
-
   <div class="d-flex sort-by" [ngClass]="{ 'card-view': isCardView, 'list-view': !isCardView }">
     <div class="dropdown filterButton">
       <button class="dropdown-toggle btn btn-sm" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
@@ -14,11 +13,13 @@
         <i class="fas fa-filter"></i> Filter
       </button>
       <div class="dropdown-menu cursor" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" (click)="sortCustomers('name')">Name</a>
         <a class="dropdown-item" (click)="sortCustomers('date')">Date</a>
         <a class="dropdown-item" (click)="sortCustomers('points')">Points</a>
         <a class="dropdown-item" (click)="sortCustomers('gender')">Gender</a>
       </div>
+    </div>
+    <div class="addButton cursor">
+      <a routerLink="/customers/create" class="btn btn-sm" style="color: #12243b;"><i class="fas fa-user"></i> New Customer</a>
     </div>
   </div>
 </div>
@@ -26,22 +27,20 @@
 <div class="container-fluid mt-2">
   <div class="row">
     <div [ngClass]="{
-        'col-lg-8': !isCardView,
-        'col-lg-8 ': isCardView
+        'col-lg-12': !isCardView,
+        'col-lg-12 ': isCardView
       }">
       <div class="row">
         <ng-container *ngIf="isCardView; else listView">
           <!-- Card View -->
-          <div class="col-md-6" *ngFor="let item of customers; let i = index">
+          <div class="col-md-3" *ngFor="let item of customers; let i = index">
             <div class="card customise-card" [ngClass]="{ active: i === activeCardIndex }" (click)="activateCard(i)"
-              routerLink="/customers/{{ item.id }}" class="card-link border">
-              <div class="row no-gutters">
-                <div class="col-md-4">
-                  <img class="card-img card-img-height"
-                    src="https://img.freepik.com/premium-vector/young-girl-anime-style-character-vector-illustration-design-manga-anime-girl_147933-100.jpg"
-                    alt="Card image" />
+              routerLink="/customers/{{ item.id }}/edit" class="card-link border border-secondary shadow">
+              <div class="row">
+                <div class="col-md-4 pe-0">
+                  <img src="{{item.image}}" alt="" class="card-img card-img-height">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8 p-0">
                   <div class="card-body">
                     <h5 class="card-title">{{ item.full_name }}</h5>
                     <h6 class="card-text">
@@ -55,7 +54,7 @@
                     </p>
                     <p class="card-text">
                       <i class="fas fa-map-marker-alt"></i>
-                      {{ (item.address) }}
+                      {{ item.address }}
                     </p>
                     <p class="card-text">
                       <i class="fas fa-star"></i> {{ item.points }}
@@ -67,111 +66,49 @@
           </div>
         </ng-container>
         <ng-template #listView>
-          <table class="table">
+          <table class="table shadow">
             <thead>
               <tr>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Mobile Number</th>
                 <th>Gender</th>
-                <th>Privilege</th>
+                <th class="text-center">Privilege</th>
                 <th>Address</th>
-                <th>Points</th>
+                <th>Reward Points</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of customers; let i = index">
-                <td>{{ item.full_name }}</td>
-                <td>{{ item.email }}</td>
-                <td>{{ item.mobile_no }}</td>
-                <td>{{ item.gender }}</td>
-                <td>{{ item.privilege }}</td>
-                <td>{{ item.address }}</td>
-                <td>{{ item.points }}</td>
+              <tr *ngFor="let item of customers; let i = index" class="text-center">
+                <td width="15%" title="{{ item.full_name }}">{{ item.full_name }}</td>
+                <td width="20%" title="{{ item.email }}">{{ item.email }}</td>
+                <td width="15%" title="{{ item.mobile_no }}">{{ item.mobile_no }}</td>
+                <td width="8%" title="{{ item.gender }}">{{ item.gender }}</td>
+                <td width="10%" title="{{ item.privilege }}" [attr.data-privilege]="item.privilege" class="px-3 "><span>{{ item.privilege }}</span></td>
+                <td width="25%" title="{{ item.address }}">{{ item.address }}</td>
+                <td width="8%" title="{{ item.points }}" >{{ item.points }}</td>
+                <td>
+                  <!-- <a routerLink="/customers/{{ item.id }}" class="btn btn-sm btn-success"> <i
+                      class="fa fa-eye text-white"></i> </a> &nbsp; -->
+                      <a matTooltip="Delete" matTooltipPosition="above"  (click)="deleteCustomer(item.id)" class="btn btn-sm btn-danger">
+                        <i class="fa fa-trash text-white"></i>
+                      </a>
+                </td>
               </tr>
             </tbody>
           </table>
         </ng-template>
       </div>
     </div>
-
-    <div *ngIf="isCardView" class="col-lg-4">
-      <form (ngSubmit)="saveCustomer()" class="custom-form" style="position: relative; bottom: 7%">
-        <h4>New Customer</h4>
-        <div class="mb-2">
-          <label for="full_name">Name</label>
-          <input type="text" [(ngModel)]="full_name" name="full_name" id="full_name" class="form-control"
-            placeholder="Enter Full Name" />
-          <span *ngIf="errors.full_name" class="alert alert-danger floating-warning"
-            [style.top.px]="getErrorPosition(10)">{{ errors.full_name }}</span>
+  </div>
+  <div class="row text-center" *ngIf="!customers || customers.length === 0">
+    <div style="display: table; height: 400px; overflow: hidden;">
+      <div style="display: table-cell; vertical-align: middle;">
+        <div>
+          <p><i class='fas fa-user-alt'></i> No customers available</p>
         </div>
-
-        <div class="mb-2">
-          <label for="email">Email</label>
-          <input type="email" [(ngModel)]="email" name="email" id="email" class="form-control"
-            placeholder="Enter Email" />
-          <span *ngIf="errors.email" class="alert alert-danger floating-warning"
-            [style.top.px]="getErrorPosition(15)">{{ errors.email }}</span>
-        </div>
-
-        <div class="mb-2">
-          <label for="mobile_no">Mobile Number</label>
-          <input type="tel" [(ngModel)]="mobile_no" name="mobile_no" id="mobile_no" class="form-control"
-            placeholder="Enter Mobile Number" />
-          <span *ngIf="errors.mobile_no" class="alert alert-danger floating-warning"
-            [style.top.px]="getErrorPosition(20)">{{ errors.mobile_no }}</span>
-        </div>
-        <div class="mb-2">
-          <label for="address">Address</label>
-          <input type="text" [(ngModel)]="address" name="address" id="address" class="form-control"
-            placeholder="Enter Address" />
-          <span *ngIf="errors.address" class="alert alert-danger floating-warning"
-            [style.top.px]="getErrorPosition(25)">{{ errors.address }}</span>
-        </div>
-
-        <div class="mb-2">
-          <label>Gender</label><br />
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" id="gender" value="male" [(ngModel)]="gender" />
-            <label class="form-check-label" for="gender">Male</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" id="gender" value="female"
-              [(ngModel)]="gender" />
-            <label class="form-check-label" for="gender">Female</label>
-            <span *ngIf="errors.gender" class="alert alert-danger floating-warning"
-              [style.top.px]="getErrorPosition(30)">{{ errors.gender }}</span>
-          </div>
-
-          <div class="mb-2">
-            <label for="image">Upload Image</label>
-            <input type="file" (change)="onImageSelected($event)" accept="image/*" class="form-control" id="image"
-              name="image" />
-          </div>
-
-          <div class="mb-2">
-            <label>Privilege</label><br />
-            <div class="form-check form-check-inline"
-              *ngFor="let option of ['none', 'student', 'pwd', 'seniorCitizen']">
-              <input class="form-check-input" type="radio" name="privilege" [id]="option" [value]="option"
-                [(ngModel)]="privilege" />
-              <label class="form-check-label" [for]="option">{{
-                option
-                }}</label>
-            </div>
-            <span *ngIf="errors.privilege" class="alert alert-danger floating-warning"
-              [style.top.px]="getErrorPosition(30)">
-              {{ errors.privilege }}
-            </span>
-          </div>
-
-          <div class="d-flex">
-            <button type="submit" class="btn btn-primary">
-              <i class="fas fa-save"></i> Save
-            </button>
-          </div>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>

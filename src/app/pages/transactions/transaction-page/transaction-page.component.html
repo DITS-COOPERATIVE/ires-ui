@@ -4,8 +4,11 @@
 ></script>
 <div class="container" style="overflow: hidden">
   <div class="row">
-    <div class="col-lg-4 border mt-1">
-      <div class="row" style="height: 15rem; overflow-y: auto">
+    <div class="col-lg-4 mt-1">
+      <div
+        class="row bg-white mb-1"
+        style="height: 13rem; overflow-y: auto; border-radius: 10px"
+      >
         <div class="order-empty" *ngIf="isCartEmpty">
           <span
             class="order-empty text-center d-flex flex-column align-items-center"
@@ -37,18 +40,19 @@
               <span *ngIf="cartItem.discount > 0"
                 >with a {{ cartItem.discount }}% discount</span
               >
-              <span *ngIf="cartItem.note"
-                ><br />
-                <i class="fas fa-sticky-note"></i>
-                {{ cartItem.note }}</span
-              >
-              <span *ngIf="cartItem.internalNote"
-                ><br />
-                <i class="fas fa-tag"></i>
-                {{ cartItem.internalNote }}</span
-              >
             </li>
           </ul>
+          <span *ngIf="note"
+            ><br />
+            <i class="fas fa-sticky-note"></i>
+            {{ note }}</span
+          >
+          <span *ngIf="internalNote"
+            ><br />
+            <i class="fas fa-tag"></i>
+            {{ internalNote }}</span
+          >
+
           <div class="total">
             <span *ngIf="!isCartEmpty"
               >Total: <b>₱ {{ getTotalPrice() }}</b>
@@ -57,223 +61,235 @@
         </div>
       </div>
       <div class="row">
-        <div class="d-flex justify-content-around p-0">
+        <div class="d-flex justify-content-around p-0 mb-3">
           <button
-            class="btn btn-hover w-50 rounded-0 border-dark p-0"
+            class="btn btn-hover w-50 border-white p-1"
             type="submit"
             [disabled]="isCartEmpty"
             (click)="!isCartEmpty && openDialog()"
           >
-            <i class="fas fa-sticky-note"></i> Customer Note
+            <i class="fas fa-sticky-note"></i>Note for Customer
           </button>
-          <button class="btn btn-hover w-50 rounded-0 border-dark">
-            <i class="fas fa-undo"></i> Refund
+          <button
+            class="btn btn-hover w-50 border-white p-1"
+            [disabled]="isCartEmpty"
+            (click)="!isCartEmpty && openNoteDialog()"
+          >
+            <i class="fas fa-tag"></i>Note for Staff
           </button>
         </div>
-        <button
-          class="btn btn-hover rounded-0 border-dark"
-          [disabled]="isCartEmpty"
-          (click)="!isCartEmpty && openNoteDialog()"
+        <select
+          name="customer"
+          id="customer"
+          [(ngModel)]="selectedCustomer"
+          (ngModelChange)="onCustomerChange()"
+          class="form-control shadow mb-1 text-center"
         >
-          <i class="fas fa-tag"></i> Internal Note
-        </button>
-
-        <div class="col-md-5">
-          <div
-            class="row h-25 text-center bg-lightd-flex align-items-center customer btn-hover"
-          >
-            <a
-              routerLink="/transaction-customer/"
-              style="text-decoration: none; color: inherit"
-            >
-              <a
-                routerLink="/transaction-customer/"
-                style="text-decoration: none; color: inherit"
+          <option [ngValue]="undefined">Customer</option>
+          <option *ngFor="let customer of customers" [ngValue]="customer">
+            {{ customer.full_name }}
+          </option>
+        </select>
+        <div class="col-md-12 mb-3">
+          <div class="row">
+            <div class="col-3">
+              <button
+                class="btn calculator-key"
+                (click)="updateSelectedProduct('1')"
               >
-                <h6>
-                  <i class="fas fa-user"></i>
-                  {{ selectedCustomerName || "Customer" }}
-                </h6>
-              </a></a
-            >
+                1
+              </button>
+            </div>
+            <div class="col-3">
+              <button
+                class="btn calculator-key"
+                (click)="updateSelectedProduct('2')"
+              >
+                2
+              </button>
+            </div>
+            <div class="col-3">
+              <button
+                class="btn calculator-key"
+                (click)="updateSelectedProduct('3')"
+              >
+                3
+              </button>
+            </div>
+            <div class="col-3">
+              <button
+                class="btn btn-click calculator-key"
+                (click)="changeSelectedMode('quantity')"
+              >
+                QTY
+              </button>
+            </div>
           </div>
-          <div
-            class="row text-center text-white paymentContainer h-75 d-flex align-items-center click-hover"
-            [class.disabled]="isCartEmpty"
-            (click)="!isCartEmpty && openPaymentDialog()"
-          >
-            <i class="fas fa-chevron-circle-right fs-2"><h6>Payment</h6></i>
+          <div class="row">
+            <div class="col-3">
+              <button
+                class="btn calculator-key"
+                (click)="updateSelectedProduct('4')"
+              >
+                4
+              </button>
+            </div>
+            <div class="col-3">
+              <button
+                class="btn calculator-key"
+                (click)="updateSelectedProduct('5')"
+              >
+                5
+              </button>
+            </div>
+            <div class="col-3">
+              <button
+                class="btn calculator-key"
+                (click)="updateSelectedProduct('6')"
+              >
+                6
+              </button>
+            </div>
+            <div class="col-3">
+              <button
+                class="btn calculator-key ps-1"
+                (click)="changeSelectedMode('discount')"
+              >
+                %Disc
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="col-md-7">
-          <div class="calculator">
-            <div class="buttons">
-              <div class="row">
-                <div class="col-3">
-                  <button
-                    class="btn calculator-key"
-                    (click)="updateSelectedProduct('1')"
-                  >
-                    1
-                  </button>
-                </div>
-                <div class="col-3">
-                  <button
-                    class="btn calculator-key"
-                    (click)="updateSelectedProduct('2')"
-                  >
-                    2
-                  </button>
-                </div>
-                <div class="col-3">
-                  <button
-                    class="btn calculator-key"
-                    (click)="updateSelectedProduct('3')"
-                  >
-                    3
-                  </button>
-                </div>
-                <div class="col-3">
-                  <button
-                    class="btn btn-click calculator-key"
-                    (click)="changeSelectedMode('quantity')"
-                  >
-                    QTY
-                  </button>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-3">
-                  <button
-                    class="btn calculator-key"
-                    (click)="updateSelectedProduct('4')"
-                  >
-                    4
-                  </button>
-                </div>
-                <div class="col-3">
-                  <button
-                    class="btn calculator-key"
-                    (click)="updateSelectedProduct('5')"
-                  >
-                    5
-                  </button>
-                </div>
-                <div class="col-3">
-                  <button
-                    class="btn calculator-key"
-                    (click)="updateSelectedProduct('6')"
-                  >
-                    6
-                  </button>
-                </div>
-                <div class="col-3">
-                  <button
-                    class="btn calculator-key ps-1"
-                    (click)="changeSelectedMode('discount')"
-                  >
-                    %Disc
-                  </button>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-3">
-                  <button
-                    class="btn calculator-key"
-                    (click)="updateSelectedProduct('7')"
-                  >
-                    7
-                  </button>
-                </div>
-                <div class="col-3">
-                  <button
-                    class="btn calculator-key"
-                    (click)="updateSelectedProduct('8')"
-                  >
-                    8
-                  </button>
-                </div>
-                <div class="col-3">
-                  <button
-                    class="btn calculator-key"
-                    (click)="updateSelectedProduct('9')"
-                  >
-                    9
-                  </button>
-                </div>
-                <div class="col-3">
-                  <button
-                    class="btn calculator-key"
-                    (click)="changeSelectedMode('price')"
-                  >
-                    Price
-                  </button>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-3">
-                  <button class="btn calculator-key" (click)="toggleSign()">
-                    +/-
-                  </button>
-                </div>
-
-                <div class="col-3">
-                  <button
-                    class="btn calculator-key"
-                    (click)="updateSelectedProduct('0')"
-                  >
-                    0
-                  </button>
-                </div>
-                <div class="col-3">
-                  <button
-                    class="btn calculator-key"
-                    (click)="updateSelectedProduct('.')"
-                  >
-                    .
-                  </button>
-                </div>
-                <div class="col-3">
-                  <button
-                    class="btn btn-delete calculator-key"
-                    (click)="undo()"
-                  >
-                    <i class="fa fa-times"></i>
-                  </button>
-                </div>
-              </div>
+          <div class="row">
+            <div class="col-3">
+              <button
+                class="btn calculator-key"
+                (click)="updateSelectedProduct('7')"
+              >
+                7
+              </button>
+            </div>
+            <div class="col-3">
+              <button
+                class="btn calculator-key"
+                (click)="updateSelectedProduct('8')"
+              >
+                8
+              </button>
+            </div>
+            <div class="col-3">
+              <button
+                class="btn calculator-key"
+                (click)="updateSelectedProduct('9')"
+              >
+                9
+              </button>
+            </div>
+            <div class="col-3">
+              <button
+                class="btn calculator-key"
+                (click)="changeSelectedMode('price')"
+              >
+                Price
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <button
+                class="btn calculator-key"
+                (click)="updateSelectedProduct('0')"
+              >
+                0
+              </button>
+            </div>
+            <div class="col-3">
+              <button
+                class="btn calculator-key"
+                (click)="updateSelectedProduct('.')"
+              >
+                .
+              </button>
+            </div>
+            <div class="col-3">
+              <button class="btn btn-delete calculator-key" (click)="undo()">
+                <i class="fa fa-times"></i>
+              </button>
+            </div>
+            <div class="col-3">
+              <button
+                class="btn calculator-key"
+                [class.disabled]="isCartEmpty"
+                (click)="!isCartEmpty && openPaymentDialog()"
+              >
+                Payment
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="col-lg-8 d-flex flex-wrap align-items-start productsContainer">
-      <div class="row">
-        <div>
-          <select [(ngModel)]="selectedCategory" (ngModelChange)="updateFilteredProducts()" class="border-0 px-2 py-1 mb-2 dropdownUni">
-            <option value="all">All</option>
-            <option value="Services">Services</option>
-            <option value="router">Router</option>
-            <option value="vendo">Vendo</option>
-            <option value="tools">Tools</option>
-          </select>
+      <div class="row w-100">
+        <div class="dropdown filterButton mb-2 d-flex justify-content-end">
+          <button
+            class="dropdown-toggle btn btn-sm"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fas fa-filter"></i> Filter
+          </button>
+          <div class="dropdown-menu cursor" aria-labelledby="dropdownMenuButton" style="margin-top: 30px">
+            <a class="dropdown-item" (click)="updateCategory('all')">All</a>
+            <a class="dropdown-item" (click)="updateCategory('Services')">Services</a>
+            <a class="dropdown-item" (click)="updateCategory('Software')">Software</a>
+            <a class="dropdown-item" (click)="updateCategory('Hardware')">Hardware</a>
+            <a class="dropdown-item" (click)="updateCategory('Tools')">Tools</a>
+          </div>
         </div>
-        <div class="wrapper">
-          <div class="box" *ngFor="let item of filteredProducts; let i = index" (click)="addToCart(item)">
+        <div class="wrapper"  *ngIf="filteredProducts && filteredProducts.length > 0; else noProductsMessage">
+          <div
+            class="box"
+            *ngFor="let item of filteredProducts; let i = index"
+            (click)="addToCart(item)"
+          >
             <div class="product-information-tag">
-              <i class="product-information-tag-logo fas fa-info-circle" (click)="openInfoDialog(item, $event)"></i>
+              <i
+                class="product-information-tag-logo fas fa-info-circle"
+                (click)="openInfoDialog(item, $event)"
+              ></i>
             </div>
-            <img src="assets/gojo.jpg" class="card-img-top smaller-image" alt="Image Description" />
-    
-            <div class="card-body d-flex flex-column justify-content-start align-items-start">
-              <h5 class="card-title smaller-font mb-0" [ngClass]="{ 'long-title': item.name.length > 10 }">
+            <img
+            [src]="'http://localhost:8000/' + item.image"
+              class="card-img-top smaller-image"
+              alt="Image Description"
+            />
+
+            <div class="card-body">
+              <h5
+                class="card-title smaller-font mb-1 text-center"
+                [ngClass]="{ 'long-title': item.name.length > 10 }"
+              >
                 {{ item.name }}
               </h5>
-              <p class="card-text smaller-font"><b>₱ </b>{{ item.price }}</p>
+              <p
+                class="card-text smaller-font m-auto
+                 text-center p-1 border bg-white w-75 mb-2 rounded shadow"
+              >
+                <b>₱ </b>{{ item.price }}
+              </p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    </div>
   </div>
+  <ng-template #noProductsMessage>
+    <!-- Message to display when there are no products -->
+    <div class="text-center">
+      <p>No products available at the moment.</p>
+      <!-- You can add more content or messages here -->
+    </div>
+  </ng-template>
+</div>

@@ -1,22 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { CustomersResponse } from 'src/app/services/customers/customers.service';
 
 export interface ProductsResponse {
   id: number;
   image: string;
   category: string;
   name: string;
-  code: string;
   note?: string;
   internalNote?: string;
   model: string;
   price: string;
   discount: number;
   quantity: number;
+  barcode: any;
+  sold: number;
+  sub_Products: number;
   points: number;
   created_at: string;
   updated_at: string;
+  customer: CustomersResponse;
+
 }
 
 export interface ProductsResponseType {
@@ -65,4 +70,9 @@ export class ProductsService {
   destroyProduct(productId: number) {
     return this.httpClient.delete(`${this.domain}${this.endpoint}${productId}`);
   }
+  
+  deleteSubProduct(productId: number, subProductId: number) {
+    return this.httpClient.delete(`${this.domain}${this.endpoint}${productId}/sub-products/${subProductId}`);
+  }
+  
 }
